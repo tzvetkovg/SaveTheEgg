@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="15">
+ <tileset firstgid="1" name="snow_3" tilewidth="16" tileheight="16">
+  <image source="../assets/snow_3.png" width="512" height="640"/>
+ </tileset>
+ <tileset firstgid="1281" name="mor" tilewidth="16" tileheight="16">
+  <image source="../assets/mor.png" width="640" height="480"/>
+ </tileset>
+ <tileset firstgid="2481" name="snow_3" tilewidth="16" tileheight="16">
+  <image source="../assets/snow_3.png" width="512" height="640"/>
+ </tileset>
+ <tileset firstgid="3761" name="platformertiles" tilewidth="16" tileheight="16">
+  <image source="../assets/platformertiles.png" width="256" height="96"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   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
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztmElKQ0EQhltth0R4d3AWPYcDegddOaB30JvoDXSpK8UB9A5xiMPOIR7Bb9Pw6GcPBQ9ewPrhg6Srq+qvTq3SKYx5gEd4gmfoQr+ok+nvg7NP+IJv6MFPEa8Tqi09j9Vyn8v+YjOFYmdwXvw9Z2h2dx6q6d/vZeSU3zT25qHYHdwH9iv1W8e8pd6/6/nw7+fsWW7f1C7G3i+UG6rj38/pLemrUqlUKpVKpVKpVCm1YbxpEzVoARabNlGD1mC9aRM1aA/2S9+vWsZcww3ctvLrSPdzGEZgFMYEeRvWmE1bzXf9XfwF76/wBu+COaT7OQOzMAfzgrwDPB7aar7r7+IDDDYIQ2Db+fWl+7kEy7ACq4K8Izwe22q+6+/iE3ifhCmYFszh72dKW7ANO7AryLvA46Wt5rv+Lt7vOimMOf1H/zP9Auq326E=
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1">
+  <object id="1" name="ground" type="object" x="1.33333" y="447" width="797.333" height="34.3333">
+   <properties>
+    <property name="userData" value="ground"/>
+   </properties>
+  </object>
+  <object id="2" name="prepqtstviq" type="object" x="224" y="380" width="30" height="65">
+   <properties>
+    <property name="userData" value="prepqtstviq"/>
+   </properties>
+  </object>
+  <object id="3" name="prep1" type="fixture" x="439" y="385">
+   <properties>
+    <property name="body" value="prepqtstviq"/>
+    <property name="userData" value="prep1"/>
+   </properties>
+   <polyline points="0,0 -4,33 -12,28 -17,55 -16,59 37,61 34,47 30,56 17,56 2,0"/>
+  </object>
+  <object id="6" name="prepr2" type="fixture" x="645" y="445">
+   <properties>
+    <property name="body" value="prepqtstviq"/>
+    <property name="userData" value="prepr2"/>
+   </properties>
+   <polyline points="0,0 -4,-17 -4,-34 0,-42 0,-51 1,-56 16,-56 20,-43 20,-34 20,-12 17,-1 2,0"/>
+  </object>
+  <object id="7" name="prep3" type="fixture" x="696" y="385">
+   <properties>
+    <property name="body" value="prepqtstviq"/>
+    <property name="userData" value="prep3"/>
+   </properties>
+   <polyline points="0,0 -6,40 -14,26 -19,58 18,61 0,2"/>
+  </object>
+  <object id="8" name="prep4" type="fixture" x="738.666" y="317.334" width="30.6667" height="128">
+   <properties>
+    <property name="body" value="prepqtstviq"/>
+    <property name="userData" value="prepr4"/>
+   </properties>
+  </object>
+  <object id="10" name="prep5" type="fixture" x="774.667" y="386.666" width="16" height="57.3333">
+   <properties>
+    <property name="body" value="prepqtstviq"/>
+    <property name="userData" value="prepr5"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

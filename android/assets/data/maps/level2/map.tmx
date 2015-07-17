@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="11">
+ <tileset firstgid="1" name="lovene" tilewidth="16" tileheight="16">
+  <image source="../assets/lovene.png" width="512" height="640"/>
+ </tileset>
+ <tileset firstgid="1281" name="ice" tilewidth="16" tileheight="16">
+  <image source="../assets/ice.png" width="640" height="480"/>
+ </tileset>
+ <tileset firstgid="2481" name="platformertiles" tilewidth="16" tileheight="16">
+  <image source="../assets/platformertiles.png" width="256" height="96"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   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
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt1cVvFGEUAPClpU6BK3ZAKpQiV+yAVHCu2AGpAEWu2KG4w7+Au9zgirY4d7SlUKB6R8KPhIZSZna7JA0L6Ut+2cw3b96+N9/sbCTyazzLiESe84KXvOJ1yFq0/KAIy42nRlidrutNNNNCK220h6x9j7D8oAjLjVYjqOeg/K71P/GZL3z9UaPrWuf6Qeeu+bwe0EdQ7aD1aD0/C8iPtqdh6x3H0Z6FGp+1MfarKUqNzj0HnY9nT8PWO47DzsdzT8JqdNznsPNd9/97BD0XQeuxjv/k+Q/77li99XR09570Rm/0xr8dfZIikSSS6UsKqaSRTgaZZNEv6W932xv/Uvwvz9ZwvY1gJKPIIZc88hlNAWMoTOA5pultOjOYSRHFlFDKLGYzh7kJPMdyva1gJasoo5wKKlnNGtZSlcBzVOttOzvYyS52s4e97GM/BziYwHMc09txTnCSU5zmDGc5x3kucDGB57iht5vc4jZ3uEsNtdzjPg94mMBz1Omtnjc08JZ3NPKeD3ykiWZaaKUtwWbqk+z/g2T6kkIqaaSTQSZZ9COb/gxgYPLf7v5nDNfLCEYyihxyySOf0RQwhkLGMo7xTOiBOVJIJY30OK6bppfpzGAmRRRTQimzmM0c5jKP+SxgYTfmGCRnMEMYyrAY1+SQSx75ccyxXN0VrGQVZZRTQSWrWcNaqljHejawsRtzTJQziclMYWqMa4oopoTSOOaoVnc7O9jJLnazh73sYz8HOMghDnOEoz96ysr02yE78/f6i+QsZglLWRZjjjLKqaAyjjmOqXucE5zkFKc5w1nOcZ4LXOQSl7nC1W7sxyY5m9nCVrb10Lvhhro3ucVt7nCXGmq5x30e8JBHPOYJTxPofVWnl3re0MBb3tHIez7wkSaaaaGVNtr/cI5vOxhw5g==
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1">
+  <object id="7" name="prepqtstviq" type="object" x="359.333" y="436">
+   <properties>
+    <property name="userData" value="prepqtstviq"/>
+   </properties>
+   <polyline points="0,0 -6.66667,-18.6667 -7.33333,-49.3333 6.66667,-69.3333 22.6667,-76.6667 21.3333,-89.3333 9.33333,-86.6667 4.66667,-96 10.6667,-114.667 18,-163.333 32.6667,-177.333 46.6667,-170.667 42,-154 46.6667,-140 51.3333,-134.667 57.3333,-138.667 58.6667,-168.667 69.3333,-177.333 84,-181.333 110,-183.333 119.333,-192.667 125.333,-192 136.667,-168.667 140,-142.667 142,-132 128.667,-114.667 142,-99.3333 155.667,-86 167.667,-77 173.667,-64 173.667,-54 208.667,-42 224.667,-27 217.667,10"/>
+  </object>
+  <object id="9" name="ground" type="object" x="0" y="448" width="802.667" height="32">
+   <properties>
+    <property name="userData" value="ground"/>
+   </properties>
+  </object>
+  <object id="10" name="triugulnik" type="fixture" x="782.667" y="384">
+   <properties>
+    <property name="body" value="prepqtstviq"/>
+    <property name="userData" value="triugulnik"/>
+   </properties>
+   <polygon points="0,0 -56,61.3333 18.6667,17.3333"/>
+  </object>
+ </objectgroup>
+</map>

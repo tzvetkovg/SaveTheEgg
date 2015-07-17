@@ -1,0 +1,11 @@
+<LevelData>
+	<Level1>
+	    <BackGround>background</BackGround>
+	    <EggPosition>12.5</EggPosition>
+	</<Level1>
+	
+	<Level2>
+	    <BackGround>background2</BackGround>
+	    <EggPosition>12.52</EggPosition>
+	</<Level2>
+</LevelData>

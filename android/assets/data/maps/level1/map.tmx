@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="6">
+ <tileset firstgid="1" name="grass_9" tilewidth="16" tileheight="16">
+  <image source="../assets/grass_9.png" width="512" height="640"/>
+ </tileset>
+ <tileset firstgid="1281" name="day" tilewidth="16" tileheight="16">
+  <image source="../assets/day.png" width="640" height="480"/>
+ </tileset>
+ <tileset firstgid="2481" name="oblak" tilewidth="16" tileheight="16">
+  <image source="../assets/oblak.png" width="64" height="45"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   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
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt1VdOVGEcxuFhDh02wdDLJkCHYkEQNkCfwYKgG6BYQDcBSJVNUJS6CTqWRfhcAgmRCxJO4vdLnruTfO//6iQSoVAoFAqFQqFQKPR/l5NMJJJE5JJHPgUUUkQxJZQm73vtzZXZlqKcCiqpopoaaqmjnoYY39FoWxMPeEiaZlpopY1HPOZJjO/osa2XPvoZYJAhMmQZ5gUvY3zHuG0TTDLFez7wkU9MM8NnvsT4jlnb5pjnKwssssQyK6zyjbUY37Fu2wabbPGdH2yzwy577HMQ4zsObTvimBNOOeOcC37yi9/8ifEdOZH/BxG55JFPAYUUUUwJpdF9r725MttSlFNBJVVUU0MtddTTcIs7ntLOMzro5DlddN/x9stvXX8nbWszLbTSFl39/l+94jUjvGGUMd7y7o7vuPzW9XcG7B5kiAzZ6Or3oXj1FwgqQJ0=
+  </data>
+ </layer>
+ <layer name="Tile Layer 3" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztzrkNwDAMBEGmLM5vH347s/yW53Om2IkgYQfY5JjQrDybmwW1q8PzvH1ObZe61eN53gAAAAAAAFCWStWqUW20d6pP8tE/gxrVpOZoX9Sa5COU4AVOGi3v
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1">
+  <object id="2" name="ground" type="object" x="1.33333" y="449.333" width="800" height="33.3333">
+   <properties>
+    <property name="userData" value="ground"/>
+   </properties>
+  </object>
+  <object id="5" name="prepqtstviq" type="object" x="794" y="308">
+   <properties>
+    <property name="userData" value="prepqtstviq"/>
+   </properties>
+   <polyline points="0,0 -30,-47 -80,-57 -124,-37 -187,30 -184,63 -154,94 -121,97 -118,70 -106,73 -109,117 -122,138"/>
+  </object>
+ </objectgroup>
+</map>
