@@ -22,7 +22,7 @@ public class ParticleEffectBall extends GameActor{
         if(showEffect){        	
         	effect.update(Gdx.graphics.getDeltaTime());
         	effect.draw(batch);
-        	//check if effect is complete
+        	//check if effect is complete //
         	if(effect.isComplete()){
         		showEffect = false;
         		effect.reset();
