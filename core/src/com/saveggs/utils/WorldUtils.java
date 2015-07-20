@@ -171,6 +171,38 @@ public class WorldUtils {
 	       return body;
     }
     
+    //slingshot
+    public static Body createFlyingBird(World world){
+	
+	       BodyDef def = new BodyDef();
+	       def.type = BodyDef.BodyType.KinematicBody;	       
+	       //2nd fixture
+	       PolygonShape shape = new PolygonShape();
+	       shape.setAsBox(1.1f, 1.5f); 
+	       //1st fixture
+	       FixtureDef fixDef = new FixtureDef();
+	       fixDef.shape = shape;
+	       fixDef.isSensor = true;
+	       Body body = world.createBody(def);
+	
+	       //2nd fixture
+	       PolygonShape hitArea = new PolygonShape(); 
+	       hitArea.setAsBox(0.7f, 0.3f);
+	       FixtureDef sensorFD = new FixtureDef(); 
+	       sensorFD.isSensor = true; 
+	       sensorFD.shape = hitArea;
+	       
+	       //Add the fixtures
+	       body.createFixture(fixDef).setUserData(Constants.FLYINGBIRDENEMYBOUNDARIES);
+	       body.createFixture(sensorFD).setUserData(Constants.FLYINGBIRDHITAREA);
+	       
+	       body.setUserData(Constants.FLYINGBIRD);
+	      // circle.dispose();
+	       shape.dispose();
+	       hitArea.dispose();
+	       return body;
+    }
+    
     
     public static Mesh createMesh(){
 		Mesh mesh = new Mesh(true, 3, 3, 

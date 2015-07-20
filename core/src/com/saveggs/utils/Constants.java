@@ -42,6 +42,7 @@ public class Constants {
 	 * Enemy
 	 */
 	public static float ENEMYVELICOTYSPEED = 0f;
+	public static float FlYINGBIRDVELOCITY = 0f;
 	/**
 	 * Actors contants
 	 */
@@ -57,7 +58,13 @@ public class Constants {
 	public static final String HVANATOQICE = "qice";
 	public static final String DOKOSVANESQICE = "dokosvane";
 	public static final String SENSORzaDOKOSVANE = "sensor";
-
+	//Flying Bird
+	public static final String FLYINGBIRD = "flyingbird";
+	public static final String FLYINGBIRDENEMYBOUNDARIES = "boundariesFB";
+	public static final String FLYINGBIRDHITAREA = "hitAreaFB";
+	//flying area
+	public static final String LINE1 = "line1";
+	public static final String LINE2 = "line2";
 	/*
 	 * Eggs
 	 */

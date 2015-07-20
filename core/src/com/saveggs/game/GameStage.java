@@ -26,6 +26,7 @@ import com.sageggs.actors.CreateMesh2;
 import com.sageggs.actors.CurrentMap;
 import com.sageggs.actors.DynamicBall;
 import com.sageggs.actors.DynamicBall.DynamicBallPool;
+import com.sageggs.actors.FlyingBirds;
 import com.sageggs.actors.particles.ParticleEffectAn;
 import com.sageggs.actors.particles.ParticleEffectBall;
 import com.sageggs.actors.particles.ParticleIzlupvane;
@@ -65,14 +66,14 @@ public class GameStage extends Stage implements ContactListener{
 	private ParticleEffectBall particleBall;
 	private ParticleIzlupvane particleIzlupvane;
 	private DynamicBallPool pool;
-	
+	private FlyingBirds flyingBird;
 	
 	public GameStage(){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
 		setupCamera();
 		getViewport().setCamera(camera);
 		setUtils();
-		setupWorld("data/maps/level3/map.tmx");
+		setupWorld("data/maps/level1/map.tmx");
 		Gdx.input.setInputProcessor(this);
 		worldUtils = new WorldUtils();		
 	}
@@ -151,8 +152,9 @@ public class GameStage extends Stage implements ContactListener{
 		//destroy bodies if out of range
 		//destroyBododies();
 		destroySleepingBodies();
-		//debugRenderer.render(world,camera.combined);
-		logger.log();
+		
+		debugRenderer.render(world,camera.combined);
+		//logger.log();
 		//System.out.println(GLProfiler.calls);
 		
 	}
@@ -198,6 +200,11 @@ public class GameStage extends Stage implements ContactListener{
 		enemy = new Enemy(WorldUtils.createEnemy(world));
 		addActor(enemy);
 		
+		flyingBird = new FlyingBirds(WorldUtils.createFlyingBird(world));
+		//flyingBird.animatedBox2DSprite.flipFrames(true, false);
+		addActor(flyingBird);
+		
+		//PArticle effects
 		particleEffect = new ParticleEffectAn();
 		addActor(particleEffect);
 		particleBall = new ParticleEffectBall();
@@ -221,8 +228,10 @@ public class GameStage extends Stage implements ContactListener{
 	public void destroyBododies(){
 		world.getBodies(bodies);
         for (Body body : bodies) {
+        	System.out.println(body.getUserData());
+        	body.getFixtureList().first();
         	if(!BodyUtils.bodyInBounds(body,camera) && !body.getUserData().equals(Constants.DynamicBall))
-        		world.destroyBody(body);
+        		System.out.println();//world.destroyBody(body);
         }
 	}
 	
@@ -291,6 +300,19 @@ public class GameStage extends Stage implements ContactListener{
 			  		}
 			  	});
         }
+        
+        //FLYING BIRDS DIRECTION
+        //Hvashtane na qiceto i pribirane na krakata
+        if( (contact.getFixtureA().getBody().getUserData().equals(Constants.LINE1) && 
+        	 contact.getFixtureB().getUserData().equals(Constants.FLYINGBIRD)) 
+        	 ||
+        	 (contact.getFixtureA().getBody().getUserData().equals(Constants.FLYINGBIRD) && 
+              contact.getFixtureB().getUserData().equals(Constants.LINE1)) ){
+        	Body myBody = contact.getFixtureA().getBody().getUserData().equals(Constants.FLYINGBIRD) ?
+					  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
+			
+        }
+        
         
       }
 

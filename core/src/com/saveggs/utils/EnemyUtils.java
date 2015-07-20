@@ -10,6 +10,7 @@ public class EnemyUtils {
 	private static float comparVal = 0.1f;
 	private static Vector2 direction = new Vector2();
 	private static Vector2 velocity = new Vector2();
+	
 	//set velocity of enemy to target
 	public static void pointBodyToAngle(float desiredAngle, Body body){
 		//calculate velocity
