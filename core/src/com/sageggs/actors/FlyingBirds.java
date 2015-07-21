@@ -23,13 +23,14 @@ public class FlyingBirds extends GameActor{
 	private AnimatedSprite animatedSprite;
 	public AnimatedBox2DSprite animatedBox2DSprite;
 	private Animation animation;
-	private Vector2 direction = new Vector2();
-	private Vector2 velocity = new Vector2();
+	private static Vector2 direction = new Vector2();
+	private static Vector2 velocity = new Vector2();
 	private Array<Body> bodies;
 	
 	public FlyingBirds(Body body){
 		super(body);
-		 bodies = new Array<Body>();
+		
+		bodies = new Array<Body>();
 		 
 		body.getWorld().getBodies(bodies);
         for (Body bodyLoop : bodies) {
@@ -49,7 +50,7 @@ public class FlyingBirds extends GameActor{
     @Override
     public void act(float delta) {
         super.act(delta);
-        pointBodyToAngle(45 + 90f,body);
+        
     }
     
 	 @Override
@@ -75,7 +76,7 @@ public class FlyingBirds extends GameActor{
 	 
 	 
 	//set velocity of enemy to target
-	public void pointBodyToAngle(float desiredAngle, Body body){
+	public static void pointBodyToAngle(float desiredAngle, Body body){
 		//calculate velocity
 		direction.x = (float) Math.cos((desiredAngle) * MathUtils.degreesToRadians);
 		direction.y = (float) Math.sin((desiredAngle) * MathUtils.degreesToRadians);
@@ -87,7 +88,7 @@ public class FlyingBirds extends GameActor{
 		//get the angle
 		float getAngle = (float) Math.atan2( -direction.x, direction.y );
 		//position body at angle
-		body.setTransform(body.getPosition(), getAngle);
+		body.setTransform(body.getPosition(), -getAngle);
 		
 		//set velocity
 		body.setLinearVelocity(velocity);		

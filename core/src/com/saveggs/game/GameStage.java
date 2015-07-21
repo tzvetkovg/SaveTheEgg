@@ -203,6 +203,7 @@ public class GameStage extends Stage implements ContactListener{
 		flyingBird = new FlyingBirds(WorldUtils.createFlyingBird(world));
 		//flyingBird.animatedBox2DSprite.flipFrames(true, false);
 		addActor(flyingBird);
+		FlyingBirds.pointBodyToAngle(90f + 45f, flyingBird.body);
 		
 		//PArticle effects
 		particleEffect = new ParticleEffectAn();
@@ -302,17 +303,34 @@ public class GameStage extends Stage implements ContactListener{
         }
         
         //FLYING BIRDS DIRECTION
-        //Hvashtane na qiceto i pribirane na krakata
         if( (contact.getFixtureA().getBody().getUserData().equals(Constants.LINE1) && 
-        	 contact.getFixtureB().getUserData().equals(Constants.FLYINGBIRD)) 
+        	 contact.getFixtureB().getUserData().equals(Constants.FLYINGBIRDHITAREA)) 
         	 ||
-        	 (contact.getFixtureA().getBody().getUserData().equals(Constants.FLYINGBIRD) && 
-              contact.getFixtureB().getUserData().equals(Constants.LINE1)) ){
-        	Body myBody = contact.getFixtureA().getBody().getUserData().equals(Constants.FLYINGBIRD) ?
+        	 (contact.getFixtureA().getUserData().equals(Constants.FLYINGBIRDHITAREA) && 
+              contact.getFixtureB().getBody().getUserData().equals(Constants.LINE1)) ){
+        	final Body myBody = contact.getFixtureA().getUserData().equals(Constants.FLYINGBIRDHITAREA) ?
 					  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
-			
+			  Gdx.app.postRunnable(new Runnable() {
+			  		@Override
+			  		public void run () {
+			  			FlyingBirds.pointBodyToAngle(45 + 90f, myBody);
+			  		}
+			  	});
         }
-        
+        if( (contact.getFixtureA().getBody().getUserData().equals(Constants.LINE2) && 
+        		  contact.getFixtureB().getUserData().equals(Constants.FLYINGBIRDHITAREA) ) 
+        	 ||
+        	 	(contact.getFixtureA().getUserData().equals(Constants.FLYINGBIRDHITAREA) &&
+        	 	 contact.getFixtureB().getBody().getUserData().equals(Constants.LINE2)) ){
+        	final Body myBody = contact.getFixtureA().getUserData().equals(Constants.FLYINGBIRDHITAREA) ?
+					  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
+			  Gdx.app.postRunnable(new Runnable() {
+			  		@Override
+			  		public void run () {
+			  			FlyingBirds.pointBodyToAngle(20 - 90f, myBody);
+			  		}
+			  	});
+        }
         
       }
 

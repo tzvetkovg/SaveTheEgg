@@ -38,7 +38,7 @@
   </object>
   <object id="20" name="line2" type="object" x="0" y="94.6667">
    <properties>
-    <property name="isSensor" value="tru"/>
+    <property name="isSensor" value="true"/>
     <property name="userData" value="line2"/>
    </properties>
    <polyline points="0,0 196,-56 490.667,-70.6667 746.667,-49.3333 798.667,2.66667"/>

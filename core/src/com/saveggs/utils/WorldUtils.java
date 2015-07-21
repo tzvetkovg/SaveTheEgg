@@ -175,7 +175,7 @@ public class WorldUtils {
     public static Body createFlyingBird(World world){
 	
 	       BodyDef def = new BodyDef();
-	       def.type = BodyDef.BodyType.KinematicBody;	       
+	       def.type = BodyDef.BodyType.DynamicBody;	       
 	       //2nd fixture
 	       PolygonShape shape = new PolygonShape();
 	       shape.setAsBox(1.1f, 1.5f); 
@@ -195,11 +195,12 @@ public class WorldUtils {
 	       //Add the fixtures
 	       body.createFixture(fixDef).setUserData(Constants.FLYINGBIRDENEMYBOUNDARIES);
 	       body.createFixture(sensorFD).setUserData(Constants.FLYINGBIRDHITAREA);
-	       
 	       body.setUserData(Constants.FLYINGBIRD);
+	       body.setGravityScale(0);
+	       
 	      // circle.dispose();
-	       shape.dispose();
-	       hitArea.dispose();
+	       //shape.dispose();
+	      /// hitArea.dispose();
 	       return body;
     }
     
