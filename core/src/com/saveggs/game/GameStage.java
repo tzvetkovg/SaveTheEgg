@@ -16,9 +16,6 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Pool;
-import com.badlogic.gdx.utils.Timer;
-import com.badlogic.gdx.utils.Timer.Task;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.sageggs.actors.CreateMesh;
@@ -26,14 +23,15 @@ import com.sageggs.actors.CreateMesh2;
 import com.sageggs.actors.CurrentMap;
 import com.sageggs.actors.DynamicBall;
 import com.sageggs.actors.DynamicBall.DynamicBallPool;
-import com.sageggs.actors.FlyingBirds;
-import com.sageggs.actors.particles.ParticleEffectAn;
-import com.sageggs.actors.particles.ParticleEffectBall;
-import com.sageggs.actors.particles.ParticleIzlupvane;
 import com.sageggs.actors.Enemy;
 import com.sageggs.actors.Ground;
 import com.sageggs.actors.Qice;
 import com.sageggs.actors.Slingshot;
+import com.sageggs.actors.flyingbirds.FlyingBirds;
+import com.sageggs.actors.flyingbirds.FlyingBirds2;
+import com.sageggs.actors.particles.ParticleEffectAn;
+import com.sageggs.actors.particles.ParticleEffectBall;
+import com.sageggs.actors.particles.ParticleIzlupvane;
 import com.saveggs.utils.BodyUtils;
 import com.saveggs.utils.Constants;
 import com.saveggs.utils.ShaderSpec;
@@ -62,18 +60,23 @@ public class GameStage extends Stage implements ContactListener{
 	private Vector2 getCoords = new Vector2();
 	private Array<Body> bodies;
 	public Array<DynamicBall> sleeepingBalls;
+	public Array<FlyingBirds> destroyFlyingBirds;
+	public Array<FlyingBirds2> destroyFlyingBirds2;
 	private ParticleEffectAn particleEffect;
 	private ParticleEffectBall particleBall;
 	private ParticleIzlupvane particleIzlupvane;
 	private DynamicBallPool pool;
+
 	private FlyingBirds flyingBird;
+	private FlyingBirds2 flyingBird2;
+	
 	
 	public GameStage(){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
 		setupCamera();
 		getViewport().setCamera(camera);
 		setUtils();
-		setupWorld("data/maps/level1/map.tmx");
+		setupWorld("data/maps/level4/map.tmx");
 		Gdx.input.setInputProcessor(this);
 		worldUtils = new WorldUtils();		
 	}
@@ -150,11 +153,11 @@ public class GameStage extends Stage implements ContactListener{
 				
 		world.step(1 / 60f,6, 2);
 		//destroy bodies if out of range
-		//destroyBododies();
+		destroyBododies();
 		destroySleepingBodies();
 		
 		debugRenderer.render(world,camera.combined);
-		//logger.log();
+		logger.log();
 		//System.out.println(GLProfiler.calls);
 		
 	}
@@ -200,10 +203,19 @@ public class GameStage extends Stage implements ContactListener{
 		enemy = new Enemy(WorldUtils.createEnemy(world));
 		addActor(enemy);
 		
+		//bird1
 		flyingBird = new FlyingBirds(WorldUtils.createFlyingBird(world));
-		//flyingBird.animatedBox2DSprite.flipFrames(true, false);
 		addActor(flyingBird);
-		FlyingBirds.pointBodyToAngle(90f + 45f, flyingBird.body);
+		FlyingBirds.pointBodyToAngle(135f, flyingBird.body);
+		destroyFlyingBirds.add(flyingBird);
+		
+		
+		//bird2
+		flyingBird2 = new FlyingBirds2(WorldUtils.createFlyingBird2(world));
+		flyingBird2.animatedBox2DSprite.flipFrames(true, false);
+		addActor(flyingBird2);
+		FlyingBirds2.pointBodyToAngle(135f, flyingBird2.body);
+		destroyFlyingBirds2.add(flyingBird2);
 		
 		//PArticle effects
 		particleEffect = new ParticleEffectAn();
@@ -220,6 +232,8 @@ public class GameStage extends Stage implements ContactListener{
 		debugRenderer = new Box2DDebugRenderer();
 		bodies = new Array<Body>();
 		sleeepingBalls = new Array<DynamicBall>();
+		destroyFlyingBirds = new Array<FlyingBirds>();
+		destroyFlyingBirds2 = new Array<FlyingBirds2>();
 		pool = new DynamicBallPool();
 		logger = new FPSLogger();
 	}
@@ -227,12 +241,17 @@ public class GameStage extends Stage implements ContactListener{
 	
 	//Destroy bodies if out of range
 	public void destroyBododies(){
-		world.getBodies(bodies);
-        for (Body body : bodies) {
-        	System.out.println(body.getUserData());
-        	body.getFixtureList().first();
-        	if(!BodyUtils.bodyInBounds(body,camera) && !body.getUserData().equals(Constants.DynamicBall))
-        		System.out.println();//world.destroyBody(body);
+        for (FlyingBirds bird : destroyFlyingBirds) {
+        	if(!BodyUtils.bodyInBounds(bird.body,camera)){
+        		bird.resetBody(bird.body);
+        		FlyingBirds.pointBodyToAngle(WorldUtils.getRandom(WorldUtils.oneWay),  bird.body);              		
+        	}
+        }
+        for (FlyingBirds2 bird : destroyFlyingBirds2) {
+        	if(!BodyUtils.bodyInBounds(bird.body,camera)){
+        		bird.resetBody(bird.body);
+        		FlyingBirds2.pointBodyToAngle(WorldUtils.getRandom(WorldUtils.oneWay),  bird.body);        		
+        	}
         }
 	}
 	
@@ -289,20 +308,26 @@ public class GameStage extends Stage implements ContactListener{
         	particleEffect.showEffect = true;
             final Body toRemove = contact.getFixtureA().getBody().getUserData().equals(Constants.Enemy) ?
 						  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
+            final Body ball = contact.getFixtureA().getBody().getUserData().equals(Constants.DynamicBall) ?
+					  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
 
+						  
 			  	Gdx.app.postRunnable(new Runnable() {
 			  		@Override
 			  		public void run () {
-			  			enemy.enemyDraw = false;
-			  			world.destroyBody(toRemove);
+			  			ball.setAwake(false);
+			  			//enemy.enemyDraw = false;
+			  			//world.destroyBody(toRemove);
 			  			//enemy
-			  			enemy = new Enemy(WorldUtils.createEnemy(world));
-			  			addActor(enemy);
+			  			//enemy = new Enemy(WorldUtils.createEnemy(world));
+			  			//addActor(enemy);
 			  		}
 			  	});
         }
         
-        //FLYING BIRDS DIRECTION
+        /**
+         * FlyingBird 1
+         */
         if( (contact.getFixtureA().getBody().getUserData().equals(Constants.LINE1) && 
         	 contact.getFixtureB().getUserData().equals(Constants.FLYINGBIRDHITAREA)) 
         	 ||
@@ -313,7 +338,7 @@ public class GameStage extends Stage implements ContactListener{
 			  Gdx.app.postRunnable(new Runnable() {
 			  		@Override
 			  		public void run () {
-			  			FlyingBirds.pointBodyToAngle(45 + 90f, myBody);
+			  			FlyingBirds.pointBodyToAngle(WorldUtils.getRandom(WorldUtils.oneWay), myBody);
 			  		}
 			  	});
         }
@@ -327,7 +352,39 @@ public class GameStage extends Stage implements ContactListener{
 			  Gdx.app.postRunnable(new Runnable() {
 			  		@Override
 			  		public void run () {
-			  			FlyingBirds.pointBodyToAngle(20 - 90f, myBody);
+			  			FlyingBirds.pointBodyToAngle(WorldUtils.getRandom(WorldUtils.secondWay), myBody);
+			  		}
+			  	});
+        }
+        
+        /**
+         * FlyingBird 2
+         */
+        if( (contact.getFixtureA().getBody().getUserData().equals(Constants.LINE1) && 
+        	 contact.getFixtureB().getUserData().equals(Constants.FLYINGBIRDHITAREA2)) 
+        	 ||
+        	 (contact.getFixtureA().getUserData().equals(Constants.FLYINGBIRDHITAREA2) && 
+              contact.getFixtureB().getBody().getUserData().equals(Constants.LINE1)) ){
+        	final Body myBody = contact.getFixtureA().getUserData().equals(Constants.FLYINGBIRDHITAREA2) ?
+					  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
+			  Gdx.app.postRunnable(new Runnable() {
+			  		@Override
+			  		public void run () {
+			  			FlyingBirds2.pointBodyToAngle(WorldUtils.getRandom(WorldUtils.secondWay), myBody);
+			  		}
+			  	});
+        }
+        if( (contact.getFixtureA().getBody().getUserData().equals(Constants.LINE2) && 
+        		  contact.getFixtureB().getUserData().equals(Constants.FLYINGBIRDHITAREA2) ) 
+        	 ||
+        	 	(contact.getFixtureA().getUserData().equals(Constants.FLYINGBIRDHITAREA2) &&
+        	 	 contact.getFixtureB().getBody().getUserData().equals(Constants.LINE2)) ){
+        	final Body myBody = contact.getFixtureA().getUserData().equals(Constants.FLYINGBIRDHITAREA2) ?
+					  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
+			  Gdx.app.postRunnable(new Runnable() {
+			  		@Override
+			  		public void run () {
+			  			FlyingBirds2.pointBodyToAngle(WorldUtils.getRandom(WorldUtils.oneWay), myBody);
 			  		}
 			  	});
         }

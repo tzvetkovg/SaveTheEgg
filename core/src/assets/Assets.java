@@ -39,7 +39,8 @@ public class Assets {
 	prisvivaneKraka = "data/prisviti.png",
 	opuvaneKraka = "data/opunati.png",
 	hvanatoQice = "data/hvanato Qice.png",
-	hodeneNaPile = "data/izlupvane.png";
+	hodeneNaPile = "data/izlupvane.png",
+	gulubi = "data/gulubitest.png";
 	/**
 	 * ParticleEffect
 	 */

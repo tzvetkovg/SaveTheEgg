@@ -113,7 +113,8 @@ public class WorldUtils {
     public static Body createEnemy(World world){
 	
 	       BodyDef def = new BodyDef();
-	       def.type = BodyDef.BodyType.KinematicBody;
+	       def.type = BodyDef.BodyType.DynamicBody;
+	       
 	       //na otivane
 	       PolygonShape kraka = new PolygonShape(); 
 	       kraka.setAsBox(0.7f, 0.7f,new Vector2(-0.66f,0f),0f);
@@ -168,6 +169,7 @@ public class WorldUtils {
 	       body.setUserData(Constants.Enemy);
 	      // circle.dispose();
 	       shape.dispose();
+	       body.setGravityScale(0);
 	       return body;
     }
     
@@ -198,9 +200,36 @@ public class WorldUtils {
 	       body.setUserData(Constants.FLYINGBIRD);
 	       body.setGravityScale(0);
 	       
-	      // circle.dispose();
-	       //shape.dispose();
-	      /// hitArea.dispose();
+	       return body;
+    }
+    
+    //slingshot
+    public static Body createFlyingBird2(World world){
+	
+	       BodyDef def = new BodyDef();
+	       def.type = BodyDef.BodyType.DynamicBody;	       
+	       //2nd fixture
+	       PolygonShape shape = new PolygonShape();
+	       shape.setAsBox(1.1f, 1.5f); 
+	       //1st fixture
+	       FixtureDef fixDef = new FixtureDef();
+	       fixDef.shape = shape;
+	       fixDef.isSensor = true;
+	       Body body = world.createBody(def);
+	
+	       //2nd fixture
+	       PolygonShape hitArea = new PolygonShape(); 
+	       hitArea.setAsBox(0.7f, 0.3f);
+	       FixtureDef sensorFD = new FixtureDef(); 
+	       sensorFD.isSensor = true; 
+	       sensorFD.shape = hitArea;
+	       
+	       //Add the fixtures
+	       body.createFixture(fixDef).setUserData(Constants.FLYINGBIRDENEMYBOUNDARIES2);
+	       body.createFixture(sensorFD).setUserData(Constants.FLYINGBIRDHITAREA2);
+	       body.setUserData(Constants.FLYINGBIRD2);
+	       body.setGravityScale(0);
+	       
 	       return body;
     }
     
@@ -249,8 +278,19 @@ public class WorldUtils {
         // nextInt is normally exclusive of the top value,
         // so add 1 to make it inclusive
         int randomNum = rand.nextInt((max - min) + 1) + min;
-
         return randomNum;
     }
     	  
+    
+    /**
+     * get random number from array
+     * @param array
+     * @return
+     */
+    public static float[] oneWay = new float[]{170f,150f,140f, 130f};
+    public static float[] secondWay = new float[]{-170f,-150f,-140f, -130f};
+    public static float getRandom(float[] array) {
+        int rnd = rand.nextInt(array.length);
+        return array[rnd];
+    }
 }

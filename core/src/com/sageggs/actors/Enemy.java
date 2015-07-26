@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.utils.Array;
 import com.saveggs.utils.Constants;
 import com.saveggs.utils.EnemyUtils;
 import com.saveggs.utils.WorldUtils;
@@ -42,13 +43,22 @@ public class Enemy extends GameActor{
 	public boolean hvashtane = false;
 	public boolean pribirane = false;
 	public boolean enemyDraw = true;
-	
+	private Array<Body> bodies;
 	
 	public Enemy(Body body) {
 		super(body);
 		target = Constants.eggPositions[WorldUtils.randInt(0, Constants.eggPositions.length -1)];
-		setAngleToTaget();
-	
+        setAngleToTaget();
+        
+/*		bodies = new Array<Body>();
+		body.getWorld().getBodies(bodies);
+        for (Body bodyLoop : bodies) {
+        	if(bodyLoop.getUserData().equals("position2"))
+        		body.setTransform(bodyLoop.getPosition().x, bodyLoop.getPosition().y, 0);
+        }
+*/
+    	
+		
 		//animation
 		texture = Assets.manager.get(Assets.pileBezKraka, Texture.class);
 		splitAnimation();
@@ -68,7 +78,7 @@ public class Enemy extends GameActor{
 		//set bird angle
 		hvanatoQice.setRotation(getAngleBodyEgg(target) + 55f);
 		animatedBox2DSprite.setRotation(getAngleBodyEgg(target) + 30f);
-
+		//animatedBox2DSprite.flipFrames(true, false);
 	}
 	
     @Override

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="8">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="17">
  <tileset firstgid="1" name="ora" tilewidth="16" tileheight="16">
   <image source="../assets/ora.png" width="640" height="480"/>
  </tileset>
@@ -45,6 +45,33 @@
   <object id="7" name="ground" type="object" x="1.33333" y="449.333" width="798.667" height="29.3333">
    <properties>
     <property name="userData" value="ground"/>
+   </properties>
+  </object>
+  <object id="8" name="line1" type="object" x="797.333" y="346.667">
+   <properties>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="line1"/>
+   </properties>
+   <polyline points="0,0 -65.3333,4 -300,5.33333 -401.333,-46.6667 -494.667,-49.3333 -618.667,-26.6667 -742.667,-20 -796,-16"/>
+  </object>
+  <object id="10" name="line2" type="object" x="-2.66667" y="25.3333">
+   <properties>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="line2"/>
+   </properties>
+   <polyline points="0,0 320,-14.6667 536,-14.6667 642.667,-20 801.333,-4"/>
+  </object>
+  <object id="11" name="position1" type="object" x="272" y="1.33333" width="10.6667" height="8">
+   <properties>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="position1"/>
+   </properties>
+  </object>
+  <object id="12" x="692" y="1.33333" width="10.6667" height="12"/>
+  <object id="14" name="position2" type="object" x="696" y="6.66667">
+   <properties>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="position2"/>
    </properties>
   </object>
  </objectgroup>

@@ -35,25 +35,25 @@ public class EnemyUtils {
 	public static void updateEnemyAngle(Vector2 target, Body body){
 		
 		//birds fall
-	    if( Math.abs(body.getPosition().sub(target).len() - 2.3) < comparVal  && body.getPosition().x > target.x ){
+	    if( Math.abs(body.getPosition().sub(target).len() - 1.3) < comparVal  && body.getPosition().x > target.x ){
 			pointBodyToAngle(210f, body);
 	    }
-	    else if( Math.abs(body.getPosition().sub(target).len() - 2.2)  < comparVal && body.getPosition().x > target.x ){
+	    else if( Math.abs(body.getPosition().sub(target).len() - 1.2)  < comparVal && body.getPosition().x > target.x ){
 			pointBodyToAngle(205f, body);
 	    }
-	    else if( Math.abs(body.getPosition().sub(target).len() - 2.1) < comparVal && body.getPosition().x > target.x){
+	    else if( Math.abs(body.getPosition().sub(target).len() - 1.1) < comparVal && body.getPosition().x > target.x){
 			pointBodyToAngle(200f, body);
 	    }
-	    else if( Math.abs(body.getPosition().sub(target).len() - 2.0) < comparVal && body.getPosition().x > target.x ){
+	    else if( Math.abs(body.getPosition().sub(target).len() - 1.0) < comparVal && body.getPosition().x > target.x ){
 			pointBodyToAngle(195f, body);
 	    }
-	    else if( Math.abs(body.getPosition().sub(target).len() - 1.9) < comparVal && body.getPosition().x > target.x  ){
+	    else if( Math.abs(body.getPosition().sub(target).len() - 0.9) < comparVal && body.getPosition().x > target.x  ){
 			pointBodyToAngle(190f, body);
 	    }
-	    else if( Math.abs(body.getPosition().sub(target).len() - 1.8) < comparVal && body.getPosition().x > target.x  ){
+	    else if( Math.abs(body.getPosition().sub(target).len() - 0.8) < comparVal && body.getPosition().x > target.x  ){
 			pointBodyToAngle(185f, body);
 	    }
-	    else if( Math.abs(body.getPosition().sub(target).len() - 1.7) < comparVal && body.getPosition().x > target.x ){
+	    else if( Math.abs(body.getPosition().sub(target).len() - 0.7) < comparVal && body.getPosition().x > target.x ){
 			pointBodyToAngle(180f, body);
 			
 	    }
@@ -65,13 +65,13 @@ public class EnemyUtils {
 	    else if(Math.abs(body.getWorldCenter().x - (target.x - 0.9)) < comparVal){
 			pointBodyToAngle(160f, body);
 	    }
-	    else if(Math.abs(body.getWorldCenter().x - (target.x - 1.2)) < comparVal){
+	    else if(Math.abs(body.getWorldCenter().x - (target.x - 0.2)) < comparVal){
 			pointBodyToAngle(150, body);
 	    }
-	    else if(Math.abs(body.getWorldCenter().x - (target.x - 1.7)) < comparVal){
+	    else if(Math.abs(body.getWorldCenter().x - (target.x - 0.7)) < comparVal){
 			pointBodyToAngle(140, body);
 	    }
-	    else if(Math.abs(body.getWorldCenter().x - (target.x - 1.9)) < comparVal){
+	    else if(Math.abs(body.getWorldCenter().x - (target.x - 0.9)) < comparVal){
 			pointBodyToAngle(130, body);
 	    }
 	}

@@ -19,7 +19,7 @@ public class GameClass extends Game {
 		Assets.manager.load(Assets.class);
 		while(!Assets.manager.update())
 			System.out.println(Assets.manager.getProgress() * 100 + " %");
-		//Assets.manager.finishLoading();
+		Assets.manager.finishLoading();
 		//this.setScreen(new SplashScreen(this));
 		//this.setScreen(new LevelScreen(this));
 		this.setScreen(new StageScreen(this));
