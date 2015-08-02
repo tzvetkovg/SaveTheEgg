@@ -1,6 +1,7 @@
 package com.saveggs.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -23,14 +24,16 @@ import com.sageggs.actors.CreateMesh2;
 import com.sageggs.actors.CurrentMap;
 import com.sageggs.actors.DynamicBall;
 import com.sageggs.actors.DynamicBall.DynamicBallPool;
-import com.sageggs.actors.Enemy;
 import com.sageggs.actors.Ground;
 import com.sageggs.actors.Qice;
 import com.sageggs.actors.Slingshot;
+import com.sageggs.actors.enemies.Enemy;
+import com.sageggs.actors.enemies.EnemyOtherSide;
 import com.sageggs.actors.flyingbirds.FlyingBirds;
 import com.sageggs.actors.flyingbirds.FlyingBirds2;
 import com.sageggs.actors.particles.ParticleEffectAn;
 import com.sageggs.actors.particles.ParticleEffectBall;
+import com.sageggs.actors.particles.ParticleEffectFlyingBird;
 import com.sageggs.actors.particles.ParticleIzlupvane;
 import com.saveggs.utils.BodyUtils;
 import com.saveggs.utils.Constants;
@@ -49,6 +52,7 @@ public class GameStage extends Stage implements ContactListener{
 	private Ground ground;
 	private Slingshot slingshot;
 	private Enemy enemy;
+	private EnemyOtherSide enemyOtherSide;
 	private OrthographicCamera camera;
 	private CreateMesh mesh;
 	private CreateMesh2 mesh2;
@@ -64,6 +68,7 @@ public class GameStage extends Stage implements ContactListener{
 	public Array<FlyingBirds2> destroyFlyingBirds2;
 	private ParticleEffectAn particleEffect;
 	private ParticleEffectBall particleBall;
+	private ParticleEffectFlyingBird flyingBirdParticle;
 	private ParticleIzlupvane particleIzlupvane;
 	private DynamicBallPool pool;
 
@@ -85,19 +90,7 @@ public class GameStage extends Stage implements ContactListener{
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		camera.unproject(touchDown.set(screenX, screenY, 0));
-		//System.out.println("touchpos" + " " +touchDown.x + " " + touchDown.y);
-		//float angle = (float) Math.toDegrees(Math.atan2(target.y - (body.getPosition().y), target.x  - (body.getPosition().x)));
-		//enemy.direction.x += 1f;
-		//System.out.println(enemy.body.getWorldCenter());
-		
-		//EnemyUtils.pointBodyToAngle(enemy.currentAngle + 12f,enemy.body);
-		//enemy.body.applyAngularImpulse(10, true);//(10, true);//10, true);
-
-		//enemy.animatedBox2DSprite.setRotation(45f);
-		
-		//enemy.body.setTransform(enemy.body.getPosition().x, enemy.body.getPosition().y, enemy.body.getAngle());
-	   
-		
+		System.out.println("touchpos" + " " +touchDown.x + " " + touchDown.y);		
 		return super.touchDown(screenX, screenY, pointer, button);
 	}
 
@@ -156,7 +149,7 @@ public class GameStage extends Stage implements ContactListener{
 		destroyBododies();
 		destroySleepingBodies();
 		
-		debugRenderer.render(world,camera.combined);
+		//debugRenderer.render(world,camera.combined);
 		logger.log();
 		//System.out.println(GLProfiler.calls);
 		
@@ -202,13 +195,14 @@ public class GameStage extends Stage implements ContactListener{
 		//enemy
 		enemy = new Enemy(WorldUtils.createEnemy(world));
 		addActor(enemy);
+		enemyOtherSide = new EnemyOtherSide(WorldUtils.createEnemyOtherSide(world));
+		addActor(enemyOtherSide);
 		
 		//bird1
 		flyingBird = new FlyingBirds(WorldUtils.createFlyingBird(world));
 		addActor(flyingBird);
 		FlyingBirds.pointBodyToAngle(135f, flyingBird.body);
 		destroyFlyingBirds.add(flyingBird);
-		
 		
 		//bird2
 		flyingBird2 = new FlyingBirds2(WorldUtils.createFlyingBird2(world));
@@ -224,6 +218,8 @@ public class GameStage extends Stage implements ContactListener{
 		addActor(particleBall);
 		particleIzlupvane = new ParticleIzlupvane();
 		addActor(particleIzlupvane);
+		flyingBirdParticle = new ParticleEffectFlyingBird();
+		addActor(flyingBirdParticle);
 		
 	}
 	
@@ -279,21 +275,63 @@ public class GameStage extends Stage implements ContactListener{
 	@Override
 	public void beginContact(Contact contact) {
         
+		/**
+		 * Enemy and ball
+		 */
 		//Otvarqne na krakata na pticata
         if( (contact.getFixtureA().getBody().getUserData().equals(Constants.QICE) && contact.getFixtureB().getUserData().equals(Constants.DOKOSVANESQICE ))
-            || (contact.getFixtureA().getUserData().equals(Constants.DOKOSVANESQICE) && contact.getFixtureB().getBody().getUserData().equals(Constants.QICE)) ){        	
-        	enemy.naOtivaneDraw = false;
-        	enemy.hvashtane = true;
+            || (contact.getFixtureA().getUserData().equals(Constants.DOKOSVANESQICE) && contact.getFixtureB().getBody().getUserData().equals(Constants.QICE)) ){ 
+            Body body1 = null;
+            if(contact.getFixtureA().getBody().getUserData().equals(Constants.Enemy))
+            	body1 = contact.getFixtureA().getBody();
+            else if(contact.getFixtureB().getBody().getUserData().equals(Constants.Enemy))
+            	body1 = contact.getFixtureB().getBody();
+            
+            Body body2 = null;
+            if(contact.getFixtureA().getBody().getUserData().equals(Constants.Enemy2))
+            	body2 = contact.getFixtureA().getBody();
+            else if(contact.getFixtureB().getBody().getUserData().equals(Constants.Enemy2))
+            	body2 = contact.getFixtureB().getBody();
+            
+            if(body1 != null){            	
+            	enemy.naOtivaneDraw = false;
+            	enemy.hvashtane = true;
+            }
+            if(body2 != null){            	
+            	enemyOtherSide.naOtivaneDraw = false;
+            	enemyOtherSide.hvashtane = true;
+            }
         }
         //Hvashtane na qiceto i pribirane na krakata
         if( (contact.getFixtureA().getBody().getUserData().equals(Constants.QICE) && contact.getFixtureB().getUserData().equals( Constants.SENSORzaDOKOSVANE))
-                || (contact.getFixtureA().getUserData().equals( Constants.SENSORzaDOKOSVANE) && contact.getFixtureB().getBody().getUserData().equals(Constants.QICE)) ){        	
-        		enemy.hvashtane = false;
-        		//qice.drawing = false;
-        		enemy.pribirane = true;
-                final Body toRemove = contact.getFixtureA().getBody().getUserData().equals(Constants.QICE) ?
+                || (contact.getFixtureA().getUserData().equals( Constants.SENSORzaDOKOSVANE) && contact.getFixtureB().getBody().getUserData().equals(Constants.QICE)) ){ 
+        	
+	            Body body1 = null;
+	            if(contact.getFixtureA().getBody().getUserData().equals(Constants.Enemy))
+	            	body1 = contact.getFixtureA().getBody();
+	            else if(contact.getFixtureB().getBody().getUserData().equals(Constants.Enemy))
+	            	body1 = contact.getFixtureB().getBody();
+	            
+	            Body body2 = null;
+	            if(contact.getFixtureA().getBody().getUserData().equals(Constants.Enemy2))
+	            	body2 = contact.getFixtureA().getBody();
+	            else if(contact.getFixtureB().getBody().getUserData().equals(Constants.Enemy2))
+	            	body2 = contact.getFixtureB().getBody();
+				
+				final Body qice = contact.getFixtureA().getBody().getUserData().equals(Constants.QICE) ?
 						  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
-						  
+				  
+				if(body1 != null){
+					enemy.hvashtane = false;
+	        		//qice.drawing = false;
+	        		enemy.pribirane = true;
+				}
+				else if(body2 != null){
+					enemyOtherSide.hvashtane = false;
+	        		//qice.drawing = false;
+					enemyOtherSide.pribirane = true;
+				}
+        			  
 			  	Gdx.app.postRunnable(new Runnable() {
 			  		@Override
 			  		public void run () {
@@ -304,25 +342,72 @@ public class GameStage extends Stage implements ContactListener{
         //unishtojavane na enemy i create a new one 
         if( (contact.getFixtureA().getBody().getUserData().equals(Constants.DynamicBall) && contact.getFixtureB().getUserData().equals( Constants.EnemyHitArea ))
                 || (contact.getFixtureA().getUserData().equals( Constants.EnemyHitArea) && contact.getFixtureB().getBody().getUserData().equals(Constants.DynamicBall)) ){
-        	particleEffect.effect.setPosition(enemy.body.getPosition().x, enemy.body.getPosition().y);
-        	particleEffect.showEffect = true;
-            final Body toRemove = contact.getFixtureA().getBody().getUserData().equals(Constants.Enemy) ?
-						  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
+        	
+            Body body1 = null;
+            if(contact.getFixtureA().getBody().getUserData().equals(Constants.Enemy))
+            	body1 = contact.getFixtureA().getBody();
+            else if(contact.getFixtureB().getBody().getUserData().equals(Constants.Enemy))
+            	body1 = contact.getFixtureB().getBody();
+            final Body toRemove = body1;	
+            
+            Body body2 = null;
+            if(contact.getFixtureA().getBody().getUserData().equals(Constants.Enemy2))
+            	body2 = contact.getFixtureA().getBody();
+            else if(contact.getFixtureB().getBody().getUserData().equals(Constants.Enemy2))
+            	body2 = contact.getFixtureB().getBody();
+            final Body toRemove2 = body2;
+            
             final Body ball = contact.getFixtureA().getBody().getUserData().equals(Constants.DynamicBall) ?
-					  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
-
-						  
-			  	Gdx.app.postRunnable(new Runnable() {
-			  		@Override
-			  		public void run () {
-			  			ball.setAwake(false);
-			  			//enemy.enemyDraw = false;
-			  			//world.destroyBody(toRemove);
-			  			//enemy
-			  			//enemy = new Enemy(WorldUtils.createEnemy(world));
-			  			//addActor(enemy);
-			  		}
-			  	});
+					  		  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
+	
+			if(ball.isAwake()){
+				//launch particle effect
+				//if enemy1 is hit
+				if(toRemove != null && toRemove.isAwake()){					
+					Gdx.app.postRunnable(new Runnable() {
+						@Override
+						public void run () {
+							ball.setAwake(false);
+							if(enemy.enemyDraw){								
+								particleEffect.effect.setPosition(enemy.body.getPosition().x, enemy.body.getPosition().y);
+								particleEffect.showEffect = true;
+							}
+							enemy.enemyDraw = false;
+							Constants.ENEMYVELICOTYSPEED = 0f;
+							enemy.body.setAwake(false);
+							enemy.resetBody();
+							//reset the other enemy
+							enemyOtherSide.enemyDraw = true;
+							Constants.ENEMYVELICOTYSPEEDOTHERSIDE = Constants.ENEMYSPEED;
+							enemyOtherSide.body.setAwake(true);
+							enemyOtherSide.resetBody();
+						}
+					});
+				}
+				//if enemy2 is hit
+				else if (toRemove2 != null && toRemove2.isAwake()){
+					Gdx.app.postRunnable(new Runnable() {
+						@Override
+						public void run () {
+							ball.setAwake(false);
+							if(enemyOtherSide.enemyDraw){								
+								particleEffect.effect.setPosition(enemyOtherSide.body.getPosition().x, enemyOtherSide.body.getPosition().y);
+								particleEffect.showEffect = true;
+							}
+							//launch enemy2
+							enemyOtherSide.enemyDraw = false;
+							Constants.ENEMYVELICOTYSPEEDOTHERSIDE = 0f;
+							enemyOtherSide.body.setAwake(false);
+							enemyOtherSide.resetBody();
+							//reset enemy1
+							enemy.enemyDraw = true;
+							Constants.ENEMYVELICOTYSPEED = Constants.ENEMYSPEED;
+							enemy.body.setAwake(true);
+							enemy.resetBody();
+						}
+					});
+				}
+			}
         }
         
         /**
@@ -357,6 +442,26 @@ public class GameStage extends Stage implements ContactListener{
 			  	});
         }
         
+        //reset flying bird
+        if( (contact.getFixtureA().getBody().getUserData().equals(Constants.DynamicBall) && contact.getFixtureB().getUserData().equals( Constants.FLYINGBIRDHITAREA ))
+                || (contact.getFixtureA().getUserData().equals( Constants.FLYINGBIRDHITAREA) && contact.getFixtureB().getBody().getUserData().equals(Constants.DynamicBall)) ){
+        	final Body ball = contact.getFixtureA().getBody().getUserData().equals(Constants.DynamicBall) ?
+        			contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
+        	if(ball.isAwake()){        		
+        		flyingBirdParticle.effect.setPosition(flyingBird.body.getPosition().x, flyingBird.body.getPosition().y);
+        		flyingBirdParticle.showEffect = true;
+        		
+        		Gdx.app.postRunnable(new Runnable() {
+        			@Override
+        			public void run () {
+        				ball.setAwake(false);
+        				flyingBird.resetBody(flyingBird.body);
+        			}
+        		});
+        	}
+        }
+        
+        
         /**
          * FlyingBird 2
          */
@@ -387,6 +492,25 @@ public class GameStage extends Stage implements ContactListener{
 			  			FlyingBirds2.pointBodyToAngle(WorldUtils.getRandom(WorldUtils.oneWay), myBody);
 			  		}
 			  	});
+        }
+        
+        //reset flying bird
+        if( (contact.getFixtureA().getBody().getUserData().equals(Constants.DynamicBall) && contact.getFixtureB().getUserData().equals( Constants.FLYINGBIRDHITAREA2 ))
+                || (contact.getFixtureA().getUserData().equals( Constants.FLYINGBIRDHITAREA2) && contact.getFixtureB().getBody().getUserData().equals(Constants.DynamicBall)) ){
+        	
+        	final Body ball = contact.getFixtureA().getBody().getUserData().equals(Constants.DynamicBall) ?
+        			contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
+        	if(ball.isAwake()){        		
+        		flyingBirdParticle.effect.setPosition(flyingBird2.body.getPosition().x, flyingBird2.body.getPosition().y);
+        		flyingBirdParticle.showEffect = true;
+        		Gdx.app.postRunnable(new Runnable() {
+        			@Override
+        			public void run () {
+        				ball.setAwake(false);
+        				flyingBird2.resetBody(flyingBird2.body);
+        			}
+        		});
+        	}
         }
         
       }

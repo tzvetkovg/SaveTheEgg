@@ -41,7 +41,9 @@ public class Constants {
 	/**
 	 * Enemy
 	 */
-	public static float ENEMYVELICOTYSPEED = 2f;
+	public static float ENEMYSPEED = 1f;
+	public static float ENEMYVELICOTYSPEED = ENEMYSPEED;
+	public static float ENEMYVELICOTYSPEEDOTHERSIDE = 0f;
 	public static float FlYINGBIRDVELOCITY = 3f;
 	/**
 	 * Actors contants
@@ -52,6 +54,7 @@ public class Constants {
 	public static final String Slingshot = "slingshot";
 	public static final String QICE = "dokosvane";
 	public static final String Enemy = "enemey";
+	public static final String Enemy2 = "enemey2";
 	public static final String ENEMYBOUNDARIES = "boundaries";
 	public static final String EnemyHitArea = "hitArea";
 	public static final String KRAKA = "kraka";
@@ -71,7 +74,7 @@ public class Constants {
 	/*
 	 * Eggs
 	 */
-	public static final Vector2[] eggPositions = new Vector2[]{new Vector2(13.40625f, 3.28125f)};
+	public static final Vector2[] eggPositions = new Vector2[]{new Vector2(18.833332f, 1.0999999f)};
 /*	new Vector2(7.0571423f, -4.2857146f),
 	   new Vector2(1.9999995f, -4.257143f)
 */}

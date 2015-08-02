@@ -109,7 +109,7 @@ public class WorldUtils {
     }
     
     
-    //slingshot
+    //enemy
     public static Body createEnemy(World world){
 	
 	       BodyDef def = new BodyDef();
@@ -125,7 +125,7 @@ public class WorldUtils {
 	       //na pribirane
 	       PolygonShape krakata = new PolygonShape(); 
 	       //kraka.setRadius(1f);
-	       krakata.setAsBox(0.7f, 0.7f,new Vector2(-0.67f,-0.4f),0);
+	       krakata.setAsBox(0.7f, 0.7f,new Vector2(-0.7f,-0.3f),0);
 	       FixtureDef krakataFD = new FixtureDef(); 
 	       krakataFD.isSensor = true; 
 	       krakataFD.shape = krakata;  
@@ -173,7 +173,72 @@ public class WorldUtils {
 	       return body;
     }
     
-    //slingshot
+    //Flipped enemy flying from the other side
+    public static Body createEnemyOtherSide(World world){
+    	
+	       BodyDef def = new BodyDef();
+	       def.type = BodyDef.BodyType.DynamicBody;
+	       
+	       //na otivane
+	       PolygonShape kraka = new PolygonShape(); 
+	       kraka.setAsBox(0.7f, 0.7f,new Vector2(0.66f,-0.1f),0f);
+	       FixtureDef krakaFD = new FixtureDef(); 
+	       krakaFD.isSensor = true; 
+	       krakaFD.shape = kraka;  
+	       
+	       //na pribirane
+	       PolygonShape krakata = new PolygonShape(); 
+	       //kraka.setRadius(1f);
+	       krakata.setAsBox(0.7f, 0.7f,new Vector2(0.6f,-0.6f),0);
+	       FixtureDef krakataFD = new FixtureDef(); 
+	       krakataFD.isSensor = true; 
+	       krakataFD.shape = krakata;  
+	      
+	       //dokosvane za otvarqne na kraka
+	       PolygonShape dokosvaneQice = new PolygonShape(); 
+	       dokosvaneQice.setAsBox(1.2f, 1f,new Vector2(0f,2.1f),0);
+	       FixtureDef dokosvane = new FixtureDef(); 
+	       dokosvane.isSensor = true; 
+	       dokosvane.shape = dokosvaneQice;
+	       
+	       //dokosvane s qiceto
+	       PolygonShape sensorZaDokosvane = new PolygonShape(); 
+	       //kraka.setRadius(1f);
+	       sensorZaDokosvane.setAsBox(0.7f, 0.7f,new Vector2(0.67f,-0.9f),0);
+	       FixtureDef dokosvaneFd = new FixtureDef(); 
+	       dokosvaneFd.isSensor = true; 
+	       dokosvaneFd.shape = sensorZaDokosvane; 
+	       
+	       //2nd fixture
+	       PolygonShape shape = new PolygonShape();
+	       shape.setAsBox(1.4f, 2.0f);
+	       PolygonShape circle = new PolygonShape(); 
+	       circle.setAsBox(0.3f, 0.7f);
+	       FixtureDef sensorFD = new FixtureDef(); 
+	       sensorFD.isSensor = true; 
+	       sensorFD.shape = circle;  
+	       //1st fixture
+	       FixtureDef fixDef = new FixtureDef();
+	       fixDef.shape = shape;
+	       fixDef.isSensor = true;
+	       Body body = world.createBody(def);
+	       
+	       //Add the fixtures
+	       body.createFixture(fixDef).setUserData(Constants.ENEMYBOUNDARIES);
+	       body.createFixture(sensorFD).setUserData(Constants.EnemyHitArea);
+	       body.createFixture(krakaFD).setUserData(Constants.KRAKA);
+	       body.createFixture(krakataFD).setUserData(Constants.HVANATOQICE);
+	       body.createFixture(dokosvane).setUserData(Constants.DOKOSVANESQICE);
+	       body.createFixture(dokosvaneFd).setUserData(Constants.SENSORzaDOKOSVANE);
+	       body.setUserData(Constants.Enemy2);
+	      // circle.dispose();
+	       shape.dispose();
+	       body.setGravityScale(0);
+	       return body;
+ }
+    
+    
+    //Flying Bird
     public static Body createFlyingBird(World world){
 	
 	       BodyDef def = new BodyDef();
