@@ -71,7 +71,6 @@ public class Enemy extends GameActor{
 		otvarqne = new Box2DSprite(Assets.manager.get(Assets.opuvaneKraka, Texture.class));
 		hvanatoQice = new Box2DSprite(Assets.manager.get(Assets.hvanatoQice, Texture.class));
 		//nastroivane na ugula
-		//EnemyUtils.pointBodyToAngle(getAngleBodyEgg(target) + 3f, body);
 
 	}
 	
@@ -130,6 +129,7 @@ public class Enemy extends GameActor{
         hvashtane = false;
         pribirane = false;
         naOtivaneDraw = true;
+        EnemyUtils.myAngleEnemy = 0;
 	}
 	
 }

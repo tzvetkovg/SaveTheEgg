@@ -138,6 +138,7 @@ public class EnemyOtherSide extends GameActor{
         hvashtane = false;
         pribirane = false;
         naOtivaneDraw = true;
+        EnemyUtils.myAngleEnemy = 0;
 	}
 	
 }

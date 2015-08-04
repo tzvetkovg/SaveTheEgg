@@ -145,10 +145,11 @@ public class GameStage extends Stage implements ContactListener{
 		super.act(delta);
 				
 		world.step(1 / 60f,6, 2);
-		//destroy bodies if out of range
-		destroyBododies();
-		destroySleepingBodies();
 		
+		//destroy bodies if out of range
+		destroyFlyingBirds();
+		destroySleepingBalls();
+		resetEnemyIfOutOfBounds();
 		//debugRenderer.render(world,camera.combined);
 		logger.log();
 		//System.out.println(GLProfiler.calls);
@@ -236,7 +237,7 @@ public class GameStage extends Stage implements ContactListener{
 	
 	
 	//Destroy bodies if out of range
-	public void destroyBododies(){
+	public void destroyFlyingBirds(){
         for (FlyingBirds bird : destroyFlyingBirds) {
         	if(!BodyUtils.bodyInBounds(bird.body,camera)){
         		bird.resetBody(bird.body);
@@ -251,8 +252,18 @@ public class GameStage extends Stage implements ContactListener{
         }
 	}
 	
+	//reset enemies out of range
+	public void resetEnemyIfOutOfBounds(){
+    	if(!BodyUtils.bodyInBounds(enemy.body,camera)){
+    		enemy.resetBody();            		
+    	}
+    	if(!BodyUtils.bodyInBounds(enemyOtherSide.body,camera)){
+    		enemyOtherSide.resetBody();            		
+    	}
+	}
+	
 	//Destroy sleeping bodies
-	public void destroySleepingBodies(){
+	public void destroySleepingBalls(){
 		
 		for (DynamicBall ball : sleeepingBalls) {				
 				if(!ball.body.isAwake()){
