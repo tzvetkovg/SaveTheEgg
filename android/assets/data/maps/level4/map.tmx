@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="42">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="82">
  <tileset firstgid="1" name="ora" tilewidth="16" tileheight="16">
   <image source="../assets/ora.png" width="640" height="480"/>
  </tileset>
@@ -47,7 +47,7 @@
     <property name="userData" value="ground"/>
    </properties>
   </object>
-  <object id="8" name="line1" type="object" x="797.333" y="346.667">
+  <object id="8" name="line1" type="object" x="784" y="344">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="line1"/>
@@ -61,13 +61,13 @@
    </properties>
    <polyline points="0,0 320,-14.6667 536,-14.6667 642.667,-20 801.333,-4"/>
   </object>
-  <object id="11" name="opposite3" type="object" x="218.667" y="5.33333" width="10.6667" height="8">
+  <object id="11" name="opposite3" type="object" x="66.667" y="4" width="10.6667" height="8">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="opposite3"/>
    </properties>
   </object>
-  <object id="27" name="opposite1" type="object" x="81.3333" y="5.33333" width="16" height="9.33333">
+  <object id="27" name="opposite1" type="object" x="3.99997" y="56" width="16" height="9.33333">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="opposite1"/>
@@ -79,22 +79,81 @@
     <property name="userData" value="opposite2"/>
    </properties>
   </object>
-  <object id="37" name="position1" type="object" x="660" y="1.33333" width="18.6667" height="12">
+  <object id="37" name="position1" type="object" x="701.333" y="5.33333" width="18.6667" height="12">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="position1"/>
    </properties>
   </object>
-  <object id="38" name="position2" type="object" x="722.667" y="2.66667" width="14.6667" height="8">
+  <object id="38" name="position2" type="object" x="765.334" y="9.33334" width="14.6667" height="8">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="position2"/>
    </properties>
   </object>
-  <object id="40" name="position3" type="object" x="781.333" y="2.66667" width="10.6667" height="12">
+  <object id="40" name="position3" type="object" x="784" y="88" width="10.6667" height="12">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="position3"/>
+   </properties>
+  </object>
+  <object id="65" name="dokosvane" type="object" x="561.333" y="423.333" width="36" height="23.3333">
+   <properties>
+    <property name="userData" value="dokosvane"/>
+   </properties>
+  </object>
+  <object id="69" name="egg1path11" type="object" x="657.333" y="354.667" width="8" height="8">
+   <properties>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="egg1path11"/>
+   </properties>
+  </object>
+  <object id="72" name="egg1path12" type="object" x="618.667" y="390.667" width="8" height="6.66667">
+   <properties>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="egg1path12"/>
+   </properties>
+  </object>
+  <object id="75" name="egg1path13" type="object" x="533.333" y="390" width="8" height="6.66667">
+   <properties>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="egg1path13"/>
+   </properties>
+  </object>
+  <object id="76" name="egg1path14" type="object" x="505.333" y="362" width="8" height="6.66667">
+   <properties>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="egg1path14"/>
+   </properties>
+  </object>
+  <object id="77" name="egg1path15" type="object" x="492" y="308.667" width="8" height="6.66667">
+   <properties>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="egg1path15"/>
+   </properties>
+  </object>
+  <object id="78" name="egg1path16" type="object" x="440" y="367.333" width="8" height="6.66667">
+   <properties>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="egg1path16"/>
+   </properties>
+  </object>
+  <object id="79" name="egg1path17" type="object" x="433.333" y="338" width="8" height="6.66667">
+   <properties>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="egg1path17"/>
+   </properties>
+  </object>
+  <object id="80" name="egg1path18" type="object" x="613.333" y="326" width="8" height="6.66667">
+   <properties>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="egg1path18"/>
+   </properties>
+  </object>
+  <object id="81" name="egg1path19" type="object" x="557.333" y="286" width="8" height="6.66667">
+   <properties>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="egg1path19"/>
    </properties>
   </object>
  </objectgroup>

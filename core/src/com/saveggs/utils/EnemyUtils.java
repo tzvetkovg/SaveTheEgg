@@ -4,36 +4,17 @@ package com.saveggs.utils;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.utils.Array;
 
 public class EnemyUtils {
 	
-	private static float comparVal = 0.1f;
-	private static Vector2 direction = new Vector2();
-	private static Vector2 velocity = new Vector2();
-	
+	public static float comparVal = 0.1f;
 
-	//set velocity of enemy to target
-	public static void pointBodyToAngle(float desiredAngle, Body body){
-		//calculate velocity
-		direction.x = (float) Math.cos((desiredAngle) * MathUtils.degreesToRadians);
-		direction.y = (float) Math.sin((desiredAngle) * MathUtils.degreesToRadians);
-		direction.nor();
-		
-		velocity.x = direction.x * Constants.ENEMYVELICOTYSPEED;
-		velocity.y = direction.y * Constants.ENEMYVELICOTYSPEED;
-		
-		//get the angle
-		float getAngle = (float) Math.atan2( -direction.x, direction.y );
-		//position body at angle
-		body.setTransform(body.getPosition(), getAngle);
-		
-		//set velocity
-		body.setLinearVelocity(velocity);	
 
-	}
 
 	//set velocity of enemy to target
 	public static void pointBodyToAngleOtherSide(float desiredAngle, Body body){
+		
 		//calculate velocity
 		direction.x = (float) Math.cos((desiredAngle) * MathUtils.degreesToRadians);
 		direction.y = (float) Math.sin((desiredAngle) * MathUtils.degreesToRadians);
@@ -64,25 +45,25 @@ public class EnemyUtils {
 		
 		//birds fall
 	    if( Math.abs(body.getPosition().sub(target).len() - 2.3) < comparVal  && body.getPosition().x > target.x ){
-			pointBodyToAngle(210f, body);
+			update(210f, body);
 	    }
 	    else if( Math.abs(body.getPosition().sub(target).len() - 2.2)  < comparVal && body.getPosition().x > target.x ){
-			pointBodyToAngle(205f, body);
+			update(205f, body);
 	    }
 	    else if( Math.abs(body.getPosition().sub(target).len() - 2.1) < comparVal && body.getPosition().x > target.x){
-			pointBodyToAngle(200f, body);
+			update(200f, body);
 	    }
 	    else if( Math.abs(body.getPosition().sub(target).len() - 2.0) < comparVal && body.getPosition().x > target.x ){
-			pointBodyToAngle(195f, body);
+			update(195f, body);
 	    }
 	    else if( Math.abs(body.getPosition().sub(target).len() - 1.9) < comparVal && body.getPosition().x > target.x  ){
-			pointBodyToAngle(190f, body);
+			update(190f, body);
 	    }
 	    else if( Math.abs(body.getPosition().sub(target).len() - 1.8) < comparVal && body.getPosition().x > target.x  ){
-			pointBodyToAngle(185f, body);
+			update(185f, body);
 	    }
 	    else if( Math.abs(body.getPosition().sub(target).len() - 1.7) < comparVal && body.getPosition().x > target.x ){
-			pointBodyToAngle(180f, body);
+			update(180f, body);
 			
 	    }
     
@@ -90,22 +71,22 @@ public class EnemyUtils {
 	    if(Math.abs(body.getWorldCenter().x - (target.x - 1.4)) < comparVal && body.getPosition().x < target.x ){
 	    	if(myAngleEnemy == 0)
 	    		myAngleEnemy = WorldUtils.getRandom(positionPath);
-	    	pointBodyToAngle(climbAnglesEnemy1[(int)myAngleEnemy - 1], body);
+	    	update(climbAnglesEnemy1[(int)myAngleEnemy - 1], body);
 	    	System.out.println(myAngleEnemy + " angle: " + climbAnglesEnemy1[(int)myAngleEnemy - 1]);
 	    	//System.out.println(climbAnglesEnemy1[(int)myAngleEnemy]);
 	    }
 	    else if(Math.abs(body.getWorldCenter().x - (target.x - 1.9)) < comparVal && body.getPosition().x < target.x){
-			pointBodyToAngle(climbAnglesEnemy2[(int)myAngleEnemy - 1], body);
+			update(climbAnglesEnemy2[(int)myAngleEnemy - 1], body);
 			System.out.println(myAngleEnemy + " angle: " + climbAnglesEnemy2[(int)myAngleEnemy -1]);
 			//System.out.println(climbAnglesEnemy2[(int)myAngleEnemy]);
 	    }
 	    else if(Math.abs(body.getWorldCenter().x - (target.x - 3.2)) < comparVal && body.getPosition().x < target.x){
-			pointBodyToAngle(climbAnglesEnemy3[(int)myAngleEnemy - 1], body);
+			update(climbAnglesEnemy3[(int)myAngleEnemy - 1], body);
 			System.out.println(myAngleEnemy + " angle: " + climbAnglesEnemy3[(int)myAngleEnemy - 1]);
 			//System.out.println(climbAnglesEnemy3[(int)myAngleEnemy]);
 	    }
 	    else if(Math.abs(body.getWorldCenter().x - (target.x - 4.7)) < comparVal && body.getPosition().x < target.x){
-			pointBodyToAngle(climbAnglesEnemy4[(int)myAngleEnemy - 1], body);
+			update(climbAnglesEnemy4[(int)myAngleEnemy - 1], body);
 			System.out.println(myAngleEnemy + " angle: " + climbAnglesEnemy4[(int)myAngleEnemy - 1]);
 			//System.out.println(climbAnglesEnemy4[(int)myAngleEnemy]);
 	    }

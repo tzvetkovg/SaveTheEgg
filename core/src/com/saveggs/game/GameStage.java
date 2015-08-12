@@ -63,6 +63,7 @@ public class GameStage extends Stage implements ContactListener{
 	private Vector3 touchDown = new Vector3();
 	private Vector2 getCoords = new Vector2();
 	private Array<Body> bodies;
+	private Array<Body> bodiesTest;
 	public Array<DynamicBall> sleeepingBalls;
 	public Array<FlyingBirds> destroyFlyingBirds;
 	public Array<FlyingBirds2> destroyFlyingBirds2;
@@ -150,7 +151,7 @@ public class GameStage extends Stage implements ContactListener{
 		destroyFlyingBirds();
 		destroySleepingBalls();
 		resetEnemyIfOutOfBounds();
-		//debugRenderer.render(world,camera.combined);
+		debugRenderer.render(world,camera.combined);
 		logger.log();
 		//System.out.println(GLProfiler.calls);
 		
@@ -168,6 +169,27 @@ public class GameStage extends Stage implements ContactListener{
 		
 		CurrentMap map = new CurrentMap(mapPath,world);
 		addActor(map);
+		
+		//qice
+		bodiesTest = new Array<Body>();
+		world.getBodies(bodiesTest);
+		for (Body bodyLoop : bodiesTest) {
+        	if (bodyLoop.getUserData().equals(Constants.QICE)){
+        		
+        		qice = new Qice(bodyLoop);
+        		Constants.eggPositions[0] = new Vector2(bodyLoop.getPosition());
+        		Constants.eggPositions[1] = new Vector2(bodyLoop.getPosition());
+        	}
+        	else if(bodyLoop.getUserData().equals("qiceto"))
+        	{
+        		
+        	}
+        }
+		//qice = new Qice(WorldUtils.createEgg(world));
+		//qice.body.setTransform(Constants.eggPositions[0].x, Constants.eggPositions[0].y, 0);
+		//System.out.println(ba.body.getWorldCenter());
+		addActor(qice);
+		
 		//add the map
 		//shader
 		shader = new ShaderProgram(ShaderSpec.vertexShader, ShaderSpec.fragmentShader);		
@@ -188,16 +210,12 @@ public class GameStage extends Stage implements ContactListener{
 		//slingshot
 		slingshot = new Slingshot(WorldUtils.createSlingshot(world));
 		addActor(slingshot);
-		//qice
-		qice = new Qice(WorldUtils.createEgg(world));
-		qice.body.setTransform(Constants.eggPositions[0].x, Constants.eggPositions[0].y, 0);
-		//System.out.println(ba.body.getWorldCenter());
-		addActor(qice);
+
 		//enemy
 		enemy = new Enemy(WorldUtils.createEnemy(world));
 		addActor(enemy);
-		enemyOtherSide = new EnemyOtherSide(WorldUtils.createEnemyOtherSide(world));
-		addActor(enemyOtherSide);
+		//enemyOtherSide = new EnemyOtherSide(WorldUtils.createEnemyOtherSide(world));
+		//addActor(enemyOtherSide);
 		
 		//bird1
 		flyingBird = new FlyingBirds(WorldUtils.createFlyingBird(world));
@@ -257,9 +275,9 @@ public class GameStage extends Stage implements ContactListener{
     	if(!BodyUtils.bodyInBounds(enemy.body,camera)){
     		enemy.resetBody();            		
     	}
-    	if(!BodyUtils.bodyInBounds(enemyOtherSide.body,camera)){
+/*    	if(!BodyUtils.bodyInBounds(enemyOtherSide.body,camera)){
     		enemyOtherSide.resetBody();            		
-    	}
+    	}*/
 	}
 	
 	//Destroy sleeping bodies

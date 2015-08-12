@@ -1,6 +1,8 @@
 package com.sageggs.actors.enemies;
 
 import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 import net.dermetfan.gdx.graphics.g2d.AnimatedBox2DSprite;
 import net.dermetfan.gdx.graphics.g2d.AnimatedSprite;
@@ -23,42 +25,48 @@ import com.saveggs.utils.WorldUtils;
 
 public class Enemy extends GameActor{
 
-	private Box2DSprite enemySkin;
 	private Vector2 target = new Vector2();
 	public static boolean stopMoving = false; 
-	public static float angle = 0;
 	Vector2 position = new Vector2();
-	public Vector2 direction = new Vector2();
 	private AnimatedSprite animatedSprite;
 	private AnimatedBox2DSprite animatedBox2DSprite;
-	private Box2DSprite opunatiKraka;
-	private Box2DSprite naOtivane;
-	private Box2DSprite otvarqne;
-	private Box2DSprite hvanatoQice;
+	private Box2DSprite naOtivane, otvarqne, hvanatoQice;
 	private Animation animation;
 	private TextureRegion[] animationFrames;
-	private TextureRegion[] animationKraka;
 	private Texture texture;
-	private Vector2 ballPos;
-	private Vector2 newPos;
-	public boolean naOtivaneDraw = true;
-	public boolean hvashtane = false;
-	public boolean pribirane = false;
-	public boolean enemyDraw = true;
-	private Array<Body> bodies;
+	public boolean naOtivaneDraw = true, hvashtane = false, pribirane = false,  enemyDraw = true;
 	float[] positions = new float[]{1,2,3};
 	float myPosition;
-
+	private Array<Body> bodies;
+	private Array<Vector2> pathPoints;
+	private Vector2 resetPosition;
+	private Map<String,Vector2> worldBodies ;
+	int point = 0;
+	float angle;
+	private  Vector2 direction = new Vector2(), velocity = new Vector2();
+	private boolean continueUpdating = true;
 	
 	public Enemy(Body body) {
 		super(body);
 		target = Constants.eggPositions[WorldUtils.randInt(0, Constants.eggPositions.length -1)];
         
+		resetPosition = new Vector2();
+		pathPoints = new Array<Vector2>();
 		bodies = new Array<Body>();
 		body.getWorld().getBodies(bodies);
+		worldBodies = new HashMap<String,Vector2>();
+		//map of all bodies
+		for (Body bodyLoop : bodies) {
+			worldBodies.put(bodyLoop.getUserData().toString(), bodyLoop.getPosition());
+		}
+		
+		pathPoints.add(worldBodies.get("path11"));
+		pathPoints.add(worldBodies.get("path12"));
+		pathPoints.add(worldBodies.get("path13"));
+		
 		//get random position
 		resetBody();
-
+		
 		//animation
 		texture = Assets.manager.get(Assets.pileBezKraka, Texture.class);
 		splitAnimation();
@@ -73,15 +81,51 @@ public class Enemy extends GameActor{
 		//nastroivane na ugula
 
 	}
-	
+
+
     @Override
     public void act(float delta) {
         super.act(delta);
-        EnemyUtils.updateEnemyAngle(target,body);
+        
+        //if last point reached continue with same velocity
+		if(Math.abs(body.getPosition().sub(pathPoints.get(pathPoints.size - 1)).len()) <= EnemyUtils.comparVal ){
+			body.setLinearVelocity(body.getLinearVelocity());
+			continueUpdating = false;
+		}
+		//else update next point
+		if(continueUpdating)
+			update(delta);
     }
-    
+
+
+	//set velocity of enemy to target
+	public void update(float delta){
+		
+		angle = (float) Math.toDegrees(Math.atan2(pathPoints.get(point).y - body.getPosition().y, pathPoints.get(point).x  - body.getPosition().x));
+		//calculate velocity
+		direction.x = (float) Math.cos((angle) * MathUtils.degreesToRadians);
+		direction.y = (float) Math.sin((angle) * MathUtils.degreesToRadians);
+		direction.nor();
+		
+		velocity.x = direction.x * Constants.ENEMYVELICOTYSPEED * delta;
+		velocity.y = direction.y * Constants.ENEMYVELICOTYSPEED * delta;
+		
+		//get the angle
+		float getAngle = (float) Math.atan2( -direction.x, direction.y );
+		//position body at angle
+		body.setTransform(body.getPosition(), getAngle);
+		
+		//set velocity
+		body.setLinearVelocity(velocity);
+		
+		//increment to next point
+		if(Math.abs(body.getPosition().sub(pathPoints.get(point)).len()) <= EnemyUtils.comparVal){
+			point++;
+		}
+	}
+
+
 	 @Override
-	 
      public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
         if(enemyDraw){        	
@@ -119,17 +163,17 @@ public class Enemy extends GameActor{
 		 return angle;
 	}
 	
+    //reset the body
 	public void resetBody(){
 		myPosition = WorldUtils.getRandom(positions);
-        for (Body bodyLoop : bodies) {
-        	if(bodyLoop.getUserData().equals("position" + (int)myPosition))
-        		body.setTransform(bodyLoop.getPosition().x, bodyLoop.getPosition().y, 0);
-        }
-        EnemyUtils.pointBodyToAngle(getAngleBodyEgg(target) + 3f, body);
+		resetPosition = worldBodies.get("position" + (int)myPosition);
+		body.setTransform(resetPosition, 0);
+
+        point = 0;
+        continueUpdating = true;
         hvashtane = false;
         pribirane = false;
         naOtivaneDraw = true;
-        EnemyUtils.myAngleEnemy = 0;
 	}
 	
 }

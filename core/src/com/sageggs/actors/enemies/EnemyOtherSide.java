@@ -134,7 +134,7 @@ public class EnemyOtherSide extends GameActor{
         		body.setTransform(bodyLoop.getPosition().x, bodyLoop.getPosition().y, 0);
         	}
         }
-        EnemyUtils.pointBodyToAngleOtherSide(getAngleBodyEgg(target) + 3f, body);
+        EnemyUtils.pointBodyToAngleOtherSide(getAngleBodyEgg(target) + 5f, body);
         hvashtane = false;
         pribirane = false;
         naOtivaneDraw = true;

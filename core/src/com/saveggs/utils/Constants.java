@@ -41,7 +41,7 @@ public class Constants {
 	/**
 	 * Enemy
 	 */
-	public static float ENEMYSPEED = 2f;
+	public static float ENEMYSPEED = 100f;
 	public static float ENEMYVELICOTYSPEED = ENEMYSPEED;
 	public static float ENEMYVELICOTYSPEEDOTHERSIDE = 0f;
 	public static float FlYINGBIRDVELOCITY = 3f;
@@ -74,7 +74,7 @@ public class Constants {
 	/*
 	 * Eggs
 	 */
-	public static final Vector2[] eggPositions = new Vector2[]{new Vector2(18.833332f, 1.0999999f)};
+	public static final Vector2[] eggPositions = new Vector2[2];
 /*	new Vector2(7.0571423f, -4.2857146f),
 	   new Vector2(1.9999995f, -4.257143f)
 */}
