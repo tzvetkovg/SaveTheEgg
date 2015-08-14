@@ -17,6 +17,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.utils.Array;
 import com.sageggs.actors.GameActor;
 import com.saveggs.utils.Constants;
@@ -38,9 +39,10 @@ public class Enemy extends GameActor{
 	float[] positions = new float[]{1,2,3};
 	float myPosition;
 	private Array<Body> bodies;
-	private Array<Vector2> pathPoints;
+	public Array<Vector2> pathPoints;
 	private Vector2 resetPosition;
-	private Map<String,Vector2> worldBodies ;
+	private Map<String,Vector2> worldBodies;
+	private Array<Body> eggs;
 	int point = 0;
 	float angle;
 	private  Vector2 direction = new Vector2(), velocity = new Vector2();
@@ -52,17 +54,25 @@ public class Enemy extends GameActor{
         
 		resetPosition = new Vector2();
 		pathPoints = new Array<Vector2>();
+		eggs = new Array<Body>();
 		bodies = new Array<Body>();
 		body.getWorld().getBodies(bodies);
 		worldBodies = new HashMap<String,Vector2>();
+		
 		//map of all bodies
 		for (Body bodyLoop : bodies) {
 			worldBodies.put(bodyLoop.getUserData().toString(), bodyLoop.getPosition());
+			if(bodyLoop.getUserData().equals(Constants.QICE)){	
+				eggs.add(bodyLoop);
+			}
 		}
-		
-		pathPoints.add(worldBodies.get("path11"));
-		pathPoints.add(worldBodies.get("path12"));
-		pathPoints.add(worldBodies.get("path13"));
+
+
+		/*pathPoints.add(worldBodies.get("egg1path11"));
+		pathPoints.add(worldBodies.get("egg1path12"));
+		pathPoints.add(worldBodies.get("egg1path13"));
+		pathPoints.add(worldBodies.get("egg1path18"));
+		pathPoints.add(worldBodies.get("egg1path19"));*/
 		
 		//get random position
 		resetBody();
@@ -156,19 +166,23 @@ public class Enemy extends GameActor{
 			 }
 		 }
 	 }
-	 
-	//get the angle between enemy and target
-	public float getAngleBodyEgg(Vector2 target){
-		 float angle = (float) Math.toDegrees(Math.atan2(target.y - (body.getPosition().y), target.x  - (body.getPosition().x)));
-		 return angle;
-	}
-	
+	 	
+	 Body singleEgg;
     //reset the body
 	public void resetBody(){
-		myPosition = WorldUtils.getRandom(positions);
+		//bird position
+		myPosition = MathUtils.random(1, 3);
+		System.out.println(myPosition);
 		resetPosition = worldBodies.get("position" + (int)myPosition);
 		body.setTransform(resetPosition, 0);
 
+		singleEgg = eggs.get((int)MathUtils.random(0, eggs.size - 1));
+		
+		pathPoints.add(singleEgg.getTransform().mul(new Vector2((((CircleShape) singleEgg.getFixtureList().get(1).getShape()).getPosition()))));
+		pathPoints.add(singleEgg.getTransform().mul(new Vector2((((CircleShape) singleEgg.getFixtureList().get(2).getShape()).getPosition()))));
+		pathPoints.add(singleEgg.getTransform().mul(new Vector2((((CircleShape) singleEgg.getFixtureList().get(3).getShape()).getPosition()))));
+		pathPoints.add(singleEgg.getTransform().mul(new Vector2((((CircleShape) singleEgg.getFixtureList().get(4).getShape()).getPosition()))));
+		
         point = 0;
         continueUpdating = true;
         hvashtane = false;

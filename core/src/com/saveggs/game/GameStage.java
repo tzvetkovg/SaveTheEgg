@@ -10,10 +10,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
@@ -173,22 +175,24 @@ public class GameStage extends Stage implements ContactListener{
 		//qice
 		bodiesTest = new Array<Body>();
 		world.getBodies(bodiesTest);
+
+		int counter = 0;
 		for (Body bodyLoop : bodiesTest) {
-        	if (bodyLoop.getUserData().equals(Constants.QICE)){
-        		
+			System.out.println(bodyLoop.getUserData());
+        	if (bodyLoop.getUserData().equals(Constants.QICE)) {
+        		bodyLoop.getFixtureList().first().setUserData("neizlupeno");
         		qice = new Qice(bodyLoop);
-        		Constants.eggPositions[0] = new Vector2(bodyLoop.getPosition());
-        		Constants.eggPositions[1] = new Vector2(bodyLoop.getPosition());
-        	}
-        	else if(bodyLoop.getUserData().equals("qiceto"))
-        	{
-        		
+        		bodyLoop.setAwake(false);
+
+        		//shape.
+        		//vec.set(shape.);
+        		// apply the transformation
+        		//transform.mul(vec);
+        		//Constants.eggPositions[0] = new Vector2(bodyLoop.getPosition());
+        		//Constants.eggPositions[1] = new Vector2(bodyLoop.getPosition());
         	}
         }
-		//qice = new Qice(WorldUtils.createEgg(world));
-		//qice.body.setTransform(Constants.eggPositions[0].x, Constants.eggPositions[0].y, 0);
-		//System.out.println(ba.body.getWorldCenter());
-		addActor(qice);
+		//addActor(qice);
 		
 		//add the map
 		//shader
@@ -349,13 +353,15 @@ public class GameStage extends Stage implements ContactListener{
 				
 				final Body qice = contact.getFixtureA().getBody().getUserData().equals(Constants.QICE) ?
 						  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
-				  
-				if(body1 != null){
+				
+				System.out.println(qice.isAwake());
+				System.out.println(qice.getFixtureList().get(1) + " " + qice.getUserData());		  
+				if(body1 != null && qice.isAwake()){
 					enemy.hvashtane = false;
 	        		//qice.drawing = false;
 	        		enemy.pribirane = true;
 				}
-				else if(body2 != null){
+				else if(body2 != null && qice.isAwake()){
 					enemyOtherSide.hvashtane = false;
 	        		//qice.drawing = false;
 					enemyOtherSide.pribirane = true;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="82">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="102">
  <tileset firstgid="1" name="ora" tilewidth="16" tileheight="16">
   <image source="../assets/ora.png" width="640" height="480"/>
  </tileset>
@@ -97,64 +97,42 @@
     <property name="userData" value="position3"/>
    </properties>
   </object>
-  <object id="65" name="dokosvane" type="object" x="561.333" y="423.333" width="36" height="23.3333">
+  <object id="65" name="ptiche" type="object" x="561.333" y="423.333" width="36" height="23.3333">
    <properties>
     <property name="userData" value="dokosvane"/>
    </properties>
   </object>
-  <object id="69" name="egg1path11" type="object" x="657.333" y="354.667" width="8" height="8">
+  <object id="93" name="egg1point1" type="fixture" x="647.917" y="352.583" width="11" height="11">
    <properties>
+    <property name="body" value="ptiche"/>
     <property name="isSensor" value="true"/>
-    <property name="userData" value="egg1path11"/>
+    <property name="userData" value="egg1point1"/>
    </properties>
+   <ellipse/>
   </object>
-  <object id="72" name="egg1path12" type="object" x="618.667" y="390.667" width="8" height="6.66667">
+  <object id="94" name="egg1point2" type="fixture" x="621.167" y="388.5" width="11" height="11">
    <properties>
+    <property name="body" value="ptiche"/>
     <property name="isSensor" value="true"/>
-    <property name="userData" value="egg1path12"/>
+    <property name="userData" value="egg1point2"/>
    </properties>
+   <ellipse/>
   </object>
-  <object id="75" name="egg1path13" type="object" x="533.333" y="390" width="8" height="6.66667">
+  <object id="95" name="egg1point3" type="fixture" x="529.167" y="387.167" width="11" height="11">
    <properties>
+    <property name="body" value="ptiche"/>
     <property name="isSensor" value="true"/>
-    <property name="userData" value="egg1path13"/>
+    <property name="userData" value="egg1point3"/>
    </properties>
+   <ellipse/>
   </object>
-  <object id="76" name="egg1path14" type="object" x="505.333" y="362" width="8" height="6.66667">
+  <object id="96" name="egg1point4" type="fixture" x="499.833" y="352.5" width="11" height="11">
    <properties>
+    <property name="body" value="ptiche"/>
     <property name="isSensor" value="true"/>
-    <property name="userData" value="egg1path14"/>
+    <property name="userData" value="egg1point4"/>
    </properties>
-  </object>
-  <object id="77" name="egg1path15" type="object" x="492" y="308.667" width="8" height="6.66667">
-   <properties>
-    <property name="isSensor" value="true"/>
-    <property name="userData" value="egg1path15"/>
-   </properties>
-  </object>
-  <object id="78" name="egg1path16" type="object" x="440" y="367.333" width="8" height="6.66667">
-   <properties>
-    <property name="isSensor" value="true"/>
-    <property name="userData" value="egg1path16"/>
-   </properties>
-  </object>
-  <object id="79" name="egg1path17" type="object" x="433.333" y="338" width="8" height="6.66667">
-   <properties>
-    <property name="isSensor" value="true"/>
-    <property name="userData" value="egg1path17"/>
-   </properties>
-  </object>
-  <object id="80" name="egg1path18" type="object" x="613.333" y="326" width="8" height="6.66667">
-   <properties>
-    <property name="isSensor" value="true"/>
-    <property name="userData" value="egg1path18"/>
-   </properties>
-  </object>
-  <object id="81" name="egg1path19" type="object" x="557.333" y="286" width="8" height="6.66667">
-   <properties>
-    <property name="isSensor" value="true"/>
-    <property name="userData" value="egg1path19"/>
-   </properties>
+   <ellipse/>
   </object>
  </objectgroup>
 </map>

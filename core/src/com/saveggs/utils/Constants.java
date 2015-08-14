@@ -1,12 +1,14 @@
 package com.saveggs.utils;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.utils.Array;
 
 
 public class Constants {
 	public static final float SCENE_WIDTH = 800f;
 	public static final float SCENE_HEIGHT = 480f;
-	
+
 	/**
 	 * Slingshot
 	 *///3.5 7.75
@@ -74,6 +76,7 @@ public class Constants {
 	/*
 	 * Eggs
 	 */
+	
 	public static final Vector2[] eggPositions = new Vector2[2];
 /*	new Vector2(7.0571423f, -4.2857146f),
 	   new Vector2(1.9999995f, -4.257143f)
