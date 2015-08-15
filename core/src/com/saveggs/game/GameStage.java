@@ -1,5 +1,8 @@
 package com.saveggs.game;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.FPSLogger;
@@ -65,7 +68,9 @@ public class GameStage extends Stage implements ContactListener{
 	private Vector3 touchDown = new Vector3();
 	private Vector2 getCoords = new Vector2();
 	private Array<Body> bodies;
-	private Array<Body> bodiesTest;
+	private Array<Body> bodiesOfWorld;
+	private Array<Body> eggs;
+	private Map<String,Vector2> worldBodies;
 	public Array<DynamicBall> sleeepingBalls;
 	public Array<FlyingBirds> destroyFlyingBirds;
 	public Array<FlyingBirds2> destroyFlyingBirds2;
@@ -74,7 +79,6 @@ public class GameStage extends Stage implements ContactListener{
 	private ParticleEffectFlyingBird flyingBirdParticle;
 	private ParticleIzlupvane particleIzlupvane;
 	private DynamicBallPool pool;
-
 	private FlyingBirds flyingBird;
 	private FlyingBirds2 flyingBird2;
 	
@@ -148,11 +152,12 @@ public class GameStage extends Stage implements ContactListener{
 		super.act(delta);
 				
 		world.step(1 / 60f,6, 2);
-		
+
 		//destroy bodies if out of range
 		destroyFlyingBirds();
 		destroySleepingBalls();
 		resetEnemyIfOutOfBounds();
+		removeIzlupeniQica();
 		debugRenderer.render(world,camera.combined);
 		logger.log();
 		//System.out.println(GLProfiler.calls);
@@ -171,28 +176,27 @@ public class GameStage extends Stage implements ContactListener{
 		
 		CurrentMap map = new CurrentMap(mapPath,world);
 		addActor(map);
+		eggs = new Array<Body>();
+		bodiesOfWorld = new Array<Body>();
+		world.getBodies(bodiesOfWorld);
+		worldBodies = new HashMap<String,Vector2>();
 		
-		//qice
-		bodiesTest = new Array<Body>();
-		world.getBodies(bodiesTest);
-
-		int counter = 0;
-		for (Body bodyLoop : bodiesTest) {
-			System.out.println(bodyLoop.getUserData());
-        	if (bodyLoop.getUserData().equals(Constants.QICE)) {
-        		bodyLoop.getFixtureList().first().setUserData("neizlupeno");
-        		qice = new Qice(bodyLoop);
-        		bodyLoop.setAwake(false);
-
-        		//shape.
-        		//vec.set(shape.);
-        		// apply the transformation
-        		//transform.mul(vec);
-        		//Constants.eggPositions[0] = new Vector2(bodyLoop.getPosition());
-        		//Constants.eggPositions[1] = new Vector2(bodyLoop.getPosition());
-        	}
-        }
-		//addActor(qice);
+		int timeOfIzlupvane = 5;
+		//map of all bodies
+		for (Body bodyLoop : bodiesOfWorld) {
+			//get bodies
+			worldBodies.put(bodyLoop.getUserData().toString(), bodyLoop.getPosition());
+			//get qica
+			if(bodyLoop.getUserData().equals(Constants.QICE)){	
+				//neizplupeno qice
+				bodyLoop.setAwake(false);
+				eggs.add(bodyLoop);
+				
+				qice = new Qice(bodyLoop,timeOfIzlupvane);
+				timeOfIzlupvane += 15;
+				addActor(qice);
+			}
+		}
 		
 		//add the map
 		//shader
@@ -216,10 +220,13 @@ public class GameStage extends Stage implements ContactListener{
 		addActor(slingshot);
 
 		//enemy
-		enemy = new Enemy(WorldUtils.createEnemy(world));
+		enemy = new Enemy(WorldUtils.createEnemy(world),eggs,worldBodies);
 		addActor(enemy);
-		//enemyOtherSide = new EnemyOtherSide(WorldUtils.createEnemyOtherSide(world));
-		//addActor(enemyOtherSide);
+		enemyOtherSide = new EnemyOtherSide(WorldUtils.createEnemyOtherSide(world),eggs,worldBodies);
+		addActor(enemyOtherSide);
+		
+/*		eggs.clear();
+		System.out.println(eggs.size);*/
 		
 		//bird1
 		flyingBird = new FlyingBirds(WorldUtils.createFlyingBird(world));
@@ -279,10 +286,20 @@ public class GameStage extends Stage implements ContactListener{
     	if(!BodyUtils.bodyInBounds(enemy.body,camera)){
     		enemy.resetBody();            		
     	}
-/*    	if(!BodyUtils.bodyInBounds(enemyOtherSide.body,camera)){
+    	if(!BodyUtils.bodyInBounds(enemyOtherSide.body,camera)){
     		enemyOtherSide.resetBody();            		
-    	}*/
+    	}
 	}
+	
+	//remove eggs which have already been izlupeni
+	public void removeIzlupeniQica(){
+		for (Body qice : eggs) {
+        	if(qice.isAwake()){
+        		eggs.removeValue(qice, true);
+        	}
+        }
+	}
+	
 	
 	//Destroy sleeping bodies
 	public void destroySleepingBalls(){
@@ -312,8 +329,8 @@ public class GameStage extends Stage implements ContactListener{
 		 * Enemy and ball
 		 */
 		//Otvarqne na krakata na pticata
-        if( (contact.getFixtureA().getBody().getUserData().equals(Constants.QICE) && contact.getFixtureB().getUserData().equals(Constants.DOKOSVANESQICE ))
-            || (contact.getFixtureA().getUserData().equals(Constants.DOKOSVANESQICE) && contact.getFixtureB().getBody().getUserData().equals(Constants.QICE)) ){ 
+        if( (contact.getFixtureA().getUserData().equals(Constants.QICE) && contact.getFixtureB().getUserData().equals(Constants.DOKOSVANESQICE ))
+            || (contact.getFixtureA().getUserData().equals(Constants.DOKOSVANESQICE) && contact.getFixtureB().getUserData().equals(Constants.QICE)) ){ 
             Body body1 = null;
             if(contact.getFixtureA().getBody().getUserData().equals(Constants.Enemy))
             	body1 = contact.getFixtureA().getBody();
@@ -326,18 +343,22 @@ public class GameStage extends Stage implements ContactListener{
             else if(contact.getFixtureB().getBody().getUserData().equals(Constants.Enemy2))
             	body2 = contact.getFixtureB().getBody();
             
-            if(body1 != null){            	
+			final Body qice = contact.getFixtureA().getBody().getUserData().equals(Constants.QICE) ?
+					  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
+					  
+            //make sure qiceto e  tova za koeto se e zaputila pticata
+            if(body1 != null && (body1.getFixtureList().first().getUserData() == qice)){            	
             	enemy.naOtivaneDraw = false;
             	enemy.hvashtane = true;
             }
-            if(body2 != null){            	
+            if(body2 != null && (body2.getFixtureList().first().getUserData() == qice)){            	
             	enemyOtherSide.naOtivaneDraw = false;
             	enemyOtherSide.hvashtane = true;
             }
         }
         //Hvashtane na qiceto i pribirane na krakata
-        if( (contact.getFixtureA().getBody().getUserData().equals(Constants.QICE) && contact.getFixtureB().getUserData().equals( Constants.SENSORzaDOKOSVANE))
-                || (contact.getFixtureA().getUserData().equals( Constants.SENSORzaDOKOSVANE) && contact.getFixtureB().getBody().getUserData().equals(Constants.QICE)) ){ 
+        if( (contact.getFixtureA().getUserData().equals(Constants.QICE) && contact.getFixtureB().getUserData().equals( Constants.SENSORzaDOKOSVANE))
+                || (contact.getFixtureA().getUserData().equals( Constants.SENSORzaDOKOSVANE) && contact.getFixtureB().getUserData().equals(Constants.QICE)) ){ 
         	
 	            Body body1 = null;
 	            if(contact.getFixtureA().getBody().getUserData().equals(Constants.Enemy))
@@ -354,14 +375,14 @@ public class GameStage extends Stage implements ContactListener{
 				final Body qice = contact.getFixtureA().getBody().getUserData().equals(Constants.QICE) ?
 						  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
 				
-				System.out.println(qice.isAwake());
-				System.out.println(qice.getFixtureList().get(1) + " " + qice.getUserData());		  
-				if(body1 != null && qice.isAwake()){
+				//make sure qiceto ne se izlupva i qiceto e  tova za koeto se e zaputila pticata
+				if(body1 != null && !qice.isAwake() && (body1.getFixtureList().first().getUserData() == qice)){
 					enemy.hvashtane = false;
 	        		//qice.drawing = false;
 	        		enemy.pribirane = true;
 				}
-				else if(body2 != null && qice.isAwake()){
+				//make sure qiceto ne se izlupva i qiceto e  tova za koeto se e zaputila pticata
+				else if(body2 != null && !qice.isAwake() && (body2.getFixtureList().first().getUserData() == qice)){
 					enemyOtherSide.hvashtane = false;
 	        		//qice.drawing = false;
 					enemyOtherSide.pribirane = true;
@@ -376,7 +397,7 @@ public class GameStage extends Stage implements ContactListener{
          }
         //unishtojavane na enemy i create a new one 
         if( (contact.getFixtureA().getBody().getUserData().equals(Constants.DynamicBall) && contact.getFixtureB().getUserData().equals( Constants.EnemyHitArea ))
-                || (contact.getFixtureA().getUserData().equals( Constants.EnemyHitArea) && contact.getFixtureB().getBody().getUserData().equals(Constants.DynamicBall)) ){
+                || (contact.getFixtureA().getUserData().equals(Constants.EnemyHitArea) && contact.getFixtureB().getBody().getUserData().equals(Constants.DynamicBall)) ){
         	
             Body body1 = null;
             if(contact.getFixtureA().getBody().getUserData().equals(Constants.Enemy))

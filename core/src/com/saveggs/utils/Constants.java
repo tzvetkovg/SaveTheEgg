@@ -1,8 +1,6 @@
 package com.saveggs.utils;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.utils.Array;
 
 
 public class Constants {
@@ -43,7 +41,7 @@ public class Constants {
 	/**
 	 * Enemy
 	 */
-	public static float ENEMYSPEED = 100f;
+	public static float ENEMYSPEED = 150f;
 	public static float ENEMYVELICOTYSPEED = ENEMYSPEED;
 	public static float ENEMYVELICOTYSPEEDOTHERSIDE = 0f;
 	public static float FlYINGBIRDVELOCITY = 3f;
@@ -54,13 +52,13 @@ public class Constants {
 	public static final String StaticBall = "staticBall";
 	public static final String DynamicBall = "dynamicBall";
 	public static final String Slingshot = "slingshot";
-	public static final String QICE = "dokosvane";
+	public static final String QICE = "qice";
 	public static final String Enemy = "enemey";
 	public static final String Enemy2 = "enemey2";
 	public static final String ENEMYBOUNDARIES = "boundaries";
 	public static final String EnemyHitArea = "hitArea";
 	public static final String KRAKA = "kraka";
-	public static final String HVANATOQICE = "qice";
+	public static final String HVANATOQICE = "hvanatoQice";
 	public static final String DOKOSVANESQICE = "dokosvane";
 	public static final String SENSORzaDOKOSVANE = "sensor";
 	//Flying Bird

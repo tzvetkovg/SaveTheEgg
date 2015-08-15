@@ -32,7 +32,7 @@ public class Qice extends GameActor {
 	public ParticleEffect effect;
 	private boolean runBatch = false;
 	
-	public Qice(Body body) {
+	public Qice(final Body body,int interval) {
 		super(body);
 		
 		effect = new ParticleEffect();
@@ -52,18 +52,30 @@ public class Qice extends GameActor {
             @Override
             public void run() {
             	runBatch = true;
+            	animationDraw = true;
+            	//izlupeno pile
+            	body.setAwake(true);
             }
-        },1f,1f,2);
+        },interval,1f,3);
 	}
 	
 	 @Override
      public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
         if(drawing){
-        	if(animationDraw) //should be !animationDraw 
+        	if(!animationDraw) //should be !animationDraw 
         		sprite.draw(batch, body.getFixtureList().first());        
         	else{
-        		animatedBox2DSprite.draw(batch, body.getFixtureList().first());
+        		//if animation finished draw pileto
+        		if(animatedBox2DSprite.isAnimationFinished()){  
+        			sprite.setRegion(animatedBox2DSprite.getAnimation().getKeyFrame(4));
+        			animationDraw = false;
+        			animatedBox2DSprite.stop();
+        		}
+        		else{
+        			animatedBox2DSprite.draw(batch, body.getFixtureList().first());
+        		}
+        		//run effect
         		if(runBatch){
         			runEffect(batch);
         		}
@@ -72,13 +84,13 @@ public class Qice extends GameActor {
      }	
 	 
 	 public void runEffect(Batch batch){	//run the effect	 		
-		 		effect.setPosition(body.getPosition().x, body.getPosition().y);
-		 		effect.update(Gdx.graphics.getDeltaTime());
-		 		effect.draw(batch);
-		 		if(effect.isComplete()){
-		 			effect.reset();
-					runBatch = false;
-		 		}
+	 		effect.update(Gdx.graphics.getDeltaTime());
+	 		effect.setPosition(body.getPosition().x + 0.5f, body.getPosition().y + 0.5f);
+	 		effect.draw(batch);
+	 		if(effect.isComplete()){
+	 			effect.reset();
+				runBatch = false;
+	 		}
 	 }
 	 
 	 public void splitAnimation(){

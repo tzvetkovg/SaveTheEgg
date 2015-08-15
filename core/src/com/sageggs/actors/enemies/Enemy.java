@@ -47,33 +47,26 @@ public class Enemy extends GameActor{
 	float angle;
 	private  Vector2 direction = new Vector2(), velocity = new Vector2();
 	private boolean continueUpdating = true;
+	public Body singleEgg;
+	private Vector2 vec1;
+	private Vector2 vec2;
+	private Vector2 vec3;
+	private Vector2 vec4;
+	private boolean redirect = true;
+	private boolean anyEggsLeft = true;
 	
-	public Enemy(Body body) {
+	public Enemy(Body body,Array<Body> eggs,Map<String,Vector2> worldBodies) {
 		super(body);
-		target = Constants.eggPositions[WorldUtils.randInt(0, Constants.eggPositions.length -1)];
-        
+        //body.setAwake(true);
+		vec1 = new Vector2();
+		vec2 = new Vector2();
+		vec3 = new Vector2();
+		vec4 = new Vector2();
 		resetPosition = new Vector2();
 		pathPoints = new Array<Vector2>();
-		eggs = new Array<Body>();
-		bodies = new Array<Body>();
-		body.getWorld().getBodies(bodies);
-		worldBodies = new HashMap<String,Vector2>();
-		
-		//map of all bodies
-		for (Body bodyLoop : bodies) {
-			worldBodies.put(bodyLoop.getUserData().toString(), bodyLoop.getPosition());
-			if(bodyLoop.getUserData().equals(Constants.QICE)){	
-				eggs.add(bodyLoop);
-			}
-		}
 
-
-		/*pathPoints.add(worldBodies.get("egg1path11"));
-		pathPoints.add(worldBodies.get("egg1path12"));
-		pathPoints.add(worldBodies.get("egg1path13"));
-		pathPoints.add(worldBodies.get("egg1path18"));
-		pathPoints.add(worldBodies.get("egg1path19"));*/
-		
+		this.eggs = eggs;
+		this.worldBodies = worldBodies;
 		//get random position
 		resetBody();
 		
@@ -97,21 +90,25 @@ public class Enemy extends GameActor{
     public void act(float delta) {
         super.act(delta);
         
-        //if last point reached continue with same velocity
-		if(Math.abs(body.getPosition().sub(pathPoints.get(pathPoints.size - 1)).len()) <= EnemyUtils.comparVal ){
-			body.setLinearVelocity(body.getLinearVelocity());
-			continueUpdating = false;
-		}
-		//else update next point
-		if(continueUpdating)
-			update(delta);
+        if(anyEggsLeft){        	
+        	if(redirect){        	
+        		if(Math.abs(body.getPosition().sub(pathPoints.get(pathPoints.size - 1)).len()) <= EnemyUtils.comparVal ){
+        			update(MathUtils.random(150f,90f),delta);
+        			continueUpdating = false;
+        			redirect = false;
+        		}
+        	}
+        	//else update next point
+        	if(continueUpdating)
+        		update(getAngle(),delta);
+        }
     }
 
 
 	//set velocity of enemy to target
-	public void update(float delta){
+	public void update(float angle, float delta){
 		
-		angle = (float) Math.toDegrees(Math.atan2(pathPoints.get(point).y - body.getPosition().y, pathPoints.get(point).x  - body.getPosition().x));
+		//angle = (float) Math.toDegrees(Math.atan2(pathPoints.get(point).y - body.getPosition().y, pathPoints.get(point).x  - body.getPosition().x));
 		//calculate velocity
 		direction.x = (float) Math.cos((angle) * MathUtils.degreesToRadians);
 		direction.y = (float) Math.sin((angle) * MathUtils.degreesToRadians);
@@ -128,13 +125,18 @@ public class Enemy extends GameActor{
 		//set velocity
 		body.setLinearVelocity(velocity);
 		
-		//increment to next point
-		if(Math.abs(body.getPosition().sub(pathPoints.get(point)).len()) <= EnemyUtils.comparVal){
-			point++;
+		if(continueUpdating){			
+			//increment to next point
+			if(Math.abs(body.getPosition().sub(pathPoints.get(point)).len()) <= EnemyUtils.comparVal){
+				point++;
+			}
 		}
 	}
 
-
+	public float getAngle(){
+		return (float) Math.toDegrees(Math.atan2(pathPoints.get(point).y - body.getPosition().y, pathPoints.get(point).x  - body.getPosition().x));
+	}
+	
 	 @Override
      public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
@@ -167,27 +169,45 @@ public class Enemy extends GameActor{
 		 }
 	 }
 	 	
-	 Body singleEgg;
+
     //reset the body
 	public void resetBody(){
-		//bird position
-		myPosition = MathUtils.random(1, 3);
-		System.out.println(myPosition);
-		resetPosition = worldBodies.get("position" + (int)myPosition);
-		body.setTransform(resetPosition, 0);
 
-		singleEgg = eggs.get((int)MathUtils.random(0, eggs.size - 1));
 		
-		pathPoints.add(singleEgg.getTransform().mul(new Vector2((((CircleShape) singleEgg.getFixtureList().get(1).getShape()).getPosition()))));
-		pathPoints.add(singleEgg.getTransform().mul(new Vector2((((CircleShape) singleEgg.getFixtureList().get(2).getShape()).getPosition()))));
-		pathPoints.add(singleEgg.getTransform().mul(new Vector2((((CircleShape) singleEgg.getFixtureList().get(3).getShape()).getPosition()))));
-		pathPoints.add(singleEgg.getTransform().mul(new Vector2((((CircleShape) singleEgg.getFixtureList().get(4).getShape()).getPosition()))));
+		pathPoints.clear();
+		//pick a random egg
+		if(eggs.size - 1 != -1){	
+			//position enemey
+			myPosition = MathUtils.random(1, 3);
+
+			resetPosition = worldBodies.get("position" + (int)myPosition);
+			body.setTransform(resetPosition, 0);
+			
+			//get random egg
+			singleEgg = eggs.get((int)MathUtils.random(0, eggs.size - 1));
+			
+			//used to make sure it's the right egg (see contact in gamestage)
+			body.getFixtureList().first().setUserData(singleEgg);
+			
+			//fill in the path points for this egg
+			pathPoints.add(singleEgg.getTransform().mul(vec1.set((((CircleShape) singleEgg.getFixtureList().get(1).getShape()).getPosition()))));
+			pathPoints.add(singleEgg.getTransform().mul(vec2.set((((CircleShape) singleEgg.getFixtureList().get(2).getShape()).getPosition()))));
+			pathPoints.add(singleEgg.getTransform().mul(vec3.set((((CircleShape) singleEgg.getFixtureList().get(3).getShape()).getPosition()))));
+			pathPoints.add(singleEgg.getTransform().mul(vec4.set((((CircleShape) singleEgg.getFixtureList().get(5).getShape()).getPosition()))));
+		}
+		//no eggs left
+		else{
+			enemyDraw = false;
+			Constants.ENEMYVELICOTYSPEED = 0;
+			anyEggsLeft = false;
+		}
 		
         point = 0;
         continueUpdating = true;
         hvashtane = false;
         pribirane = false;
         naOtivaneDraw = true;
+        redirect = true;
 	}
 	
 }
