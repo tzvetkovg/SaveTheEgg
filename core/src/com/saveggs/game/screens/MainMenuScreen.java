@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.saveggs.game.GameClass;
 import com.saveggs.utils.Constants;
+import com.saveggs.utils.WorldUtils;
 
 public class MainMenuScreen implements Screen{
 	
@@ -33,11 +34,12 @@ public class MainMenuScreen implements Screen{
 	private Texture buttonOverTex;
 	private Texture buttonDownTex;
 	private Image gameTitle;
+	private WorldUtils utils;
 	
-	public MainMenuScreen(final GameClass game){
+	public MainMenuScreen(final GameClass game,final WorldUtils utils){
 		this.game = game;
 		this.stage = new Stage(new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
-
+		this.utils = utils;
 		Gdx.input.setInputProcessor(stage);
 		//font
 		font = Assets.manager.get(Assets.bitmapfont, BitmapFont.class);
@@ -64,7 +66,7 @@ public class MainMenuScreen implements Screen{
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				System.out.println(play.getText());
-				game.setScreen(new LevelScreen(game));
+				game.setScreen(new LevelScreen(game,utils));
 			};
 		});
 		

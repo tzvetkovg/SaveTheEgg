@@ -19,16 +19,25 @@ import com.saveggs.utils.WorldUtils;
 public class DynamicBall extends GameActor{
 	
 	private Box2DSprite topka; 
-	private Vector2 applyForceCoords = new Vector2();
-	private Vector2 coords = new Vector2();
+	private Vector2 applyForceCoords;
+	private Vector2 coords;
 	public boolean draw = true;
 	public static World world;
-	
+	private Vector2 temp;
+	private Vector2 temp2;
+	private Vector2 temp3;
+	private Vector2 temp4;
 	
 	public DynamicBall(Body body) {
 		super(body);
 		world = body.getWorld();
 		topka = (Box2DSprite) body.getFixtureList().get(0).getUserData();
+		applyForceCoords = new Vector2();
+		coords = new Vector2();
+		temp = new Vector2();
+		temp2 = new Vector2();
+		temp3 = new Vector2();
+		temp4 = new Vector2();
 	}
 	
 	 @Override
@@ -49,7 +58,7 @@ public class DynamicBall extends GameActor{
 		float radians =  (float) angle * MathUtils.degreesToRadians;
 		//System.out.println("radians " + radians);
 		// calculate distance
-		float distance = new Vector2(body.getPosition().x,body.getPosition().y).dst(new Vector2(Constants.middleX,Constants.middleY)) * 7f;
+		float distance = temp.set(body.getPosition().x,body.getPosition().y).dst(temp2.set(Constants.middleX,Constants.middleY)) * 7f;
 		//System.out.println("distance " + distance);
 		//calculate x and y
 		applyForceCoords.y = (float) (2 + distance * Math.sin(radians));
@@ -68,7 +77,7 @@ public class DynamicBall extends GameActor{
 	    //convert to radians
 		float radians =  (float) angle * MathUtils.degreesToRadians;
 		// calculate distance
-		float distance = new Vector2(x,y).dst(new Vector2(Constants.middleX,Constants.middleY)) - 0.4f;
+		float distance = temp4.set(x,y).dst(temp3.set(Constants.middleX,Constants.middleY)) - 0.4f;
 		//calculate x and y
        coords.y = (float) (Constants.middleY + distance * Math.sin(radians));
        coords.x = (float) (Constants.middleX + distance * Math.cos(radians));

@@ -4,6 +4,7 @@ import net.dermetfan.gdx.graphics.g2d.AnimatedBox2DSprite;
 import net.dermetfan.gdx.graphics.g2d.AnimatedSprite;
 import assets.Assets;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -31,6 +32,7 @@ public class FlyingBirds extends GameActor{
 	private static Vector2 velocity = new Vector2();
 	private Array<Body> bodies;
 	private static World world;
+	private float speed;
 	
 	public FlyingBirds(Body body){
 		super(body);
@@ -105,5 +107,15 @@ public class FlyingBirds extends GameActor{
         		body.setTransform(bodyLoop.getPosition().x, bodyLoop.getPosition().y, 0);
         }
 	}
+
+	public float getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(float speed) {
+		this.speed = speed;
+	}
+	
+	
 	
 }

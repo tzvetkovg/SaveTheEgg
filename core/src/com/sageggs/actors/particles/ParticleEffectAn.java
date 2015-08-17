@@ -1,6 +1,9 @@
 package com.sageggs.actors.particles;
 
+import assets.Assets;
+
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.sageggs.actors.GameActor;
@@ -11,11 +14,9 @@ public class ParticleEffectAn extends GameActor{
 	public boolean showEffect = false;
 	
 	public ParticleEffectAn(){
-		effect = new ParticleEffect();
-		effect.load(Gdx.files.internal("data/particles/explosion.p"), Gdx.files.internal("data/particles"));
+		effect = new ParticleEffect(Assets.manager.get(Assets.particle, ParticleEffect.class));
 		effect.setPosition(0, 0);
 		effect.start();
-		//effect.getEmitters().get(0).getTint().setColors(colors);
 	}
 	
 	 @Override

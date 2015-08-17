@@ -3,12 +3,16 @@ package com.saveggs.game;
 import java.util.HashMap;
 import java.util.Map;
 
+import assets.Assets;
+
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -69,7 +73,7 @@ public class GameStage extends Stage implements ContactListener{
 	private Vector2 getCoords = new Vector2();
 	private Array<Body> bodies;
 	private Array<Body> bodiesOfWorld;
-	private Array<Body> eggs;
+	private Array<Qice> eggs;
 	private Map<String,Vector2> worldBodies;
 	public Array<DynamicBall> sleeepingBalls;
 	public Array<FlyingBirds> destroyFlyingBirds;
@@ -83,21 +87,23 @@ public class GameStage extends Stage implements ContactListener{
 	private FlyingBirds2 flyingBird2;
 	
 	
-	public GameStage(){
+	public GameStage(WorldUtils worldUtils){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
 		setupCamera();
 		getViewport().setCamera(camera);
 		setUtils();
 		setupWorld("data/maps/level4/map.tmx");
 		Gdx.input.setInputProcessor(this);
-		worldUtils = new WorldUtils();		
+		//Gdx.input.setCatchBackKey(true);
+		this.worldUtils = worldUtils;	
+		
 	}
-	
+		
 	
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		camera.unproject(touchDown.set(screenX, screenY, 0));
-		System.out.println("touchpos" + " " +touchDown.x + " " + touchDown.y);		
+		//System.out.println("touchpos" + " " +touchDown.x + " " + touchDown.y);		
 		return super.touchDown(screenX, screenY, pointer, button);
 	}
 
@@ -125,8 +131,6 @@ public class GameStage extends Stage implements ContactListener{
 		mesh2.drawBody = false;
 		
 		//Create a new body
-		//dynamicBall = null;
-	   // dynamicBall = new DynamicBall(WorldUtils.createDynamicBall(world));
 		dynamicBall = pool.obtain();
 		sleeepingBalls.add(dynamicBall);
 	    //add to stage	    
@@ -158,6 +162,7 @@ public class GameStage extends Stage implements ContactListener{
 		destroySleepingBalls();
 		resetEnemyIfOutOfBounds();
 		removeIzlupeniQica();
+		//removeIzlupeniQica();
 		debugRenderer.render(world,camera.combined);
 		logger.log();
 		//System.out.println(GLProfiler.calls);
@@ -173,13 +178,13 @@ public class GameStage extends Stage implements ContactListener{
 	public void setupWorld(String mapPath){
 		world = new World(new Vector2(0,-9.8f), true);
 		world.setContactListener(this);
-		
+				
 		CurrentMap map = new CurrentMap(mapPath,world);
 		addActor(map);
-		eggs = new Array<Body>();
+
+
 		bodiesOfWorld = new Array<Body>();
 		world.getBodies(bodiesOfWorld);
-		worldBodies = new HashMap<String,Vector2>();
 		
 		int timeOfIzlupvane = 5;
 		//map of all bodies
@@ -190,21 +195,17 @@ public class GameStage extends Stage implements ContactListener{
 			if(bodyLoop.getUserData().equals(Constants.QICE)){	
 				//neizplupeno qice
 				bodyLoop.setAwake(false);
-				eggs.add(bodyLoop);
 				
 				qice = new Qice(bodyLoop,timeOfIzlupvane);
-				timeOfIzlupvane += 15;
+				eggs.add(qice);
+				timeOfIzlupvane += 25;
 				addActor(qice);
 			}
 		}
 		
-		//add the map
 		//shader
 		shader = new ShaderProgram(ShaderSpec.vertexShader, ShaderSpec.fragmentShader);		
-		//Ground
-		//ground = new Ground(WorldUtils.createGround(world));
-		//addActor(ground);
-		//draw mesh1
+
 		mesh = new CreateMesh(WorldUtils.createMesh(),shader);
 		addActor(mesh);
 		//static ball
@@ -220,13 +221,12 @@ public class GameStage extends Stage implements ContactListener{
 		addActor(slingshot);
 
 		//enemy
-		enemy = new Enemy(WorldUtils.createEnemy(world),eggs,worldBodies);
-		addActor(enemy);
 		enemyOtherSide = new EnemyOtherSide(WorldUtils.createEnemyOtherSide(world),eggs,worldBodies);
 		addActor(enemyOtherSide);
-		
-/*		eggs.clear();
-		System.out.println(eggs.size);*/
+		enemy = new Enemy(WorldUtils.createEnemy(world),eggs,worldBodies);
+		addActor(enemy);
+		startEnemyTwo();
+
 		
 		//bird1
 		flyingBird = new FlyingBirds(WorldUtils.createFlyingBird(world));
@@ -251,6 +251,7 @@ public class GameStage extends Stage implements ContactListener{
 		flyingBirdParticle = new ParticleEffectFlyingBird();
 		addActor(flyingBirdParticle);
 		
+
 	}
 	
 	//utils
@@ -262,6 +263,8 @@ public class GameStage extends Stage implements ContactListener{
 		destroyFlyingBirds2 = new Array<FlyingBirds2>();
 		pool = new DynamicBallPool();
 		logger = new FPSLogger();
+		eggs = new Array<Qice>();
+		worldBodies = new HashMap<String,Vector2>();
 	}
 	
 	
@@ -270,13 +273,13 @@ public class GameStage extends Stage implements ContactListener{
         for (FlyingBirds bird : destroyFlyingBirds) {
         	if(!BodyUtils.bodyInBounds(bird.body,camera)){
         		bird.resetBody(bird.body);
-        		FlyingBirds.pointBodyToAngle(WorldUtils.getRandom(WorldUtils.oneWay),  bird.body);              		
+        		FlyingBirds.pointBodyToAngle(MathUtils.random(130f, 170f),  bird.body);              		
         	}
         }
         for (FlyingBirds2 bird : destroyFlyingBirds2) {
         	if(!BodyUtils.bodyInBounds(bird.body,camera)){
         		bird.resetBody(bird.body);
-        		FlyingBirds2.pointBodyToAngle(WorldUtils.getRandom(WorldUtils.oneWay),  bird.body);        		
+        		FlyingBirds2.pointBodyToAngle(MathUtils.random(130f, 170f),  bird.body);        		
         	}
         }
 	}
@@ -293,8 +296,8 @@ public class GameStage extends Stage implements ContactListener{
 	
 	//remove eggs which have already been izlupeni
 	public void removeIzlupeniQica(){
-		for (Body qice : eggs) {
-        	if(qice.isAwake()){
+		for (Qice qice : eggs) {
+        	if(qice.body.isAwake()){
         		eggs.removeValue(qice, true);
         	}
         }
@@ -319,6 +322,31 @@ public class GameStage extends Stage implements ContactListener{
 		}
 	}
 
+	public void startEnemyOne(){
+		enemy.enemyDraw = false;
+		enemy.setSpeed(0);
+		enemy.body.setAwake(false);
+		enemy.resetBody();
+		//reset the other enemy
+		enemyOtherSide.enemyDraw = true;
+		enemyOtherSide.setSpeed(Constants.ENEMYSPEED);
+		enemyOtherSide.body.setAwake(true);
+		enemyOtherSide.resetBody();
+	}
+	
+	public void startEnemyTwo(){
+		//launch enemy2
+		enemyOtherSide.enemyDraw = false;
+		enemyOtherSide.setSpeed(0);
+		enemyOtherSide.body.setAwake(false);
+		enemyOtherSide.resetBody();
+		//reset enemy1
+		enemy.enemyDraw = true;
+		enemy.setSpeed(Constants.ENEMYSPEED);
+		enemy.body.setAwake(true);
+		enemy.resetBody();
+	}
+	
 	/*
 	 * Contact Listener
 	 */
@@ -347,11 +375,11 @@ public class GameStage extends Stage implements ContactListener{
 					  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
 					  
             //make sure qiceto e  tova za koeto se e zaputila pticata
-            if(body1 != null && (body1.getFixtureList().first().getUserData() == qice)){            	
+            if(body1 != null && (((Qice)body1.getFixtureList().first().getUserData()).body == qice)){            	
             	enemy.naOtivaneDraw = false;
             	enemy.hvashtane = true;
             }
-            if(body2 != null && (body2.getFixtureList().first().getUserData() == qice)){            	
+            if(body2 != null && (((Qice)body2.getFixtureList().first().getUserData()).body == qice)){            	
             	enemyOtherSide.naOtivaneDraw = false;
             	enemyOtherSide.hvashtane = true;
             }
@@ -376,24 +404,22 @@ public class GameStage extends Stage implements ContactListener{
 						  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
 				
 				//make sure qiceto ne se izlupva i qiceto e  tova za koeto se e zaputila pticata
-				if(body1 != null && !qice.isAwake() && (body1.getFixtureList().first().getUserData() == qice)){
+				if(body1 != null && !qice.isAwake() && (((Qice)body1.getFixtureList().first().getUserData()).body == qice)){
 					enemy.hvashtane = false;
-	        		//qice.drawing = false;
+					if(((Qice)body1.getFixtureList().first().getUserData()).runBatch == false){
+						System.out.println("here");
+						((Qice)body1.getFixtureList().first().getUserData()).vzetoQice = true;
+					}
 	        		enemy.pribirane = true;
 				}
 				//make sure qiceto ne se izlupva i qiceto e  tova za koeto se e zaputila pticata
-				else if(body2 != null && !qice.isAwake() && (body2.getFixtureList().first().getUserData() == qice)){
+				else if(body2 != null && !qice.isAwake() && (((Qice)body2.getFixtureList().first().getUserData()).body == qice)){
 					enemyOtherSide.hvashtane = false;
-	        		//qice.drawing = false;
+					if(((Qice)body2.getFixtureList().first().getUserData()).runBatch == false)
+						((Qice)body2.getFixtureList().first().getUserData()).vzetoQice = true;
 					enemyOtherSide.pribirane = true;
 				}
         			  
-			  	Gdx.app.postRunnable(new Runnable() {
-			  		@Override
-			  		public void run () {
-			  			//world.destroyBody(toRemove);
-			  		}
-			  	});
          }
         //unishtojavane na enemy i create a new one 
         if( (contact.getFixtureA().getBody().getUserData().equals(Constants.DynamicBall) && contact.getFixtureB().getUserData().equals( Constants.EnemyHitArea ))
@@ -428,15 +454,7 @@ public class GameStage extends Stage implements ContactListener{
 								particleEffect.effect.setPosition(enemy.body.getPosition().x, enemy.body.getPosition().y);
 								particleEffect.showEffect = true;
 							}
-							enemy.enemyDraw = false;
-							Constants.ENEMYVELICOTYSPEED = 0f;
-							enemy.body.setAwake(false);
-							enemy.resetBody();
-							//reset the other enemy
-							enemyOtherSide.enemyDraw = true;
-							Constants.ENEMYVELICOTYSPEEDOTHERSIDE = Constants.ENEMYSPEED;
-							enemyOtherSide.body.setAwake(true);
-							enemyOtherSide.resetBody();
+							startEnemyOne();
 						}
 					});
 				}
@@ -450,16 +468,7 @@ public class GameStage extends Stage implements ContactListener{
 								particleEffect.effect.setPosition(enemyOtherSide.body.getPosition().x, enemyOtherSide.body.getPosition().y);
 								particleEffect.showEffect = true;
 							}
-							//launch enemy2
-							enemyOtherSide.enemyDraw = false;
-							Constants.ENEMYVELICOTYSPEEDOTHERSIDE = 0f;
-							enemyOtherSide.body.setAwake(false);
-							enemyOtherSide.resetBody();
-							//reset enemy1
-							enemy.enemyDraw = true;
-							Constants.ENEMYVELICOTYSPEED = Constants.ENEMYSPEED;
-							enemy.body.setAwake(true);
-							enemy.resetBody();
+							startEnemyTwo();
 						}
 					});
 				}
@@ -479,7 +488,7 @@ public class GameStage extends Stage implements ContactListener{
 			  Gdx.app.postRunnable(new Runnable() {
 			  		@Override
 			  		public void run () {
-			  			FlyingBirds.pointBodyToAngle(WorldUtils.getRandom(WorldUtils.oneWay), myBody);
+			  			FlyingBirds.pointBodyToAngle(MathUtils.random(130f, 170f), myBody);
 			  		}
 			  	});
         }
@@ -493,7 +502,7 @@ public class GameStage extends Stage implements ContactListener{
 			  Gdx.app.postRunnable(new Runnable() {
 			  		@Override
 			  		public void run () {
-			  			FlyingBirds.pointBodyToAngle(WorldUtils.getRandom(WorldUtils.secondWay), myBody);
+			  			FlyingBirds.pointBodyToAngle(MathUtils.random(-130f, -170f), myBody);
 			  		}
 			  	});
         }
@@ -531,7 +540,7 @@ public class GameStage extends Stage implements ContactListener{
 			  Gdx.app.postRunnable(new Runnable() {
 			  		@Override
 			  		public void run () {
-			  			FlyingBirds2.pointBodyToAngle(WorldUtils.getRandom(WorldUtils.secondWay), myBody);
+			  			FlyingBirds2.pointBodyToAngle(MathUtils.random(-130f, -170f), myBody);
 			  		}
 			  	});
         }
@@ -545,7 +554,7 @@ public class GameStage extends Stage implements ContactListener{
 			  Gdx.app.postRunnable(new Runnable() {
 			  		@Override
 			  		public void run () {
-			  			FlyingBirds2.pointBodyToAngle(WorldUtils.getRandom(WorldUtils.oneWay), myBody);
+			  			FlyingBirds2.pointBodyToAngle(MathUtils.random(130f, 170f), myBody);
 			  		}
 			  	});
         }

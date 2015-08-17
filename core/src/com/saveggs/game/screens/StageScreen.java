@@ -1,5 +1,8 @@
 package com.saveggs.game.screens;
 
+import assets.AssetTest;
+import assets.Assets;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
@@ -9,20 +12,22 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.saveggs.game.GameClass;
 import com.saveggs.game.GameStage;
 import com.saveggs.utils.Constants;
+import com.saveggs.utils.WorldUtils;
 
 public class StageScreen implements Screen {
 
 	GameClass eggSaver;
 	private Stage stage;
 	
-	public StageScreen(GameClass stage2){
+	
+	public StageScreen(GameClass stage2,WorldUtils utils){
+		
 		this.eggSaver = stage2;
+		this.stage = new GameStage(utils);
 	}
 	
 	@Override
-	public void show() {
-		this.stage = new GameStage();
-	}
+	public void show() {}
 
 	@Override
 	public void render(float delta) {
@@ -62,6 +67,9 @@ public class StageScreen implements Screen {
 	public void hide() {}
 
 	@Override
-	public void dispose() {}
+	public void dispose() {
+		this.dispose();
+		Assets.manager.dispose();
+	}
 
 }

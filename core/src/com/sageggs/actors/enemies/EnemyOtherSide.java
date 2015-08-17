@@ -19,6 +19,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.utils.Array;
 import com.sageggs.actors.GameActor;
+import com.sageggs.actors.Qice;
 import com.saveggs.utils.Constants;
 import com.saveggs.utils.EnemyUtils;
 import com.saveggs.utils.WorldUtils;
@@ -43,7 +44,7 @@ public class EnemyOtherSide extends GameActor{
 	float[] positions = new float[]{1,2,3};
 	float myPosition;
 	private  Vector2 direction = new Vector2(), velocity = new Vector2();
-	public Body singleEgg;
+	public Qice singleEgg;
 	private Vector2 vec1;
 	private Vector2 vec2;
 	private Vector2 vec3;
@@ -52,12 +53,13 @@ public class EnemyOtherSide extends GameActor{
 	public Array<Vector2> pathPoints;
 	private Vector2 resetPosition;
 	private Map<String,Vector2> worldBodies;
-	private Array<Body> eggs;
+	private Array<Qice> eggs;
 	int point = 0;
 	private boolean continueUpdating = true;
 	private boolean anyEggsLeft = true;
+	private float speed = 0f;
 	
-	public EnemyOtherSide(Body body,Array<Body> eggs,Map<String,Vector2> worldBodies) {
+	public EnemyOtherSide(Body body,Array<Qice> eggs,Map<String,Vector2> worldBodies) {
 		super(body);
 		
 		vec1 = new Vector2();
@@ -70,7 +72,6 @@ public class EnemyOtherSide extends GameActor{
 		this.eggs = eggs;
 		this.worldBodies = worldBodies;
 		//get random position
-		resetBody();
 
 		//animation
 		texture = Assets.manager.get(Assets.pileBezKraka, Texture.class);
@@ -94,6 +95,7 @@ public class EnemyOtherSide extends GameActor{
 		otvarqne.flip(false, true);
 		hvanatoQice.flip(false, true);
 	
+		resetBody();
 	}
 	
     @Override
@@ -103,7 +105,6 @@ public class EnemyOtherSide extends GameActor{
         if(anyEggsLeft){        	
         	if(redirect){        	
         		if(Math.abs(body.getPosition().sub(pathPoints.get(pathPoints.size - 1)).len()) <= EnemyUtils.comparVal ){
-        			
         			update(MathUtils.random(110f,50f),delta);
         			continueUpdating = false;
         			redirect = false;
@@ -124,8 +125,8 @@ public class EnemyOtherSide extends GameActor{
 		direction.y = (float) Math.sin((angle) * MathUtils.degreesToRadians);
 		direction.nor();
 		
-		velocity.x = direction.x * Constants.ENEMYVELICOTYSPEEDOTHERSIDE * delta;
-		velocity.y = direction.y * Constants.ENEMYVELICOTYSPEEDOTHERSIDE * delta;
+		velocity.x = direction.x * speed * delta;
+		velocity.y = direction.y * speed * delta;
 		
 		//get the angle
 		float getAngle = (float) Math.atan2( -direction.x, direction.y );
@@ -195,15 +196,15 @@ public class EnemyOtherSide extends GameActor{
 			body.getFixtureList().first().setUserData(singleEgg);
 			
 			//fill in the path points for this egg
-			pathPoints.add(singleEgg.getTransform().mul(vec1.set((((CircleShape) singleEgg.getFixtureList().get(4).getShape()).getPosition()))));
-			pathPoints.add(singleEgg.getTransform().mul(vec2.set((((CircleShape) singleEgg.getFixtureList().get(3).getShape()).getPosition()))));
-			pathPoints.add(singleEgg.getTransform().mul(vec3.set((((CircleShape) singleEgg.getFixtureList().get(2).getShape()).getPosition()))));
-			pathPoints.add(singleEgg.getTransform().mul(vec4.set((((CircleShape) singleEgg.getFixtureList().get(6).getShape()).getPosition()))));
+			pathPoints.add(singleEgg.body.getTransform().mul(vec1.set((((CircleShape) singleEgg.body.getFixtureList().get(4).getShape()).getPosition()))));
+			pathPoints.add(singleEgg.body.getTransform().mul(vec2.set((((CircleShape) singleEgg.body.getFixtureList().get(3).getShape()).getPosition()))));
+			pathPoints.add(singleEgg.body.getTransform().mul(vec3.set((((CircleShape) singleEgg.body.getFixtureList().get(2).getShape()).getPosition()))));
+			pathPoints.add(singleEgg.body.getTransform().mul(vec4.set((((CircleShape) singleEgg.body.getFixtureList().get(6).getShape()).getPosition()))));
 		}	
 		//no eggs left
 		else{
 			enemyDraw = false;
-			Constants.ENEMYVELICOTYSPEEDOTHERSIDE = 0;
+			speed = 0;
 			anyEggsLeft = false;
 		}
 		
@@ -215,5 +216,12 @@ public class EnemyOtherSide extends GameActor{
         redirect = true;
 	}
 	
-	
+	public float getSpeed() {
+		return speed;
+	}
+
+
+	public void setSpeed(float speed) {
+		this.speed = speed;
+	}
 }

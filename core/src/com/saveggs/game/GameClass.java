@@ -16,13 +16,10 @@ public class GameClass extends Game {
 	
 	@Override
 	public void create() {
-		Assets.manager.load(Assets.class);
-		while(!Assets.manager.update())
-			System.out.println(Assets.manager.getProgress() * 100 + " %");
-		Assets.manager.finishLoading();
-		//this.setScreen(new SplashScreen(this));
+		this.setScreen(new SplashScreen(this));
 		//this.setScreen(new LevelScreen(this));
-		this.setScreen(new StageScreen(this));
+		//this.setScreen(stage);
+		//this.setScreen(new StageScreen(this));
 	}
 	
 	@Override
@@ -33,7 +30,6 @@ public class GameClass extends Game {
 	@Override
 	public void dispose() {
 		super.dispose();
-		this.getScreen().dispose();
 		Assets.manager.dispose();
 	}
 

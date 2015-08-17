@@ -72,23 +72,7 @@ public class WorldUtils {
 		   return body;
     }
     
-    //ground
-    public static Body createGround(World world){
-	       //Ground
-	       BodyDef groundDef = new BodyDef();
-	       groundDef.position.x	= Constants.groundX ;
-	       groundDef.position.y	= Constants.groundY;
-	       groundDef.type = BodyType.StaticBody;
-	       PolygonShape s = new PolygonShape();
-	       s.setAsBox(Constants.SCENE_WIDTH, 0.5f);
-	       FixtureDef groundFix = new FixtureDef();
-	       groundFix.shape = s;
-	       Body ground = world.createBody(groundDef);
-	       ground.createFixture(groundFix).setUserData(Constants.GROUND);
-	       ground.setUserData(Constants.GROUND);
-	       return ground;
-    }
-    
+  
     //slingshot
     public static Body createSlingshot(World world){
 	       //Slingshot
@@ -323,39 +307,5 @@ public class WorldUtils {
 	   Mesh mesh = new Mesh(true, 3, 3, VertexAttribute.Position(), VertexAttribute.ColorUnpacked(), VertexAttribute.TexCoords(0));
 	   return mesh;
     }
-    
-    /**
-     * random number generator
-     */
-    public static Random rand;
-    static{rand = new Random();}
-    /**
-     * Returns a pseudo-random number between min and max, inclusive.
-     * The difference between min and max can be at most
-     * <code>Integer.MAX_VALUE - 1</code>.
-     *
-     * @param min Minimum value
-     * @param max Maximum value.  Must be greater than min.
-     * @return Integer between min and max, inclusive.
-     * @see java.util.Random#nextInt(int)
-     */
-    public static int randInt(int min, int max) {
-        // nextInt is normally exclusive of the top value,
-        // so add 1 to make it inclusive
-        int randomNum = rand.nextInt((max - min) + 1) + min;
-        return randomNum;
-    }
-    	  
-    
-    /**
-     * get random number from array
-     * @param array
-     * @return
-     */
-    public static float[] oneWay = new float[]{170f,150f,140f, 130f};
-    public static float[] secondWay = new float[]{-170f,-150f,-140f, -130f};
-    public static float getRandom(float[] array) {
-        int rnd = rand.nextInt(array.length);
-        return array[rnd];
-    }
+   
 }

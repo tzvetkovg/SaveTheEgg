@@ -19,6 +19,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.saveggs.game.GameClass;
+import com.saveggs.game.GameStage;
+import com.saveggs.utils.WorldUtils;
 
 public class LevelScreen implements Screen{
 	
@@ -26,8 +28,11 @@ public class LevelScreen implements Screen{
 	private Table container;
 	private GameClass game;
 	private Image gameTitle;
+	GameStage gameStage;
+	private WorldUtils utils;
 	
-	public LevelScreen(GameClass game){
+	public LevelScreen(GameClass game,WorldUtils utils){
+		this.utils = utils;
 		this.game = game;
 		this.stage = new Stage(new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
 		Gdx.input.setInputProcessor(stage);
@@ -94,7 +99,7 @@ public class LevelScreen implements Screen{
 	public ClickListener levelClickListener = new ClickListener() {
 	    @Override
 	    public void clicked (InputEvent event, float x, float y) {
-	    	game.setScreen(new StageScreen(game));
+	    	game.setScreen(new StageScreen(game,utils));
 	    }
 	};
 

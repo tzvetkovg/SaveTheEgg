@@ -4,6 +4,9 @@ import com.badlogic.gdx.math.Vector2;
 
 
 public class Constants {
+	
+	public Constants(){};
+	
 	public static final float SCENE_WIDTH = 800f;
 	public static final float SCENE_HEIGHT = 480f;
 
@@ -11,40 +14,29 @@ public class Constants {
 	 * Slingshot
 	 *///3.5 7.75
 	//slingshot position
-	public static float slingshotPosX = 2.8f;
-	public static float slingshotPosY = 2.5f;
+	public static final float slingshotPosX = 2.8f;
+	public static final float slingshotPosY = 2.5f;
 	//middle between lasticite5.34375 10.25
-	public static float middleY = 3.4333334f;
+	public static final float middleY = 3.4333334f;
 	public static float middleX = 2.85f;
 	/**
 	 * Mesh One
 	 */
 	//Middle point of one greda
-	public static float mesh1MiddleY = 3.5f;
-	public static float mesh1MiddleX = 2.333333f;
+	public static final float mesh1MiddleY = 3.5f;
+	public static final float mesh1MiddleX = 2.333333f;
 	/**
 	 * Mesh Two
 	 */
 	//Middle point of one greda
-	public static float mesh2MiddleY = 3.5333333f;
-	public static float mesh2MiddleX = 3.2666664f;
-	//loshi
-	//y= -2.2285714f x = -8.542857f
-	//dobri
-	//y = 0.8714285f; x = 0.028572083f
-	/**
-	 * Ground
-	 */
-	public static float groundX = 0;
-	public static float groundY = -6f;
+	public static final float mesh2MiddleY = 3.5333333f;
+	public static final float mesh2MiddleX = 3.2666664f;
 	
 	/**
 	 * Enemy
 	 */
-	public static float ENEMYSPEED = 150f;
-	public static float ENEMYVELICOTYSPEED = ENEMYSPEED;
-	public static float ENEMYVELICOTYSPEEDOTHERSIDE = 0f;
-	public static float FlYINGBIRDVELOCITY = 3f;
+	public static final float ENEMYSPEED = 200f;
+	public static final float FlYINGBIRDVELOCITY = 3f;
 	/**
 	 * Actors contants
 	 */
@@ -71,11 +63,4 @@ public class Constants {
 	//flying area
 	public static final String LINE1 = "line1";
 	public static final String LINE2 = "line2";
-	/*
-	 * Eggs
-	 */
-	
-	public static final Vector2[] eggPositions = new Vector2[2];
-/*	new Vector2(7.0571423f, -4.2857146f),
-	   new Vector2(1.9999995f, -4.257143f)
-*/}
+}

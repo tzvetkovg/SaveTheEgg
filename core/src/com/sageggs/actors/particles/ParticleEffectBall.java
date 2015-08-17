@@ -1,5 +1,7 @@
 package com.sageggs.actors.particles;
 
+import assets.Assets;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
@@ -10,8 +12,7 @@ public class ParticleEffectBall extends GameActor{
 	public boolean showEffect = false;
 	
 	public ParticleEffectBall(){
-		effect = new ParticleEffect();
-		effect.load(Gdx.files.internal("data/particles/explosionBall.p"), Gdx.files.internal("data/particles"));
+		effect = new ParticleEffect(Assets.manager.get(Assets.particleBall, ParticleEffect.class));
 		effect.setPosition(0, 0);
 		effect.start();
 	}

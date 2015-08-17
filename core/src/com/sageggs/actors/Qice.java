@@ -30,7 +30,8 @@ public class Qice extends GameActor {
 	public boolean animationDraw = false;
 	private Box2DSprite sprite;
 	public ParticleEffect effect;
-	private boolean runBatch = false;
+	public boolean runBatch = false;
+	public boolean vzetoQice = false;
 	
 	public Qice(final Body body,int interval) {
 		super(body);
@@ -64,7 +65,7 @@ public class Qice extends GameActor {
         super.draw(batch, parentAlpha);
         if(drawing){
         	if(!animationDraw) //should be !animationDraw 
-        		sprite.draw(batch, body.getFixtureList().first());        
+        		sprite.draw(batch, body.getFixtureList().first()); 
         	else{
         		//if animation finished draw pileto
         		if(animatedBox2DSprite.isAnimationFinished()){  
@@ -80,6 +81,16 @@ public class Qice extends GameActor {
         			runEffect(batch);
         		}
         	}
+        	
+        	if(vzetoQice){
+        		System.out.println("comes here");
+        		sprite.setRegion(Assets.manager.get(Assets.razmazanoQice, Texture.class));
+        		drawing = false;
+        		runBatch = false;
+            	animationDraw = false;
+            	body.setAwake(true);
+        	}
+        	
         }
      }	
 	 
