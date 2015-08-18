@@ -61,7 +61,8 @@ public class Assets {
 	particle = "data/particles/explosion.p",
 	particleBall = "data/particles/explosionBall.p",
 	particleFlyingBird = "data/particles/flyingbird.p",
-	particleIzlupvane = "data/particles/izlupvane.p";
+	particleIzlupvane = "data/particles/izlupvane.p",
+	pruskaneQice = "data/particles/pruskane.p";
 	
 /*	@Asset(TiledMap.class)
 	public static final String

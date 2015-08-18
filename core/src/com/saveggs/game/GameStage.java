@@ -44,6 +44,7 @@ import com.sageggs.actors.particles.ParticleEffectAn;
 import com.sageggs.actors.particles.ParticleEffectBall;
 import com.sageggs.actors.particles.ParticleEffectFlyingBird;
 import com.sageggs.actors.particles.ParticleIzlupvane;
+import com.sageggs.actors.particles.PruskaneQice;
 import com.saveggs.utils.BodyUtils;
 import com.saveggs.utils.Constants;
 import com.saveggs.utils.ShaderSpec;
@@ -85,7 +86,7 @@ public class GameStage extends Stage implements ContactListener{
 	private DynamicBallPool pool;
 	private FlyingBirds flyingBird;
 	private FlyingBirds2 flyingBird2;
-	
+	private PruskaneQice pruskane;
 	
 	public GameStage(WorldUtils worldUtils){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
@@ -163,7 +164,7 @@ public class GameStage extends Stage implements ContactListener{
 		resetEnemyIfOutOfBounds();
 		removeIzlupeniQica();
 		//removeIzlupeniQica();
-		debugRenderer.render(world,camera.combined);
+		//debugRenderer.render(world,camera.combined);
 		logger.log();
 		//System.out.println(GLProfiler.calls);
 		
@@ -178,7 +179,9 @@ public class GameStage extends Stage implements ContactListener{
 	public void setupWorld(String mapPath){
 		world = new World(new Vector2(0,-9.8f), true);
 		world.setContactListener(this);
-				
+		
+		System.out.println("gravity is " +world.getGravity());
+		
 		CurrentMap map = new CurrentMap(mapPath,world);
 		addActor(map);
 
@@ -186,7 +189,7 @@ public class GameStage extends Stage implements ContactListener{
 		bodiesOfWorld = new Array<Body>();
 		world.getBodies(bodiesOfWorld);
 		
-		int timeOfIzlupvane = 5;
+		int timeOfIzlupvane = 10;
 		//map of all bodies
 		for (Body bodyLoop : bodiesOfWorld) {
 			//get bodies
@@ -198,10 +201,12 @@ public class GameStage extends Stage implements ContactListener{
 				
 				qice = new Qice(bodyLoop,timeOfIzlupvane);
 				eggs.add(qice);
-				timeOfIzlupvane += 25;
+				timeOfIzlupvane += 10;
 				addActor(qice);
 			}
 		}
+		
+
 		
 		//shader
 		shader = new ShaderProgram(ShaderSpec.vertexShader, ShaderSpec.fragmentShader);		
@@ -250,7 +255,8 @@ public class GameStage extends Stage implements ContactListener{
 		addActor(particleIzlupvane);
 		flyingBirdParticle = new ParticleEffectFlyingBird();
 		addActor(flyingBirdParticle);
-		
+		pruskane = new PruskaneQice();
+		addActor(pruskane);
 
 	}
 	
@@ -407,7 +413,6 @@ public class GameStage extends Stage implements ContactListener{
 				if(body1 != null && !qice.isAwake() && (((Qice)body1.getFixtureList().first().getUserData()).body == qice)){
 					enemy.hvashtane = false;
 					if(((Qice)body1.getFixtureList().first().getUserData()).runBatch == false){
-						System.out.println("here");
 						((Qice)body1.getFixtureList().first().getUserData()).vzetoQice = true;
 					}
 	        		enemy.pribirane = true;
@@ -443,17 +448,27 @@ public class GameStage extends Stage implements ContactListener{
 					  		  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
 	
 			if(ball.isAwake()){
-				//launch particle effect
 				//if enemy1 is hit
 				if(toRemove != null && toRemove.isAwake()){					
 					Gdx.app.postRunnable(new Runnable() {
 						@Override
 						public void run () {
 							ball.setAwake(false);
+							//launch particle effect
 							if(enemy.enemyDraw){								
 								particleEffect.effect.setPosition(enemy.body.getPosition().x, enemy.body.getPosition().y);
 								particleEffect.showEffect = true;
 							}
+
+							//puskane na qiceto
+							if(enemy.pribirane){
+								((Qice)toRemove.getFixtureList().first().getUserData()).drawing = true;
+								((Qice)toRemove.getFixtureList().first().getUserData()).body.setTransform(toRemove.getPosition(), 0);
+								((Qice)toRemove.getFixtureList().first().getUserData()).vzetoQice = false;
+								((Qice)toRemove.getFixtureList().first().getUserData()).razmazanoQice = true;
+								
+							}
+							//launch the other enemy
 							startEnemyOne();
 						}
 					});
@@ -468,11 +483,40 @@ public class GameStage extends Stage implements ContactListener{
 								particleEffect.effect.setPosition(enemyOtherSide.body.getPosition().x, enemyOtherSide.body.getPosition().y);
 								particleEffect.showEffect = true;
 							}
+							//puskane na qiceto
+							if(enemyOtherSide.pribirane){
+								((Qice)toRemove2.getFixtureList().first().getUserData()).drawing = true;
+								((Qice)toRemove2.getFixtureList().first().getUserData()).body.setTransform(toRemove2.getPosition(), 0);
+								((Qice)toRemove2.getFixtureList().first().getUserData()).vzetoQice = false;
+								((Qice)toRemove2.getFixtureList().first().getUserData()).razmazanoQice = true;
+								
+							}
+
+							//puskane na qiceto
+							if(enemyOtherSide.hvashtane){
+								((Qice)toRemove2.getFixtureList().first().getUserData()).drawing = true;
+								((Qice)toRemove2.getFixtureList().first().getUserData()).animationDraw = true;
+							}
 							startEnemyTwo();
 						}
 					});
 				}
 			}
+        }
+        
+        /**
+         * razmazano qice
+         */
+        if( (contact.getFixtureA().equals(Constants.QICE) && contact.getFixtureB().getBody().getUserData().equals(Constants.GROUND))
+                || (contact.getFixtureA().getBody().getUserData().equals(Constants.GROUND) && contact.getFixtureB().getUserData().equals(Constants.QICE)) ){
+        	
+			final Body qice = contact.getFixtureA().getUserData().equals(Constants.QICE) ?
+					  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
+			if(qice.isSleepingAllowed()){				
+				pruskane.effect.setPosition(qice.getPosition().x, qice.getPosition().y);
+				pruskane.showEffect = true;
+			}
+			qice.setSleepingAllowed(false);
         }
         
         /**

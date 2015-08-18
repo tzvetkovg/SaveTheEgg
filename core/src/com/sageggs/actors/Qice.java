@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.sageggs.actors.particles.ParticleIzlupvane;
@@ -32,6 +33,7 @@ public class Qice extends GameActor {
 	public ParticleEffect effect;
 	public boolean runBatch = false;
 	public boolean vzetoQice = false;
+	public boolean razmazanoQice = false;
 	
 	public Qice(final Body body,int interval) {
 		super(body);
@@ -83,14 +85,26 @@ public class Qice extends GameActor {
         	}
         	
         	if(vzetoQice){
-        		System.out.println("comes here");
-        		sprite.setRegion(Assets.manager.get(Assets.razmazanoQice, Texture.class));
         		drawing = false;
+        		animationDraw = false;
         		runBatch = false;
-            	animationDraw = false;
             	body.setAwake(true);
         	}
         	
+        	if(razmazanoQice){
+        		sprite.setRegion(Assets.manager.get(Assets.qice, Texture.class));
+        		sprite.draw(batch, body.getFixtureList().first()); 
+        		body.setType(BodyType.DynamicBody);
+        	}
+        	
+        	/**
+        	 * razmazvane na zemqta
+        	 */
+        	if(!body.isSleepingAllowed()){
+        		razmazanoQice = false;
+        		drawing = false;
+        	}
+        		
         }
      }	
 	 
