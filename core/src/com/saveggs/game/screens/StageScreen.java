@@ -1,5 +1,7 @@
 package com.saveggs.game.screens;
 
+import java.util.Map;
+
 import assets.AssetTest;
 import assets.Assets;
 
@@ -8,6 +10,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.saveggs.game.GameClass;
 import com.saveggs.game.GameStage;
@@ -20,10 +23,10 @@ public class StageScreen implements Screen {
 	private Stage stage;
 	
 	
-	public StageScreen(GameClass stage2,WorldUtils utils){
+	public StageScreen(GameClass stage2,Map<String,Object> mapBodies,World world){
 		
 		this.eggSaver = stage2;
-		this.stage = new GameStage(utils);
+		this.stage = new GameStage(mapBodies,world);
 	}
 	
 	@Override

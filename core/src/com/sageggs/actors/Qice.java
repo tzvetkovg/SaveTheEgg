@@ -58,6 +58,7 @@ public class Qice extends GameActor {
             	animationDraw = true;
             	//izlupeno pile
             	body.setAwake(true);
+            	
             }
         },interval,1f,3);
 	}
@@ -68,7 +69,7 @@ public class Qice extends GameActor {
         if(drawing){
         	if(!animationDraw) //should be !animationDraw 
         		sprite.draw(batch, body.getFixtureList().first()); 
-        	else{
+        	else if(animationDraw){
         		//if animation finished draw pileto
         		if(animatedBox2DSprite.isAnimationFinished()){  
         			sprite.setRegion(animatedBox2DSprite.getAnimation().getKeyFrame(4));
@@ -89,11 +90,12 @@ public class Qice extends GameActor {
         		animationDraw = false;
         		runBatch = false;
             	body.setAwake(true);
+            	body.setBullet(true);
         	}
         	
         	if(razmazanoQice){
         		sprite.setRegion(Assets.manager.get(Assets.qice, Texture.class));
-        		sprite.draw(batch, body.getFixtureList().first()); 
+        		animationDraw = false;
         		body.setType(BodyType.DynamicBody);
         	}
         	

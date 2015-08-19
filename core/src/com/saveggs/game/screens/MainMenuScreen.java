@@ -1,6 +1,9 @@
 package com.saveggs.game.screens;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
+
+import java.util.Map;
+
 import assets.Assets;
 
 import com.badlogic.gdx.Gdx;
@@ -10,6 +13,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -34,12 +38,15 @@ public class MainMenuScreen implements Screen{
 	private Texture buttonOverTex;
 	private Texture buttonDownTex;
 	private Image gameTitle;
-	private WorldUtils utils;
+	private Map<String,Object> mapBodies;
+	private World world;
 	
-	public MainMenuScreen(final GameClass game,final WorldUtils utils){
+	public MainMenuScreen(final GameClass game,final Map<String,Object> mapBodies,final World world){
 		this.game = game;
 		this.stage = new Stage(new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
-		this.utils = utils;
+		this.world = world;
+		this.mapBodies = mapBodies;
+		
 		Gdx.input.setInputProcessor(stage);
 		//font
 		font = Assets.manager.get(Assets.bitmapfont, BitmapFont.class);
@@ -66,7 +73,7 @@ public class MainMenuScreen implements Screen{
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				System.out.println(play.getText());
-				game.setScreen(new LevelScreen(game,utils));
+				game.setScreen(new LevelScreen(game,mapBodies,world));
 			};
 		});
 		

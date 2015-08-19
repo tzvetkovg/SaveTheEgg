@@ -1,5 +1,7 @@
 package com.saveggs.game.screens;
 
+import java.util.Map;
+
 import assets.Assets;
 
 import com.badlogic.gdx.Gdx;
@@ -8,6 +10,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -29,11 +32,16 @@ public class LevelScreen implements Screen{
 	private GameClass game;
 	private Image gameTitle;
 	GameStage gameStage;
-	private WorldUtils utils;
+	private Map<String,Object> mapBodies;
+	private World world;
 	
-	public LevelScreen(GameClass game,WorldUtils utils){
-		this.utils = utils;
+	
+	public LevelScreen(GameClass game,Map<String,Object> mapBodies,World world){
 		this.game = game;
+
+		this.world = world;
+		this.mapBodies = mapBodies;
+		
 		this.stage = new Stage(new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
 		Gdx.input.setInputProcessor(stage);
 		container = new Table();
@@ -99,7 +107,7 @@ public class LevelScreen implements Screen{
 	public ClickListener levelClickListener = new ClickListener() {
 	    @Override
 	    public void clicked (InputEvent event, float x, float y) {
-	    	game.setScreen(new StageScreen(game,utils));
+	    	game.setScreen(new StageScreen(game,mapBodies,world));
 	    }
 	};
 

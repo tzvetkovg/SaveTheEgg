@@ -87,17 +87,18 @@ public class GameStage extends Stage implements ContactListener{
 	private FlyingBirds flyingBird;
 	private FlyingBirds2 flyingBird2;
 	private PruskaneQice pruskane;
+	private Map<String,Object> mapBodies;
 	
-	public GameStage(WorldUtils worldUtils){
+	public GameStage(Map<String,Object> mapBodies,World world){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
+		this.mapBodies = mapBodies;
+		this.world = world;
 		setupCamera();
 		getViewport().setCamera(camera);
 		setUtils();
 		setupWorld("data/maps/level4/map.tmx");
 		Gdx.input.setInputProcessor(this);
-		//Gdx.input.setCatchBackKey(true);
-		this.worldUtils = worldUtils;	
-		
+		//Gdx.input.setCatchBackKey(true);	
 	}
 		
 	
@@ -177,10 +178,9 @@ public class GameStage extends Stage implements ContactListener{
 	
 	//Set up world
 	public void setupWorld(String mapPath){
-		world = new World(new Vector2(0,-9.8f), true);
+		//world = new World(new Vector2(0,-9.8f), true);
 		world.setContactListener(this);
 		
-		System.out.println("gravity is " +world.getGravity());
 		
 		CurrentMap map = new CurrentMap(mapPath,world);
 		addActor(map);
@@ -189,7 +189,7 @@ public class GameStage extends Stage implements ContactListener{
 		bodiesOfWorld = new Array<Body>();
 		world.getBodies(bodiesOfWorld);
 		
-		int timeOfIzlupvane = 10;
+		int timeOfIzlupvane = 3;
 		//map of all bodies
 		for (Body bodyLoop : bodiesOfWorld) {
 			//get bodies
@@ -198,17 +198,64 @@ public class GameStage extends Stage implements ContactListener{
 			if(bodyLoop.getUserData().equals(Constants.QICE)){	
 				//neizplupeno qice
 				bodyLoop.setAwake(false);
-				
+				bodyLoop.setBullet(false);
 				qice = new Qice(bodyLoop,timeOfIzlupvane);
 				eggs.add(qice);
-				timeOfIzlupvane += 10;
+				timeOfIzlupvane += 3;
 				addActor(qice);
 			}
 		}
 		
 
+		mesh = (CreateMesh)mapBodies.get("mesh");
+		addActor(mesh);
+		//static ball
+		staticBall = (DynamicBall)mapBodies.get("staticBall");
+		staticBall.body.setGravityScale(0f);
+		staticBall.body.setTransform(Constants.middleX, Constants.middleY,0);
+		addActor(staticBall);
 		
-		//shader
+		//draw 2nd mesh
+		mesh2 = (CreateMesh2)mapBodies.get("mesh2");
+		addActor(mesh2);
+		//slingshot
+		slingshot = (Slingshot)mapBodies.get("slingshot");
+		addActor(slingshot);
+
+		//enemy
+		enemyOtherSide = new EnemyOtherSide(WorldUtils.createEnemyOtherSide(world),eggs,worldBodies);
+		addActor(enemyOtherSide);
+		enemy = new Enemy(WorldUtils.createEnemy(world),eggs,worldBodies);
+		addActor(enemy);
+		startEnemyTwo();
+
+		
+		//bird1
+		flyingBird = (FlyingBirds)mapBodies.get("flyingBird");
+		addActor(flyingBird);
+		FlyingBirds.pointBodyToAngle(135f, flyingBird.body);
+		destroyFlyingBirds.add(flyingBird);
+		
+		//bird2
+		flyingBird2 = (FlyingBirds2)mapBodies.get("flyingBird2");
+		addActor(flyingBird2);
+		FlyingBirds2.pointBodyToAngle(135f, flyingBird2.body);
+		destroyFlyingBirds2.add(flyingBird2);
+		
+		//PArticle effects
+		particleEffect = (ParticleEffectAn)mapBodies.get("particleEffect");
+		addActor(particleEffect);
+		particleBall = (ParticleEffectBall)mapBodies.get("particleBall");
+		addActor(particleBall);
+		particleIzlupvane =  (ParticleIzlupvane)mapBodies.get("particleIzlupvane");
+		addActor(particleIzlupvane);
+		flyingBirdParticle = (ParticleEffectFlyingBird)mapBodies.get("flyingBirdParticle");
+		addActor(flyingBirdParticle);
+		pruskane = (PruskaneQice)mapBodies.get("pruskane");
+		addActor(pruskane);
+		
+		
+/*		//shader
 		shader = new ShaderProgram(ShaderSpec.vertexShader, ShaderSpec.fragmentShader);		
 
 		mesh = new CreateMesh(WorldUtils.createMesh(),shader);
@@ -256,7 +303,7 @@ public class GameStage extends Stage implements ContactListener{
 		flyingBirdParticle = new ParticleEffectFlyingBird();
 		addActor(flyingBirdParticle);
 		pruskane = new PruskaneQice();
-		addActor(pruskane);
+		addActor(pruskane);*/
 
 	}
 	
@@ -412,7 +459,7 @@ public class GameStage extends Stage implements ContactListener{
 				//make sure qiceto ne se izlupva i qiceto e  tova za koeto se e zaputila pticata
 				if(body1 != null && !qice.isAwake() && (((Qice)body1.getFixtureList().first().getUserData()).body == qice)){
 					enemy.hvashtane = false;
-					if(((Qice)body1.getFixtureList().first().getUserData()).runBatch == false){
+					if(((Qice)body1.getFixtureList().first().getUserData()).animationDraw == false){
 						((Qice)body1.getFixtureList().first().getUserData()).vzetoQice = true;
 					}
 	        		enemy.pribirane = true;
@@ -420,7 +467,7 @@ public class GameStage extends Stage implements ContactListener{
 				//make sure qiceto ne se izlupva i qiceto e  tova za koeto se e zaputila pticata
 				else if(body2 != null && !qice.isAwake() && (((Qice)body2.getFixtureList().first().getUserData()).body == qice)){
 					enemyOtherSide.hvashtane = false;
-					if(((Qice)body2.getFixtureList().first().getUserData()).runBatch == false)
+					if(((Qice)body2.getFixtureList().first().getUserData()).animationDraw == false)
 						((Qice)body2.getFixtureList().first().getUserData()).vzetoQice = true;
 					enemyOtherSide.pribirane = true;
 				}
@@ -492,11 +539,6 @@ public class GameStage extends Stage implements ContactListener{
 								
 							}
 
-							//puskane na qiceto
-							if(enemyOtherSide.hvashtane){
-								((Qice)toRemove2.getFixtureList().first().getUserData()).drawing = true;
-								((Qice)toRemove2.getFixtureList().first().getUserData()).animationDraw = true;
-							}
 							startEnemyTwo();
 						}
 					});
@@ -505,7 +547,7 @@ public class GameStage extends Stage implements ContactListener{
         }
         
         /**
-         * razmazano qice
+         * razmazano qice na zemqta
          */
         if( (contact.getFixtureA().equals(Constants.QICE) && contact.getFixtureB().getBody().getUserData().equals(Constants.GROUND))
                 || (contact.getFixtureA().getBody().getUserData().equals(Constants.GROUND) && contact.getFixtureB().getUserData().equals(Constants.QICE)) ){
@@ -517,6 +559,25 @@ public class GameStage extends Stage implements ContactListener{
 				pruskane.showEffect = true;
 			}
 			qice.setSleepingAllowed(false);
+        }
+        
+        
+        /**
+         * razrushavane na topka ako se udari v qice
+         */
+        if( (contact.getFixtureA().getUserData().equals(Constants.QICE) && contact.getFixtureB().getBody().getUserData().equals(Constants.DynamicBall))
+                || (contact.getFixtureA().getBody().getUserData().equals(Constants.DynamicBall) && contact.getFixtureB().getUserData().equals(Constants.QICE)) ){
+        	
+            final Body ball = contact.getFixtureA().getBody().getUserData().equals(Constants.DynamicBall) ?
+					  		  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
+			final Body qice = contact.getFixtureA().getBody().getUserData().equals(Constants.QICE) ?
+					  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();	
+					  
+			if(!qice.isBullet()){
+	        	if(ball.isAwake()){
+	        		ball.setAwake(false);
+	        	}
+			}
         }
         
         /**
