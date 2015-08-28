@@ -5,6 +5,8 @@ import java.util.Map;
 import assets.AssetTest;
 import assets.Assets;
 
+import com.admob.AdsController;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
@@ -16,29 +18,42 @@ import com.saveggs.game.GameClass;
 import com.saveggs.game.GameStage;
 import com.saveggs.utils.Constants;
 import com.saveggs.utils.WorldUtils;
+import com.badlogic.gdx.utils.GdxRuntimeException;
+
 
 public class StageScreen implements Screen {
 
-	GameClass eggSaver;
+	public GameClass eggSaver;
 	private Stage stage;
+	public AdsController adsController;
 	
 	
-	public StageScreen(GameClass stage2,Map<String,Object> mapBodies,World world){
-		
-		this.eggSaver = stage2;
-		this.stage = new GameStage(mapBodies,world);
+	public StageScreen(AdsController adsController, GameClass game,Map<String,Object> mapBodies,World world){
+		this.eggSaver = game;
+
+		this.stage = new GameStage(adsController,mapBodies,world);
+		this.adsController = adsController;
+		if(this.adsController != null){
+			//if(this.adsController.isWifiConnected()) {
+				//this.adsController.showBannerAd();
+			//}
+		}
 	}
-	
+
+
 	@Override
 	public void show() {}
+
 
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		// TODO Auto-generated method stub	
+		
+
 		this.stage.act(delta);
 		this.stage.draw();
+
 		
 		if(Gdx.input.isKeyJustPressed(Keys.UP)){
 			((OrthographicCamera) this.stage.getCamera() ).zoom -= 0.1f;
@@ -74,5 +89,7 @@ public class StageScreen implements Screen {
 		this.dispose();
 		Assets.manager.dispose();
 	}
+
+
 
 }

@@ -1,25 +1,36 @@
 package com.saveggs.game;
 
-import assets.Assets;
+import java.util.Map;
 
+import com.admob.AdsController;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.physics.box2d.World;
 import com.saveggs.game.screens.LevelScreen;
 import com.saveggs.game.screens.MainMenuScreen;
 import com.saveggs.game.screens.SplashScreen;
 import com.saveggs.game.screens.StageScreen;
 
+
 public class GameClass extends Game {
 	
-	public StageScreen stage;
+	private AdsController adsController;
+	private Map<String,Object> worldBodies;
+	private World world;
+	
+	public SplashScreen splash;
 	public MainMenuScreen mainMenu;
+	public LevelScreen levelScreen;
+	public StageScreen stageScreen;
+	
+	public GameClass(AdsController adsController){
+	    this.adsController = adsController; 
+
+	}
 	
 	@Override
 	public void create() {
-		this.setScreen(new SplashScreen(this));
-		//this.setScreen(new LevelScreen(this));
-		//this.setScreen(stage);
-		//this.setScreen(new StageScreen(this));
+		splash = new SplashScreen(adsController,this);
+		this.setScreen(splash);
 	}
 	
 	@Override
@@ -30,7 +41,7 @@ public class GameClass extends Game {
 	@Override
 	public void dispose() {
 		super.dispose();
-		Assets.manager.dispose();
+		//Assets.manager.dispose();
 	}
 
 	@Override

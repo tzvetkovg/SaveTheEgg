@@ -4,6 +4,7 @@ import java.util.Map;
 
 import assets.Assets;
 
+import com.admob.AdsController;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -19,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.saveggs.game.GameClass;
@@ -29,18 +31,19 @@ public class LevelScreen implements Screen{
 	
 	private Stage stage;
 	private Table container;
-	private GameClass game;
+	public GameClass game;
 	private Image gameTitle;
 	GameStage gameStage;
 	private Map<String,Object> mapBodies;
 	private World world;
-	
-	
-	public LevelScreen(GameClass game,Map<String,Object> mapBodies,World world){
+	private AdsController adsController;
+		
+	public LevelScreen(AdsController adsController,GameClass game,Map<String,Object> mapBodies,World world){		
 		this.game = game;
 
 		this.world = world;
 		this.mapBodies = mapBodies;
+		this.adsController = adsController;
 		
 		this.stage = new Stage(new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
 		Gdx.input.setInputProcessor(stage);
@@ -81,7 +84,8 @@ public class LevelScreen implements Screen{
             }
             scroll.addPage(levels);
         }
-        container.add(scroll).expand().fill();
+        container.add(scroll).expand().fill(); 
+
 	}
 	
 	
@@ -103,11 +107,17 @@ public class LevelScreen implements Screen{
         // Create the label to show the level number
         return button;
 	}
-
+	//public  GameClass gameche = new GameClass(adsController);
+	
 	public ClickListener levelClickListener = new ClickListener() {
 	    @Override
 	    public void clicked (InputEvent event, float x, float y) {
-	    	game.setScreen(new StageScreen(game,mapBodies,world));
+			adsController.showInterstitialAd(new Runnable() {
+		        @Override
+		        public void run() {
+		        	game.setScreen(new StageScreen(adsController,game,mapBodies,world));
+		        }
+		    });
 	    }
 	};
 

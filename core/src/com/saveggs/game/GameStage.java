@@ -5,6 +5,7 @@ import java.util.Map;
 
 import assets.Assets;
 
+import com.admob.AdsController;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
@@ -26,6 +27,7 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Logger;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.sageggs.actors.CreateMesh;
@@ -45,6 +47,7 @@ import com.sageggs.actors.particles.ParticleEffectBall;
 import com.sageggs.actors.particles.ParticleEffectFlyingBird;
 import com.sageggs.actors.particles.ParticleIzlupvane;
 import com.sageggs.actors.particles.PruskaneQice;
+import com.saveggs.game.screens.StageScreen;
 import com.saveggs.utils.BodyUtils;
 import com.saveggs.utils.Constants;
 import com.saveggs.utils.ShaderSpec;
@@ -88,8 +91,9 @@ public class GameStage extends Stage implements ContactListener{
 	private FlyingBirds2 flyingBird2;
 	private PruskaneQice pruskane;
 	private Map<String,Object> mapBodies;
+	private AdsController adsController;
 	
-	public GameStage(Map<String,Object> mapBodies,World world){
+	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
 		this.mapBodies = mapBodies;
 		this.world = world;
@@ -98,7 +102,8 @@ public class GameStage extends Stage implements ContactListener{
 		setUtils();
 		setupWorld("data/maps/level4/map.tmx");
 		Gdx.input.setInputProcessor(this);
-		//Gdx.input.setCatchBackKey(true);	
+		this.adsController = adsController;
+	
 	}
 		
 	
@@ -149,6 +154,7 @@ public class GameStage extends Stage implements ContactListener{
 		return super.touchUp(screenX, screenY, pointer, button);
 	}
 
+	boolean showAd = false;
 	@Override
 	public void act(float delta) {
 		// TODO Auto-generated method stub
@@ -167,9 +173,9 @@ public class GameStage extends Stage implements ContactListener{
 		//removeIzlupeniQica();
 		//debugRenderer.render(world,camera.combined);
 		logger.log();
-		//System.out.println(GLProfiler.calls);
 		
 	}
+	
 	
 	//Set up camera
 	public void setupCamera(){
@@ -189,7 +195,7 @@ public class GameStage extends Stage implements ContactListener{
 		bodiesOfWorld = new Array<Body>();
 		world.getBodies(bodiesOfWorld);
 		
-		int timeOfIzlupvane = 3;
+		int timeOfIzlupvane = 60;
 		//map of all bodies
 		for (Body bodyLoop : bodiesOfWorld) {
 			//get bodies
@@ -201,7 +207,7 @@ public class GameStage extends Stage implements ContactListener{
 				bodyLoop.setBullet(false);
 				qice = new Qice(bodyLoop,timeOfIzlupvane);
 				eggs.add(qice);
-				timeOfIzlupvane += 3;
+				timeOfIzlupvane += 60;
 				addActor(qice);
 			}
 		}
@@ -253,57 +259,6 @@ public class GameStage extends Stage implements ContactListener{
 		addActor(flyingBirdParticle);
 		pruskane = (PruskaneQice)mapBodies.get("pruskane");
 		addActor(pruskane);
-		
-		
-/*		//shader
-		shader = new ShaderProgram(ShaderSpec.vertexShader, ShaderSpec.fragmentShader);		
-
-		mesh = new CreateMesh(WorldUtils.createMesh(),shader);
-		addActor(mesh);
-		//static ball
-		staticBall = new DynamicBall(WorldUtils.createDynamicBall(world));
-		staticBall.body.setGravityScale(0f);
-		staticBall.body.setTransform(Constants.middleX, Constants.middleY,0);
-		addActor(staticBall);
-		//draw 2nd mesh
-		mesh2 = new CreateMesh2(WorldUtils.createMesh2(),shader);
-		addActor(mesh2);
-		//slingshot
-		slingshot = new Slingshot(WorldUtils.createSlingshot(world));
-		addActor(slingshot);
-
-		//enemy
-		enemyOtherSide = new EnemyOtherSide(WorldUtils.createEnemyOtherSide(world),eggs,worldBodies);
-		addActor(enemyOtherSide);
-		enemy = new Enemy(WorldUtils.createEnemy(world),eggs,worldBodies);
-		addActor(enemy);
-		startEnemyTwo();
-
-		
-		//bird1
-		flyingBird = new FlyingBirds(WorldUtils.createFlyingBird(world));
-		addActor(flyingBird);
-		FlyingBirds.pointBodyToAngle(135f, flyingBird.body);
-		destroyFlyingBirds.add(flyingBird);
-		
-		//bird2
-		flyingBird2 = new FlyingBirds2(WorldUtils.createFlyingBird2(world));
-		flyingBird2.animatedBox2DSprite.flipFrames(true, false);
-		addActor(flyingBird2);
-		FlyingBirds2.pointBodyToAngle(135f, flyingBird2.body);
-		destroyFlyingBirds2.add(flyingBird2);
-		
-		//PArticle effects
-		particleEffect = new ParticleEffectAn();
-		addActor(particleEffect);
-		particleBall = new ParticleEffectBall();
-		addActor(particleBall);
-		particleIzlupvane = new ParticleIzlupvane();
-		addActor(particleIzlupvane);
-		flyingBirdParticle = new ParticleEffectFlyingBird();
-		addActor(flyingBirdParticle);
-		pruskane = new PruskaneQice();
-		addActor(pruskane);*/
 
 	}
 	
@@ -515,8 +470,14 @@ public class GameStage extends Stage implements ContactListener{
 								((Qice)toRemove.getFixtureList().first().getUserData()).razmazanoQice = true;
 								
 							}
+							adsController.showInterstitialAd(new Runnable() {
+						        @Override
+						        public void run() {
+						        	startEnemyOne();
+						        }
+						    });
 							//launch the other enemy
-							startEnemyOne();
+						
 						}
 					});
 				}

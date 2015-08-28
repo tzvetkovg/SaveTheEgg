@@ -6,6 +6,7 @@ import java.util.Map;
 import assets.AssetTest;
 import assets.Assets;
 
+import com.admob.AdsController;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
@@ -45,7 +46,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
 public class SplashScreen implements Screen {
 	
-	private GameClass game;
+	GameClass game;
 	private Stage stage;
 	private Image image;
 	private OrthographicCamera camera;
@@ -55,11 +56,14 @@ public class SplashScreen implements Screen {
 	private World world;
 	private DynamicBall staticBall;
 	private FlyingBirds2 flyingBird2;
+	private AdsController adsController;
 	
-	public SplashScreen(GameClass game){
+	public SplashScreen(AdsController adsController,GameClass game){
 
 		this.game = game;
+		
 		this.stage = new Stage(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35));
+		this.adsController = adsController;
 		camera = new OrthographicCamera();
 		stage.getViewport().setCamera(camera);
 		
@@ -118,6 +122,7 @@ public class SplashScreen implements Screen {
 		worldBodies.put("flyingBirdParticle",  new ParticleEffectFlyingBird());
 		worldBodies.put("pruskane",  new PruskaneQice());
 		
+		//initialize screens
 	}
 	
 	@Override
@@ -128,6 +133,8 @@ public class SplashScreen implements Screen {
 								scaleTo(2f,2f,2.5f, Interpolation.pow5),
 								moveTo(1f,1f, 2f ,Interpolation.swing)),
 						delay(1.5f), fadeOut(1.25f)));
+	
+		
 	}
 
 	@Override
@@ -137,9 +144,10 @@ public class SplashScreen implements Screen {
 		stage.act(delta);
 		stage.draw();
 		
-		if(image.getActions().size == 0)
-			game.setScreen(new MainMenuScreen(game,worldBodies,world));
-		
+		if(image.getActions().size == 0){
+			game.setScreen(new MainMenuScreen(adsController,game,worldBodies,world));
+			//game.setScreen(new MainMenuScreen(game));
+		}
 	}
 
 	@Override
@@ -159,7 +167,6 @@ public class SplashScreen implements Screen {
 	@Override
 	public void dispose() {
 		stage.dispose();
-		
 	}
 
 }

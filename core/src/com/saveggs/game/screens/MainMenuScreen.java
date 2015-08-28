@@ -6,6 +6,7 @@ import java.util.Map;
 
 import assets.Assets;
 
+import com.admob.AdsController;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -28,7 +29,7 @@ import com.saveggs.utils.WorldUtils;
 
 public class MainMenuScreen implements Screen{
 	
-	GameClass game;
+	
 	private Stage stage;
 	private Table table;
 	private TextButton play, exit;
@@ -40,12 +41,18 @@ public class MainMenuScreen implements Screen{
 	private Image gameTitle;
 	private Map<String,Object> mapBodies;
 	private World world;
+	private AdsController adsController;
+	private final GameClass games;
 	
-	public MainMenuScreen(final GameClass game,final Map<String,Object> mapBodies,final World world){
-		this.game = game;
+	public MainMenuScreen(final AdsController adsController,final GameClass game,final Map<String,Object> mapBodies,final World world){
+		
+		
+		this.games = game;
+		
 		this.stage = new Stage(new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
 		this.world = world;
 		this.mapBodies = mapBodies;
+		this.adsController = adsController;
 		
 		Gdx.input.setInputProcessor(stage);
 		//font
@@ -69,14 +76,13 @@ public class MainMenuScreen implements Screen{
 
 		
 		// Play button listener
-		play.addListener( new ClickListener() {             
+		play.addListener( new ClickListener() {
 			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				System.out.println(play.getText());
-				game.setScreen(new LevelScreen(game,mapBodies,world));
+		    public void clicked (InputEvent event, float x, float y) {
+				game.setScreen(new LevelScreen(adsController,game,mapBodies,world));
 			};
 		});
-		
+
 		// Exit button listener
 		exit.addListener( new ClickListener() {             
 			@Override
@@ -105,7 +111,8 @@ public class MainMenuScreen implements Screen{
 		//
 		table.debug();
 		// To make the table appear smoothly
-		table.addAction(fadeIn(4f));
+		table.addAction(fadeIn(4f));		
+		
 	}
 	
 	
