@@ -3,12 +3,8 @@ package com.saveggs.game;
 import java.util.HashMap;
 import java.util.Map;
 
-import assets.Assets;
-
 import com.admob.AdsController;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -18,16 +14,15 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Logger;
+import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.sageggs.actors.CreateMesh;
@@ -42,15 +37,14 @@ import com.sageggs.actors.enemies.Enemy;
 import com.sageggs.actors.enemies.EnemyOtherSide;
 import com.sageggs.actors.flyingbirds.FlyingBirds;
 import com.sageggs.actors.flyingbirds.FlyingBirds2;
+import com.sageggs.actors.loadingscreen.LoadingScreen;
 import com.sageggs.actors.particles.ParticleEffectAn;
 import com.sageggs.actors.particles.ParticleEffectBall;
 import com.sageggs.actors.particles.ParticleEffectFlyingBird;
 import com.sageggs.actors.particles.ParticleIzlupvane;
 import com.sageggs.actors.particles.PruskaneQice;
-import com.saveggs.game.screens.StageScreen;
 import com.saveggs.utils.BodyUtils;
 import com.saveggs.utils.Constants;
-import com.saveggs.utils.ShaderSpec;
 import com.saveggs.utils.WorldUtils;
 
 public class GameStage extends Stage implements ContactListener{
@@ -92,18 +86,31 @@ public class GameStage extends Stage implements ContactListener{
 	private PruskaneQice pruskane;
 	private Map<String,Object> mapBodies;
 	private AdsController adsController;
+	private int timeIntervalAds = 0,timeAds = 5;
+	public boolean showGame = false, internetEnabled = false;
+	private LoadingScreen loading;
 	
-	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world){
+	
+	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
 		this.mapBodies = mapBodies;
 		this.world = world;
+		this.internetEnabled = internetEnabled;
 		setupCamera();
 		getViewport().setCamera(camera);
 		setUtils();
 		setupWorld("data/maps/level4/map.tmx");
 		Gdx.input.setInputProcessor(this);
-		this.adsController = adsController;
-	
+		this.adsController = adsController;		
+		
+		Timer.schedule(new Task(){
+            @Override
+            public void run() {
+            	showGame = true;
+            	loading.draw = false;
+            }
+        },4);
+		
 	}
 		
 	
@@ -162,17 +169,19 @@ public class GameStage extends Stage implements ContactListener{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		super.act(delta);
-				
-		world.step(1 / 60f,6, 2);
+		
+		if(showGame){
+			world.step(1 / 60f,6, 2);
 
-		//destroy bodies if out of range
-		destroyFlyingBirds();
-		destroySleepingBalls();
-		resetEnemyIfOutOfBounds();
-		removeIzlupeniQica();
-		//removeIzlupeniQica();
+			//destroy bodies if out of range
+			destroyFlyingBirds();
+			destroySleepingBalls();
+			resetEnemyIfOutOfBounds();
+			removeIzlupeniQica();
+			logger.log();
+		}
 		//debugRenderer.render(world,camera.combined);
-		logger.log();
+
 		
 	}
 	
@@ -186,12 +195,10 @@ public class GameStage extends Stage implements ContactListener{
 	public void setupWorld(String mapPath){
 		//world = new World(new Vector2(0,-9.8f), true);
 		world.setContactListener(this);
-		
-		
+
 		CurrentMap map = new CurrentMap(mapPath,world);
-		addActor(map);
-
-
+		addActor(map);		
+		
 		bodiesOfWorld = new Array<Body>();
 		world.getBodies(bodiesOfWorld);
 		
@@ -212,7 +219,6 @@ public class GameStage extends Stage implements ContactListener{
 			}
 		}
 		
-
 		mesh = (CreateMesh)mapBodies.get("mesh");
 		addActor(mesh);
 		//static ball
@@ -260,6 +266,10 @@ public class GameStage extends Stage implements ContactListener{
 		pruskane = (PruskaneQice)mapBodies.get("pruskane");
 		addActor(pruskane);
 
+		//loading screen
+		loading = new LoadingScreen();
+		addActor(loading);
+		
 	}
 	
 	//utils
@@ -330,6 +340,9 @@ public class GameStage extends Stage implements ContactListener{
 		}
 	}
 
+	/**
+	 * launch single enemy
+	 */
 	public void startEnemyOne(){
 		enemy.enemyDraw = false;
 		enemy.setSpeed(0);
@@ -353,6 +366,33 @@ public class GameStage extends Stage implements ContactListener{
 		enemy.setSpeed(Constants.ENEMYSPEED);
 		enemy.body.setAwake(true);
 		enemy.resetBody();
+	}
+	
+	public void launchEnemy(){
+    	if(MathUtils.random(1, 2) == 1)
+    		startEnemyTwo();
+    	else
+    		startEnemyOne();
+	}
+	
+	/**
+	 * launch both enemies independently
+	 */
+	//launch both enemies
+	public void launchEnemyOne(){
+		//reset enemy1
+		enemy.enemyDraw = true;
+		enemy.setSpeed(Constants.ENEMYSPEED);
+		enemy.body.setAwake(true);
+		enemy.resetBody();
+	}
+	
+	public void launchEnemyTwo(){
+		//reset the other enemy
+		enemyOtherSide.enemyDraw = true;
+		enemyOtherSide.setSpeed(Constants.ENEMYSPEED);
+		enemyOtherSide.body.setAwake(true);
+		enemyOtherSide.resetBody();
 	}
 	
 	/*
@@ -470,14 +510,33 @@ public class GameStage extends Stage implements ContactListener{
 								((Qice)toRemove.getFixtureList().first().getUserData()).razmazanoQice = true;
 								
 							}
-							adsController.showInterstitialAd(new Runnable() {
-						        @Override
-						        public void run() {
-						        	startEnemyOne();
-						        }
-						    });
-							//launch the other enemy
-						
+							
+							//launch both enemies
+							if(!enemyOtherSide.enemyDraw){
+								launchEnemyTwo();
+								launchEnemyOne();
+							}
+							else
+								launchEnemyOne();
+							
+/*							//if mobile internet and limit reached
+							if(internetEnabled && timeIntervalAds >= timeAds){
+								adsController.showInterstitialAd(new Runnable() {
+									@Override
+									public void run() {
+										timeIntervalAds = 0;
+										launchEnemy();
+									}
+								});
+							}
+					    	else //desktop or no ads
+					    	{
+					    		timeIntervalAds++;
+					    		launchEnemy();
+					    		//reset
+					    		if(timeIntervalAds > timeAds)
+					    			timeIntervalAds = 0;
+					    	}	*/
 						}
 					});
 				}
@@ -497,10 +556,32 @@ public class GameStage extends Stage implements ContactListener{
 								((Qice)toRemove2.getFixtureList().first().getUserData()).body.setTransform(toRemove2.getPosition(), 0);
 								((Qice)toRemove2.getFixtureList().first().getUserData()).vzetoQice = false;
 								((Qice)toRemove2.getFixtureList().first().getUserData()).razmazanoQice = true;
-								
 							}
-
-							startEnemyTwo();
+							//launch both enemies
+							if(!enemy.enemyDraw){
+								launchEnemyTwo();
+								launchEnemyOne();
+							}
+							else
+								launchEnemyTwo();
+	/*						//if mobile enabled
+							if(internetEnabled && timeIntervalAds >= timeAds){
+								adsController.showInterstitialAd(new Runnable() {
+									@Override
+									public void run() {
+										timeIntervalAds = 0;
+										launchEnemy();
+									}
+								});
+							}
+					    	else //desktop or no ads
+					    	{
+					    		timeIntervalAds++;
+					    		launchEnemy();
+					    		//reset
+					    		if(timeIntervalAds > timeAds)
+					    			timeIntervalAds = 0;
+					    	}*/
 						}
 					});
 				}

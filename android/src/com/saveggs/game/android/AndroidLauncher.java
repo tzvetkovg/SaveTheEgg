@@ -1,5 +1,7 @@
 package com.saveggs.game.android;
 
+import java.lang.reflect.Method;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -35,17 +37,7 @@ public class AndroidLauncher extends AndroidApplication  implements AdsControlle
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		
-/*		initialize(new GameClass(this), config);
-		
-		//===== detect operating system and Configure platform dependent code ==========================
-		if(game.getAppStore() == GameClass.APPSTORE_GOOGLE) {
-			GameClass.setPlatformResolver(new GooglePlayResolver(game));
-		}
-
-		game.getPlatformResolver().installIAP();*/
-		
-		
+				
 		View gameView = initializeForView(new GameClass(this), config);
 		setupAds();
 		
@@ -102,14 +94,35 @@ public class AndroidLauncher extends AndroidApplication  implements AdsControlle
 	    });
 	}
 
+	ConnectivityManager cm;
+	NetworkInfo ni;
+	Class cmClass;
+	Method method;
+	
 	@Override
 	public boolean isWifiConnected() {
-		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo ni = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+		cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		ni = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 		 
 		return (ni != null && ni.isConnected());
 	}
 
+	
+	@Override
+	public boolean isMobileDataEnabled(){
+		boolean mobileDataEnabled = false; // Assume disabled
+		cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+	    
+	    try {
+	    	cmClass = Class.forName(cm.getClass().getName());
+			method = cmClass.getDeclaredMethod("getMobileDataEnabled");
+	        method.setAccessible(true); // Make the method callable
+	        // get the setting for "mobile data"
+	        mobileDataEnabled = (Boolean)method.invoke(cm);
+	    } catch (Exception e) {}
+	    return mobileDataEnabled;
+	}
+	
 	
    @Override
    public void showInterstitialAd(final Runnable then) {
@@ -126,22 +139,29 @@ public class AndroidLauncher extends AndroidApplication  implements AdsControlle
                 	interstitialAd.show(); 
                 else
                 	interstitialAdNotLoadedOrClosed(then);
-               
            }
        });
    }
    
    
    private void interstitialAdNotLoadedOrClosed(Runnable then){
-       Gdx.app.postRunnable(then);
        AdRequest.Builder builder = new AdRequest.Builder().addTestDevice("8025DA1E2D0A9AF4AF06E4AE3DEA9257");;
        AdRequest ad = builder.build();
        interstitialAd.loadAd(ad);
+       Gdx.app.postRunnable(then);
    }
    
    @Override
-   public void loadAd() {
+   public void loadInterstitialAd(){
+	   runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				   AdRequest.Builder builder = new AdRequest.Builder().addTestDevice("8025DA1E2D0A9AF4AF06E4AE3DEA9257");;
+				   AdRequest ad = builder.build();
+				   interstitialAd.loadAd(ad);
+			}	   
+	   });
    }
    
-	   
+      
 }

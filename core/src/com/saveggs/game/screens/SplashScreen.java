@@ -3,7 +3,6 @@ package com.saveggs.game.screens;
 import java.util.HashMap;
 import java.util.Map;
 
-import assets.AssetTest;
 import assets.Assets;
 
 import com.admob.AdsController;
@@ -58,7 +57,7 @@ public class SplashScreen implements Screen {
 	private FlyingBirds2 flyingBird2;
 	private AdsController adsController;
 	
-	public SplashScreen(AdsController adsController,GameClass game){
+	public SplashScreen(final AdsController adsController,GameClass game){
 
 		this.game = game;
 		
@@ -73,16 +72,19 @@ public class SplashScreen implements Screen {
 		image = new Image(splash);
 		image.setSize(splash.getWidth() / 100, splash.getHeight() / 100);
 		image.setOrigin(splash.getWidth()/ 35 / 2, splash.getHeight()/ 35 / 2);
+		image.addAction(sequence(alpha(0),scaleTo(.1f,.1f),
+				parallel(fadeIn(2f, Interpolation.pow2),
+						scaleTo(2f,2f,2.5f, Interpolation.pow5),
+						moveTo(1f,1f, 2f ,Interpolation.swing)),
+				delay(1.5f), fadeOut(1.25f)));
 		stage.addActor(image);
 		
-		//load all stuff
-		AssetTest man = new AssetTest();
 		
 		Assets asset = new Assets();
 		Assets.manager.load(Assets.class);		
 		
 		while(!Assets.manager.update()){
-			//System.out.println(Assets.manager.getProgress());
+			System.out.println(Assets.manager.getProgress());
 		}
 		Assets.manager.finishLoading();
 				
@@ -122,20 +124,15 @@ public class SplashScreen implements Screen {
 		worldBodies.put("flyingBirdParticle",  new ParticleEffectFlyingBird());
 		worldBodies.put("pruskane",  new PruskaneQice());
 		
+		//load interstitial ad
+		if(adsController != null && (adsController.isWifiConnected() || adsController.isMobileDataEnabled())){					
+			adsController.loadInterstitialAd();
+		}
 		//initialize screens
 	}
 	
 	@Override
-	public void show() 
-	{
-		image.addAction(sequence(alpha(0),scaleTo(.1f,.1f),
-						parallel(fadeIn(2f, Interpolation.pow2),
-								scaleTo(2f,2f,2.5f, Interpolation.pow5),
-								moveTo(1f,1f, 2f ,Interpolation.swing)),
-						delay(1.5f), fadeOut(1.25f)));
-	
-		
-	}
+	public void show() {}
 
 	@Override
 	public void render(float delta) {

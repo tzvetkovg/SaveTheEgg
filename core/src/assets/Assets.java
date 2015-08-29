@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.maps.tiled.TideMapLoader;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 import net.dermetfan.gdx.assets.AnnotationAssetManager.Asset;
@@ -17,9 +18,7 @@ public class Assets {
 	
 	public Assets(){
 		manager = new AnnotationAssetManager(); 	
-
-		//Assets.manager.setLoader(TiledMap.class, new TideMapLoader(new InternalFileHandleResolver()));
-		//Assets.manager.load("data/maps/level4/map.tmx", TiledMap.class);
+		manager.setLoader(TiledMap.class, new TmxMapLoader());
 	}
 	
 	@Asset(BitmapFont.class)
@@ -52,7 +51,11 @@ public class Assets {
 	hvanatoQice = "data/hvanato Qice.png",
 	hodeneNaPile = "data/izlupvane.png",
 	gulubi = "data/gulubitest.png",
-	razmazanoQice = "data/razplokanoQice.png";
+	razmazanoQice = "data/razplokanoQice.png",
+	/**
+	 * Loading Screen
+	 */
+	loadingScreen = "data/loadingScreen.png";
 	/**
 	 * ParticleEffect
 	 */
@@ -63,10 +66,15 @@ public class Assets {
 	particleFlyingBird = "data/particles/flyingbird.p",
 	particleIzlupvane = "data/particles/izlupvane.p",
 	pruskaneQice = "data/particles/pruskane.p";
-	
-/*	@Asset(TiledMap.class)
+
+	/**
+	 * Maps
+	 */
+	@Asset(TiledMap.class)
 	public static final String
-	map = "data/maps/level4/map.tmx";*/
+	map = "data/maps/level4/map.tmx";
+	
+
 	
 	public static void dispose(){
 		manager.dispose();

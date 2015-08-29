@@ -112,12 +112,17 @@ public class LevelScreen implements Screen{
 	public ClickListener levelClickListener = new ClickListener() {
 	    @Override
 	    public void clicked (InputEvent event, float x, float y) {
-			adsController.showInterstitialAd(new Runnable() {
-		        @Override
-		        public void run() {
-		        	game.setScreen(new StageScreen(adsController,game,mapBodies,world));
-		        }
-		    });
+	    	if(adsController != null && (adsController.isWifiConnected() || adsController.isMobileDataEnabled())){
+				adsController.showInterstitialAd(new Runnable() {
+			        @Override
+			        public void run() {
+			        	game.setScreen(new StageScreen(adsController,game,mapBodies,world,true));
+			       }
+			    });
+	    	}
+	    	//desktop only or no ads
+	    	else
+	    		game.setScreen(new StageScreen(adsController,game,mapBodies,world,false));
 	    }
 	};
 

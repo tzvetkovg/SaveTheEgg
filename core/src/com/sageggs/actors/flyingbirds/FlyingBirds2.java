@@ -59,11 +59,9 @@ public class FlyingBirds2 extends GameActor{
     }
     
 	 @Override
-	 
      public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        animatedBox2DSprite.draw(batch, body.getFixtureList().first()); 
-        
+        animatedBox2DSprite.draw(batch, body.getFixtureList().first());   
      }
 	
 	

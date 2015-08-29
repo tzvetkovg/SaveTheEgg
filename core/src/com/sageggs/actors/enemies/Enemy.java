@@ -176,7 +176,6 @@ public class Enemy extends GameActor{
     //reset the body
 	public void resetBody(){
 
-		
 		pathPoints.clear();
 		//pick a random egg
 		if(eggs.size - 1 != -1){	

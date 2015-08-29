@@ -1,6 +1,5 @@
 package com.saveggs.game.android;
 
-import com.badlogic.gdx.pay.PurchaseManagerConfig;
 import com.saveggs.game.GameClass;
 import com.saveggs.game.screens.LevelScreen;
 
