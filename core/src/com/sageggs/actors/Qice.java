@@ -34,7 +34,7 @@ public class Qice extends GameActor {
 	public boolean runBatch = false;
 	public boolean vzetoQice = false;
 	public boolean razmazanoQice = false;
-	public boolean resetEgg = false, izlupenoQice = false, vzeto = false;
+	public boolean resetEgg = false, izlupenoQice = false, vzeto = false, uduljavaneIgra = false;
 	
 	
 	public Qice(final Body body,int interval) {
@@ -112,24 +112,11 @@ public class Qice extends GameActor {
         	 * razmazvane na zemqta
         	 */
         	if(!body.isSleepingAllowed()){
-           		vzeto = true;
+        		uduljavaneIgra = true;
+        		vzeto = true;
         		razmazanoQice = false;
         		drawing = false;
         	}
-        	
-/*        	//reset egg
-        	if(body.isFixedRotation()){
-        		//will stop the body
-        		vzetoQice = false;
-        		razmazanoQice = false;
-        		body.setSleepingAllowed(true);
-        		animationDraw = false;
-        		body.setType(BodyType.StaticBody);
-            	body.setAwake(false);
-            	body.setBullet(false);
-            	body.getFixtureList().first().setSensor(false); 
-            	drawing = true;
-        	}*/
         }
      }	
 	 

@@ -106,7 +106,7 @@ public class GameStage extends Stage implements ContactListener{
 	private TiledMap map;
 	private Dialog dialog;
 	private Dialog dialog2;
-	private Array<Qice> allEggs,izlupeni,vzeti;
+	private Array<Qice> allEggs,izlupeni,vzeti,uduljavane;
 	
 	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
@@ -312,6 +312,7 @@ public class GameStage extends Stage implements ContactListener{
 		allEggs = new Array<Qice>();
 		izlupeni = new Array<Qice>();
 		vzeti = new Array<Qice>();
+		uduljavane = new Array<Qice>();
 		skin = (Skin)mapBodies.get("skin");
 		
 		 dialog = new Dialog("please confirm", skin) {
@@ -396,7 +397,10 @@ public class GameStage extends Stage implements ContactListener{
 	//remove eggs which have already been izlupeni
 	public void izpuleniQica(){
 		for (Qice qice : allEggs) {	
-						
+			
+			if(qice.uduljavaneIgra && !uduljavane.contains(qice, true))	
+				uduljavane.add(qice);
+				
         	if(qice.izlupenoQice && !izlupeni.contains(qice, true)){
         		izlupeni.add(qice);
         	}
@@ -842,11 +846,19 @@ public class GameStage extends Stage implements ContactListener{
 		return sum;
 	}
 	
+	int limitEggs = 2;
+	boolean stop = true;
 	public void displayScreen(){
+		
+		//uduljavane na igrata ako ima 2 razbiti qica
+		if(uduljavane.size == 2 && stop) {
+			limitEggs += 1;
+			stop = false;
+		}
+		
 		//fail
-		if(vzeti.size == 2) {
+		if(vzeti.size == limitEggs) {
 			showGame = false;
-			
 			//skin
 			dialog.setScale(.03333f);
 			dialog.show(this);
