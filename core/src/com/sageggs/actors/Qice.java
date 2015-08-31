@@ -34,6 +34,8 @@ public class Qice extends GameActor {
 	public boolean runBatch = false;
 	public boolean vzetoQice = false;
 	public boolean razmazanoQice = false;
+	public boolean resetEgg = false, izlupenoQice = false, vzeto = false;
+	
 	
 	public Qice(final Body body,int interval) {
 		super(body);
@@ -58,7 +60,6 @@ public class Qice extends GameActor {
             	animationDraw = true;
             	//izlupeno pile
             	body.setAwake(true);
-            	
             }
         },interval,1f,3);
 	}
@@ -75,6 +76,7 @@ public class Qice extends GameActor {
         			sprite.setRegion(animatedBox2DSprite.getAnimation().getKeyFrame(4));
         			animationDraw = false;
         			animatedBox2DSprite.stop();
+        			izlupenoQice = true;
         		}
         		else{
         			animatedBox2DSprite.draw(batch, body.getFixtureList().first());
@@ -85,15 +87,22 @@ public class Qice extends GameActor {
         		}
         	}
         	
+        	//kogato e vzeto v krakata na pticata
         	if(vzetoQice){
+
+        		//body.setFixedRotation(false);
         		drawing = false;
         		animationDraw = false;
         		runBatch = false;
             	body.setAwake(true);
             	body.setBullet(true);
+            	//body.getFixtureList().first().setSensor(false); 
         	}
         	
+        	//kogato trugva da pada
         	if(razmazanoQice){
+        		//body.getFixtureList().first().setSensor(false); 
+        		//body.setFixedRotation(false);
         		sprite.setRegion(Assets.manager.get(Assets.qice, Texture.class));
         		animationDraw = false;
         		body.setType(BodyType.DynamicBody);
@@ -103,10 +112,24 @@ public class Qice extends GameActor {
         	 * razmazvane na zemqta
         	 */
         	if(!body.isSleepingAllowed()){
+           		vzeto = true;
         		razmazanoQice = false;
         		drawing = false;
         	}
-        		
+        	
+/*        	//reset egg
+        	if(body.isFixedRotation()){
+        		//will stop the body
+        		vzetoQice = false;
+        		razmazanoQice = false;
+        		body.setSleepingAllowed(true);
+        		animationDraw = false;
+        		body.setType(BodyType.StaticBody);
+            	body.setAwake(false);
+            	body.setBullet(false);
+            	body.getFixtureList().first().setSensor(false); 
+            	drawing = true;
+        	}*/
         }
      }	
 	 

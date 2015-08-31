@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -34,15 +35,10 @@ public class LevelScreen implements Screen{
 	public GameClass game;
 	private Image gameTitle;
 	GameStage gameStage;
-	private Map<String,Object> mapBodies;
-	private World world;
 	private AdsController adsController;
 		
-	public LevelScreen(AdsController adsController,GameClass game,Map<String,Object> mapBodies,World world){		
+	public LevelScreen(AdsController adsController,GameClass game){		
 		this.game = game;
-
-		this.world = world;
-		this.mapBodies = mapBodies;
 		this.adsController = adsController;
 		
 		this.stage = new Stage(new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
@@ -112,17 +108,20 @@ public class LevelScreen implements Screen{
 	public ClickListener levelClickListener = new ClickListener() {
 	    @Override
 	    public void clicked (InputEvent event, float x, float y) {
+	    	//change to specific map
+	    	final TiledMap map = Assets.manager.get(Assets.map, TiledMap.class);
 	    	if(adsController != null && (adsController.isWifiConnected() || adsController.isMobileDataEnabled())){
 				adsController.showInterstitialAd(new Runnable() {
 			        @Override
 			        public void run() {
-			        	game.setScreen(new StageScreen(adsController,game,mapBodies,world,true));
+			        	System.out.println("tries to open");
+			        	game.setScreen(new StageScreen(adsController,game,true,map,null));
 			       }
 			    });
 	    	}
 	    	//desktop only or no ads
 	    	else
-	    		game.setScreen(new StageScreen(adsController,game,mapBodies,world,false));
+	    		game.setScreen(new StageScreen(adsController,game,false,map,null));
 	    }
 	};
 

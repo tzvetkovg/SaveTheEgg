@@ -1,5 +1,6 @@
 package com.saveggs.game.screens;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import assets.Assets;
@@ -11,12 +12,32 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.sageggs.actors.CreateMesh;
+import com.sageggs.actors.CreateMesh2;
+import com.sageggs.actors.DynamicBall;
+import com.sageggs.actors.Slingshot;
+import com.sageggs.actors.flyingbirds.FlyingBirds;
+import com.sageggs.actors.flyingbirds.FlyingBirds2;
+import com.sageggs.actors.particles.ParticleEffectAn;
+import com.sageggs.actors.particles.ParticleEffectBall;
+import com.sageggs.actors.particles.ParticleEffectFlyingBird;
+import com.sageggs.actors.particles.ParticleIzlupvane;
+import com.sageggs.actors.particles.PruskaneQice;
 import com.saveggs.game.GameClass;
 import com.saveggs.game.GameStage;
 import com.saveggs.utils.Constants;
+import com.saveggs.utils.ShaderSpec;
 import com.saveggs.utils.WorldUtils;
+import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
@@ -25,13 +46,88 @@ import com.badlogic.gdx.utils.Timer.Task;
 public class StageScreen implements Screen {
 
 	public GameClass eggSaver;
-	private Stage stage;
+	private Stage stage = null;
 	public AdsController adsController;
+	private Skin skin;
+	private World worlda;
+	private Array<Body> bodiesOfWorld;
+	private TiledMap map;
+	private OrthographicCamera camera;
+	private WorldUtils utils;
+	private Map<String,Object> worldBodies;
+	private ShaderProgram shader;
+	private World world;
+	private DynamicBall staticBall;
+	private FlyingBirds2 flyingBird2;
 	
-	public StageScreen(AdsController adsController, GameClass game,Map<String,Object> mapBodies,World world, boolean internetEnabled){
+	public StageScreen(final AdsController adsController, final GameClass game,final boolean internetEnabled,TiledMap map,Map<String,Object> worldBodies){
 		this.eggSaver = game;
-		this.stage = new GameStage(adsController,mapBodies,world,internetEnabled);
-		this.adsController = adsController;
+		
+		this.map = map;
+		
+		//in case it's replay so reuse some of the objects
+		if(worldBodies != null)
+		{
+			//world
+			this.world = new World(new Vector2(0,-9.8f), true);
+			this.worldBodies = worldBodies;
+			//static ball
+			this.worldBodies.put("staticBall", new DynamicBall(WorldUtils.createDynamicBall(this.world)));
+			
+			//slingshot
+			this.worldBodies.put("slingshot",  new Slingshot(WorldUtils.createSlingshot(this.world)));
+			
+			//bird1
+			this.worldBodies.put("flyingBird",  new FlyingBirds(WorldUtils.createFlyingBird(this.world)));
+			
+			//bird2
+			flyingBird2 = new FlyingBirds2(WorldUtils.createFlyingBird2(this.world));
+			flyingBird2.animatedBox2DSprite.flipFrames(true, false);
+			this.worldBodies.put("flyingBird2",  flyingBird2);
+		}
+		else{	
+			this.worldBodies = new HashMap<String,Object>();
+			/**
+			 * initialize some of the world objects
+			 */
+			//skin
+			this.worldBodies.put("skin", new Skin(Gdx.files.internal("data/uiskin.json")));
+			//shaderstaticBall
+			shader = new ShaderProgram(ShaderSpec.vertexShader, ShaderSpec.fragmentShader);	
+			//world
+			this.world = new World(new Vector2(0,-9.8f), true);
+			//mesh1
+			this.worldBodies.put("mesh", new CreateMesh(WorldUtils.createMesh(),shader));
+			
+			//draw 2nd mesh
+			this.worldBodies.put("mesh2", new CreateMesh2(WorldUtils.createMesh2(),shader));
+			
+			
+			//static ball
+			this.worldBodies.put("staticBall", new DynamicBall(WorldUtils.createDynamicBall(this.world)));
+			
+			//slingshot
+			this.worldBodies.put("slingshot",  new Slingshot(WorldUtils.createSlingshot(this.world)));
+			
+			//bird1
+			this.worldBodies.put("flyingBird",  new FlyingBirds(WorldUtils.createFlyingBird(this.world)));
+			
+			//bird2
+			flyingBird2 = new FlyingBirds2(WorldUtils.createFlyingBird2(this.world));
+			flyingBird2.animatedBox2DSprite.flipFrames(true, false);
+			this.worldBodies.put("flyingBird2",  flyingBird2);
+			
+			//PArticle effects
+			this.worldBodies.put("particleEffect",  new ParticleEffectAn());
+			this.worldBodies.put("particleBall",  new ParticleEffectBall());
+			this.worldBodies.put("particleIzlupvane",  new ParticleIzlupvane());
+			this.worldBodies.put("flyingBirdParticle",  new ParticleEffectFlyingBird());
+			this.worldBodies.put("pruskane",  new PruskaneQice());
+		}
+		
+		this.adsController = adsController;	
+		this.stage = new GameStage(adsController,this.worldBodies,this.world,internetEnabled,game,this.map);
+		
 	}
 
 
@@ -43,11 +139,10 @@ public class StageScreen implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-				
+					
 		this.stage.act(delta);
 		this.stage.draw();
 
-		
 		if(Gdx.input.isKeyJustPressed(Keys.UP)){
 			((OrthographicCamera) this.stage.getCamera() ).zoom -= 0.1f;
 			((OrthographicCamera) this.stage.getCamera() ).update();
@@ -79,10 +174,6 @@ public class StageScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		this.dispose();
-		Assets.manager.dispose();
+		stage.dispose();
 	}
-
-
-
 }

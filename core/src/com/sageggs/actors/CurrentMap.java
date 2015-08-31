@@ -15,13 +15,14 @@ public class CurrentMap extends GameActor{
 	private TiledMap map;
 	public OrthogonalTiledMapRenderer renderer;
 	
-	public CurrentMap(String mapPath, World world){
+	public CurrentMap(TiledMap map, World world){
 		
-		map = Assets.manager.get(Assets.map, TiledMap.class);
+		//map = Assets.manager.get(Assets.map, TiledMap.class);
 
 		Box2DMapObjectParser parser = new Box2DMapObjectParser(.03333f);
 		parser.load(world, map);
-		renderer = new OrthogonalTiledMapRenderer(map,parser.getUnitScale()); 
+		renderer = new OrthogonalTiledMapRenderer(map,parser.getUnitScale());
+		
 	}
 	
     @Override

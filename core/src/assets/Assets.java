@@ -5,9 +5,11 @@ import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TideMapLoader;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 import net.dermetfan.gdx.assets.AnnotationAssetManager.Asset;
@@ -19,6 +21,7 @@ public class Assets {
 	public Assets(){
 		manager = new AnnotationAssetManager(); 	
 		manager.setLoader(TiledMap.class, new TmxMapLoader());
+		//manager.setloader("data/ui/skin.json", Skin.class, new SkinLoader.SkinParameter("data/ui/skin.png"));
 	}
 	
 	@Asset(BitmapFont.class)
@@ -73,7 +76,6 @@ public class Assets {
 	@Asset(TiledMap.class)
 	public static final String
 	map = "data/maps/level4/map.tmx";
-	
 
 	
 	public static void dispose(){

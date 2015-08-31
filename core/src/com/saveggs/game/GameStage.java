@@ -3,12 +3,17 @@ package com.saveggs.game;
 import java.util.HashMap;
 import java.util.Map;
 
+import assets.Assets;
+
 import com.admob.AdsController;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -19,7 +24,10 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
@@ -43,6 +51,9 @@ import com.sageggs.actors.particles.ParticleEffectBall;
 import com.sageggs.actors.particles.ParticleEffectFlyingBird;
 import com.sageggs.actors.particles.ParticleIzlupvane;
 import com.sageggs.actors.particles.PruskaneQice;
+import com.saveggs.game.screens.LevelScreen;
+import com.saveggs.game.screens.MainMenuScreen;
+import com.saveggs.game.screens.StageScreen;
 import com.saveggs.utils.BodyUtils;
 import com.saveggs.utils.Constants;
 import com.saveggs.utils.WorldUtils;
@@ -87,29 +98,39 @@ public class GameStage extends Stage implements ContactListener{
 	private Map<String,Object> mapBodies;
 	private AdsController adsController;
 	private int timeIntervalAds = 0,timeAds = 5;
-	public boolean showGame = false, internetEnabled = false;
+	public boolean showGame = false, internetEnabled = false, showAd = false;
 	private LoadingScreen loading;
+	private Skin skin;
+	private GameClass game;
+	private Stage myStage;
+	private TiledMap map;
+	private Dialog dialog;
+	private Dialog dialog2;
+	private Array<Qice> allEggs,izlupeni,vzeti;
 	
-	
-	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled){
+	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
+		this.game = game;
 		this.mapBodies = mapBodies;
 		this.world = world;
+		this.map = map;
 		this.internetEnabled = internetEnabled;
+		myStage = this;
 		setupCamera();
 		getViewport().setCamera(camera);
 		setUtils();
-		setupWorld("data/maps/level4/map.tmx");
+		setupWorld();
 		Gdx.input.setInputProcessor(this);
 		this.adsController = adsController;		
 		
+		//display loading screen initially
 		Timer.schedule(new Task(){
             @Override
             public void run() {
             	showGame = true;
             	loading.draw = false;
             }
-        },4);
+        },3);
 		
 	}
 		
@@ -124,44 +145,47 @@ public class GameStage extends Stage implements ContactListener{
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		camera.unproject(position.set(screenX, screenY, 0));
-		
-		//Update mesh coordss
-		mesh.calculateXYLastikOne(position.x,position.y);
-		mesh.drawBody = true;
-		//Update mesh2 coords
-		mesh2.calculateXYLastikTwo(position.x,position.y);
-		mesh2.drawBody = true;
-		//Move the static ball on lastik - 0.4f
-		staticBall.setBodyPosOnLastik(position.x, position.y);
+		if(showGame){			
+			camera.unproject(position.set(screenX, screenY, 0));
+			
+			//Update mesh coordss
+			mesh.calculateXYLastikOne(position.x,position.y);
+			mesh.drawBody = true;
+			//Update mesh2 coords
+			mesh2.calculateXYLastikTwo(position.x,position.y);
+			mesh2.drawBody = true;
+			//Move the static ball on lastik - 0.4f
+			staticBall.setBodyPosOnLastik(position.x, position.y);
+		}
 
 		return super.touchDragged(screenX, screenY, pointer);
 	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		//remove lasticite
-		mesh.drawBody = false;
-		mesh2.drawBody = false;
-		
-		//Create a new body
-		dynamicBall = pool.obtain();
-		sleeepingBalls.add(dynamicBall);
-	    //add to stage	    
-	    dynamicBall.body.setTransform(staticBall.body.getPosition(), 0);
-	    dynamicBall.draw = true;
-
-		//Apply force
-	    dynamicBall.applyForceToNewBody();
-	    addActor(dynamicBall);
-
-		//transform old body to initial position
-	    staticBall.body.setTransform(Constants.middleX, Constants.middleY, 0);
+		if(showGame){			
+			//remove lasticite
+			mesh.drawBody = false;
+			mesh2.drawBody = false;
+			
+			//Create a new body
+			dynamicBall = pool.obtain();
+			sleeepingBalls.add(dynamicBall);
+			//add to stage	    
+			dynamicBall.body.setTransform(staticBall.body.getPosition(), 0);
+			dynamicBall.draw = true;
+			
+			//Apply force
+			dynamicBall.applyForceToNewBody();
+			addActor(dynamicBall);
+			
+			//transform old body to initial position
+			staticBall.body.setTransform(Constants.middleX, Constants.middleY, 0);
+		}
 	    
 		return super.touchUp(screenX, screenY, pointer, button);
 	}
 
-	boolean showAd = false;
 	@Override
 	public void act(float delta) {
 		// TODO Auto-generated method stub
@@ -178,9 +202,11 @@ public class GameStage extends Stage implements ContactListener{
 			destroySleepingBalls();
 			resetEnemyIfOutOfBounds();
 			removeIzlupeniQica();
+			displayScreen();
+			izpuleniQica();
 			logger.log();
 		}
-		//debugRenderer.render(world,camera.combined);
+		debugRenderer.render(world,camera.combined);
 
 		
 	}
@@ -192,28 +218,28 @@ public class GameStage extends Stage implements ContactListener{
 	}
 	
 	//Set up world
-	public void setupWorld(String mapPath){
+	public void setupWorld(){
 		//world = new World(new Vector2(0,-9.8f), true);
 		world.setContactListener(this);
 
-		CurrentMap map = new CurrentMap(mapPath,world);
+		CurrentMap map = new CurrentMap(this.map,world);
 		addActor(map);		
 		
 		bodiesOfWorld = new Array<Body>();
 		world.getBodies(bodiesOfWorld);
-		
 		int timeOfIzlupvane = 60;
 		//map of all bodies
 		for (Body bodyLoop : bodiesOfWorld) {
 			//get bodies
 			worldBodies.put(bodyLoop.getUserData().toString(), bodyLoop.getPosition());
 			//get qica
-			if(bodyLoop.getUserData().equals(Constants.QICE)){	
+			if(bodyLoop.getUserData().equals(Constants.QICE)){
 				//neizplupeno qice
 				bodyLoop.setAwake(false);
 				bodyLoop.setBullet(false);
 				qice = new Qice(bodyLoop,timeOfIzlupvane);
 				eggs.add(qice);
+				allEggs.add(qice);
 				timeOfIzlupvane += 60;
 				addActor(qice);
 			}
@@ -222,6 +248,7 @@ public class GameStage extends Stage implements ContactListener{
 		mesh = (CreateMesh)mapBodies.get("mesh");
 		addActor(mesh);
 		//static ball
+
 		staticBall = (DynamicBall)mapBodies.get("staticBall");
 		staticBall.body.setGravityScale(0f);
 		staticBall.body.setTransform(Constants.middleX, Constants.middleY,0);
@@ -233,7 +260,7 @@ public class GameStage extends Stage implements ContactListener{
 		//slingshot
 		slingshot = (Slingshot)mapBodies.get("slingshot");
 		addActor(slingshot);
-
+		
 		//enemy
 		enemyOtherSide = new EnemyOtherSide(WorldUtils.createEnemyOtherSide(world),eggs,worldBodies);
 		addActor(enemyOtherSide);
@@ -241,7 +268,6 @@ public class GameStage extends Stage implements ContactListener{
 		addActor(enemy);
 		startEnemyTwo();
 
-		
 		//bird1
 		flyingBird = (FlyingBirds)mapBodies.get("flyingBird");
 		addActor(flyingBird);
@@ -269,7 +295,7 @@ public class GameStage extends Stage implements ContactListener{
 		//loading screen
 		loading = new LoadingScreen();
 		addActor(loading);
-		
+
 	}
 	
 	//utils
@@ -283,6 +309,50 @@ public class GameStage extends Stage implements ContactListener{
 		logger = new FPSLogger();
 		eggs = new Array<Qice>();
 		worldBodies = new HashMap<String,Vector2>();
+		allEggs = new Array<Qice>();
+		izlupeni = new Array<Qice>();
+		vzeti = new Array<Qice>();
+		skin = (Skin)mapBodies.get("skin");
+		
+		 dialog = new Dialog("please confirm", skin) {
+			{
+				text("you have lost");
+				button("replay","replay");
+				button("return to menu", "menu");
+			}
+
+			@Override
+			protected void result(Object object) {
+				if(object.equals("replay")){
+					//getStage().dispose();
+					//world.dispose();
+					game.setScreen(new StageScreen(adsController,game,internetEnabled,map,mapBodies));
+				}		
+				else
+				{
+					getStage().dispose();
+					world.dispose();
+					game.setScreen(new MainMenuScreen(adsController,game));
+				}
+			}
+		};		
+		
+		 dialog2 = new Dialog("please confirm", skin) {
+			{
+				text("Congratulations!");
+				button("main menu","menu");
+			}
+
+			@Override
+			protected void result(Object object) {
+				if(object.equals("menu")){
+					getStage().dispose();
+					world.dispose();
+					game.setScreen(new MainMenuScreen(adsController,game));
+				}		
+			}
+		};	
+		
 	}
 	
 	
@@ -305,9 +375,11 @@ public class GameStage extends Stage implements ContactListener{
 	//reset enemies out of range
 	public void resetEnemyIfOutOfBounds(){
     	if(!BodyUtils.bodyInBounds(enemy.body,camera)){
+			((Qice)enemy.body.getFixtureList().first().getUserData()).vzeto = true;
     		enemy.resetBody();            		
     	}
     	if(!BodyUtils.bodyInBounds(enemyOtherSide.body,camera)){
+    		((Qice)enemyOtherSide.body.getFixtureList().first().getUserData()).vzeto = true;
     		enemyOtherSide.resetBody();            		
     	}
 	}
@@ -321,6 +393,18 @@ public class GameStage extends Stage implements ContactListener{
         }
 	}
 	
+	//remove eggs which have already been izlupeni
+	public void izpuleniQica(){
+		for (Qice qice : allEggs) {	
+						
+        	if(qice.izlupenoQice && !izlupeni.contains(qice, true)){
+        		izlupeni.add(qice);
+        	}
+        	if(qice.vzeto && !vzeti.contains(qice, true)){ 
+        		vzeti.add(qice);
+        	}
+        }
+	}
 	
 	//Destroy sleeping bodies
 	public void destroySleepingBalls(){
@@ -456,14 +540,17 @@ public class GameStage extends Stage implements ContactListener{
 					enemy.hvashtane = false;
 					if(((Qice)body1.getFixtureList().first().getUserData()).animationDraw == false){
 						((Qice)body1.getFixtureList().first().getUserData()).vzetoQice = true;
+						//((Qice)body1.getFixtureList().first().getUserData()).vzeto = true;
 					}
 	        		enemy.pribirane = true;
 				}
 				//make sure qiceto ne se izlupva i qiceto e  tova za koeto se e zaputila pticata
 				else if(body2 != null && !qice.isAwake() && (((Qice)body2.getFixtureList().first().getUserData()).body == qice)){
 					enemyOtherSide.hvashtane = false;
-					if(((Qice)body2.getFixtureList().first().getUserData()).animationDraw == false)
+					if(((Qice)body2.getFixtureList().first().getUserData()).animationDraw == false){
 						((Qice)body2.getFixtureList().first().getUserData()).vzetoQice = true;
+						//((Qice)body2.getFixtureList().first().getUserData()).vzeto = true;
+					}
 					enemyOtherSide.pribirane = true;
 				}
         			  
@@ -511,15 +598,15 @@ public class GameStage extends Stage implements ContactListener{
 								
 							}
 							
-							//launch both enemies
+/*							//launch both enemies
 							if(!enemyOtherSide.enemyDraw){
 								launchEnemyTwo();
 								launchEnemyOne();
 							}
 							else
-								launchEnemyOne();
+								launchEnemyOne();*/
 							
-/*							//if mobile internet and limit reached
+							//if mobile internet and limit reached
 							if(internetEnabled && timeIntervalAds >= timeAds){
 								adsController.showInterstitialAd(new Runnable() {
 									@Override
@@ -536,7 +623,7 @@ public class GameStage extends Stage implements ContactListener{
 					    		//reset
 					    		if(timeIntervalAds > timeAds)
 					    			timeIntervalAds = 0;
-					    	}	*/
+					    	}	
 						}
 					});
 				}
@@ -557,14 +644,14 @@ public class GameStage extends Stage implements ContactListener{
 								((Qice)toRemove2.getFixtureList().first().getUserData()).vzetoQice = false;
 								((Qice)toRemove2.getFixtureList().first().getUserData()).razmazanoQice = true;
 							}
-							//launch both enemies
+/*							//launch both enemies
 							if(!enemy.enemyDraw){
 								launchEnemyTwo();
 								launchEnemyOne();
 							}
 							else
-								launchEnemyTwo();
-	/*						//if mobile enabled
+								launchEnemyTwo();*/
+							//if mobile enabled
 							if(internetEnabled && timeIntervalAds >= timeAds){
 								adsController.showInterstitialAd(new Runnable() {
 									@Override
@@ -581,7 +668,7 @@ public class GameStage extends Stage implements ContactListener{
 					    		//reset
 					    		if(timeIntervalAds > timeAds)
 					    			timeIntervalAds = 0;
-					    	}*/
+					    	}
 						}
 					});
 				}
@@ -596,11 +683,20 @@ public class GameStage extends Stage implements ContactListener{
         	
 			final Body qice = contact.getFixtureA().getUserData().equals(Constants.QICE) ?
 					  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
+			
+			
 			if(qice.isSleepingAllowed()){				
 				pruskane.effect.setPosition(qice.getPosition().x, qice.getPosition().y);
 				pruskane.showEffect = true;
+				qice.setAwake(true);
+				qice.setSleepingAllowed(false);
+				Gdx.app.postRunnable(new Runnable() {
+					@Override
+					public void run() {
+						world.destroyBody(qice);
+					}
+				});
 			}
-			qice.setSleepingAllowed(false);
         }
         
         
@@ -727,6 +823,9 @@ public class GameStage extends Stage implements ContactListener{
         
       }
 
+	@Override
+	public void postSolve(Contact contact, ContactImpulse impulse) {
+	}
 
 	@Override
 	public void endContact(Contact contact) {}
@@ -734,7 +833,39 @@ public class GameStage extends Stage implements ContactListener{
 	@Override
 	public void preSolve(Contact contact, Manifold oldManifold) {}
 
-	@Override
-	public void postSolve(Contact contact, ContactImpulse impulse) {}
+	//calculate force
+	public static float sumHitImpulse(float[] values){
+		float sum = 0;
+		for(float value: values){
+			sum += value;
+		}
+		return sum;
+	}
+	
+	public void displayScreen(){
+		//fail
+		if(vzeti.size == 2) {
+			showGame = false;
+			
+			//skin
+			dialog.setScale(.03333f);
+			dialog.show(this);
+			dialog.setOrigin( this.getWidth() * 0.4f , 
+							  this.getHeight() / 2);
+		}
+		
+		//success
+		if(izlupeni.size == 5){
+			showGame = false;
+			//skin
+			dialog2.setScale(.03333f);
+			dialog2.show(this);
+			dialog2.setOrigin( this.getWidth() * 0.4f , 
+							  this.getHeight() / 2);
+		}
+			
+		
+	}
+	
 	
 }

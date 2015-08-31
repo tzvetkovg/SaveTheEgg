@@ -39,19 +39,15 @@ public class MainMenuScreen implements Screen{
 	private Texture buttonOverTex;
 	private Texture buttonDownTex;
 	private Image gameTitle;
-	private Map<String,Object> mapBodies;
-	private World world;
 	private AdsController adsController;
 	private final GameClass games;
 	
-	public MainMenuScreen(final AdsController adsController,final GameClass game,final Map<String,Object> mapBodies,final World world){
+	public MainMenuScreen(final AdsController adsController,final GameClass game){
 		
 		
 		this.games = game;
 		
 		this.stage = new Stage(new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
-		this.world = world;
-		this.mapBodies = mapBodies;
 		this.adsController = adsController;
 		
 		Gdx.input.setInputProcessor(stage);
@@ -79,7 +75,7 @@ public class MainMenuScreen implements Screen{
 		play.addListener( new ClickListener() {
 			@Override
 		    public void clicked (InputEvent event, float x, float y) {
-				game.setScreen(new LevelScreen(adsController,game,mapBodies,world));
+				game.setScreen(new LevelScreen(adsController,game));
 			};
 		});
 

@@ -22,6 +22,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.sageggs.actors.CreateMesh;
 import com.sageggs.actors.CreateMesh2;
@@ -56,6 +57,7 @@ public class SplashScreen implements Screen {
 	private DynamicBall staticBall;
 	private FlyingBirds2 flyingBird2;
 	private AdsController adsController;
+	private Skin skin;
 	
 	public SplashScreen(final AdsController adsController,GameClass game){
 
@@ -89,7 +91,10 @@ public class SplashScreen implements Screen {
 		Assets.manager.finishLoading();
 				
 		
-		worldBodies = new HashMap<String,Object>();
+/*		worldBodies = new HashMap<String,Object>();
+		
+		//skin 
+		//worldBodies.put("skin",new Skin(Gdx.files.internal("data/uiskin.json")));
 		
 		//shaderstaticBall
 		shader = new ShaderProgram(ShaderSpec.vertexShader, ShaderSpec.fragmentShader);	
@@ -122,7 +127,7 @@ public class SplashScreen implements Screen {
 		worldBodies.put("particleBall",  new ParticleEffectBall());
 		worldBodies.put("particleIzlupvane",  new ParticleIzlupvane());
 		worldBodies.put("flyingBirdParticle",  new ParticleEffectFlyingBird());
-		worldBodies.put("pruskane",  new PruskaneQice());
+		worldBodies.put("pruskane",  new PruskaneQice());*/
 		
 		//load interstitial ad
 		if(adsController != null && (adsController.isWifiConnected() || adsController.isMobileDataEnabled())){					
@@ -142,7 +147,7 @@ public class SplashScreen implements Screen {
 		stage.draw();
 		
 		if(image.getActions().size == 0){
-			game.setScreen(new MainMenuScreen(adsController,game,worldBodies,world));
+			game.setScreen(new MainMenuScreen(adsController,game));
 			//game.setScreen(new MainMenuScreen(game));
 		}
 	}
