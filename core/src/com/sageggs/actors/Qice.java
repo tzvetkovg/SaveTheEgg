@@ -112,8 +112,8 @@ public class Qice extends GameActor {
         	 * razmazvane na zemqta
         	 */
         	if(!body.isSleepingAllowed()){
+        		//shchupeno qice
         		uduljavaneIgra = true;
-        		vzeto = true;
         		razmazanoQice = false;
         		drawing = false;
         	}

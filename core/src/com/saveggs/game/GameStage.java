@@ -206,7 +206,7 @@ public class GameStage extends Stage implements ContactListener{
 			izpuleniQica();
 			logger.log();
 		}
-		debugRenderer.render(world,camera.combined);
+		//debugRenderer.render(world,camera.combined);
 
 		
 	}
@@ -315,9 +315,10 @@ public class GameStage extends Stage implements ContactListener{
 		uduljavane = new Array<Qice>();
 		skin = (Skin)mapBodies.get("skin");
 		
+		
 		 dialog = new Dialog("please confirm", skin) {
 			{
-				text("you have lost");
+				//text("you have lost");
 				button("replay","replay");
 				button("return to menu", "menu");
 			}
@@ -325,11 +326,9 @@ public class GameStage extends Stage implements ContactListener{
 			@Override
 			protected void result(Object object) {
 				if(object.equals("replay")){
-					//getStage().dispose();
-					//world.dispose();
 					game.setScreen(new StageScreen(adsController,game,internetEnabled,map,mapBodies));
 				}		
-				else
+				else if(object.equals("menu"))
 				{
 					getStage().dispose();
 					world.dispose();
@@ -337,23 +336,6 @@ public class GameStage extends Stage implements ContactListener{
 				}
 			}
 		};		
-		
-		 dialog2 = new Dialog("please confirm", skin) {
-			{
-				text("Congratulations!");
-				button("main menu","menu");
-			}
-
-			@Override
-			protected void result(Object object) {
-				if(object.equals("menu")){
-					getStage().dispose();
-					world.dispose();
-					game.setScreen(new MainMenuScreen(adsController,game));
-				}		
-			}
-		};	
-		
 	}
 	
 	
@@ -544,6 +526,29 @@ public class GameStage extends Stage implements ContactListener{
 					enemy.hvashtane = false;
 					if(((Qice)body1.getFixtureList().first().getUserData()).animationDraw == false){
 						((Qice)body1.getFixtureList().first().getUserData()).vzetoQice = true;
+						
+						//max 2 razbiti qica
+						if(uduljavane.size == 2) {
+							showGame = false;
+							//skin
+							dialog.text("Lost! For 2 broken eggs you must save min 3!");
+							dialog.setScale(.03333f);
+							dialog.show(this);
+							dialog.setOrigin( this.getWidth() * 0.25f , 
+											  this.getHeight() / 2);
+						}
+						
+						//max 2 razbiti qica
+						if(uduljavane.size == 1 && vzeti.size ==1) {
+							showGame = false;
+							//skin
+							dialog.text("Lost! You have 1 egg taken. You must save min 4!");
+							dialog.setScale(.03333f);
+							dialog.show(this);
+							dialog.setOrigin( this.getWidth() * 0.25f , 
+											  this.getHeight() / 2);
+						}
+						
 						//((Qice)body1.getFixtureList().first().getUserData()).vzeto = true;
 					}
 	        		enemy.pribirane = true;
@@ -553,6 +558,27 @@ public class GameStage extends Stage implements ContactListener{
 					enemyOtherSide.hvashtane = false;
 					if(((Qice)body2.getFixtureList().first().getUserData()).animationDraw == false){
 						((Qice)body2.getFixtureList().first().getUserData()).vzetoQice = true;
+						
+						//dve sa razbiti veche
+						if(uduljavane.size == 2) {
+							showGame = false;
+							dialog.text("Lost! For 2 broken eggs you must save min 3!");
+							dialog.setScale(.03333f);
+							dialog.show(this);
+							dialog.setOrigin( this.getWidth() * 0.25f , 
+											  this.getHeight() / 2);
+						}
+						
+						//max 1 razbito i vzeto (Trqbwa da spasish chetiri)
+						if(uduljavane.size == 1 && vzeti.size ==1) {
+							showGame = false;
+							//skin
+							dialog.text("Lost! You have 1 egg taken. You must save min 4!");
+							dialog.setScale(.03333f);
+							dialog.show(this);
+							dialog.setOrigin( this.getWidth() * 0.25f , 
+											  this.getHeight() / 2);
+						}
 						//((Qice)body2.getFixtureList().first().getUserData()).vzeto = true;
 					}
 					enemyOtherSide.pribirane = true;
@@ -846,37 +872,41 @@ public class GameStage extends Stage implements ContactListener{
 		return sum;
 	}
 	
-	int limitEggs = 2;
-	boolean stop = true;
+	
 	public void displayScreen(){
-		
-		//uduljavane na igrata ako ima 2 razbiti qica
-		if(uduljavane.size == 2 && stop) {
-			limitEggs += 1;
-			stop = false;
+
+		//max 2 razbiti qica
+		if(uduljavane.size == 3) {
+			showGame = false;
+			dialog.text("Lost! You must save at least 3 eggs");
+			//skin
+			dialog.setScale(.03333f);
+			dialog.show(this);
+			dialog.setOrigin( this.getWidth() * 0.25f , 
+							  this.getHeight() / 2);
 		}
 		
-		//fail
-		if(vzeti.size == limitEggs) {
+		//fail dve s koito pticata e otletqla
+		if(vzeti.size == 2) {
+			showGame = false;
+			dialog.text("Lost! You have 1 egg taken. You must save min 4!");
+			//skin
+			dialog.setScale(.03333f);
+			dialog.show(this);
+			dialog.setOrigin( this.getWidth() * 0.25f , 
+							  this.getHeight() / 2);
+		}
+		
+		//success 3 izlupeni
+		if(izlupeni.size == 3){
 			showGame = false;
 			//skin
+			dialog.text("Congratulations! You won!");
 			dialog.setScale(.03333f);
 			dialog.show(this);
 			dialog.setOrigin( this.getWidth() * 0.4f , 
 							  this.getHeight() / 2);
 		}
-		
-		//success
-		if(izlupeni.size == 5){
-			showGame = false;
-			//skin
-			dialog2.setScale(.03333f);
-			dialog2.show(this);
-			dialog2.setOrigin( this.getWidth() * 0.4f , 
-							  this.getHeight() / 2);
-		}
-			
-		
 	}
 	
 	
