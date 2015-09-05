@@ -48,82 +48,53 @@ public class StageScreen implements Screen {
 	public GameClass eggSaver;
 	private Stage stage = null;
 	public AdsController adsController;
-	private Skin skin;
-	private World worlda;
-	private Array<Body> bodiesOfWorld;
 	private TiledMap map;
-	private OrthographicCamera camera;
-	private WorldUtils utils;
 	private Map<String,Object> worldBodies;
 	private ShaderProgram shader;
 	private World world;
-	private DynamicBall staticBall;
 	private FlyingBirds2 flyingBird2;
 	
-	public StageScreen(final AdsController adsController, final GameClass game,final boolean internetEnabled,TiledMap map,Map<String,Object> worldBodies){
+	public StageScreen(final AdsController adsController, final GameClass game,final boolean internetEnabled,TiledMap map){
 		this.eggSaver = game;
 		
 		this.map = map;
 		
-		//in case it's replay so reuse some of the objects
-		if(worldBodies != null)
-		{
-			//world
-			this.world = new World(new Vector2(0,-9.8f), true);
-			this.worldBodies = worldBodies;
-			//static ball
-			this.worldBodies.put("staticBall", new DynamicBall(WorldUtils.createDynamicBall(this.world)));
-			
-			//slingshot
-			this.worldBodies.put("slingshot",  new Slingshot(WorldUtils.createSlingshot(this.world)));
-			
-			//bird1
-			this.worldBodies.put("flyingBird",  new FlyingBirds(WorldUtils.createFlyingBird(this.world)));
-			
-			//bird2
-			flyingBird2 = new FlyingBirds2(WorldUtils.createFlyingBird2(this.world));
-			flyingBird2.animatedBox2DSprite.flipFrames(true, false);
-			this.worldBodies.put("flyingBird2",  flyingBird2);
-		}
-		else{	
-			this.worldBodies = new HashMap<String,Object>();
-			/**
-			 * initialize some of the world objects
-			 */
-			//skin
-			this.worldBodies.put("skin", new Skin(Gdx.files.internal("data/uiskin.json")));
-			//shaderstaticBall
-			shader = new ShaderProgram(ShaderSpec.vertexShader, ShaderSpec.fragmentShader);	
-			//world
-			this.world = new World(new Vector2(0,-9.8f), true);
-			//mesh1
-			this.worldBodies.put("mesh", new CreateMesh(WorldUtils.createMesh(),shader));
-			
-			//draw 2nd mesh
-			this.worldBodies.put("mesh2", new CreateMesh2(WorldUtils.createMesh2(),shader));
-			
-			
-			//static ball
-			this.worldBodies.put("staticBall", new DynamicBall(WorldUtils.createDynamicBall(this.world)));
-			
-			//slingshot
-			this.worldBodies.put("slingshot",  new Slingshot(WorldUtils.createSlingshot(this.world)));
-			
-			//bird1
-			this.worldBodies.put("flyingBird",  new FlyingBirds(WorldUtils.createFlyingBird(this.world)));
-			
-			//bird2
-			flyingBird2 = new FlyingBirds2(WorldUtils.createFlyingBird2(this.world));
-			flyingBird2.animatedBox2DSprite.flipFrames(true, false);
-			this.worldBodies.put("flyingBird2",  flyingBird2);
-			
-			//PArticle effects
-			this.worldBodies.put("particleEffect",  new ParticleEffectAn());
-			this.worldBodies.put("particleBall",  new ParticleEffectBall());
-			this.worldBodies.put("particleIzlupvane",  new ParticleIzlupvane());
-			this.worldBodies.put("flyingBirdParticle",  new ParticleEffectFlyingBird());
-			this.worldBodies.put("pruskane",  new PruskaneQice());
-		}
+		this.worldBodies = new HashMap<String,Object>();
+		/**
+		 * initialize some of the world objects
+		 */
+		//skin
+		this.worldBodies.put("skin", new Skin(Gdx.files.internal("data/uiskin.json")));
+		//shaderstaticBall
+		shader = new ShaderProgram(ShaderSpec.vertexShader, ShaderSpec.fragmentShader);	
+		//world
+		this.world = new World(new Vector2(0,-9.8f), true);
+		//mesh1
+		this.worldBodies.put("mesh", new CreateMesh(WorldUtils.createMesh(),shader));
+		
+		//draw 2nd mesh
+		this.worldBodies.put("mesh2", new CreateMesh2(WorldUtils.createMesh2(),shader));
+		
+		//static ball
+		this.worldBodies.put("staticBall", new DynamicBall(WorldUtils.createDynamicBall(this.world)));
+		
+		//slingshot
+		this.worldBodies.put("slingshot",  new Slingshot(WorldUtils.createSlingshot(this.world)));
+		
+		//bird1
+		this.worldBodies.put("flyingBird",  new FlyingBirds(WorldUtils.createFlyingBird(this.world)));
+		
+		//bird2
+		flyingBird2 = new FlyingBirds2(WorldUtils.createFlyingBird2(this.world));
+		flyingBird2.animatedBox2DSprite.flipFrames(true, false);
+		this.worldBodies.put("flyingBird2",  flyingBird2);
+		
+		//PArticle effects
+		this.worldBodies.put("particleEffect",  new ParticleEffectAn());
+		this.worldBodies.put("particleBall",  new ParticleEffectBall());
+		this.worldBodies.put("particleIzlupvane",  new ParticleIzlupvane());
+		this.worldBodies.put("flyingBirdParticle",  new ParticleEffectFlyingBird());
+		this.worldBodies.put("pruskane",  new PruskaneQice());
 		
 		this.adsController = adsController;	
 		this.stage = new GameStage(adsController,this.worldBodies,this.world,internetEnabled,game,this.map);

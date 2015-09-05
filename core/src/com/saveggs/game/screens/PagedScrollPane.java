@@ -1,12 +1,18 @@
 package com.saveggs.game.screens;
 
 
+import assets.Assets;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 
 public class PagedScrollPane extends ScrollPane {
@@ -39,7 +45,7 @@ public class PagedScrollPane extends ScrollPane {
 
 	private void setup() {
 		content = new Table();
-		//content.defaults().space(50);
+		content.defaults().space(50);
 		super.setWidget(content);		
 	}
 
@@ -50,7 +56,9 @@ public class PagedScrollPane extends ScrollPane {
 	}
 
 	public void addPage (Actor page) {
+		
 		content.add(page).expandY().fillY();
+	
 	}
 
 	@Override
@@ -96,6 +104,7 @@ public class PagedScrollPane extends ScrollPane {
 		final float width = getWidth();
 		final float scrollX = getScrollX();
 		final float maxX = getMaxX();
+		
 
 		if (scrollX >= maxX || scrollX <= 0) return;
 
@@ -111,6 +120,7 @@ public class PagedScrollPane extends ScrollPane {
 				}
 			}
 			setScrollX(MathUtils.clamp(pageX - (width - pageWidth) / 2, 0, maxX));
+			
 		}
 	}
 

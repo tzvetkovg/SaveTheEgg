@@ -56,7 +56,7 @@ public class EnemyOtherSide extends GameActor{
 	private Array<Qice> eggs;
 	int point = 0;
 	private boolean continueUpdating = true;
-	private boolean anyEggsLeft = true;
+	public boolean anyEggsLeft = true;
 	private float speed = 0f;
 	
 	public EnemyOtherSide(Body body,Array<Qice> eggs,Map<String,Vector2> worldBodies) {
@@ -184,6 +184,7 @@ public class EnemyOtherSide extends GameActor{
 	public void resetBody(){
 		
 		pathPoints.clear();
+		
 		if(eggs.size - 1 != -1) {
 			//position enemy
 			myPosition = MathUtils.random(1, 3);
@@ -191,7 +192,6 @@ public class EnemyOtherSide extends GameActor{
 			body.setTransform(resetPosition, 0);
 			//pick a random egg
 			singleEgg = eggs.get((int)MathUtils.random(0, eggs.size - 1));
-			
 			//used to make sure it's the right egg (see contact in gamestage)
 			body.getFixtureList().first().setUserData(singleEgg);
 			

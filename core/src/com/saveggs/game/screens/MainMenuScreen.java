@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -21,6 +22,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.saveggs.game.GameClass;
@@ -32,7 +34,7 @@ public class MainMenuScreen implements Screen{
 	
 	private Stage stage;
 	private Table table;
-	private TextButton play, exit;
+	private TextButton play, exit,tutorial,credits;
 	private Image image;
 	private BitmapFont font;
 	private Texture buttonUpTex;
@@ -68,6 +70,8 @@ public class MainMenuScreen implements Screen{
 		
 		//Define buttons
 		play = new TextButton("PLAY", tbs);
+		tutorial = new TextButton("TUTORIAL", tbs);
+		credits = new TextButton("CREDITS", tbs);
 		exit = new TextButton("EXIT", tbs);
 
 		
@@ -92,12 +96,16 @@ public class MainMenuScreen implements Screen{
 		//table.debug();
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		
-		table.add(gameTitle).expandX().spaceBottom(200f);
+		table.add(gameTitle).expandX().spaceBottom(80f);
 		table.row();
 		table.row();
-		table.add(play).padTop(5f);
+		table.add(play).padTop(5f).size(Gdx.graphics.getWidth() / 5 , Gdx.graphics.getHeight() / 10);
 		table.row();
-		table.add(exit).padTop(5f);
+		table.add(credits).padTop(5f).size(Gdx.graphics.getWidth() / 5 , Gdx.graphics.getHeight() / 10);
+		table.row();
+		table.add(tutorial).padTop(5f).size(Gdx.graphics.getWidth() / 5 , Gdx.graphics.getHeight() / 10);
+		table.row();
+		table.add(exit).padTop(5f).size(Gdx.graphics.getWidth() / 5 , Gdx.graphics.getHeight() / 10);;
 
 		// Set table's alpha to 0
 		table.getColor().a = 0f;
@@ -105,11 +113,16 @@ public class MainMenuScreen implements Screen{
 		// Adds created table to stage
 		stage.addActor(table);
 		//
-		table.debug();
+		//table.debug();
 		// To make the table appear smoothly
-		table.addAction(fadeIn(4f));		
+		table.addAction(fadeIn(2f));
+		
+		table.setBackground(new NinePatchDrawable(Constants.getNinePatch()));
 		
 	}
+	
+
+
 	
 	
 	@Override

@@ -1,5 +1,6 @@
 package com.saveggs.game;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +28,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
@@ -67,19 +70,15 @@ public class GameStage extends Stage implements ContactListener{
 	private Qice qice;
 	private DynamicBall dynamicBall;
 	private DynamicBall staticBall;
-	private Ground ground;
 	private Slingshot slingshot;
 	private Enemy enemy;
 	private EnemyOtherSide enemyOtherSide;
 	private OrthographicCamera camera;
 	private CreateMesh mesh;
 	private CreateMesh2 mesh2;
-	private WorldUtils worldUtils;
-	private ShaderProgram shader;
 	//Touch position
 	private	Vector3 position = new Vector3();
 	private Vector3 touchDown = new Vector3();
-	private Vector2 getCoords = new Vector2();
 	private Array<Body> bodies;
 	private Array<Body> bodiesOfWorld;
 	private Array<Qice> eggs;
@@ -102,11 +101,11 @@ public class GameStage extends Stage implements ContactListener{
 	private LoadingScreen loading;
 	private Skin skin;
 	private GameClass game;
-	private Stage myStage;
 	private TiledMap map;
 	private Dialog dialog;
-	private Dialog dialog2;
 	private Array<Qice> allEggs,izlupeni,vzeti,uduljavane;
+	private Array<Vector2> positionsOfQica;
+	private Label label;
 	
 	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
@@ -115,7 +114,6 @@ public class GameStage extends Stage implements ContactListener{
 		this.world = world;
 		this.map = map;
 		this.internetEnabled = internetEnabled;
-		myStage = this;
 		setupCamera();
 		getViewport().setCamera(camera);
 		setUtils();
@@ -206,7 +204,7 @@ public class GameStage extends Stage implements ContactListener{
 			izpuleniQica();
 			logger.log();
 		}
-		//debugRenderer.render(world,camera.combined);
+		debugRenderer.render(world,camera.combined);
 
 		
 	}
@@ -219,7 +217,7 @@ public class GameStage extends Stage implements ContactListener{
 	
 	//Set up world
 	public void setupWorld(){
-		//world = new World(new Vector2(0,-9.8f), true);
+		
 		world.setContactListener(this);
 
 		CurrentMap map = new CurrentMap(this.map,world);
@@ -227,20 +225,22 @@ public class GameStage extends Stage implements ContactListener{
 		
 		bodiesOfWorld = new Array<Body>();
 		world.getBodies(bodiesOfWorld);
-		int timeOfIzlupvane = 60;
+		int timeOfIzlupvane = 1;
 		//map of all bodies
 		for (Body bodyLoop : bodiesOfWorld) {
 			//get bodies
 			worldBodies.put(bodyLoop.getUserData().toString(), bodyLoop.getPosition());
 			//get qica
-			if(bodyLoop.getUserData().equals(Constants.QICE)){
+			if(bodyLoop.getUserData().equals(Constants.QICE)) {
 				//neizplupeno qice
 				bodyLoop.setAwake(false);
 				bodyLoop.setBullet(false);
+				//get initial position of bodies
+				positionsOfQica.add(new Vector2(bodyLoop.getPosition()));
 				qice = new Qice(bodyLoop,timeOfIzlupvane);
 				eggs.add(qice);
 				allEggs.add(qice);
-				timeOfIzlupvane += 60;
+				timeOfIzlupvane += 1;
 				addActor(qice);
 			}
 		}
@@ -298,6 +298,27 @@ public class GameStage extends Stage implements ContactListener{
 
 	}
 	
+	//replay/reset the stage
+	public void resetStage(){
+		eggs.clear();
+		izlupeni.clear();
+		vzeti.clear();
+		uduljavane.clear();
+		
+		//reset eggs initial position
+		int i = 0;
+		for (Vector2 position: positionsOfQica){
+			allEggs.get(i).resetInitialPositionQice(position);
+			eggs.add(allEggs.get(i));
+			System.out.println("i " + i);
+			i++;
+		}
+		//reset enemies
+		enemyOtherSide.anyEggsLeft=true;
+		enemy.anyEggsLeft = true;
+		launchEnemy();
+	}
+	
 	//utils
 	public void setUtils(){
 		debugRenderer = new Box2DDebugRenderer();
@@ -313,12 +334,13 @@ public class GameStage extends Stage implements ContactListener{
 		izlupeni = new Array<Qice>();
 		vzeti = new Array<Qice>();
 		uduljavane = new Array<Qice>();
+		positionsOfQica = new Array<Vector2>();
 		skin = (Skin)mapBodies.get("skin");
 		
-		
+		//label and dialog
+		 label = new Label("text",skin);
 		 dialog = new Dialog("please confirm", skin) {
 			{
-				//text("you have lost");
 				button("replay","replay");
 				button("return to menu", "menu");
 			}
@@ -326,17 +348,21 @@ public class GameStage extends Stage implements ContactListener{
 			@Override
 			protected void result(Object object) {
 				if(object.equals("replay")){
-					game.setScreen(new StageScreen(adsController,game,internetEnabled,map,mapBodies));
+					resetStage();
+					showGame = true;
 				}		
 				else if(object.equals("menu"))
 				{
 					getStage().dispose();
 					world.dispose();
-					game.setScreen(new MainMenuScreen(adsController,game));
+					game.setScreen(new LevelScreen(adsController,game));
 				}
 			}
 		};		
+		dialog.text(label);
 	}
+	
+	
 	
 	
 	//Destroy bodies if out of range
@@ -531,7 +557,8 @@ public class GameStage extends Stage implements ContactListener{
 						if(uduljavane.size == 2) {
 							showGame = false;
 							//skin
-							dialog.text("Lost! For 2 broken eggs you must save min 3!");
+							label.setText("Lost! For 2 broken eggs you must save min 3!");
+							//dialog.text(label);
 							dialog.setScale(.03333f);
 							dialog.show(this);
 							dialog.setOrigin( this.getWidth() * 0.25f , 
@@ -541,8 +568,8 @@ public class GameStage extends Stage implements ContactListener{
 						//max 2 razbiti qica
 						if(uduljavane.size == 1 && vzeti.size ==1) {
 							showGame = false;
-							//skin
-							dialog.text("Lost! You have 1 egg taken. You must save min 4!");
+							label.setText("Lost! You have 1 egg taken. You must save min 4!");
+							//dialog.text(label);
 							dialog.setScale(.03333f);
 							dialog.show(this);
 							dialog.setOrigin( this.getWidth() * 0.25f , 
@@ -562,7 +589,8 @@ public class GameStage extends Stage implements ContactListener{
 						//dve sa razbiti veche
 						if(uduljavane.size == 2) {
 							showGame = false;
-							dialog.text("Lost! For 2 broken eggs you must save min 3!");
+							label.setText("Lost! For 2 broken eggs you must save min 3!");
+							//dialog.text(label);
 							dialog.setScale(.03333f);
 							dialog.show(this);
 							dialog.setOrigin( this.getWidth() * 0.25f , 
@@ -573,7 +601,8 @@ public class GameStage extends Stage implements ContactListener{
 						if(uduljavane.size == 1 && vzeti.size ==1) {
 							showGame = false;
 							//skin
-							dialog.text("Lost! You have 1 egg taken. You must save min 4!");
+							label.setText("Lost! You have 1 egg taken. You must save min 4!");
+							//dialog.text(label);
 							dialog.setScale(.03333f);
 							dialog.show(this);
 							dialog.setOrigin( this.getWidth() * 0.25f , 
@@ -723,7 +752,7 @@ public class GameStage extends Stage implements ContactListener{
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						world.destroyBody(qice);
+						//world.destroyBody(qice);
 					}
 				});
 			}
@@ -799,7 +828,6 @@ public class GameStage extends Stage implements ContactListener{
         	}
         }
         
-        
         /**
          * FlyingBird 2
          */
@@ -861,24 +889,15 @@ public class GameStage extends Stage implements ContactListener{
 	public void endContact(Contact contact) {}
 
 	@Override
-	public void preSolve(Contact contact, Manifold oldManifold) {}
-
-	//calculate force
-	public static float sumHitImpulse(float[] values){
-		float sum = 0;
-		for(float value: values){
-			sum += value;
-		}
-		return sum;
-	}
-	
-	
+	public void preSolve(Contact contact, Manifold oldManifold) {}	
+		
 	public void displayScreen(){
 
 		//max 2 razbiti qica
 		if(uduljavane.size == 3) {
 			showGame = false;
-			dialog.text("Lost! You must save at least 3 eggs");
+			label.setText("Lost! You must save at least 3 eggs");
+			//dialog.text(label);
 			//skin
 			dialog.setScale(.03333f);
 			dialog.show(this);
@@ -889,7 +908,8 @@ public class GameStage extends Stage implements ContactListener{
 		//fail dve s koito pticata e otletqla
 		if(vzeti.size == 2) {
 			showGame = false;
-			dialog.text("Lost! You have 1 egg taken. You must save min 4!");
+			label.setText("Lost! You have 1 egg taken. You must save min 4!");
+			//dialog.text(label);
 			//skin
 			dialog.setScale(.03333f);
 			dialog.show(this);
@@ -901,7 +921,8 @@ public class GameStage extends Stage implements ContactListener{
 		if(izlupeni.size == 3){
 			showGame = false;
 			//skin
-			dialog.text("Congratulations! You won!");
+			label.setText("Congratulations! You won!");
+			//dialog.text(label);
 			dialog.setScale(.03333f);
 			dialog.show(this);
 			dialog.setOrigin( this.getWidth() * 0.4f , 

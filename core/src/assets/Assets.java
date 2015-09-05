@@ -21,7 +21,6 @@ public class Assets {
 	public Assets(){
 		manager = new AnnotationAssetManager(); 	
 		manager.setLoader(TiledMap.class, new TmxMapLoader());
-		//manager.setloader("data/ui/skin.json", Skin.class, new SkinLoader.SkinParameter("data/ui/skin.png"));
 	}
 	
 	@Asset(BitmapFont.class)
@@ -32,14 +31,16 @@ public class Assets {
 	 * MenuScreen
 	 */
 	public static final String 
-	gameTitle = "data/gameTitle.png",
+	gameTitle = "data/ui/gameTitle.png",
 	buttonUpTex = "data/ui/normalButton.png",
 	buttonOverTex = "data/ui/normalButton.png",
 	buttonDownTex = "data/ui/clickedButton.png",
 	/**
 	 * Level Menu
 	 */
-	gameTitleL = "data/gameTitle.png",
+	levels = "data/ui/levels.png",
+	levelBackGround = "data/ui/bah.png",
+	arrow = "data//ui/arrow.png",
 	/**
 	 * Stage
 	 */

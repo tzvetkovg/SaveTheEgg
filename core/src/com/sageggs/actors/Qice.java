@@ -34,8 +34,9 @@ public class Qice extends GameActor {
 	public boolean runBatch = false;
 	public boolean vzetoQice = false;
 	public boolean razmazanoQice = false;
-	public boolean resetEgg = false, izlupenoQice = false, vzeto = false, uduljavaneIgra = false;
-	
+	public boolean izlupenoQice = false, vzeto = false, uduljavaneIgra = false;
+	private Task task;
+	private int interval;
 	
 	public Qice(final Body body,int interval) {
 		super(body);
@@ -53,15 +54,17 @@ public class Qice extends GameActor {
 		animatedSprite = new AnimatedSprite(animation);
 		animatedBox2DSprite = new AnimatedBox2DSprite(animatedSprite);
 		
-		Timer.schedule(new Task(){
+		this.interval = interval;
+		task = new Task(){
             @Override
             public void run() {
             	runBatch = true;
             	animationDraw = true;
             	//izlupeno pile
             	body.setAwake(true);
-            }
-        },interval,1f,3);
+            };
+		};
+		Timer.schedule(task,this.interval,1f,3);
 	}
 	
 	 @Override
@@ -72,6 +75,7 @@ public class Qice extends GameActor {
         		sprite.draw(batch, body.getFixtureList().first()); 
         	else if(animationDraw){
         		//if animation finished draw pileto
+
         		if(animatedBox2DSprite.isAnimationFinished()){  
         			sprite.setRegion(animatedBox2DSprite.getAnimation().getKeyFrame(4));
         			animationDraw = false;
@@ -89,7 +93,6 @@ public class Qice extends GameActor {
         	
         	//kogato e vzeto v krakata na pticata
         	if(vzetoQice){
-
         		//body.setFixedRotation(false);
         		drawing = false;
         		animationDraw = false;
@@ -101,8 +104,6 @@ public class Qice extends GameActor {
         	
         	//kogato trugva da pada
         	if(razmazanoQice){
-        		//body.getFixtureList().first().setSensor(false); 
-        		//body.setFixedRotation(false);
         		sprite.setRegion(Assets.manager.get(Assets.qice, Texture.class));
         		animationDraw = false;
         		body.setType(BodyType.DynamicBody);
@@ -115,6 +116,7 @@ public class Qice extends GameActor {
         		//shchupeno qice
         		uduljavaneIgra = true;
         		razmazanoQice = false;
+        		body.setType(BodyType.StaticBody);
         		drawing = false;
         	}
         }
@@ -140,4 +142,36 @@ public class Qice extends GameActor {
 			 }
 		 }
 	 }
+	 	 
+	 //reset qice
+	 public void resetInitialPositionQice(Vector2 position){
+		
+		 //reset animation
+		 sprite = new Box2DSprite(Assets.manager.get(Assets.qice, Texture.class));
+		 animation = new Animation(1f/1f, animationFrames);
+		 animation.setPlayMode(Animation.PlayMode.LOOP);
+		 animatedSprite = new AnimatedSprite(animation);
+		 animatedBox2DSprite = new AnimatedBox2DSprite(animatedSprite);
+		 //reset egg
+		 vzeto = false;
+		 uduljavaneIgra = false;
+		 izlupenoQice = false;
+		 vzetoQice = false;
+		 razmazanoQice = false;
+		 runBatch = false;
+		 body.setAwake(false);
+		 body.setSleepingAllowed(true);
+		 body.setBullet(false);
+		 animationDraw = false;
+		 body.setTransform(position, 0);
+		 sprite.setRegion(Assets.manager.get(Assets.qice, Texture.class));
+		 //reset animation
+		 //reset izlupvane
+		 if(task.isScheduled()){
+			 task.cancel();
+		 }
+		 Timer.schedule(this.task,this.interval,1f,3);
+		 
+		 drawing = true;
+	 }	 
 }

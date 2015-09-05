@@ -54,7 +54,7 @@ public class Enemy extends GameActor{
 	private Vector2 vec3;
 	private Vector2 vec4;
 	private boolean redirect = true;
-	private boolean anyEggsLeft = true;
+	public boolean anyEggsLeft = true;
 	private float speed = 0;
 	
 	
@@ -178,6 +178,8 @@ public class Enemy extends GameActor{
 
 		pathPoints.clear();
 		//pick a random egg
+
+	
 		if(eggs.size - 1 != -1){	
 			//position enemey
 			myPosition = MathUtils.random(1, 3);
@@ -190,6 +192,7 @@ public class Enemy extends GameActor{
 			
 			//used to make sure it's the right egg (see contact in gamestage)
 			body.getFixtureList().first().setUserData(singleEgg);
+			
 			
 			//fill in the path points for this egg
 			pathPoints.add(singleEgg.body.getTransform().mul(vec1.set((((CircleShape) singleEgg.body.getFixtureList().get(1).getShape()).getPosition()))));
