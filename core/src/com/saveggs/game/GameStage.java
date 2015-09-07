@@ -128,7 +128,7 @@ public class GameStage extends Stage implements ContactListener{
             	showGame = true;
             	loading.draw = false;
             }
-        },3);
+        },1);
 		
 	}
 		
@@ -225,7 +225,7 @@ public class GameStage extends Stage implements ContactListener{
 		
 		bodiesOfWorld = new Array<Body>();
 		world.getBodies(bodiesOfWorld);
-		int timeOfIzlupvane = 1;
+		int timeOfIzlupvane = 30;
 		//map of all bodies
 		for (Body bodyLoop : bodiesOfWorld) {
 			//get bodies
@@ -238,9 +238,10 @@ public class GameStage extends Stage implements ContactListener{
 				//get initial position of bodies
 				positionsOfQica.add(new Vector2(bodyLoop.getPosition()));
 				qice = new Qice(bodyLoop,timeOfIzlupvane);
+				
 				eggs.add(qice);
 				allEggs.add(qice);
-				timeOfIzlupvane += 1;
+				timeOfIzlupvane += 30;
 				addActor(qice);
 			}
 		}

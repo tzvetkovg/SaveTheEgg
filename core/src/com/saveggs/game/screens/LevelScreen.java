@@ -140,29 +140,70 @@ public class LevelScreen implements Screen{
 
 		TextButton button = new TextButton(level + "", tbs);
 		tbs.font.getData().setScale(2f);
-		button.addListener(populateMaps(Assets.manager.get(Assets.map, TiledMap.class)));
+		
+			TiledMap map = null;
+			switch (level) {
+	        case 1: map = Assets.manager.get(Assets.map4, TiledMap.class);
+	        		break;
+	        case 2:  map = Assets.manager.get(Assets.map4, TiledMap.class);
+	                 break;
+	        case 3:  map = Assets.manager.get(Assets.map3, TiledMap.class);
+	                 break;
+	        case 4:  map = Assets.manager.get(Assets.map4, TiledMap.class);
+	                 break;
+	        case 5:  map = Assets.manager.get(Assets.map4, TiledMap.class);
+	                 break;
+	        case 6:  map = Assets.manager.get(Assets.map4, TiledMap.class);
+	                 break;
+	        case 7:  map = Assets.manager.get(Assets.map4, TiledMap.class);
+	                 break;
+	        case 8:  map = Assets.manager.get(Assets.map4, TiledMap.class);
+	                 break;
+	        case 9:  map = Assets.manager.get(Assets.map4, TiledMap.class);
+	                 break;
+	        case 10: map = Assets.manager.get(Assets.map4, TiledMap.class);
+	                 break;
+	        case 11: map = Assets.manager.get(Assets.map4, TiledMap.class);
+	                 break;
+	        case 12: map = Assets.manager.get(Assets.map4, TiledMap.class);
+	                 break;
+	        case 13: map = Assets.manager.get(Assets.map4, TiledMap.class);
+	        		 break;
+	        case 14: map = Assets.manager.get(Assets.map4, TiledMap.class);
+	        		 break;
+	        case 15: map = Assets.manager.get(Assets.map4, TiledMap.class);
+	        		 break;
+	        case 16: map = Assets.manager.get(Assets.map4, TiledMap.class);
+	        		 break;
+	        case 17: map = Assets.manager.get(Assets.map4, TiledMap.class);
+	        		 break;
+	        case 18: map = Assets.manager.get(Assets.map4, TiledMap.class);
+	        		 break;
+			}
+		
+		//TiledMap 
+		button.addListener(populateMaps(map));
 		
         // Create the label to show the level number
         return button;
 	}
 
-	public ClickListener populateMaps(TiledMap map){		
+	public ClickListener populateMaps(final TiledMap levelMap){		
 		ClickListener levelClickListener = new ClickListener() {
 			@Override
 			public void clicked (InputEvent event, float x, float y) {
 				//change to specific map
-				final TiledMap map = Assets.manager.get(Assets.map, TiledMap.class);
 				if(adsController != null && (adsController.isWifiConnected() || adsController.isMobileDataEnabled())){
 					adsController.showInterstitialAd(new Runnable() {
 						@Override
 						public void run() {
-							game.setScreen(new StageScreen(adsController,game,true,map));
+							game.setScreen(new StageScreen(adsController,game,true,levelMap));
 						}
 					});
 				}
 				//desktop only or no ads
 				else
-					game.setScreen(new StageScreen(adsController,game,false,map));
+					game.setScreen(new StageScreen(adsController,game,false,levelMap));
 			}
 		};
 		return levelClickListener;

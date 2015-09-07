@@ -1,7 +1,9 @@
 package assets;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.loaders.SoundLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
@@ -76,8 +78,14 @@ public class Assets {
 	 */
 	@Asset(TiledMap.class)
 	public static final String
-	map = "data/maps/level4/map.tmx";
-
+	map4 = "data/maps/level4/map.tmx",
+	map3 = "data/maps/level3/map.tmx";
+	
+	
+	@Asset(Sound.class)
+	public static final String
+	flyingbird = "data/sound/flyingbird.wav";
+	
 	
 	public static void dispose(){
 		manager.dispose();

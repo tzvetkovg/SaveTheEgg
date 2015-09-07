@@ -10,6 +10,7 @@ import net.dermetfan.gdx.graphics.g2d.Box2DSprite;
 import assets.Assets;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -44,23 +45,24 @@ public class Enemy extends GameActor{
 	private Vector2 resetPosition;
 	private Map<String,Vector2> worldBodies;
 	private Array<Qice> eggs;
-	int point = 0;
-	float angle;
+	private int point = 0;
+	private float angle;
 	private  Vector2 direction = new Vector2(), velocity = new Vector2();
 	private boolean continueUpdating = true;
 	public Qice singleEgg;
-	private Vector2 vec1;
-	private Vector2 vec2;
-	private Vector2 vec3;
-	private Vector2 vec4;
+	private Vector2 vec1,vec2, vec3, vec4;
 	private boolean redirect = true;
 	public boolean anyEggsLeft = true;
 	private float speed = 0;
-	
+	private Sound sound;
 	
 	public Enemy(Body body,Array<Qice> eggs,Map<String,Vector2> worldBodies) {
 		super(body);
-        //body.setAwake(true);
+       
+/*		sound = Assets.manager.get(Assets.flyingbird, Sound.class);
+		//if(Assets.manager.isLoaded("data/sound/flyingbird.wav"))
+		sound.loop(1);*/
+		
 		vec1 = new Vector2();
 		vec2 = new Vector2();
 		vec3 = new Vector2();
