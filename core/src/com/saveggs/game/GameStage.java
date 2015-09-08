@@ -96,7 +96,7 @@ public class GameStage extends Stage implements ContactListener{
 	private PruskaneQice pruskane;
 	private Map<String,Object> mapBodies;
 	private AdsController adsController;
-	private int timeIntervalAds = 0,timeAds = 5;
+	private int timeIntervalAds = 0,timeAds = 7,numberOfEnemyKillings = 0,launchBothEnemies = 30;
 	public boolean showGame = false, internetEnabled = false, showAd = false;
 	private LoadingScreen loading;
 	private Skin skin;
@@ -128,7 +128,7 @@ public class GameStage extends Stage implements ContactListener{
             	showGame = true;
             	loading.draw = false;
             }
-        },1);
+        },3);
 		
 	}
 		
@@ -203,8 +203,9 @@ public class GameStage extends Stage implements ContactListener{
 			displayScreen();
 			izpuleniQica();
 			logger.log();
+    		//System.out.println("internetEnabled " + internetEnabled);
 		}
-		debugRenderer.render(world,camera.combined);
+		//debugRenderer.render(world,camera.combined);
 
 		
 	}
@@ -314,6 +315,14 @@ public class GameStage extends Stage implements ContactListener{
 			System.out.println("i " + i);
 			i++;
 		}
+		
+		for (DynamicBall ball : sleeepingBalls) {
+			ball.body.setAwake(false);
+		}
+		
+		// reset
+		numberOfEnemyKillings = 0;
+		
 		//reset enemies
 		enemyOtherSide.anyEggsLeft=true;
 		enemy.anyEggsLeft = true;
@@ -362,9 +371,6 @@ public class GameStage extends Stage implements ContactListener{
 		};		
 		dialog.text(label);
 	}
-	
-	
-	
 	
 	//Destroy bodies if out of range
 	public void destroyFlyingBirds(){
@@ -548,6 +554,7 @@ public class GameStage extends Stage implements ContactListener{
 				final Body qice = contact.getFixtureA().getBody().getUserData().equals(Constants.QICE) ?
 						  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
 				
+	  
 				//make sure qiceto ne se izlupva i qiceto e  tova za koeto se e zaputila pticata
 				if(body1 != null && !qice.isAwake() && (((Qice)body1.getFixtureList().first().getUserData()).body == qice)){
 					enemy.hvashtane = false;
@@ -636,7 +643,9 @@ public class GameStage extends Stage implements ContactListener{
             final Body ball = contact.getFixtureA().getBody().getUserData().equals(Constants.DynamicBall) ?
 					  		  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
 	
+			
 			if(ball.isAwake()){
+				numberOfEnemyKillings++;
 				//if enemy1 is hit
 				if(toRemove != null && toRemove.isAwake()){					
 					Gdx.app.postRunnable(new Runnable() {
@@ -658,32 +667,52 @@ public class GameStage extends Stage implements ContactListener{
 								
 							}
 							
-/*							//launch both enemies
-							if(!enemyOtherSide.enemyDraw){
-								launchEnemyTwo();
-								launchEnemyOne();
+							//start launching both enemies
+							if(numberOfEnemyKillings > launchBothEnemies){								
+								//launch both enemies
+/*								if(!enemyOtherSide.enemyDraw){
+									launchEnemyTwo();
+									launchEnemyOne();
+								}
+								else
+									launchEnemyOne();*/
+								if(internetEnabled && timeIntervalAds >= timeAds){
+									adsController.showInterstitialAd(new Runnable() {
+										@Override
+										public void run() {
+											timeIntervalAds = 0;
+										}
+									});
+								}						
+								timeIntervalAds++;
+								if(!enemyOtherSide.enemyDraw){
+									launchEnemyTwo();
+									launchEnemyOne();
+								}
+								else
+									launchEnemyOne();
+								//reset
+								if(timeIntervalAds > timeAds)
+									timeIntervalAds = 0;
 							}
+							//launch only one enemy
 							else
-								launchEnemyOne();*/
-							
-							//if mobile internet and limit reached
-							if(internetEnabled && timeIntervalAds >= timeAds){
-								adsController.showInterstitialAd(new Runnable() {
-									@Override
-									public void run() {
-										timeIntervalAds = 0;
-										launchEnemy();
-									}
-								});
+							{								
+								//if mobile internet and limit reached
+								if(internetEnabled && timeIntervalAds >= timeAds){
+									adsController.showInterstitialAd(new Runnable() {
+										@Override
+										public void run() {
+											timeIntervalAds = 0;
+										}
+									});
+								}
+								timeIntervalAds++;
+								launchEnemy();
+								//reset
+								if(timeIntervalAds > timeAds)
+									timeIntervalAds = 0;
 							}
-					    	else //desktop or no ads
-					    	{
-					    		timeIntervalAds++;
-					    		launchEnemy();
-					    		//reset
-					    		if(timeIntervalAds > timeAds)
-					    			timeIntervalAds = 0;
-					    	}	
 						}
 					});
 				}
@@ -711,24 +740,54 @@ public class GameStage extends Stage implements ContactListener{
 							}
 							else
 								launchEnemyTwo();*/
-							//if mobile enabled
-							if(internetEnabled && timeIntervalAds >= timeAds){
-								adsController.showInterstitialAd(new Runnable() {
-									@Override
-									public void run() {
-										timeIntervalAds = 0;
-										launchEnemy();
-									}
-								});
+							
+							// launching both enemies
+							if(numberOfEnemyKillings > launchBothEnemies){								
+								//launch both enemies
+/*								if(!enemyOtherSide.enemyDraw){
+									launchEnemyTwo();
+									launchEnemyOne();
+								}
+								else
+									launchEnemyOne();*/
+								if(internetEnabled && timeIntervalAds >= timeAds){
+									adsController.showInterstitialAd(new Runnable() {
+										@Override
+										public void run() {
+											timeIntervalAds = 0;
+										}
+									});
+								}
+								timeIntervalAds++;
+								if(!enemy.enemyDraw){
+									launchEnemyTwo();
+									launchEnemyOne();
+								}
+								else
+									launchEnemyTwo();
+								//reset
+								if(timeIntervalAds > timeAds)
+									timeIntervalAds = 0;					
 							}
-					    	else //desktop or no ads
-					    	{
-					    		timeIntervalAds++;
-					    		launchEnemy();
-					    		//reset
-					    		if(timeIntervalAds > timeAds)
-					    			timeIntervalAds = 0;
-					    	}
+							//one enemy
+							else
+							{								
+								//if mobile enabled
+								if(internetEnabled && timeIntervalAds >= timeAds){
+									adsController.showInterstitialAd(new Runnable() {
+										@Override
+										public void run() {
+											timeIntervalAds = 0;
+										}
+									});
+								}
+								timeIntervalAds++;
+								launchEnemy();
+								//reset
+								if(timeIntervalAds > timeAds)
+									timeIntervalAds = 0;
+							}
+							
 						}
 					});
 				}

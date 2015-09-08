@@ -34,8 +34,6 @@ public class GameClass extends Game {
 		//splash = new SplashScreen(adsController,this);
 		//this.setScreen(splash);
 		
-
-		
 		Assets asset = new Assets();
 		Assets.manager.load(Assets.class);		
 		
@@ -43,7 +41,7 @@ public class GameClass extends Game {
 			System.out.println(Assets.manager.getProgress());
 		}
 		Assets.manager.finishLoading();
-		this.setScreen(new MainMenuScreen(null,this));
+		this.setScreen(new MainMenuScreen(adsController,this));
 		//this.setScreen(new LevelScreen(null,this));
 	}
 	

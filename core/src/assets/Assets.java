@@ -78,8 +78,9 @@ public class Assets {
 	 */
 	@Asset(TiledMap.class)
 	public static final String
-	map4 = "data/maps/level4/map.tmx",
-	map3 = "data/maps/level3/map.tmx";
+	map2 = "data/maps/level2/map.tmx",
+	map3 = "data/maps/level3/map.tmx",
+	map4 = "data/maps/level4/map.tmx";
 	
 	
 	@Asset(Sound.class)
