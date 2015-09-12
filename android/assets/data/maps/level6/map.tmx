@@ -6,9 +6,6 @@
  <tileset firstgid="1831" name="dro" tilewidth="16" tileheight="16">
   <image source="../assets/dro.png" width="640" height="480"/>
  </tileset>
- <tileset firstgid="3031" name="omb" tilewidth="16" tileheight="16">
-  <image source="../assets/omb.png" width="640" height="480"/>
- </tileset>
  <tileset firstgid="4231" name="sno" tilewidth="16" tileheight="16">
   <image source="../assets/sno.png" width="640" height="480"/>
  </tileset>
