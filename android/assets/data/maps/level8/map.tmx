@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="1">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="8">
  <tileset firstgid="1" name="roguelikeSheet_transparent" tilewidth="16" tileheight="16">
-  <image source="../../../../../../tiles/new2/Roguelike pack/Spritesheet/roguelikeSheet_transparent.png" width="968" height="526"/>
+  <image source="../assets/roguelikeSheet_transparent.png" width="968" height="526"/>
  </tileset>
  <tileset firstgid="1921" name="ken" tilewidth="16" tileheight="16">
-  <image source="../../../../../../tiles/18 Gradient Skies/18 Gradient Skies (640x480)/ken.png" width="640" height="480"/>
+  <image source="../assets/ken.png" width="640" height="480"/>
  </tileset>
- <tileset firstgid="3121" name="sheet" tilewidth="16" tileheight="16">
-  <image source="../../../../../../tiles/new/free/Platformer Art Complete Pack_0/Candy expansion/sheet.png" width="980" height="490"/>
+ <tileset firstgid="3121" name="candy" tilewidth="16" tileheight="16">
+  <image source="../assets/candy.png" width="980" height="490"/>
  </tileset>
  <layer name="Tile Layer 1" width="50" height="30">
   <data encoding="base64" compression="zlib">
@@ -24,4 +24,60 @@
    eJzt18dOAlEYhuGT2BUQcG3HreUO7AK2RF3ZdWGJ5UbsoEbd2kC3ljuwF9SoW7tuLRfg646MIzMZRTQ5X/KsmDN8/3AmOTjNQrjgRiWqUI0a1ML5Rz7Xuk5GRkZGRkZGJhKpswtRjwb719csm4TwwY8V0+91C5Uh+g5jBKMYwzgm4IFXZZ47ut/jAY8RnmOLftvYwS72sI8DHOIIxwiozJHJ2TEL2XCE6RzZxfPpRg96QzyrqBQhohGDWMQhHglIRBJMMKd8XttK9za0oyNMc8zTfQGLWAoxRyH9ilCMEpSiDOWogBMuuFXm+I1c0f0aN7j9I++gkaTyO6chHRn/+D9QI92b0IyWfzyHjIwya1Yh1rGBTauxezRZeDfQYolch2fWveAVbwbvMUP/WcwZnEOtg/KsopVcmxB5yEeBzViPc/pf4FLHHB6+w4tJTGHapt5BeVbRSh/r+jGAQQNzBO8pPfvrmO8I4ASnOLOpd1CeVbTiY50fK1g1MEfwntKzv0w8WzMsSIbVrt5BeVbRyj3rHvCIJwNzBO8pPfvLRW83KlGFavv3O3wki/tkw4EcHfswHPmJDm2sa0cHOiM0h1qHd3mMhMM=
   </data>
  </layer>
+ <objectgroup name="Object Layer 1">
+  <object id="1" name="ptiche" type="object" x="282" y="393.25" width="36" height="23.3333">
+   <properties>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="qice"/>
+   </properties>
+  </object>
+  <object id="2" name="egg1point1" type="fixture" x="249.5" y="360.417" width="11" height="11">
+   <properties>
+    <property name="body" value="ptiche"/>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="egg1point1"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="3" name="egg1point1" type="fixture" x="192.5" y="176.417" width="11" height="11">
+   <properties>
+    <property name="body" value="ptiche"/>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="egg1point1"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="4" name="egg1point1" type="fixture" x="407.5" y="139.417" width="11" height="11">
+   <properties>
+    <property name="body" value="ptiche"/>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="egg1point1"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="5" name="egg1point1" type="fixture" x="336.5" y="363.417" width="11" height="11">
+   <properties>
+    <property name="body" value="ptiche"/>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="egg1point1"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="6" name="egg1point1" type="fixture" x="470.5" y="193.417" width="11" height="11">
+   <properties>
+    <property name="body" value="ptiche"/>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="egg1point1"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="7" name="egg1point1" type="fixture" x="221.5" y="314.417" width="11" height="11">
+   <properties>
+    <property name="body" value="ptiche"/>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="egg1point1"/>
+   </properties>
+   <ellipse/>
+  </object>
+ </objectgroup>
 </map>

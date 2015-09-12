@@ -83,8 +83,9 @@ public class Assets {
 	map3 = "data/maps/level3/map.tmx",
 	map4 = "data/maps/level4/map.tmx",
 	map5 = "data/maps/level5/map.tmx",
-	map6 = "data/maps/level6/map.tmx";
-	
+	map6 = "data/maps/level6/map.tmx",
+	map7 = "data/maps/level7/map.tmx",
+	map8 = "data/maps/level8/map.tmx";
 	
 	@Asset(Sound.class)
 	public static final String

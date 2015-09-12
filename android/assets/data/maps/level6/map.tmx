@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="1">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="8">
  <tileset firstgid="1" name="sheet" tilewidth="16" tileheight="16">
   <image source="../assets/sheet.png" width="980" height="490"/>
  </tileset>
  <tileset firstgid="1831" name="dro" tilewidth="16" tileheight="16">
   <image source="../assets/dro.png" width="640" height="480"/>
  </tileset>
- <tileset firstgid="4231" name="sno" tilewidth="16" tileheight="16">
+ <tileset firstgid="3031" name="sno" tilewidth="16" tileheight="16">
   <image source="../assets/sno.png" width="640" height="480"/>
  </tileset>
  <layer name="Tile Layer 1" width="50" height="30">
   <data encoding="base64" compression="zlib">
-   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
+   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
   </data>
  </layer>
  <layer name="Tile Layer 2" width="50" height="30">
@@ -29,4 +29,60 @@
    eJztlUkKwkAQRWuRRD2Nsy6dLuWsl3LWC6incdaVbxNwk7YwgqL14NGh6Or8QIUWMQzDMAzDMP6VtSeywa336STxSPgiSUz5n05iGIbxm8S9L77lvol7X9h987+8c4abzE8L29jxo2uaDBX2VrGGdWw8mc1whl192nwj1jFOcOqoRWV4/I+6PPewjwMcKv8xV5823451jwc8OmoaZuyd4wKXuFL2uvq0+dKBSAazmAuiaxpOnHnGC17xpvwOV98782nJc2YBi1jCsvIdr/aF3AGaAU7x
   </data>
  </layer>
+ <objectgroup name="Object Layer 1">
+  <object id="1" name="ptiche" type="object" x="209" y="352.25" width="36" height="23.3333">
+   <properties>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="qice"/>
+   </properties>
+  </object>
+  <object id="2" name="egg1point1" type="fixture" x="176.5" y="319.417" width="11" height="11">
+   <properties>
+    <property name="body" value="ptiche"/>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="egg1point1"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="3" name="egg1point1" type="fixture" x="119.5" y="135.417" width="11" height="11">
+   <properties>
+    <property name="body" value="ptiche"/>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="egg1point1"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="4" name="egg1point1" type="fixture" x="334.5" y="98.4168" width="11" height="11">
+   <properties>
+    <property name="body" value="ptiche"/>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="egg1point1"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="5" name="egg1point1" type="fixture" x="263.5" y="322.417" width="11" height="11">
+   <properties>
+    <property name="body" value="ptiche"/>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="egg1point1"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="6" name="egg1point1" type="fixture" x="397.5" y="152.417" width="11" height="11">
+   <properties>
+    <property name="body" value="ptiche"/>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="egg1point1"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="7" name="egg1point1" type="fixture" x="148.5" y="273.417" width="11" height="11">
+   <properties>
+    <property name="body" value="ptiche"/>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="egg1point1"/>
+   </properties>
+   <ellipse/>
+  </object>
+ </objectgroup>
 </map>
