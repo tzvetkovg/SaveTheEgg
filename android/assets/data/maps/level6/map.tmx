@@ -38,14 +38,6 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="5" name="egg1point1" type="fixture" x="140.5" y="294.417" width="11" height="11">
-   <properties>
-    <property name="body" value="ptiche"/>
-    <property name="isSensor" value="true"/>
-    <property name="userData" value="egg1point1"/>
-   </properties>
-   <ellipse/>
-  </object>
   <object id="8" name="line2" type="object" x="0" y="76">
    <properties>
     <property name="isSensor" value="true"/>
