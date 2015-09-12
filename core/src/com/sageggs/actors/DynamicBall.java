@@ -58,7 +58,7 @@ public class DynamicBall extends GameActor{
 		float radians =  (float) angle * MathUtils.degreesToRadians;
 		//System.out.println("radians " + radians);
 		// calculate distance
-		float distance = temp.set(body.getPosition().x,body.getPosition().y).dst(temp2.set(Constants.middleX,Constants.middleY)) * 7f;
+		float distance = temp.set(body.getPosition().x,body.getPosition().y).dst(temp2.set(Constants.middleX,Constants.middleY)) * 8f;
 		//System.out.println("distance " + distance);
 		//calculate x and y
 		applyForceCoords.y = (float) (2 + distance * Math.sin(radians));
