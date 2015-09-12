@@ -22,20 +22,20 @@ public class Constants {
 	public static final float slingshotPosX = 2.8f;
 	public static final float slingshotPosY = 2.5f;
 	//middle between lasticite5.34375 10.25
-	public static final float middleY = 3.4333334f;
+	public static float middleY = 3.4333334f;
 	public static float middleX = 2.85f;
 	/**
 	 * Mesh One
 	 */
 	//Middle point of one greda
-	public static final float mesh1MiddleY = 3.5f;
-	public static final float mesh1MiddleX = 2.333333f;
+	public static float mesh1MiddleY = 3.5f;
+	public static float mesh1MiddleX = 2.333333f;
 	/**
 	 * Mesh Two
 	 */
 	//Middle point of one greda
-	public static final float mesh2MiddleY = 3.5333333f;
-	public static final float mesh2MiddleX = 3.2666664f;
+	public static float mesh2MiddleY = 3.5333333f;
+	public static float mesh2MiddleX = 3.2666664f;
 	
 	/**
 	 * Enemy

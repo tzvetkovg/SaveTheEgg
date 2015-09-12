@@ -244,6 +244,24 @@ public class GameStage extends Stage implements ContactListener{
 				allEggs.add(qice);
 				timeOfIzlupvane += 30;
 				addActor(qice);
+			
+			}
+			if(bodyLoop.getUserData().equals("sling")){
+				slingshot = new Slingshot(bodyLoop);//(Slingshot)mapBodies.get("slingshot");
+			}
+			if(bodyLoop.getUserData().equals("middleSlingshot1")){
+				Constants.mesh1MiddleY = bodyLoop.getPosition().y;
+				Constants.mesh1MiddleX = bodyLoop.getPosition().x;
+			}
+			//mesh1 position
+			if(bodyLoop.getUserData().equals("middleSlingshot2")){
+				Constants.mesh2MiddleY = bodyLoop.getPosition().y;
+				Constants.mesh2MiddleX = bodyLoop.getPosition().x;
+			}
+			//ball position
+			if(bodyLoop.getUserData().equals("middleBall")){
+				Constants.middleY = bodyLoop.getPosition().y;
+				Constants.middleX = bodyLoop.getPosition().x;
 			}
 		}
 		
@@ -260,7 +278,7 @@ public class GameStage extends Stage implements ContactListener{
 		mesh2 = (CreateMesh2)mapBodies.get("mesh2");
 		addActor(mesh2);
 		//slingshot
-		slingshot = (Slingshot)mapBodies.get("slingshot");
+		//slingshot = (Slingshot)mapBodies.get("slingshot");
 		addActor(slingshot);
 		
 		//enemy

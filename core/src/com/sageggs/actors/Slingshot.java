@@ -1,6 +1,7 @@
 package com.sageggs.actors;
 
 import net.dermetfan.gdx.graphics.g2d.Box2DSprite;
+import assets.Assets;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,11 +10,11 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 public class Slingshot extends GameActor {
 	
-	private static Box2DSprite slingshot;
+	private Box2DSprite slingshot;
 	
 	public Slingshot(Body body) {
 		super(body);
-		slingshot = (Box2DSprite) body.getFixtureList().get(0).getUserData();
+		slingshot = new Box2DSprite(Assets.manager.get(Assets.slingshot, Texture.class));
 	}
 	
 	 @Override

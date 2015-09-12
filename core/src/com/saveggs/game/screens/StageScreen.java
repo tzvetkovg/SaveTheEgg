@@ -79,7 +79,7 @@ public class StageScreen implements Screen {
 		this.worldBodies.put("staticBall", new DynamicBall(WorldUtils.createDynamicBall(this.world)));
 		
 		//slingshot
-		this.worldBodies.put("slingshot",  new Slingshot(WorldUtils.createSlingshot(this.world)));
+		//this.worldBodies.put("slingshot",  new Slingshot(WorldUtils.createSlingshot(this.world)));
 		
 		//bird1
 		this.worldBodies.put("flyingBird",  new FlyingBirds(WorldUtils.createFlyingBird(this.world)));

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="167">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="171">
  <tileset firstgid="1" name="ora" tilewidth="16" tileheight="16">
   <image source="../assets/ora.png" width="640" height="480"/>
  </tileset>
@@ -367,6 +367,30 @@
     <property name="userData" value="egg1point6"/>
    </properties>
    <ellipse/>
+  </object>
+  <object id="167" name="middleSlingshot1" type="object" x="51" y="362" width="13" height="10">
+   <properties>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="middleSlingshot1"/>
+   </properties>
+  </object>
+  <object id="168" name="slingshot" type="object" x="44.5" y="352" width="46" height="96">
+   <properties>
+    <property name="groupIndex" value="-1"/>
+    <property name="userData" value="sling"/>
+   </properties>
+  </object>
+  <object id="169" name="middleBall" type="object" x="68.591" y="359.303" width="10" height="9">
+   <properties>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="middleBall"/>
+   </properties>
+  </object>
+  <object id="170" name="middleSlingshot2" type="object" x="82.5" y="362" width="13" height="10">
+   <properties>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="middleSlingshot2"/>
+   </properties>
   </object>
  </objectgroup>
 </map>
