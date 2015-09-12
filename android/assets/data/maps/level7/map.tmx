@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="1">
  <tileset firstgid="1" name="dus" tilewidth="16" tileheight="16">
-  <image source="../../../../../../tiles/18 Gradient Skies/18 Gradient Skies (640x480)/dus.png" width="640" height="480"/>
+  <image source="../assets/dus.png" width="640" height="480"/>
  </tileset>
  <tileset firstgid="1201" name="items_spritesheet" tilewidth="16" tileheight="16">
-  <image source="../../../../../../tiles/new/free/Platformer Art Complete Pack_0/Base pack/items_spritesheet.png" width="576" height="576"/>
+  <image source="../assets/items_spritesheet.png" width="576" height="576"/>
  </tileset>
  <layer name="Tile Layer 1" width="50" height="30">
   <data encoding="base64" compression="zlib">
