@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="1">
+ <tileset firstgid="1" name="roguelikeSheet_transparent" tilewidth="16" tileheight="16">
+  <image source="../../../../../../tiles/new2/Roguelike pack/Spritesheet/roguelikeSheet_transparent.png" width="968" height="526"/>
+ </tileset>
+ <tileset firstgid="1921" name="ken" tilewidth="16" tileheight="16">
+  <image source="../../../../../../tiles/18 Gradient Skies/18 Gradient Skies (640x480)/ken.png" width="640" height="480"/>
+ </tileset>
+ <tileset firstgid="3121" name="sheet" tilewidth="16" tileheight="16">
+  <image source="../../../../../../tiles/new/free/Platformer Art Complete Pack_0/Candy expansion/sheet.png" width="980" height="490"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzd1FVjkAUAQNFJjg2VUCREpGN0CqhIKt0tIJ0G3TG6u7s7R3d3dzcqZVAi7fkT34sP5/U+3sjYISG96UNf+tGfAQxkEIMZwlCGMZwRjGQUoxnDWMYxnglEBtieyCQmM4VFLGYJS1nGclawklVEsZo1rGUd69nARjaxmS1sZRvbA27vYCe72M1JTnGaM5zlHOe5wEUucZkrXOUa17nBTW5xmzv8ym/8HnD7Lve4zwNe8JJXvOYNb3lHSGhIyHtEIzoxiEksYhNKHMIIJy7v8wEfhgbbjkd8EpCQlKQiNWlISzrSk4GMZCKCzGQhK9nITg5ykovc5CEv+QJuf0F+ClCQkpSiNGUoSznKU4GKVKIyVahKNapTg5rUojbfU4e61Au4/QP1aUBDWtOGtrSjPR3oSCc604WudKM7PehJLyLpTR/60o/+DAi4PZBBDGYIk5jMFKYyjenMYCazmM0c5jKP+SxgIYtYzBKWsozlrAi4vZJVRLGanexiN3vYyz72c4CDHOIwRzjKMY5zgpOc4jRnOMs5zgfcvsBFLnGZe9znAQ/5gz/5i795xGOe8JRn/MNz/uUFL3nFa97wlncBt0Pi+B3RiE58EpCQj/iYRHxCYpKQlGR8SnI+IwWfk5JUpCYNaUlH+oDbGchIJiLITwEK8iVf8TWF+IbCFKEoxShOCb7lO0pSitKUoSzlKB9wuwIVqURl6tOAhjSiMU1oSjOa04KWtOJHfuJnfqE1bWhLO9rTgY4BtzvRmS50ZRCDGcJQhjGcEYxkFKMZw1jGMZ4JTGQSk5nCVKYxnRkBt2cyi9nMYRVRrGYNa1nHejawkU1sZgtb2cZ2drCTXexmD3vZx/6A2wc4yCEOc5FLXOYKV7nGdW5wk1vc5g6/8hu/c5d73OcBD/mDP/kr4PbfPOIxT3gvzLuITgxiEovYhBKHMMKJy/t8wIfEIz4JSMhHfEwiPgkLtp2YJCQlGRnJRASZyUJWspGdHOQkF7nJQ17y8QX5KUBBvuQrvqZQwO1vKEwRilKRSlSmClWpRnVqUJNa1OZ76lCXevxAfRrQkEY0pglNA243ozktaElnutCVbnSnBz3pRSS96UNf+tGfAQxkEIMZwlCGMZwRAbdHMorRjGEWs5nDXOYxnwUsZBGLWcJSlrGcFaxkFVGsZg1rWcf6gNsb2MgmNnOQQxzmCEc5xnFOcJJTnOYMZznHeS5wkUtc5gpXucb1gNs3uMktbvOIxzzhKc/4h+f8ywte8orXvOEt7wgJ9ySiEZ0YxCQWscODbYcShzDCSUJSkvEpyfmMFHxOSlKRmjSkJR3pyUBGMhFBZrKQlWwBt7OTg5zkojBFKEoxilOCb/mOkpSiNGUoSznKU4GKVKIyVahKNaoH3K5BTWpRm+a0oCWt+JGf+JlfaE0b2tKO9nSgI53oTBe60o3u9KBnwO1eRNKbPoxiNGMYyzjGM4GJTGIyU5jKNKYzg5nMYjZzmMs85rMg4PZCFrGYJWxkE5vZwla2sZ0d7GQXu9nDXvaxnwMc5BCHOcJRjnE84PYJTnKK02SO+f/Q7H/iP5cEG7w=
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt1FEKQEAQh/E5wW545164F+6F8xgPSpvapPCv71fzIC8z9bVmAAAAAAC8ow1mnU8fvt7kmcH3H30m8Ttm33/xWUXvOHoqolnpU0XNvtKeVPtKezp/1z7Nz++56mmn1leuH5W+cu+TyvuV9nT3P/Rsqcwd0w==
+  </data>
+ </layer>
+ <layer name="Tile Layer 3" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt18dOAlEYhuGT2BUQcG3HreUO7AK2RF3ZdWGJ5UbsoEbd2kC3ljuwF9SoW7tuLRfg646MIzMZRTQ5X/KsmDN8/3AmOTjNQrjgRiWqUI0a1ML5Rz7Xuk5GRkZGRkZGJhKpswtRjwb719csm4TwwY8V0+91C5Uh+g5jBKMYwzgm4IFXZZ47ut/jAY8RnmOLftvYwS72sI8DHOIIxwiozJHJ2TEL2XCE6RzZxfPpRg96QzyrqBQhohGDWMQhHglIRBJMMKd8XttK9za0oyNMc8zTfQGLWAoxRyH9ilCMEpSiDOWogBMuuFXm+I1c0f0aN7j9I++gkaTyO6chHRn/+D9QI92b0IyWfzyHjIwya1Yh1rGBTauxezRZeDfQYolch2fWveAVbwbvMUP/WcwZnEOtg/KsopVcmxB5yEeBzViPc/pf4FLHHB6+w4tJTGHapt5BeVbRSh/r+jGAQQNzBO8pPfvrmO8I4ASnOLOpd1CeVbTiY50fK1g1MEfwntKzv0w8WzMsSIbVrt5BeVbRyj3rHvCIJwNzBO8pPfvLRW83KlGFavv3O3wki/tkw4EcHfswHPmJDm2sa0cHOiM0h1qHd3mMhMM=
+  </data>
+ </layer>
+</map>
