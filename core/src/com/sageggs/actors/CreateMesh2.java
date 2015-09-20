@@ -76,6 +76,15 @@ public class CreateMesh2 extends GameActor{
         float radians2 =  (float) (angle - 45) * MathUtils.degreesToRadians;
         lastikTwoY.y = (float) (Constants.mesh2MiddleY + 0.15f * Math.sin(radians2));
         lastikTwoY.x = (float) (Constants.mesh2MiddleX + 0.15f * Math.cos(radians2));
+        
+/*        float angleFromMiddlePoint = (float) Math.toDegrees(Math.atan2(y - Constants.middleY, x - Constants.middleX));
+        float rad = (float) angleFromMiddlePoint * MathUtils.degreesToRadians;
+        Vector2 myVec = new Vector2(Constants.middleX,Constants.middleY);
+        float distance = myVec.dst(myVec.cpy().scl(1.20f));
+        System.out.println(distance);
+		float xNew = (float) (Constants.middleX + distance * (Math.cos(rad)));
+		float yNew = (float) (Constants.middleY + distance * (Math.sin(rad)));*/
+        
         drawMesh(lastikTwoX.x,lastikTwoX.y, lastikTwoY.x , lastikTwoY.y, x , y);
 	}
 }

@@ -14,7 +14,7 @@ public class Constants {
 	
 	public static final float SCENE_WIDTH = 800f;
 	public static final float SCENE_HEIGHT = 480f;
-
+	
 	/**
 	 * Slingshot
 	 *///3.5 7.75

@@ -62,7 +62,7 @@ import com.saveggs.utils.Constants;
 import com.saveggs.utils.WorldUtils;
 
 public class GameStage extends Stage implements ContactListener{
-
+	public Vector2 middlePoint,clickedPoint;
 	public Viewport viewport;
 	public Box2DDebugRenderer debugRenderer;
 	public World world;
@@ -106,6 +106,7 @@ public class GameStage extends Stage implements ContactListener{
 	private Array<Qice> allEggs,izlupeni,vzeti,uduljavane;
 	private Array<Vector2> positionsOfQica;
 	private Label label;
+	float distance, myX,myY;
 	
 	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
@@ -140,20 +141,32 @@ public class GameStage extends Stage implements ContactListener{
 		return super.touchDown(screenX, screenY, pointer, button);
 	}
 
-
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		
 		if(showGame){			
 			camera.unproject(position.set(screenX, screenY, 0));
-			
-			//Update mesh coordss
-			mesh.calculateXYLastikOne(position.x,position.y);
-			mesh.drawBody = true;
-			//Update mesh2 coords
-			mesh2.calculateXYLastikTwo(position.x,position.y);
-			mesh2.drawBody = true;
-			//Move the static ball on lastik - 0.4f
-			staticBall.setBodyPosOnLastik(position.x, position.y);
+
+			clickedPoint.x = position.x;
+			clickedPoint.y = position.y;
+			myX = position.x;
+			myY = position.y;
+	        if(clickedPoint.sub(middlePoint).len() > 2.1){	        	
+	        	float angleFromMiddlePoint = (float) Math.toDegrees(Math.atan2(myY - Constants.middleY, myX - Constants.middleX));
+	        	float rad = (float) angleFromMiddlePoint * MathUtils.degreesToRadians;
+	        	System.out.println(distance);
+	        	myX = (float) (Constants.middleX + distance * (Math.cos(rad)));
+	        	myY = (float) (Constants.middleY + distance * (Math.sin(rad)));
+	        }
+	        
+        	//Update mesh coordss
+        	mesh.calculateXYLastikOne(myX,myY);
+        	mesh.drawBody = true;
+        	//Update mesh2 coords
+        	mesh2.calculateXYLastikTwo(myX,myY);
+        	mesh2.drawBody = true;
+        	//Move the static ball on lastik - 0.4f
+        	staticBall.setBodyPosOnLastik(myX, myY);
 		}
 
 		return super.touchDragged(screenX, screenY, pointer);
@@ -246,14 +259,16 @@ public class GameStage extends Stage implements ContactListener{
 				addActor(qice);
 			
 			}
+			//slingshot position
 			if(bodyLoop.getUserData().equals("sling")){
 				slingshot = new Slingshot(bodyLoop);//(Slingshot)mapBodies.get("slingshot");
 			}
+			//mesh1 position
 			if(bodyLoop.getUserData().equals("middleSlingshot1")){
 				Constants.mesh1MiddleY = bodyLoop.getPosition().y;
 				Constants.mesh1MiddleX = bodyLoop.getPosition().x;
 			}
-			//mesh1 position
+			//mesh2 position
 			if(bodyLoop.getUserData().equals("middleSlingshot2")){
 				Constants.mesh2MiddleY = bodyLoop.getPosition().y;
 				Constants.mesh2MiddleX = bodyLoop.getPosition().x;
@@ -262,6 +277,10 @@ public class GameStage extends Stage implements ContactListener{
 			if(bodyLoop.getUserData().equals("middleBall")){
 				Constants.middleY = bodyLoop.getPosition().y;
 				Constants.middleX = bodyLoop.getPosition().x;
+				//substract clicked pos - middle position
+		        middlePoint.x = Constants.middleX;
+		        middlePoint.y = Constants.middleY;
+		        distance = middlePoint.dst(middlePoint.cpy().scl(1.09f));
 			}
 		}
 		
@@ -364,7 +383,8 @@ public class GameStage extends Stage implements ContactListener{
 		uduljavane = new Array<Qice>();
 		positionsOfQica = new Array<Vector2>();
 		skin = (Skin)mapBodies.get("skin");
-		
+		middlePoint = new Vector2();
+		clickedPoint = new Vector2();
 		//label and dialog
 		 label = new Label("text",skin);
 		 dialog = new Dialog("please confirm", skin) {

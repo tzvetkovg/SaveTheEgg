@@ -22,6 +22,7 @@ public class CreateMesh extends GameActor {
 	public  Vector2 lastikOneY = new Vector2();
 	public  boolean drawBody = false;
 	
+	
 	public float[] verts = new float[] { -9.314286f, -2.2285714f, 0, 0.2f, 0.3f, 0.4f, 1f, 0, 1,
 										-8.828571f , -2.2285714f, 0, 0.1f, 0.2f, 0.1f, 1f, 1, 1,
 										0f, 0f, 0, 0, 0.4f, 0.5f, 0.5f, 1f, 0 };
@@ -67,6 +68,8 @@ public class CreateMesh extends GameActor {
 	 
 	//Lastik 1 position
 	public void calculateXYLastikOne(float x, float y) {
+		
+		
 		//Get angle
 		float angle = (float) Math.toDegrees(Math.atan2(y - (Constants.mesh1MiddleY), x - (Constants.mesh1MiddleX)));
 		float radians =  (float) (angle + 45) * MathUtils.degreesToRadians;
@@ -77,6 +80,18 @@ public class CreateMesh extends GameActor {
         float radians2 =  (float) (angle - 45) * MathUtils.degreesToRadians;
         lastikOneY.y = (float) (Constants.mesh1MiddleY + 0.15f * Math.sin(radians2));
         lastikOneY.x = (float) (Constants.mesh1MiddleX + 0.15f * Math.cos(radians2));
-        drawMesh(lastikOneX.x,lastikOneX.y, lastikOneY.x , lastikOneY.y, x , y);
+
+        
+ /*       float angleFromMiddlePoint = (float) Math.toDegrees(Math.atan2(y - Constants.middleY, x - Constants.middleX));
+        float rad = (float) angleFromMiddlePoint * MathUtils.degreesToRadians;
+        Vector2 myVec = new Vector2(Constants.middleX,Constants.middleY);
+        float distance = myVec.dst(myVec.cpy().scl(1.20f));
+        System.out.println(distance);
+		float xNew = (float) (Constants.middleX + distance * (Math.cos(rad)));
+		float yNew = (float) (Constants.middleY + distance * (Math.sin(rad)));*/
+        
+        
+		drawMesh(lastikOneX.x,lastikOneX.y, lastikOneY.x , lastikOneY.y, x , y);
+        //drawMesh(lastikOneX.x,lastikOneX.y, lastikOneY.x , lastikOneY.y, vec.x , vec.y);
 	}	
 }
