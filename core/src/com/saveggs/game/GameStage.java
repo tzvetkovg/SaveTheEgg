@@ -151,6 +151,7 @@ public class GameStage extends Stage implements ContactListener{
 			clickedPoint.y = position.y;
 			myX = position.x;
 			myY = position.y;
+			//not allow lastik da se raztqga sled opredeleno polojenie
 	        if(clickedPoint.sub(middlePoint).len() > 2.1){	        	
 	        	float angleFromMiddlePoint = (float) Math.toDegrees(Math.atan2(myY - Constants.middleY, myX - Constants.middleX));
 	        	float rad = (float) angleFromMiddlePoint * MathUtils.degreesToRadians;
@@ -280,7 +281,7 @@ public class GameStage extends Stage implements ContactListener{
 				//substract clicked pos - middle position
 		        middlePoint.x = Constants.middleX;
 		        middlePoint.y = Constants.middleY;
-		        distance = middlePoint.dst(middlePoint.cpy().scl(1.09f));
+		        distance = middlePoint.dst(middlePoint) + 2.1f;
 			}
 		}
 		

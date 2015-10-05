@@ -34,7 +34,9 @@ public class Assets {
 	 */
 	public static final String 
 	gameTitle = "data/ui/gameTitle.png",
-	buttonUpTex = "data/ui/normalButton.png",
+	levelButton = "data/ui/00064.png",
+	levelButtonClicked = "data/ui/00064clicked.png",
+	normalButton = "data/ui/normalButton.png",
 	buttonOverTex = "data/ui/normalButton.png",
 	buttonDownTex = "data/ui/clickedButton.png",
 	/**

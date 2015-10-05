@@ -44,12 +44,12 @@ public class LevelScreen implements Screen{
 	private Image arrow;
 	GameStage gameStage;
 	private AdsController adsController;
-		
+	
 	public LevelScreen(final AdsController adsController,final GameClass game){		
 		this.game = game;
 		this.adsController = adsController;
 		
-		this.stage = new Stage(new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+/*		this.stage = new Stage(new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
 		Gdx.input.setInputProcessor(stage);
 		container = new Table();
 		gameTitle = new Image(new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.levels, Texture.class))));
@@ -98,13 +98,55 @@ public class LevelScreen implements Screen{
         }
         
         
-        container.add(scroll).expand().fill(); 
+        container.add(scroll).expand().fill(); */
         
+		
+		/***/
+		this.stage = new Stage(new ExtendViewport(Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT));
+		gameTitle = new Image(new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.levels, Texture.class))));
+		gameTitle.setPosition(Constants.SCENE_WIDTH / 2 - gameTitle.getWidth() / 2, Constants.SCENE_HEIGHT - 120);
+		
+		gameTitle2 = new Image(new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.levels, Texture.class))));
+		gameTitle2.setPosition(Constants.SCENE_WIDTH / 2 - gameTitle2.getWidth() / 2, Constants.SCENE_HEIGHT - 120);
+		
+		Gdx.input.setInputProcessor(stage);
+
+		container = new Table();
+		stage.addActor(container);
+		container.setFillParent(true);
+
+		PagedScrollPane scroll = new PagedScrollPane();
+		scroll.setFlingTime(0.1f);
+		scroll.setPageSpacing(25);
+		int c = 1;
+		for (int l = 0; l < 2; l++) {
+
+			Table levels = new Table().pad(50);
+			levels.defaults().pad(20, 50, 20, 50).size(70);
+			//game titles
+			if(l == 0){
+            	levels.addActor(gameTitle);
+            }
+            if(l == 1){
+            	levels.addActor(gameTitle2);
+            }
+			
+			for (int y = 0; y < 3; y++) {
+				levels.row();
+				for (int x = 0; x < 4; x++) {
+					levels.add(getLevelButton(c++)).expand().fill();
+				}
+			}
+			scroll.addPage(levels);
+		}
+		container.add(scroll).expand().fill();
+		
+		
         //back button
 		TextButton.TextButtonStyle tbs = new TextButton.TextButtonStyle();
 		tbs.font =  Assets.manager.get(Assets.bitmapfont, BitmapFont.class);
 		
-		tbs.up = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.buttonUpTex, Texture.class)));
+		tbs.up = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.normalButton, Texture.class)));
 		tbs.over = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.buttonOverTex, Texture.class)));
 		tbs.down = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.buttonDownTex, Texture.class)));
 
@@ -134,11 +176,11 @@ public class LevelScreen implements Screen{
 		TextButton.TextButtonStyle tbs = new TextButton.TextButtonStyle();
 		tbs.font =  Assets.manager.get(Assets.bitmapfont, BitmapFont.class);
 		
-		tbs.up = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.buttonUpTex, Texture.class)));
-		tbs.over = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.buttonOverTex, Texture.class)));
-		tbs.down = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.buttonDownTex, Texture.class)));
+		tbs.up = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.levelButton, Texture.class)));
+		//tbs.over = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.buttonOverTex, Texture.class)));
+		tbs.down = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.levelButtonClicked, Texture.class)));
 
-		TextButton button = new TextButton(level + "", tbs);
+		TextButton button = new TextButton("", tbs);
 		tbs.font.getData().setScale(2f);
 		
 			TiledMap map = null;

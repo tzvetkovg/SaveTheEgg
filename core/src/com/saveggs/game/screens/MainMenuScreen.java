@@ -59,7 +59,7 @@ public class MainMenuScreen implements Screen{
 		gameTitle = new Image(new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.gameTitle, Texture.class))));
 		
 		// Set buttons' style
-		buttonUpTex = Assets.manager.get(Assets.buttonUpTex, Texture.class);
+		buttonUpTex = Assets.manager.get(Assets.normalButton, Texture.class);
 		buttonOverTex = Assets.manager.get(Assets.buttonOverTex, Texture.class);
 		buttonDownTex = Assets.manager.get(Assets.buttonDownTex, Texture.class);
 		TextButton.TextButtonStyle tbs = new TextButton.TextButtonStyle();
@@ -67,14 +67,14 @@ public class MainMenuScreen implements Screen{
 		tbs.up = new TextureRegionDrawable(new TextureRegion(buttonUpTex));
 		tbs.over = new TextureRegionDrawable(new TextureRegion(buttonOverTex));
 		tbs.down = new TextureRegionDrawable(new TextureRegion(buttonDownTex));
-		
+		tbs.font.getData().setScale(2f);
 		//Define buttons
 		play = new TextButton("PLAY", tbs);
 		tutorial = new TextButton("TUTORIAL", tbs);
 		credits = new TextButton("CREDITS", tbs);
 		exit = new TextButton("EXIT", tbs);
 
-		
+
 		// Play button listener
 		play.addListener( new ClickListener() {
 			@Override

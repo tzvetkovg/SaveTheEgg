@@ -40,8 +40,8 @@ public class Constants {
 	/**
 	 * Enemy
 	 */
-	public static final float ENEMYSPEED =150f;
-	public static final float FlYINGBIRDVELOCITY = 3f;
+	public static final float ENEMYSPEED = 154f;
+	public static final float FlYINGBIRDVELOCITY = 4f;
 	/**
 	 * Actors contants
 	 */
