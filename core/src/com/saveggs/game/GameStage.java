@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.MathUtils;
@@ -26,11 +27,18 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
@@ -54,6 +62,7 @@ import com.sageggs.actors.particles.ParticleEffectBall;
 import com.sageggs.actors.particles.ParticleEffectFlyingBird;
 import com.sageggs.actors.particles.ParticleIzlupvane;
 import com.sageggs.actors.particles.PruskaneQice;
+import com.sageggs.actors.ui.Sliderche;
 import com.saveggs.game.screens.LevelScreen;
 import com.saveggs.game.screens.MainMenuScreen;
 import com.saveggs.game.screens.StageScreen;
@@ -106,9 +115,14 @@ public class GameStage extends Stage implements ContactListener{
 	private Array<Qice> allEggs,izlupeni,vzeti,uduljavane;
 	private Array<Vector2> positionsOfQica;
 	private Label label;
-	float distance, myX,myY;
+	private float distance, myX,myY;
+	private int currentLevel;
+	private Slider slider;
+	private Table table;
+	private boolean sliderClicked = false;
+
 	
-	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map){
+	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map, int currentLevel){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
 		this.game = game;
 		this.mapBodies = mapBodies;
@@ -121,6 +135,7 @@ public class GameStage extends Stage implements ContactListener{
 		setupWorld();
 		Gdx.input.setInputProcessor(this);
 		this.adsController = adsController;		
+		this.currentLevel = currentLevel;
 		
 		//display loading screen initially
 		Timer.schedule(new Task(){
@@ -144,7 +159,7 @@ public class GameStage extends Stage implements ContactListener{
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
 		
-		if(showGame){			
+		if(showGame && !sliderClicked){			
 			camera.unproject(position.set(screenX, screenY, 0));
 
 			clickedPoint.x = position.x;
@@ -175,7 +190,7 @@ public class GameStage extends Stage implements ContactListener{
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		if(showGame){			
+		if(showGame && !sliderClicked){			
 			//remove lasticite
 			mesh.drawBody = false;
 			mesh2.drawBody = false;
@@ -331,7 +346,10 @@ public class GameStage extends Stage implements ContactListener{
 		addActor(flyingBirdParticle);
 		pruskane = (PruskaneQice)mapBodies.get("pruskane");
 		addActor(pruskane);
-
+		
+		//slider
+		//slider = new Sliderche();
+		addActor(table);
 		//loading screen
 		loading = new LoadingScreen();
 		addActor(loading);
@@ -404,11 +422,43 @@ public class GameStage extends Stage implements ContactListener{
 				{
 					getStage().dispose();
 					world.dispose();
+
 					game.setScreen(new LevelScreen(adsController,game));
 				}
 			}
 		};		
-		dialog.text(label);
+		dialog.text(label);		
+
+		//Slider
+		Slider.SliderStyle ss = new Slider.SliderStyle();
+		ss.background = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.slider, Texture.class)));
+		ss.knob = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.sliderKnob, Texture.class)));
+		
+		slider = new Slider(0f, 5, 1f, false, ss);
+		
+		slider.setPosition(0, 0);
+		slider.addListener(new InputListener() {
+			@Override
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				//Gdx.app.log(TAG, "slider changed to: " + slider.getValue());
+				sliderClicked = false;
+			}
+			@Override
+			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+				sliderClicked = true;
+				return true;
+			};
+		});
+
+		// Set table structure
+		table = new Table();
+
+		table.add(slider).width(150).height(50);
+		addActor(table);
+		table.setClip(true);
+		table.setWidth(150);
+		table.setHeight(50);
+		table.setScale(0.03333f);
 	}
 	
 	//Destroy bodies if out of range
@@ -430,11 +480,33 @@ public class GameStage extends Stage implements ContactListener{
 	//reset enemies out of range
 	public void resetEnemyIfOutOfBounds(){
     	if(!BodyUtils.bodyInBounds(enemy.body,camera)){
-			((Qice)enemy.body.getFixtureList().first().getUserData()).vzeto = true;
+    		if(enemy.pribirane){
+    			//fail dve s koito pticata e otletqla
+				showGame = false;
+				label.setText("Lost! You have one egg taken.");
+				//dialog.text(label);
+				//skin
+				dialog.setScale(.03333f);
+				dialog.show(this);
+				dialog.setOrigin( this.getWidth() * 0.35f , 
+								  this.getHeight() / 2);
+    		}
+			//((Qice)enemy.body.getFixtureList().first().getUserData()).vzeto = true;
     		enemy.resetBody();            		
     	}
     	if(!BodyUtils.bodyInBounds(enemyOtherSide.body,camera)){
-    		((Qice)enemyOtherSide.body.getFixtureList().first().getUserData()).vzeto = true;
+    		//((Qice)enemyOtherSide.body.getFixtureList().first().getUserData()).vzeto = true;
+    		if(enemyOtherSide.pribirane){
+    			//fail dve s koito pticata e otletqla
+				showGame = false;
+				label.setText("Lost! You have 1 egg taken.");
+				//dialog.text(label);
+				//skin
+				dialog.setScale(.03333f);
+				dialog.show(this);
+				dialog.setOrigin( this.getWidth() * 0.35f , 
+								  this.getHeight() / 2);
+    		}
     		enemyOtherSide.resetBody();            		
     	}
 	}
@@ -612,7 +684,7 @@ public class GameStage extends Stage implements ContactListener{
 											  this.getHeight() / 2);
 						}
 						
-						//max 2 razbiti qica
+/*						//max 2 razbiti qica
 						if(uduljavane.size == 1 && vzeti.size ==1) {
 							showGame = false;
 							label.setText("Lost! You have 1 egg taken. You must save min 4!");
@@ -621,7 +693,7 @@ public class GameStage extends Stage implements ContactListener{
 							dialog.show(this);
 							dialog.setOrigin( this.getWidth() * 0.25f , 
 											  this.getHeight() / 2);
-						}
+						}*/
 						
 						//((Qice)body1.getFixtureList().first().getUserData()).vzeto = true;
 					}
@@ -644,7 +716,7 @@ public class GameStage extends Stage implements ContactListener{
 											  this.getHeight() / 2);
 						}
 						
-						//max 1 razbito i vzeto (Trqbwa da spasish chetiri)
+/*						//max 1 razbito i vzeto (Trqbwa da spasish chetiri)
 						if(uduljavane.size == 1 && vzeti.size ==1) {
 							showGame = false;
 							//skin
@@ -654,7 +726,7 @@ public class GameStage extends Stage implements ContactListener{
 							dialog.show(this);
 							dialog.setOrigin( this.getWidth() * 0.25f , 
 											  this.getHeight() / 2);
-						}
+						}*/
 						//((Qice)body2.getFixtureList().first().getUserData()).vzeto = true;
 					}
 					enemyOtherSide.pribirane = true;
@@ -1004,7 +1076,7 @@ public class GameStage extends Stage implements ContactListener{
 							  this.getHeight() / 2);
 		}
 		
-		//fail dve s koito pticata e otletqla
+/*		//fail dve s koito pticata e otletqla
 		if(vzeti.size == 2) {
 			showGame = false;
 			label.setText("Lost! You have 1 egg taken. You must save min 4!");
@@ -1014,11 +1086,12 @@ public class GameStage extends Stage implements ContactListener{
 			dialog.show(this);
 			dialog.setOrigin( this.getWidth() * 0.25f , 
 							  this.getHeight() / 2);
-		}
+		}*/
 		
 		//success 3 izlupeni
 		if(izlupeni.size == 3){
 			showGame = false;
+			//level solved
 			//skin
 			label.setText("Congratulations! You won!");
 			//dialog.text(label);
@@ -1026,6 +1099,10 @@ public class GameStage extends Stage implements ContactListener{
 			dialog.show(this);
 			dialog.setOrigin( this.getWidth() * 0.4f , 
 							  this.getHeight() / 2);
+			Constants.preferences.putBoolean("Level" + currentLevel, true);
+			int nextLevel = currentLevel + 1;
+			Constants.preferences.putBoolean("Level" + nextLevel, false);
+			Constants.preferences.flush();			
 		}
 	}
 	

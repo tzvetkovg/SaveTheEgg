@@ -11,6 +11,7 @@ import com.saveggs.game.screens.LevelScreen;
 import com.saveggs.game.screens.MainMenuScreen;
 import com.saveggs.game.screens.SplashScreen;
 import com.saveggs.game.screens.StageScreen;
+import com.saveggs.utils.Constants;
 
 
 public class GameClass extends Game {
@@ -35,6 +36,7 @@ public class GameClass extends Game {
 		//this.setScreen(splash);
 		
 		Assets asset = new Assets();
+		Constants constant = new Constants();
 		Assets.manager.load(Assets.class);		
 		
 		while(!Assets.manager.update()){

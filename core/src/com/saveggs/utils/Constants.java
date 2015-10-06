@@ -2,18 +2,27 @@ package com.saveggs.utils;
 
 import assets.Assets;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.saveggs.game.GameStage;
 
 
 public class Constants {
+	public static Preferences preferences;
 	
-	public Constants(){};
+	public Constants(){
+		preferences = Gdx.app.getPreferences(GameStage.class.getName());
+		preferences.putBoolean("Level1", true);
+		preferences.flush();
+	};
 	
 	public static final float SCENE_WIDTH = 800f;
 	public static final float SCENE_HEIGHT = 480f;
+	
 	
 	/**
 	 * Slingshot
@@ -40,8 +49,8 @@ public class Constants {
 	/**
 	 * Enemy
 	 */
-	public static final float ENEMYSPEED = 154f;
-	public static final float FlYINGBIRDVELOCITY = 4f;
+	public static float ENEMYSPEED = 154;
+	public static float FlYINGBIRDVELOCITY = 4;
 	/**
 	 * Actors contants
 	 */

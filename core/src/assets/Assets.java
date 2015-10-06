@@ -1,20 +1,19 @@
 package assets;
 
+import net.dermetfan.gdx.assets.AnnotationAssetManager;
+import net.dermetfan.gdx.assets.AnnotationAssetManager.Asset;
+
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.loaders.SoundLoader;
-import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.assets.loaders.SkinLoader;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.maps.tiled.TideMapLoader;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-
-import net.dermetfan.gdx.assets.AnnotationAssetManager;
-import net.dermetfan.gdx.assets.AnnotationAssetManager.Asset;
 
 public class Assets {
 	
@@ -23,6 +22,12 @@ public class Assets {
 	public Assets(){
 		manager = new AnnotationAssetManager(); 	
 		manager.setLoader(TiledMap.class, new TmxMapLoader());
+		manager.setLoader(Skin.class, new SkinLoader(new FileHandleResolver() {
+			@Override
+			public FileHandle resolve(String fileName) {
+				return Gdx.files.internal("data/uiskin.json");
+			}
+		}));
 	}
 	
 	@Asset(BitmapFont.class)
@@ -34,17 +39,21 @@ public class Assets {
 	 */
 	public static final String 
 	gameTitle = "data/ui/gameTitle.png",
-	levelButton = "data/ui/00064.png",
-	levelButtonClicked = "data/ui/00064clicked.png",
+	levelButton = "data/ui/closedBlack.png",
+	levelButtonClicked = "data/ui/closedClick.png",
+	readyToBeSolved = "data/ui/readyToBeSolved.png",
+	solvedLevel = "data/ui/solved.png",
+	solvedLevelClicked = "data/ui/solvedClick.png",
 	normalButton = "data/ui/normalButton.png",
 	buttonOverTex = "data/ui/normalButton.png",
 	buttonDownTex = "data/ui/clickedButton.png",
+	slider = "data/ui/slider_background.png",
+	sliderKnob = "data/ui/slider_knob.png",
 	/**
 	 * Level Menu
 	 */
 	levels = "data/ui/levels.png",
 	levelBackGround = "data/ui/bah.png",
-	arrow = "data//ui/arrow.png",
 	/**
 	 * Stage
 	 */
@@ -73,7 +82,8 @@ public class Assets {
 	particleBall = "data/particles/explosionBall.p",
 	particleFlyingBird = "data/particles/flyingbird.p",
 	particleIzlupvane = "data/particles/izlupvane.p",
-	pruskaneQice = "data/particles/pruskane.p";
+	pruskaneQice = "data/particles/pruskane.p",
+	izlupvaneQice = "data/particles/izlupvane.p";
 
 	/**
 	 * Maps
@@ -92,6 +102,11 @@ public class Assets {
 	@Asset(Sound.class)
 	public static final String
 	flyingbird = "data/sound/flyingbird.wav";
+	
+	@Asset(Skin.class)
+	public static final String
+	skin = "data/uiskin.json";
+	
 	
 	
 	public static void dispose(){

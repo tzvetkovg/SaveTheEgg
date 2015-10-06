@@ -41,8 +41,8 @@ public class Qice extends GameActor {
 	public Qice(final Body body,int interval) {
 		super(body);
 		
-		effect = new ParticleEffect();
-		effect.load(Gdx.files.internal("data/particles/izlupvane.p"), Gdx.files.internal("data/particles"));
+		effect = new ParticleEffect(Assets.manager.get(Assets.izlupvaneQice, ParticleEffect.class));
+		//effect.load(Gdx.files.internal("data/particles/izlupvane.p"), Gdx.files.internal("data/particles"));
 		effect.setPosition(0, 0);
 		effect.start();
 

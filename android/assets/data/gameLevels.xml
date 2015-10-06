@@ -1,11 +1,47 @@
 <LevelData>
 	<Level1>
-	    <BackGround>background</BackGround>
-	    <EggPosition>12.5</EggPosition>
+	    <enemyspeed>154</enemyspeed>
+	    <flyingenemyspeed>4</flyingenemyspeed>
 	</<Level1>
-	
 	<Level2>
-	    <BackGround>background2</BackGround>
-	    <EggPosition>12.52</EggPosition>
+	    <enemyspeed>154</enemyspeed>
+	    <flyingenemyspeed>4</flyingenemyspeed>
 	</<Level2>
+	
+	    
+	<Level3>
+	    <enemyspeed>154</enemyspeed>
+	    <flyingenemyspeed>4</flyingenemyspeed>
+	</<Level3>
+	
+	<Level4>
+	    <enemyspeed>154</enemyspeed>
+	    <flyingenemyspeed>4</flyingenemyspeed>
+	</<Level4>
+	
+	<Level6>
+	    <enemyspeed>154</enemyspeed>
+	    <flyingenemyspeed>4</flyingenemyspeed>
+	</<Level6>
+	
+	<Level7>
+	    <enemyspeed>154</enemyspeed>
+	    <flyingenemyspeed>4</flyingenemyspeed>
+	</<Level7>
+	
+	<Level8>
+	    <enemyspeed>154</enemyspeed>
+	    <flyingenemyspeed>4</flyingenemyspeed>
+	</<Level8>
+	
+	<Level9>
+	    <enemyspeed>154</enemyspeed>
+	    <flyingenemyspeed>4</flyingenemyspeed>
+	</<Level9>
+	
+	<Level10>
+	    <enemyspeed>154</enemyspeed>
+	    <flyingenemyspeed>4</flyingenemyspeed>
+	</<Level10>
+	
 </LevelData>

@@ -46,7 +46,6 @@ public class MainMenuScreen implements Screen{
 	
 	public MainMenuScreen(final AdsController adsController,final GameClass game){
 		
-		
 		this.games = game;
 		
 		this.stage = new Stage(new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
@@ -107,9 +106,10 @@ public class MainMenuScreen implements Screen{
 		table.row();
 		table.add(exit).padTop(5f).size(Gdx.graphics.getWidth() / 5 , Gdx.graphics.getHeight() / 10);;
 
+
 		// Set table's alpha to 0
 		table.getColor().a = 0f;
-		
+
 		// Adds created table to stage
 		stage.addActor(table);
 		//

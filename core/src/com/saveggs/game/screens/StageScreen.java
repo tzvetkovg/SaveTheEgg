@@ -1,29 +1,35 @@
 package com.saveggs.game.screens;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import assets.Assets;
 
 import com.admob.AdsController;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.XmlReader;
+import com.badlogic.gdx.utils.XmlReader.Element;
 import com.sageggs.actors.CreateMesh;
 import com.sageggs.actors.CreateMesh2;
 import com.sageggs.actors.DynamicBall;
-import com.sageggs.actors.Slingshot;
 import com.sageggs.actors.flyingbirds.FlyingBirds;
 import com.sageggs.actors.flyingbirds.FlyingBirds2;
 import com.sageggs.actors.particles.ParticleEffectAn;
@@ -36,11 +42,6 @@ import com.saveggs.game.GameStage;
 import com.saveggs.utils.Constants;
 import com.saveggs.utils.ShaderSpec;
 import com.saveggs.utils.WorldUtils;
-import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.GdxRuntimeException;
-import com.badlogic.gdx.utils.Timer;
-import com.badlogic.gdx.utils.Timer.Task;
 
 
 public class StageScreen implements Screen {
@@ -53,18 +54,28 @@ public class StageScreen implements Screen {
 	private ShaderProgram shader;
 	private World world;
 	private FlyingBirds2 flyingBird2;
+	private int currentLevel;
+	private Table table;
+	private Slider slider;
 	
-	public StageScreen(final AdsController adsController, final GameClass game,final boolean internetEnabled,TiledMap map){
+	public StageScreen(final AdsController adsController, final GameClass game,final boolean internetEnabled,TiledMap map,int level) throws IOException{
 		this.eggSaver = game;
 		
 		this.map = map;
+		this.currentLevel = level;
 		
 		this.worldBodies = new HashMap<String,Object>();
+		
+		//set level data
+		Element root =  new XmlReader().parse(Gdx.files.internal("data/gameLevels.xml"));
+		Element levelDetails = root.getChildByName("Level" + level);
+		Constants.ENEMYSPEED = Float.parseFloat(levelDetails.getChildByName("enemyspeed").getText());
+		Constants.FlYINGBIRDVELOCITY = Float.parseFloat(levelDetails.getChildByName("flyingenemyspeed").getText());
 		/**
 		 * initialize some of the world objects
 		 */
 		//skin
-		this.worldBodies.put("skin", new Skin(Gdx.files.internal("data/uiskin.json")));
+		this.worldBodies.put("skin", Assets.manager.get(Assets.skin, Skin.class));
 		//shaderstaticBall
 		shader = new ShaderProgram(ShaderSpec.vertexShader, ShaderSpec.fragmentShader);	
 		//world
@@ -97,8 +108,41 @@ public class StageScreen implements Screen {
 		this.worldBodies.put("pruskane",  new PruskaneQice());
 		
 		this.adsController = adsController;	
-		this.stage = new GameStage(adsController,this.worldBodies,this.world,internetEnabled,game,this.map);
+		this.stage = new GameStage(adsController,this.worldBodies,this.world,internetEnabled,game,this.map,currentLevel);		
+
 		
+		
+/*		//Slider
+		Slider.SliderStyle ss = new Slider.SliderStyle();
+		ss.background = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.slider, Texture.class)));
+		ss.knob = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.sliderKnob, Texture.class)));
+		
+		slider = new Slider(0f, 5, 1f, false, ss);
+		
+		slider.setPosition(0, 0);
+
+		
+		slider.addListener(new InputListener() {
+			@Override
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				//Gdx.app.log(TAG, "slider changed to: " + slider.getValue());
+				
+				System.out.println("touch up " + slider.getValue());
+			}
+			@Override
+			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+				System.out.println("touch down");
+				return true;
+			};
+		});
+
+		// Set table structure
+		table = new Table();
+		//table.debug();
+		
+		//table.setBackground(new NinePatchDrawable(Constants.getNinePatch()));
+		table.add(slider).width(150).height(50);
+		stage.addActor(table);*/
 	}
 
 
@@ -110,7 +154,7 @@ public class StageScreen implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-					
+			
 		this.stage.act(delta);
 		this.stage.draw();
 
@@ -126,12 +170,18 @@ public class StageScreen implements Screen {
 	}
 
 	@Override
-	public void resize(int width, int height) {
+	public void resize(int width, int height) {;
 		this.stage.getViewport().update(width, height,false);
 		this.stage.getCamera().viewportWidth = Constants.SCENE_WIDTH / 30f;
 		this.stage.getCamera().viewportHeight = Constants.SCENE_HEIGHT / 30f;
 		this.stage.getCamera().position.set(this.stage.getCamera().viewportWidth / 2f, this.stage.getCamera().viewportHeight / 2f, 0); 
-		this.stage.getCamera().update();
+		this.stage.getCamera().update();	
+		
+/*		table.setClip(true);
+		table.setWidth(150);
+		table.setHeight(50);
+		table.setScale(0.03333f);*/
+		
 	}
 
 	@Override
