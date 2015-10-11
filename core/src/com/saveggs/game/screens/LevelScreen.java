@@ -95,7 +95,7 @@ public class LevelScreen implements Screen{
 		tbs.up = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.normalButton, Texture.class)));
 		tbs.over = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.buttonOverTex, Texture.class)));
 		tbs.down = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.buttonDownTex, Texture.class)));
-
+		
 		TextButton button = new TextButton("back", tbs);
 		tbs.font.getData().setScale(2f);
 		button.setPosition(0, 0);

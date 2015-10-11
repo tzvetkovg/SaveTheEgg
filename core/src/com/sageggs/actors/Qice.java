@@ -6,6 +6,7 @@ import net.dermetfan.gdx.graphics.g2d.Box2DSprite;
 import assets.Assets;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -37,6 +38,7 @@ public class Qice extends GameActor {
 	public boolean izlupenoQice = false, vzeto = false, uduljavaneIgra = false;
 	private Task task;
 	private int interval;
+	public Music pilence;
 	
 	public Qice(final Body body,int interval) {
 		super(body);
@@ -46,6 +48,7 @@ public class Qice extends GameActor {
 		effect.setPosition(0, 0);
 		effect.start();
 
+		pilence = Assets.manager.get(Assets.pilence, Music.class);
 		
 		splitAnimation();
 		sprite = new Box2DSprite(Assets.manager.get(Assets.qice, Texture.class));
@@ -75,7 +78,7 @@ public class Qice extends GameActor {
         		sprite.draw(batch, body.getFixtureList().first()); 
         	else if(animationDraw){
         		//if animation finished draw pileto
-
+            	pilence.play();
         		if(animatedBox2DSprite.isAnimationFinished()){  
         			sprite.setRegion(animatedBox2DSprite.getAnimation().getKeyFrame(4));
         			animationDraw = false;

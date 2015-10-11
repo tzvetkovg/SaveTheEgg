@@ -1,6 +1,5 @@
 package com.saveggs.game;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,13 +7,15 @@ import assets.Assets;
 
 import com.admob.AdsController;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -26,19 +27,18 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
@@ -49,7 +49,6 @@ import com.sageggs.actors.CreateMesh2;
 import com.sageggs.actors.CurrentMap;
 import com.sageggs.actors.DynamicBall;
 import com.sageggs.actors.DynamicBall.DynamicBallPool;
-import com.sageggs.actors.Ground;
 import com.sageggs.actors.Qice;
 import com.sageggs.actors.Slingshot;
 import com.sageggs.actors.enemies.Enemy;
@@ -62,10 +61,8 @@ import com.sageggs.actors.particles.ParticleEffectBall;
 import com.sageggs.actors.particles.ParticleEffectFlyingBird;
 import com.sageggs.actors.particles.ParticleIzlupvane;
 import com.sageggs.actors.particles.PruskaneQice;
-import com.sageggs.actors.ui.Sliderche;
+import com.sageggs.actors.ui.MusicButton;
 import com.saveggs.game.screens.LevelScreen;
-import com.saveggs.game.screens.MainMenuScreen;
-import com.saveggs.game.screens.StageScreen;
 import com.saveggs.utils.BodyUtils;
 import com.saveggs.utils.Constants;
 import com.saveggs.utils.WorldUtils;
@@ -119,8 +116,9 @@ public class GameStage extends Stage implements ContactListener{
 	private int currentLevel;
 	private Slider slider;
 	private Table table;
-	private boolean sliderClicked = false;
-
+	private boolean buttonClicked = false;
+	private Music music1,music2,destroyEnemey,breakingEgg;
+	private TextButton button;
 	
 	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map, int currentLevel){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
@@ -136,11 +134,18 @@ public class GameStage extends Stage implements ContactListener{
 		Gdx.input.setInputProcessor(this);
 		this.adsController = adsController;		
 		this.currentLevel = currentLevel;
-		
+
 		//display loading screen initially
 		Timer.schedule(new Task(){
             @Override
             public void run() {
+            	music2.setVolume(3);
+            	music1.setVolume(3);
+            	destroyEnemey.setVolume(3);
+            	breakingEgg.setVolume(3);
+        		for (Qice qice : allEggs) {
+        			qice.pilence.setVolume(3);
+                }
             	showGame = true;
             	loading.draw = false;
             }
@@ -159,7 +164,7 @@ public class GameStage extends Stage implements ContactListener{
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
 		
-		if(showGame && !sliderClicked){			
+		if(showGame && !buttonClicked){			
 			camera.unproject(position.set(screenX, screenY, 0));
 
 			clickedPoint.x = position.x;
@@ -190,7 +195,7 @@ public class GameStage extends Stage implements ContactListener{
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		if(showGame && !sliderClicked){			
+		if(showGame && !buttonClicked){			
 			//remove lasticite
 			mesh.drawBody = false;
 			mesh2.drawBody = false;
@@ -223,7 +228,6 @@ public class GameStage extends Stage implements ContactListener{
 		
 		if(showGame){
 			world.step(1 / 60f,6, 2);
-
 			//destroy bodies if out of range
 			destroyFlyingBirds();
 			destroySleepingBalls();
@@ -348,12 +352,13 @@ public class GameStage extends Stage implements ContactListener{
 		addActor(pruskane);
 		
 		//slider
-		//slider = new Sliderche();
 		addActor(table);
+		//music
+		addActor(button);
+		
 		//loading screen
 		loading = new LoadingScreen();
 		addActor(loading);
-
 	}
 	
 	//replay/reset the stage
@@ -378,6 +383,10 @@ public class GameStage extends Stage implements ContactListener{
 		
 		// reset
 		numberOfEnemyKillings = 0;
+		
+		//reset ball speed
+		slider.setValue(3);
+		Constants.ballSpeed = 14f;
 		
 		//reset enemies
 		enemyOtherSide.anyEggsLeft=true;
@@ -404,22 +413,98 @@ public class GameStage extends Stage implements ContactListener{
 		skin = (Skin)mapBodies.get("skin");
 		middlePoint = new Vector2();
 		clickedPoint = new Vector2();
+		/**
+		 * music
+		 */
+		music1 = Assets.manager.get(Assets.birdScream, Music.class);
+		music2 = Assets.manager.get(Assets.birdScream, Music.class);
+		destroyEnemey = Assets.manager.get(Assets.dyingBird, Music.class);
+		breakingEgg = Assets.manager.get(Assets.breakingEgg, Music.class);
+		music1.setVolume(0);
+		music2.setVolume(0);
+		destroyEnemey.setVolume(0);
+		breakingEgg.setVolume(0);
+		
+		/**
+		 * Music button
+		 */
+		final TextButton.TextButtonStyle tbs = new TextButton.TextButtonStyle();
+		tbs.font =  Assets.manager.get(Assets.bitmapfont, BitmapFont.class);
+		tbs.font.getData().setScale(0.01f);
+		final TextureRegionDrawable musicEnabled = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.music, Texture.class)));
+		final TextureRegionDrawable musicDisabled = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.noMusic, Texture.class)));
+		tbs.up = musicEnabled;
+		button = new TextButton("back", tbs);
+		button.setSize(1.5f, 1.5f);
+		button.setOrigin(Constants.SCENE_WIDTH / 30f * 0.5f, Constants.SCENE_HEIGHT / 30f * 0.5f);
+		button.setPosition(button.getX(), button.getY() + 14.7f);
+		
+		button.addListener(new ClickListener() {
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				buttonClicked = true;
+				if(tbs.up == musicEnabled){
+					tbs.up = musicDisabled;
+			    	music2.setVolume(0);
+			    	music1.setVolume(0);
+			    	destroyEnemey.setVolume(0);
+			    	breakingEgg.setVolume(0);
+					for (Qice qice : allEggs) {
+						qice.pilence.setVolume(0);
+			        }
+				}
+				else{
+					tbs.up = musicEnabled;
+			    	music2.setVolume(3);
+			    	music1.setVolume(3);
+			    	destroyEnemey.setVolume(3);
+			    	breakingEgg.setVolume(3);
+					for (Qice qice : allEggs) {
+						qice.pilence.setVolume(3);
+			        }
+				}
+				
+				return super.touchDown(event, x, y, pointer, button);
+			}
+
+			@Override
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
+				buttonClicked = false;
+				super.touchUp(event, x, y, pointer, button);
+			}
+	
+		});
+		
 		//label and dialog
+		final TextButton.TextButtonStyle replay = new TextButton.TextButtonStyle();
+		replay.font =  Assets.manager.get(Assets.bitmapfont, BitmapFont.class);
+		replay.font.getData().setScale(0.001f);
+		replay.up = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.replay, Texture.class)));
+		
+		final TextButton.TextButtonStyle myMenu = new TextButton.TextButtonStyle();
+		myMenu.font =  Assets.manager.get(Assets.bitmapfont, BitmapFont.class);
+		myMenu.font.getData().setScale(0.001f);
+		myMenu.up = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.myMenu, Texture.class)));
+
 		 label = new Label("text",skin);
 		 dialog = new Dialog("please confirm", skin) {
 			{
-				button("replay","replay");
-				button("return to menu", "menu");
+				button("replay","replay",replay);
+				button("return to menu", "menu",myMenu);
 			}
 
 			@Override
 			protected void result(Object object) {
 				if(object.equals("replay")){
+					stopMusic();
 					resetStage();
 					showGame = true;
 				}		
 				else if(object.equals("menu"))
 				{
+					stopMusic();
 					getStage().dispose();
 					world.dispose();
 
@@ -434,19 +519,51 @@ public class GameStage extends Stage implements ContactListener{
 		ss.background = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.slider, Texture.class)));
 		ss.knob = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.sliderKnob, Texture.class)));
 		
-		slider = new Slider(0f, 5, 1f, false, ss);
+		slider = new Slider(0f, 4, 1f, false, ss);
 		
 		slider.setPosition(0, 0);
+		slider.setValue(3);
+		
 		slider.addListener(new InputListener() {
 			@Override
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 				//Gdx.app.log(TAG, "slider changed to: " + slider.getValue());
-				sliderClicked = false;
+				buttonClicked = false;
 			}
 			@Override
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				sliderClicked = true;
+				switch ((int)slider.getValue()) {
+		        case 0:  Constants.ballSpeed = 9f;
+		        		 break;
+		        case 1:  Constants.ballSpeed = 12f;
+       		 			break;
+		        case 2:  Constants.ballSpeed = 13f;
+		        	break;
+		        case 3:  Constants.ballSpeed = 14f;
+		        	break;
+		        case 4:  Constants.ballSpeed = 14.3f;
+		        	break;
+				}
+				buttonClicked = true;
 				return true;
+			}
+			@Override
+			public void touchDragged(InputEvent event, float x, float y,
+					int pointer) {
+				switch ((int)slider.getValue()) {
+		        case 0:  Constants.ballSpeed = 9f;
+		        		 break;
+		        case 1:  Constants.ballSpeed = 12f;
+       		 			break;
+		        case 2:  Constants.ballSpeed = 13f;
+		        	break;
+		        case 3:  Constants.ballSpeed = 14f;
+		        	break;
+		        case 4:  Constants.ballSpeed = 14.3f;
+		        	break;
+				}
+				buttonClicked = true;
+				super.touchDragged(event, x, y, pointer);
 			};
 		});
 
@@ -555,9 +672,44 @@ public class GameStage extends Stage implements ContactListener{
 	}
 
 	/**
+	 * music
+	 */
+	public void adjustMusic(int level){
+    	music2.setVolume(level);
+    	music1.setVolume(level);
+    	destroyEnemey.setVolume(level);
+    	breakingEgg.setVolume(level);
+		for (Qice qice : allEggs) {
+			qice.pilence.setVolume(level);
+        }
+	}
+	
+	public void stopMusic(){
+		music1.stop();
+		music2.stop();
+		destroyEnemey.stop();
+	}
+	
+	public void dyingEnemey(){
+		destroyEnemey.play();
+	}
+	
+	public void resetScreanEnemyOne(){
+		music1.stop();
+		music1.play();
+		music1.setLooping(true);
+	}
+	
+	public void resetScreanEnemyTwo(){
+		music2.stop();
+		music2.play();
+		music2.setLooping(true);
+	}
+	/**
 	 * launch single enemy
 	 */
 	public void startEnemyOne(){
+		resetScreanEnemyOne();
 		enemy.enemyDraw = false;
 		enemy.setSpeed(0);
 		enemy.body.setAwake(false);
@@ -567,9 +719,11 @@ public class GameStage extends Stage implements ContactListener{
 		enemyOtherSide.setSpeed(Constants.ENEMYSPEED);
 		enemyOtherSide.body.setAwake(true);
 		enemyOtherSide.resetBody();
+		//launch bird scream
 	}
 	
 	public void startEnemyTwo(){
+		resetScreanEnemyTwo();
 		//launch enemy2
 		enemyOtherSide.enemyDraw = false;
 		enemyOtherSide.setSpeed(0);
@@ -580,6 +734,7 @@ public class GameStage extends Stage implements ContactListener{
 		enemy.setSpeed(Constants.ENEMYSPEED);
 		enemy.body.setAwake(true);
 		enemy.resetBody();
+		//launch music
 	}
 	
 	public void launchEnemy(){
@@ -594,6 +749,7 @@ public class GameStage extends Stage implements ContactListener{
 	 */
 	//launch both enemies
 	public void launchEnemyOne(){
+		resetScreanEnemyOne();
 		//reset enemy1
 		enemy.enemyDraw = true;
 		enemy.setSpeed(Constants.ENEMYSPEED);
@@ -602,6 +758,7 @@ public class GameStage extends Stage implements ContactListener{
 	}
 	
 	public void launchEnemyTwo(){
+		resetScreanEnemyTwo();
 		//reset the other enemy
 		enemyOtherSide.enemyDraw = true;
 		enemyOtherSide.setSpeed(Constants.ENEMYSPEED);
@@ -664,8 +821,8 @@ public class GameStage extends Stage implements ContactListener{
 				
 				final Body qice = contact.getFixtureA().getBody().getUserData().equals(Constants.QICE) ?
 						  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
+
 				
-	  
 				//make sure qiceto ne se izlupva i qiceto e  tova za koeto se e zaputila pticata
 				if(body1 != null && !qice.isAwake() && (((Qice)body1.getFixtureList().first().getUserData()).body == qice)){
 					enemy.hvashtane = false;
@@ -752,8 +909,9 @@ public class GameStage extends Stage implements ContactListener{
             final Body toRemove2 = body2;
             
             final Body ball = contact.getFixtureA().getBody().getUserData().equals(Constants.DynamicBall) ?
-					  		  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
-	
+					  		  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();				
+			//dying bird
+			dyingEnemey();
 			
 			if(ball.isAwake()){
 				numberOfEnemyKillings++;
@@ -781,12 +939,6 @@ public class GameStage extends Stage implements ContactListener{
 							//start launching both enemies
 							if(numberOfEnemyKillings > launchBothEnemies){								
 								//launch both enemies
-/*								if(!enemyOtherSide.enemyDraw){
-									launchEnemyTwo();
-									launchEnemyOne();
-								}
-								else
-									launchEnemyOne();*/
 								if(internetEnabled && timeIntervalAds >= timeAds){
 									adsController.showInterstitialAd(new Runnable() {
 										@Override
@@ -844,23 +996,10 @@ public class GameStage extends Stage implements ContactListener{
 								((Qice)toRemove2.getFixtureList().first().getUserData()).vzetoQice = false;
 								((Qice)toRemove2.getFixtureList().first().getUserData()).razmazanoQice = true;
 							}
-/*							//launch both enemies
-							if(!enemy.enemyDraw){
-								launchEnemyTwo();
-								launchEnemyOne();
-							}
-							else
-								launchEnemyTwo();*/
 							
 							// launching both enemies
 							if(numberOfEnemyKillings > launchBothEnemies){								
 								//launch both enemies
-/*								if(!enemyOtherSide.enemyDraw){
-									launchEnemyTwo();
-									launchEnemyOne();
-								}
-								else
-									launchEnemyOne();*/
 								if(internetEnabled && timeIntervalAds >= timeAds){
 									adsController.showInterstitialAd(new Runnable() {
 										@Override
@@ -920,6 +1059,7 @@ public class GameStage extends Stage implements ContactListener{
 				pruskane.showEffect = true;
 				qice.setAwake(true);
 				qice.setSleepingAllowed(false);
+				breakingEgg.play();
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
@@ -1101,10 +1241,10 @@ public class GameStage extends Stage implements ContactListener{
 							  this.getHeight() / 2);
 			Constants.preferences.putBoolean("Level" + currentLevel, true);
 			int nextLevel = currentLevel + 1;
-			Constants.preferences.putBoolean("Level" + nextLevel, false);
+			boolean solvedLevel = Constants.preferences.getBoolean("Level" + nextLevel) == true ? true : false;
+			if(!solvedLevel)
+				Constants.preferences.putBoolean("Level" + nextLevel, false);
 			Constants.preferences.flush();			
 		}
 	}
-	
-	
 }

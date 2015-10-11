@@ -5,7 +5,9 @@ import net.dermetfan.gdx.assets.AnnotationAssetManager.Asset;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.assets.loaders.MusicLoader;
 import com.badlogic.gdx.assets.loaders.SkinLoader;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
@@ -28,6 +30,8 @@ public class Assets {
 				return Gdx.files.internal("data/uiskin.json");
 			}
 		}));
+		
+
 	}
 	
 	@Asset(BitmapFont.class)
@@ -47,13 +51,17 @@ public class Assets {
 	normalButton = "data/ui/normalButton.png",
 	buttonOverTex = "data/ui/normalButton.png",
 	buttonDownTex = "data/ui/clickedButton.png",
-	slider = "data/ui/slider_background.png",
-	sliderKnob = "data/ui/slider_knob.png",
+	slider = "data/ui/PowerBar.bmp",
+	sliderKnob = "data/ui/ArrowDown.bmp",
 	/**
 	 * Level Menu
 	 */
 	levels = "data/ui/levels.png",
 	levelBackGround = "data/ui/bah.png",
+	music = "data/ui/music.png",
+	noMusic = "data/ui/noMusic.png",
+	replay = "data/ui/00074.png",
+	myMenu = "data/ui/00161.png",
 	/**
 	 * Stage
 	 */
@@ -99,15 +107,20 @@ public class Assets {
 	map7 = "data/maps/level7/map.tmx",
 	map8 = "data/maps/level8/map.tmx";
 	
-	@Asset(Sound.class)
-	public static final String
-	flyingbird = "data/sound/flyingbird.wav";
 	
 	@Asset(Skin.class)
 	public static final String
 	skin = "data/uiskin.json";
 	
-	
+	/**
+	 * Music
+	 */
+	@Asset(Music.class)
+	public static final String
+	birdScream = "data/sound/trycopy.wav",
+	dyingBird = "data/sound/dyingbird.wav",
+	pilence = "data/sound/pilence.wav",
+	breakingEgg = "data/sound/breakingEgg.wav";
 	
 	public static void dispose(){
 		manager.dispose();

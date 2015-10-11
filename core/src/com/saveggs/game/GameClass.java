@@ -6,6 +6,7 @@ import assets.Assets;
 
 import com.admob.AdsController;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.physics.box2d.World;
 import com.saveggs.game.screens.LevelScreen;
 import com.saveggs.game.screens.MainMenuScreen;
@@ -43,6 +44,7 @@ public class GameClass extends Game {
 			System.out.println(Assets.manager.getProgress());
 		}
 		Assets.manager.finishLoading();
+		Assets.manager.load("data/sounds/loop.ogg", Music.class);
 		this.setScreen(new MainMenuScreen(adsController,this));
 		//this.setScreen(new LevelScreen(null,this));
 	}

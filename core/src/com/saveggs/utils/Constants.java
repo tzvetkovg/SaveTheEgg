@@ -51,6 +51,7 @@ public class Constants {
 	 */
 	public static float ENEMYSPEED = 154;
 	public static float FlYINGBIRDVELOCITY = 4;
+	public static float ballSpeed = 14f;
 	/**
 	 * Actors contants
 	 */

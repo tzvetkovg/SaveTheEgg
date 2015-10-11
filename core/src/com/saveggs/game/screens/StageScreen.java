@@ -109,40 +109,6 @@ public class StageScreen implements Screen {
 		
 		this.adsController = adsController;	
 		this.stage = new GameStage(adsController,this.worldBodies,this.world,internetEnabled,game,this.map,currentLevel);		
-
-		
-		
-/*		//Slider
-		Slider.SliderStyle ss = new Slider.SliderStyle();
-		ss.background = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.slider, Texture.class)));
-		ss.knob = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.sliderKnob, Texture.class)));
-		
-		slider = new Slider(0f, 5, 1f, false, ss);
-		
-		slider.setPosition(0, 0);
-
-		
-		slider.addListener(new InputListener() {
-			@Override
-			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-				//Gdx.app.log(TAG, "slider changed to: " + slider.getValue());
-				
-				System.out.println("touch up " + slider.getValue());
-			}
-			@Override
-			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				System.out.println("touch down");
-				return true;
-			};
-		});
-
-		// Set table structure
-		table = new Table();
-		//table.debug();
-		
-		//table.setBackground(new NinePatchDrawable(Constants.getNinePatch()));
-		table.add(slider).width(150).height(50);
-		stage.addActor(table);*/
 	}
 
 
@@ -176,11 +142,6 @@ public class StageScreen implements Screen {
 		this.stage.getCamera().viewportHeight = Constants.SCENE_HEIGHT / 30f;
 		this.stage.getCamera().position.set(this.stage.getCamera().viewportWidth / 2f, this.stage.getCamera().viewportHeight / 2f, 0); 
 		this.stage.getCamera().update();	
-		
-/*		table.setClip(true);
-		table.setWidth(150);
-		table.setHeight(50);
-		table.setScale(0.03333f);*/
 		
 	}
 
