@@ -3,12 +3,12 @@
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>4</flyingenemyspeed>
 	</<Level1>
+	
 	<Level2>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>4</flyingenemyspeed>
 	</<Level2>
-	
-	    
+	 
 	<Level3>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>4</flyingenemyspeed>
@@ -18,6 +18,11 @@
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>4</flyingenemyspeed>
 	</<Level4>
+	
+	<Level5>
+	    <enemyspeed>154</enemyspeed>
+	    <flyingenemyspeed>4</flyingenemyspeed>
+	</<Level5>
 	
 	<Level6>
 	    <enemyspeed>154</enemyspeed>
@@ -38,10 +43,5 @@
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>4</flyingenemyspeed>
 	</<Level9>
-	
-	<Level10>
-	    <enemyspeed>154</enemyspeed>
-	    <flyingenemyspeed>4</flyingenemyspeed>
-	</<Level10>
 	
 </LevelData>

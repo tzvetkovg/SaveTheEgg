@@ -62,6 +62,12 @@ public class Assets {
 	noMusic = "data/ui/noMusic.png",
 	replay = "data/ui/00074.png",
 	myMenu = "data/ui/00161.png",
+	replayDown = "data/ui/00074white.png",
+	myMenuDown = "data/ui/00161white.png",
+	continueButton = "data/ui/00120.png",
+	continueButtonDown = "data/ui/00120white.png",
+	pause = "data/ui/00127.png",
+	pauseDown = "data/ui/00127white.png",
 	/**
 	 * Stage
 	 */
@@ -118,6 +124,7 @@ public class Assets {
 	@Asset(Music.class)
 	public static final String
 	birdScream = "data/sound/trycopy.wav",
+	birdScream2 = "data/sound/trycopy.wav",
 	dyingBird = "data/sound/dyingbird.wav",
 	pilence = "data/sound/pilence.wav",
 	breakingEgg = "data/sound/breakingEgg.wav";

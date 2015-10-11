@@ -80,6 +80,7 @@ public class LevelScreen implements Screen{
 			for (int y = 0; y < 3; y++) {
 				levels.row();
 				for (int x = 0; x < 4; x++) {
+					System.out.println("c is " + c);
 					levels.add(getLevelButton(c++)).expand().fill();
 				}
 			}

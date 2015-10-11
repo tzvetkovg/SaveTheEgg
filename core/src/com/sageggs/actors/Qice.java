@@ -39,6 +39,8 @@ public class Qice extends GameActor {
 	private Task task;
 	private int interval;
 	public Music pilence;
+	private long startTime;
+	private long stopTime;
 	
 	public Qice(final Body body,int interval) {
 		super(body);
@@ -67,7 +69,9 @@ public class Qice extends GameActor {
             	body.setAwake(true);
             };
 		};
-		Timer.schedule(task,this.interval,1f,3);
+		startTime = System.currentTimeMillis();
+		Timer.schedule(task,this.interval,1f,2);
+
 	}
 	
 	 @Override
@@ -125,6 +129,23 @@ public class Qice extends GameActor {
         }
      }	
 	 
+	 public void pauseTime(){
+		 task.cancel();
+	 }
+	 
+	 public void resumeTime(){
+		stopTime = System.currentTimeMillis();
+		if( ( (stopTime - startTime) / 1000.0) < this.interval + 3){
+/*			 System.out.println("interval: " + (this.interval + 3));
+			 System.out.println("time spent " +  ((stopTime - startTime) / 1000.0));
+			 System.out.println("new time is " + ((this.interval + 3) - ( (stopTime - startTime) / 1000.0)));*/
+			 Timer.schedule(this.task,(int)( (this.interval + 3) - ( (stopTime - startTime) / 1000.0) ),1f,2);
+		}
+		else{
+			Timer.schedule(this.task,this.interval,1f,2);
+		}
+	 }
+	 
 	 public void runEffect(Batch batch){	//run the effect	 		
 	 		effect.update(Gdx.graphics.getDeltaTime());
 	 		effect.setPosition(body.getPosition().x + 0.5f, body.getPosition().y + 0.5f);
@@ -173,7 +194,7 @@ public class Qice extends GameActor {
 		 if(task.isScheduled()){
 			 task.cancel();
 		 }
-		 Timer.schedule(this.task,this.interval,1f,3);
+		 Timer.schedule(this.task,this.interval,1f,2);
 		 
 		 drawing = true;
 	 }	 

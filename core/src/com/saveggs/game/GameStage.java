@@ -8,13 +8,11 @@ import assets.Assets;
 import com.admob.AdsController;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.MathUtils;
@@ -31,7 +29,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
@@ -61,7 +58,6 @@ import com.sageggs.actors.particles.ParticleEffectBall;
 import com.sageggs.actors.particles.ParticleEffectFlyingBird;
 import com.sageggs.actors.particles.ParticleIzlupvane;
 import com.sageggs.actors.particles.PruskaneQice;
-import com.sageggs.actors.ui.MusicButton;
 import com.saveggs.game.screens.LevelScreen;
 import com.saveggs.utils.BodyUtils;
 import com.saveggs.utils.Constants;
@@ -108,7 +104,7 @@ public class GameStage extends Stage implements ContactListener{
 	private Skin skin;
 	private GameClass game;
 	private TiledMap map;
-	private Dialog dialog;
+	private Dialog dialog,pauseMenu;
 	private Array<Qice> allEggs,izlupeni,vzeti,uduljavane;
 	private Array<Vector2> positionsOfQica;
 	private Label label;
@@ -117,8 +113,8 @@ public class GameStage extends Stage implements ContactListener{
 	private Slider slider;
 	private Table table;
 	private boolean buttonClicked = false;
-	private Music music1,music2,destroyEnemey,breakingEgg;
-	private TextButton button;
+	private Music music1,music2,breakingEgg,destroyEnemey;
+	private TextButton button,pause;
 	
 	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map, int currentLevel){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
@@ -139,15 +135,10 @@ public class GameStage extends Stage implements ContactListener{
 		Timer.schedule(new Task(){
             @Override
             public void run() {
-            	music2.setVolume(3);
-            	music1.setVolume(3);
-            	destroyEnemey.setVolume(3);
-            	breakingEgg.setVolume(3);
-        		for (Qice qice : allEggs) {
-        			qice.pilence.setVolume(3);
-                }
             	showGame = true;
             	loading.draw = false;
+            	
+            	adjustMusic(1);
             }
         },3);
 		
@@ -220,7 +211,6 @@ public class GameStage extends Stage implements ContactListener{
 
 	@Override
 	public void act(float delta) {
-		// TODO Auto-generated method stub
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
@@ -355,7 +345,8 @@ public class GameStage extends Stage implements ContactListener{
 		addActor(table);
 		//music
 		addActor(button);
-		
+		//pause
+		addActor(pause);
 		//loading screen
 		loading = new LoadingScreen();
 		addActor(loading);
@@ -417,14 +408,50 @@ public class GameStage extends Stage implements ContactListener{
 		 * music
 		 */
 		music1 = Assets.manager.get(Assets.birdScream, Music.class);
-		music2 = Assets.manager.get(Assets.birdScream, Music.class);
+		music2 = Assets.manager.get(Assets.birdScream2, Music.class);
 		destroyEnemey = Assets.manager.get(Assets.dyingBird, Music.class);
 		breakingEgg = Assets.manager.get(Assets.breakingEgg, Music.class);
-		music1.setVolume(0);
-		music2.setVolume(0);
-		destroyEnemey.setVolume(0);
-		breakingEgg.setVolume(0);
+		adjustMusic(0);
 		
+		/*
+		 * pause button
+		 */
+		final TextButton.TextButtonStyle tbs1 = new TextButton.TextButtonStyle();
+		tbs1.font =  Assets.manager.get(Assets.bitmapfont, BitmapFont.class);
+		tbs1.font.getData().setScale(0.01f);
+		final TextureRegionDrawable continueBut = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.pause, Texture.class)));
+		final TextureRegionDrawable continueButDown = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.pauseDown, Texture.class)));
+		tbs1.up = continueBut;
+		tbs1.down = continueButDown;
+		pause = new TextButton("back", tbs1);
+		pause.setSize(1.5f, 1.5f);
+		pause.setOrigin(Constants.SCENE_WIDTH / 30f * 0.5f, Constants.SCENE_HEIGHT / 30f * 0.5f);
+		pause.setPosition(pause.getX() + 1, pause.getY() + 14.7f);
+		
+		
+		pause.addListener(new ClickListener() {
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				buttonClicked = true;
+				showGame = false;
+				adjustMusic(0);
+				pauseMenu.setScale(.03333f);
+				pauseMenu.show(pause.getStage());
+				pauseMenu.setOrigin(pause.getStage().getWidth() * 0.4f , 
+									pause.getStage().getHeight() / 2);
+				for (Qice qice : eggs) {
+					qice.pauseTime();
+		        }
+				return super.touchDown(event, x, y, pointer, button);
+			}
+			@Override
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
+				buttonClicked = false;
+				super.touchUp(event, x, y, pointer, button);
+			}
+		});
 		/**
 		 * Music button
 		 */
@@ -446,23 +473,11 @@ public class GameStage extends Stage implements ContactListener{
 				buttonClicked = true;
 				if(tbs.up == musicEnabled){
 					tbs.up = musicDisabled;
-			    	music2.setVolume(0);
-			    	music1.setVolume(0);
-			    	destroyEnemey.setVolume(0);
-			    	breakingEgg.setVolume(0);
-					for (Qice qice : allEggs) {
-						qice.pilence.setVolume(0);
-			        }
+					adjustMusic(0);
 				}
 				else{
 					tbs.up = musicEnabled;
-			    	music2.setVolume(3);
-			    	music1.setVolume(3);
-			    	destroyEnemey.setVolume(3);
-			    	breakingEgg.setVolume(3);
-					for (Qice qice : allEggs) {
-						qice.pilence.setVolume(3);
-			        }
+					adjustMusic(1);
 				}
 				
 				return super.touchDown(event, x, y, pointer, button);
@@ -477,28 +492,40 @@ public class GameStage extends Stage implements ContactListener{
 	
 		});
 		
+		/**
+		 * end of game dialog
+		 */
 		//label and dialog
+		final TextButton.TextButtonStyle continueButton = new TextButton.TextButtonStyle();
+		continueButton.font =  Assets.manager.get(Assets.bitmapfont, BitmapFont.class);
+		continueButton.font.getData().setScale(0.001f);
+		continueButton.up = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.continueButton, Texture.class)));
+		continueButton.down = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.continueButtonDown, Texture.class)));
+
+		
 		final TextButton.TextButtonStyle replay = new TextButton.TextButtonStyle();
 		replay.font =  Assets.manager.get(Assets.bitmapfont, BitmapFont.class);
 		replay.font.getData().setScale(0.001f);
 		replay.up = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.replay, Texture.class)));
+		replay.down = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.replayDown, Texture.class)));
 		
 		final TextButton.TextButtonStyle myMenu = new TextButton.TextButtonStyle();
 		myMenu.font =  Assets.manager.get(Assets.bitmapfont, BitmapFont.class);
 		myMenu.font.getData().setScale(0.001f);
 		myMenu.up = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.myMenu, Texture.class)));
-
+		myMenu.down = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.myMenuDown, Texture.class)));
+		
 		 label = new Label("text",skin);
 		 dialog = new Dialog("please confirm", skin) {
 			{
-				button("replay","replay",replay);
-				button("return to menu", "menu",myMenu);
+				button("text","replay",replay);
+				button("text", "menu",myMenu);
 			}
 
 			@Override
 			protected void result(Object object) {
 				if(object.equals("replay")){
-					stopMusic();
+					adjustMusic(1);
 					resetStage();
 					showGame = true;
 				}		
@@ -514,7 +541,43 @@ public class GameStage extends Stage implements ContactListener{
 		};		
 		dialog.text(label);		
 
-		//Slider
+		/**
+		 * pause menu
+		 */
+		 pauseMenu = new Dialog("please confirm", skin) {
+			{
+				button("text","continue",continueButton);
+				button("text","replay",replay);
+				button("text", "menu",myMenu);
+			}
+
+			@Override
+			protected void result(Object object) {
+				if(object.equals("continue")){
+					adjustMusic(1);
+					for (Qice qice : eggs) {
+						qice.resumeTime();
+			        }
+					showGame = true;
+				}
+				if(object.equals("replay")){
+					adjustMusic(1);
+					resetStage();
+					showGame = true;
+				}		
+				else if(object.equals("menu"))
+				{
+					stopMusic();
+					getStage().dispose();
+					world.dispose();
+					game.setScreen(new LevelScreen(adsController,game));
+				}
+			}
+		};			
+		
+		/**
+		 * slider
+		 */
 		Slider.SliderStyle ss = new Slider.SliderStyle();
 		ss.background = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.slider, Texture.class)));
 		ss.knob = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.sliderKnob, Texture.class)));
@@ -600,6 +663,7 @@ public class GameStage extends Stage implements ContactListener{
     		if(enemy.pribirane){
     			//fail dve s koito pticata e otletqla
 				showGame = false;
+				adjustMusic(0);
 				label.setText("Lost! You have one egg taken.");
 				//dialog.text(label);
 				//skin
@@ -616,6 +680,7 @@ public class GameStage extends Stage implements ContactListener{
     		if(enemyOtherSide.pribirane){
     			//fail dve s koito pticata e otletqla
 				showGame = false;
+				adjustMusic(0);
 				label.setText("Lost! You have 1 egg taken.");
 				//dialog.text(label);
 				//skin
@@ -832,6 +897,7 @@ public class GameStage extends Stage implements ContactListener{
 						//max 2 razbiti qica
 						if(uduljavane.size == 2) {
 							showGame = false;
+							adjustMusic(0);
 							//skin
 							label.setText("Lost! For 2 broken eggs you must save min 3!");
 							//dialog.text(label);
@@ -840,19 +906,6 @@ public class GameStage extends Stage implements ContactListener{
 							dialog.setOrigin( this.getWidth() * 0.25f , 
 											  this.getHeight() / 2);
 						}
-						
-/*						//max 2 razbiti qica
-						if(uduljavane.size == 1 && vzeti.size ==1) {
-							showGame = false;
-							label.setText("Lost! You have 1 egg taken. You must save min 4!");
-							//dialog.text(label);
-							dialog.setScale(.03333f);
-							dialog.show(this);
-							dialog.setOrigin( this.getWidth() * 0.25f , 
-											  this.getHeight() / 2);
-						}*/
-						
-						//((Qice)body1.getFixtureList().first().getUserData()).vzeto = true;
 					}
 	        		enemy.pribirane = true;
 				}
@@ -865,6 +918,7 @@ public class GameStage extends Stage implements ContactListener{
 						//dve sa razbiti veche
 						if(uduljavane.size == 2) {
 							showGame = false;
+							adjustMusic(0);
 							label.setText("Lost! For 2 broken eggs you must save min 3!");
 							//dialog.text(label);
 							dialog.setScale(.03333f);
@@ -872,19 +926,7 @@ public class GameStage extends Stage implements ContactListener{
 							dialog.setOrigin( this.getWidth() * 0.25f , 
 											  this.getHeight() / 2);
 						}
-						
-/*						//max 1 razbito i vzeto (Trqbwa da spasish chetiri)
-						if(uduljavane.size == 1 && vzeti.size ==1) {
-							showGame = false;
-							//skin
-							label.setText("Lost! You have 1 egg taken. You must save min 4!");
-							//dialog.text(label);
-							dialog.setScale(.03333f);
-							dialog.show(this);
-							dialog.setOrigin( this.getWidth() * 0.25f , 
-											  this.getHeight() / 2);
-						}*/
-						//((Qice)body2.getFixtureList().first().getUserData()).vzeto = true;
+
 					}
 					enemyOtherSide.pribirane = true;
 				}
@@ -1203,34 +1245,11 @@ public class GameStage extends Stage implements ContactListener{
 	public void preSolve(Contact contact, Manifold oldManifold) {}	
 		
 	public void displayScreen(){
-
-		//max 2 razbiti qica
-		if(uduljavane.size == 3) {
-			showGame = false;
-			label.setText("Lost! You must save at least 3 eggs");
-			//dialog.text(label);
-			//skin
-			dialog.setScale(.03333f);
-			dialog.show(this);
-			dialog.setOrigin( this.getWidth() * 0.25f , 
-							  this.getHeight() / 2);
-		}
-		
-/*		//fail dve s koito pticata e otletqla
-		if(vzeti.size == 2) {
-			showGame = false;
-			label.setText("Lost! You have 1 egg taken. You must save min 4!");
-			//dialog.text(label);
-			//skin
-			dialog.setScale(.03333f);
-			dialog.show(this);
-			dialog.setOrigin( this.getWidth() * 0.25f , 
-							  this.getHeight() / 2);
-		}*/
-		
+	
 		//success 3 izlupeni
 		if(izlupeni.size == 3){
 			showGame = false;
+			adjustMusic(0);
 			//level solved
 			//skin
 			label.setText("Congratulations! You won!");
