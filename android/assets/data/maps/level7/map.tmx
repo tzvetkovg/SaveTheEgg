@@ -18,23 +18,23 @@
  </layer>
  <layer name="Tile Layer 3" width="50" height="30">
   <data encoding="base64" compression="zlib">
-   eJzt1kdOA0EQheHaOPQVyFwFMPEeDoBtzuEA2OYczmNzEsJFwCSJf7atNpoZIUZt6knf7qmmajFSi2g0Go1Go9FofjPVjEgNdVxl0t4meTrs3kUPdx7fEbD7DHPce3zHKqeYEymhjEou7W2Sp8HuTbTQ9viOPrsPMMTI4zt+yjgrMsEUQTbtbZLngd0f8YRnj+94Z/cPfOLL4zu2+F+2sYPdFfx3XrjpFQu8eXzfWl5kHRvYzP/99/eMyD4OUMAhjnCME5zizETv2Z0wrreoq2fPipMi/RLKqOAcF7hEFTXUTfSe3Qnjeou6evasOGnQb6KFNq5xg1t00EXPRO/ZnTCut6irZ8+Kkz79AYYYYYwJpggww9xE79mdZXH17Fn/Md98BWdH
+   eJzt1llOAkEUheF6Eag1KA4rUREc98GgovtgUAHXwSA0uBN1LUriX2/mpirp1tampE7yvXROKvemK51WKiQkJCQkJCQkJM00N7KeIJ30HHv0eT7Aoyd7Ro455zxf4NmTPf5zqvmsJ0gnLccemwWltlAs/O08382QPUYYY/Jlp33mP8Ch2KNE5whlVDx+l+Ye1lBHw+M9zD1so4Oux3u47uEqZ5s5d7CLPU9mTiPTnFIzRLmsJ/lZXpj/FW+/vEdJ881EGRUc4wSnOMM5LnT8nuy8M/8HlmIP2TORZyVJlX4NdTRwiStco4kb3Or4Pdkxsf2L2nryrCRp0W+jgy7ucI8H9NDHQMfvyY6J7V/U1pNnJcmQ/ghjTPCEKWaIMMdCx+/Jjiu2njxrHfMJhsNfSw==
   </data>
  </layer>
  <layer name="Tile Layer 4" width="50" height="30">
   <data encoding="base64" compression="zlib">
-   eJztzLkRwlAQBNHvbKhcEolwKxGBBCTCTTh0Bjh/vX5V7U1NKTkmUcqUZjSnBTXU0jLydrWt+F7Thra0oz0dqIu8XW0930c60UAjnelC18jb1Xbj+04PetKL3vShb+TtJEmSJEmSJOmfH1LKPVE=
+   eJzt0MkRglAQAFEuhCoumAioSCKoKIm4Gw6dgb/qz7G76t1mDjNtWRQ77HFAhyN65LRgv8ISK6yxQY1tGT93whkXjLjihinzjob9NuFHUXMPPPHCGx988cu8Y0j8UfRcdPfEH0XPmZmZmZmZmZmZmf1rBmgJTD8=
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
-  <object id="8" name="line2" type="object" x="-0.5" y="73.5">
+  <object id="8" name="line2" type="object" x="0.5" y="74.5">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="line2"/>
    </properties>
    <polyline points="0,0 196,-56 490.667,-70.6667 746.667,-49.3333 798.667,2.66667"/>
   </object>
-  <object id="9" name="line1" type="object" x="797" y="310">
+  <object id="9" name="line1" type="object" x="797" y="325">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="line1"/>
@@ -70,7 +70,7 @@
     <property name="userData" value="ground"/>
    </properties>
   </object>
-  <object id="16" name="opposite1" type="object" x="1.33329" y="50.7912" width="16" height="9.33333">
+  <object id="16" name="opposite1" type="object" x="2.33329" y="36.7912" width="16" height="9.33333">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="opposite1"/>
@@ -106,13 +106,13 @@
     <property name="userData" value="position3"/>
    </properties>
   </object>
-  <object id="56" name="ptiche" type="object" x="20" y="185.333" width="36" height="23.3333">
+  <object id="56" name="ptiche" type="object" x="100" y="186.333" width="36" height="23.3333">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="qice"/>
    </properties>
   </object>
-  <object id="57" name="egg1point1" type="fixture" x="199.5" y="38.5" width="11" height="11">
+  <object id="57" name="egg1point1" type="fixture" x="290.5" y="21.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche"/>
     <property name="isSensor" value="true"/>
@@ -120,7 +120,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="58" name="egg1point1" type="fixture" x="68.5" y="162.5" width="11" height="11">
+  <object id="58" name="egg1point1" type="fixture" x="148.5" y="163.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche"/>
     <property name="isSensor" value="true"/>
@@ -128,7 +128,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="59" name="egg1point1" type="fixture" x="12.5" y="159.5" width="11" height="11">
+  <object id="59" name="egg1point1" type="fixture" x="92.5" y="160.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche"/>
     <property name="isSensor" value="true"/>
@@ -136,7 +136,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="60" name="egg1point1" type="fixture" x="9.5" y="98.5" width="11" height="11">
+  <object id="60" name="egg1point1" type="fixture" x="73.5" y="101.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche"/>
     <property name="isSensor" value="true"/>
@@ -144,7 +144,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="61" name="egg1point1" type="fixture" x="10.5" y="29.5" width="11" height="11">
+  <object id="61" name="egg1point1" type="fixture" x="46.5" y="30.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche"/>
     <property name="isSensor" value="true"/>
@@ -152,7 +152,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="62" name="egg1point1" type="fixture" x="229.5" y="65.5" width="11" height="11">
+  <object id="62" name="egg1point1" type="fixture" x="307.5" y="68.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche"/>
     <property name="isSensor" value="true"/>
@@ -160,13 +160,13 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="63" name="ptiche2" type="object" x="96" y="242.333" width="36" height="23.3333">
+  <object id="63" name="ptiche2" type="object" x="177" y="251.333" width="36" height="23.3333">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="qice"/>
    </properties>
   </object>
-  <object id="64" name="egg1point1" type="fixture" x="279.5" y="94.5" width="11" height="11">
+  <object id="64" name="egg1point1" type="fixture" x="357.5" y="97.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche2"/>
     <property name="isSensor" value="true"/>
@@ -174,7 +174,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="65" name="egg1point1" type="fixture" x="143.5" y="221.5" width="11" height="11">
+  <object id="65" name="egg1point1" type="fixture" x="224.5" y="230.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche2"/>
     <property name="isSensor" value="true"/>
@@ -182,7 +182,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="66" name="egg1point1" type="fixture" x="78.5" y="220.5" width="11" height="11">
+  <object id="66" name="egg1point1" type="fixture" x="159.5" y="229.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche2"/>
     <property name="isSensor" value="true"/>
@@ -190,7 +190,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="67" name="egg1point1" type="fixture" x="44.5" y="113.5" width="11" height="11">
+  <object id="67" name="egg1point1" type="fixture" x="122.5" y="116.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche2"/>
     <property name="isSensor" value="true"/>
@@ -198,7 +198,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="68" name="egg1point1" type="fixture" x="38.5" y="37.5" width="11" height="11">
+  <object id="68" name="egg1point1" type="fixture" x="116.5" y="40.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche2"/>
     <property name="isSensor" value="true"/>
@@ -206,7 +206,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="69" name="egg1point1" type="fixture" x="281.5" y="63.5" width="11" height="11">
+  <object id="69" name="egg1point1" type="fixture" x="359.5" y="66.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche2"/>
     <property name="isSensor" value="true"/>
@@ -214,13 +214,13 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="70" name="ptiche3" type="object" x="208" y="298.333" width="36" height="23.3333">
+  <object id="70" name="ptiche3" type="object" x="288" y="291.333" width="36" height="23.3333">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="qice"/>
    </properties>
   </object>
-  <object id="71" name="egg1point1" type="fixture" x="309.5" y="52.5" width="11" height="11">
+  <object id="71" name="egg1point1" type="fixture" x="387.5" y="55.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche3"/>
     <property name="isSensor" value="true"/>
@@ -228,7 +228,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="72" name="egg1point1" type="fixture" x="252.5" y="276.5" width="11" height="11">
+  <object id="72" name="egg1point1" type="fixture" x="332.5" y="269.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche3"/>
     <property name="isSensor" value="true"/>
@@ -236,7 +236,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="73" name="egg1point1" type="fixture" x="190.5" y="275.5" width="11" height="11">
+  <object id="73" name="egg1point1" type="fixture" x="270.5" y="268.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche3"/>
     <property name="isSensor" value="true"/>
@@ -244,7 +244,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="74" name="egg1point1" type="fixture" x="131.5" y="154.5" width="11" height="11">
+  <object id="74" name="egg1point1" type="fixture" x="209.5" y="157.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche3"/>
     <property name="isSensor" value="true"/>
@@ -252,7 +252,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="75" name="egg1point1" type="fixture" x="18.5" y="76.5" width="11" height="11">
+  <object id="75" name="egg1point1" type="fixture" x="96.5" y="79.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche3"/>
     <property name="isSensor" value="true"/>
@@ -260,7 +260,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="76" name="egg1point1" type="fixture" x="346.5" y="81.5" width="11" height="11">
+  <object id="76" name="egg1point1" type="fixture" x="424.5" y="84.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche3"/>
     <property name="isSensor" value="true"/>
@@ -268,13 +268,13 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="77" name="ptiche4" type="object" x="304" y="361.333" width="36" height="23.3333">
+  <object id="77" name="ptiche4" type="object" x="382" y="364.333" width="36" height="23.3333">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="qice"/>
    </properties>
   </object>
-  <object id="78" name="egg1point1" type="fixture" x="389.5" y="193.5" width="11" height="11">
+  <object id="78" name="egg1point1" type="fixture" x="467.5" y="196.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche4"/>
     <property name="isSensor" value="true"/>
@@ -282,7 +282,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="79" name="egg1point1" type="fixture" x="350.5" y="341.5" width="11" height="11">
+  <object id="79" name="egg1point1" type="fixture" x="428.5" y="344.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche4"/>
     <property name="isSensor" value="true"/>
@@ -290,7 +290,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="80" name="egg1point1" type="fixture" x="278.5" y="339.5" width="11" height="11">
+  <object id="80" name="egg1point1" type="fixture" x="356.5" y="342.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche4"/>
     <property name="isSensor" value="true"/>
@@ -298,7 +298,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="81" name="egg1point1" type="fixture" x="170.5" y="229.5" width="11" height="11">
+  <object id="81" name="egg1point1" type="fixture" x="248.5" y="232.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche4"/>
     <property name="isSensor" value="true"/>
@@ -306,7 +306,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="82" name="egg1point1" type="fixture" x="41.5" y="139.5" width="11" height="11">
+  <object id="82" name="egg1point1" type="fixture" x="119.5" y="142.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche4"/>
     <property name="isSensor" value="true"/>
@@ -314,7 +314,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="83" name="egg1point1" type="fixture" x="433.5" y="90.5" width="11" height="11">
+  <object id="83" name="egg1point1" type="fixture" x="511.5" y="93.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche4"/>
     <property name="isSensor" value="true"/>
@@ -322,13 +322,13 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="84" name="ptiche5" type="object" x="419" y="393.333" width="36" height="23.3333">
+  <object id="84" name="ptiche5" type="object" x="497" y="396.333" width="36" height="23.3333">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="qice"/>
    </properties>
   </object>
-  <object id="85" name="egg1point1" type="fixture" x="456.5" y="205.5" width="11" height="11">
+  <object id="85" name="egg1point1" type="fixture" x="534.5" y="208.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche5"/>
     <property name="isSensor" value="true"/>
@@ -336,7 +336,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="86" name="egg1point1" type="fixture" x="462.5" y="370.5" width="11" height="11">
+  <object id="86" name="egg1point1" type="fixture" x="540.5" y="373.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche5"/>
     <property name="isSensor" value="true"/>
@@ -344,7 +344,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="87" name="egg1point1" type="fixture" x="397.5" y="371.5" width="11" height="11">
+  <object id="87" name="egg1point1" type="fixture" x="475.5" y="374.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche5"/>
     <property name="isSensor" value="true"/>
@@ -352,7 +352,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="88" name="egg1point1" type="fixture" x="277.5" y="280.5" width="11" height="11">
+  <object id="88" name="egg1point1" type="fixture" x="355.5" y="283.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche5"/>
     <property name="isSensor" value="true"/>
@@ -360,7 +360,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="89" name="egg1point1" type="fixture" x="88.5" y="201.5" width="11" height="11">
+  <object id="89" name="egg1point1" type="fixture" x="166.5" y="204.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche5"/>
     <property name="isSensor" value="true"/>
@@ -368,7 +368,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="90" name="egg1point1" type="fixture" x="516.5" y="188.5" width="11" height="11">
+  <object id="90" name="egg1point1" type="fixture" x="594.5" y="191.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche5"/>
     <property name="isSensor" value="true"/>

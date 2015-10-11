@@ -53,6 +53,8 @@ public class Assets {
 	buttonDownTex = "data/ui/clickedButton.png",
 	slider = "data/ui/PowerBar.bmp",
 	sliderKnob = "data/ui/ArrowDown.bmp",
+	backbutton = "data/ui/backbutton.png",
+	backbuttonClicked = "data/ui/00135white.png",
 	/**
 	 * Level Menu
 	 */

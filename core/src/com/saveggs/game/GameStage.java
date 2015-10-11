@@ -526,6 +526,9 @@ public class GameStage extends Stage implements ContactListener{
 			protected void result(Object object) {
 				if(object.equals("replay")){
 					adjustMusic(1);
+					for (Qice qice : eggs) {
+						qice.pauseTime();
+			        }
 					resetStage();
 					showGame = true;
 				}		
