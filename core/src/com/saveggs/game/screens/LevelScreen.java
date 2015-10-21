@@ -1,30 +1,46 @@
 package com.saveggs.game.screens;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
 import java.io.IOException;
 import java.util.Map;
 
+import net.dermetfan.gdx.graphics.g2d.AnimatedBox2DSprite;
+import net.dermetfan.gdx.graphics.g2d.AnimatedSprite;
 import assets.Assets;
 
 import com.admob.AdsController;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.sageggs.actors.CurrentMap;
+import com.sageggs.actors.GameActor;
 import com.saveggs.game.GameClass;
 import com.saveggs.game.GameStage;
 import com.saveggs.utils.Constants;
@@ -39,13 +55,59 @@ public class LevelScreen implements Screen{
 	private Image arrow;
 	GameStage gameStage;
 	private AdsController adsController;
+	private Image sprite;
+	private MoveToAction moveAction;
+	private MyActor ac;
 	
 	public LevelScreen(final AdsController adsController,final GameClass game){		
 		this.game = game;
 		this.adsController = adsController;
 		initializeScreen();		
+		
 	}
 
+	public class MyActor extends Actor{
+		private Texture texture;
+		private TextureRegion[] animationFrames;
+		private AnimatedSprite animatedSprite;
+		public AnimatedBox2DSprite animatedBox2DSprite;
+		private Animation animation;
+		private float stateTime = 0f;
+		TextureRegion  currentFrame;
+		public MyActor(){
+			texture = Assets.manager.get(Assets.gulubi, Texture.class);	
+			splitAnimation();
+			animation = new Animation(1f/35f, animationFrames);
+			setPosition(Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT * 0.5f);	
+			setSize(getWidth() , getHeight());
+		}
+		
+		 public void splitAnimation(){
+			 TextureRegion[][] tmpFrames = TextureRegion.split(texture, 240, 314);
+			 animationFrames = new TextureRegion[4 * 5];
+			 int index = 0;		 
+			 for (int i = 0; i < 4; ++i){
+				 for (int j = 0; j < 5; ++j){
+					 animationFrames[index++] = tmpFrames[i][j];
+				 }
+			 }
+		 }
+		@Override
+		public void act(float delta) {
+			// TODO Auto-generated method stub
+			super.act(delta);
+	        stateTime += delta;           // #15
+	        currentFrame = animation.getKeyFrame(stateTime, true);  // #16
+		}
+
+		@Override
+		public void draw(Batch batch, float parentAlpha) {
+			super.draw(batch, parentAlpha);
+			// TODO Auto-generated method stub                        // #14
+	        batch.draw(currentFrame,getX(),getY(),100,150);
+		}
+	}
+	
 	
 	public void initializeScreen() {
 		this.stage = new Stage(new ExtendViewport(Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT));
@@ -58,9 +120,17 @@ public class LevelScreen implements Screen{
 		Gdx.input.setInputProcessor(stage);
 
 		container = new Table();
-		stage.addActor(container);
-		container.setFillParent(true);
-
+		
+		container.setFillParent(true);		
+		
+		
+         moveAction = new MoveToAction();
+	     moveAction.setPosition(-Constants.SCENE_WIDTH, 30f);
+	     moveAction.setDuration(15f);
+		 ac = new MyActor();
+		 ac.addAction(moveAction);
+         container.addActor(ac);
+		
 		PagedScrollPane scroll = new PagedScrollPane();
 		scroll.setFlingTime(0.1f);
 		scroll.setPageSpacing(25);
@@ -104,10 +174,13 @@ public class LevelScreen implements Screen{
 			   game.setScreen(new MainMenuScreen(adsController,game));
 			}
 		});
-		
+
         container.addActor(button);
         container.setBackground(new NinePatchDrawable(Constants.getNinePatch()));
         container.addAction(fadeIn(2f));
+        //container.setScale(1);
+        
+         stage.addActor(container);
 	}
 	
 	
@@ -230,6 +303,24 @@ public class LevelScreen implements Screen{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
         stage.draw();
+        
+		if(ac.getActions().size == 0){
+			 ac.setPosition(Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT * 0.5f);
+			 moveAction.reset();
+		     moveAction.setPosition(-Constants.SCENE_WIDTH, 30f);
+		     moveAction.setDuration(15f);
+			 ac.addAction(moveAction);
+		}
+        
+		if(Gdx.input.isKeyJustPressed(Keys.UP)){
+			((OrthographicCamera) this.stage.getCamera() ).zoom -= 0.1f;
+			((OrthographicCamera) this.stage.getCamera() ).update();
+		}
+		
+		if(Gdx.input.isKeyJustPressed(Keys.DOWN)){
+			((OrthographicCamera) this.stage.getCamera() ).zoom += 0.1f;
+			((OrthographicCamera) this.stage.getCamera() ).update();
+		}
 	}
 
 	@Override

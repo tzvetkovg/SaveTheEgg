@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -22,6 +23,7 @@ import com.badlogic.gdx.utils.Timer.Task;
 import com.sageggs.actors.particles.ParticleIzlupvane;
 import com.saveggs.utils.Constants;
 
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 public class Qice extends GameActor {
 	
 	private TextureRegion[] animationFrames;
@@ -51,7 +53,6 @@ public class Qice extends GameActor {
 		effect.start();
 
 		pilence = Assets.manager.get(Assets.pilence, Music.class);
-		
 		splitAnimation();
 		sprite = new Box2DSprite(Assets.manager.get(Assets.qice, Texture.class));
 		animation = new Animation(1f/1f, animationFrames);

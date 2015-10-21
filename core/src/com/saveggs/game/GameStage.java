@@ -116,6 +116,10 @@ public class GameStage extends Stage implements ContactListener{
 	private Music music1,music2,breakingEgg,destroyEnemey;
 	private TextButton button,pause;
 	
+	
+
+	
+	
 	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map, int currentLevel){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
 		this.game = game;
@@ -537,7 +541,7 @@ public class GameStage extends Stage implements ContactListener{
 					stopMusic();
 					getStage().dispose();
 					world.dispose();
-
+					disposeAllAssets();
 					game.setScreen(new LevelScreen(adsController,game));
 				}
 			}
@@ -573,6 +577,7 @@ public class GameStage extends Stage implements ContactListener{
 					stopMusic();
 					getStage().dispose();
 					world.dispose();
+					disposeAllAssets();
 					game.setScreen(new LevelScreen(adsController,game));
 				}
 			}
@@ -1268,5 +1273,15 @@ public class GameStage extends Stage implements ContactListener{
 				Constants.preferences.putBoolean("Level" + nextLevel, false);
 			Constants.preferences.flush();			
 		}
+	}
+	
+	public void disposeAllAssets(){
+		music1.dispose();
+		music2.dispose();
+		breakingEgg.dispose();
+		destroyEnemey.dispose();
+		map.dispose();
+		skin.dispose();
+		debugRenderer.dispose();
 	}
 }

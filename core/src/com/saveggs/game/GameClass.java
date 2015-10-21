@@ -57,6 +57,7 @@ public class GameClass extends Game {
 	@Override
 	public void dispose() {
 		super.dispose();
+		System.out.println("goes here");
 		Assets.manager.dispose();
 	}
 

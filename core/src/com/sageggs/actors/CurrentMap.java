@@ -12,7 +12,6 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class CurrentMap extends GameActor{
 	
-	private TiledMap map;
 	public OrthogonalTiledMapRenderer renderer;
 	
 	public CurrentMap(TiledMap map, World world){
@@ -20,6 +19,7 @@ public class CurrentMap extends GameActor{
 		//map = Assets.manager.get(Assets.map, TiledMap.class);
 
 		Box2DMapObjectParser parser = new Box2DMapObjectParser(.03333f);
+		//Box2DMapObjectParser parser = new Box2DMapObjectParser(1f);
 		parser.load(world, map);
 		renderer = new OrthogonalTiledMapRenderer(map,parser.getUnitScale());
 		

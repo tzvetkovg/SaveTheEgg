@@ -52,6 +52,7 @@ public class FlyingBirds extends GameActor{
 		animatedSprite = new AnimatedSprite(animation);
 		animatedBox2DSprite = new AnimatedBox2DSprite(animatedSprite);
 		
+		
 	}
 	
     @Override
