@@ -259,6 +259,10 @@ public class GameStage extends Stage implements ContactListener{
 			//get bodies
 			worldBodies.put(bodyLoop.getUserData().toString(), bodyLoop.getPosition());
 			//get qica
+			if(bodyLoop.getUserData().equals(Constants.GROUND)) {
+				System.out.println("ground is registered");
+			}
+			
 			if(bodyLoop.getUserData().equals(Constants.QICE)) {
 				//neizplupeno qice
 				bodyLoop.setAwake(false);
@@ -1104,7 +1108,8 @@ public class GameStage extends Stage implements ContactListener{
 					  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
 			
 			
-			if(qice.isSleepingAllowed()){				
+					  System.out.println("chupene na qice");
+			if(qice.isSleepingAllowed()){
 				pruskane.effect.setPosition(qice.getPosition().x, qice.getPosition().y);
 				pruskane.showEffect = true;
 				qice.setAwake(true);
