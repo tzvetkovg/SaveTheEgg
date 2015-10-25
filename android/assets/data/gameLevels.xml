@@ -44,4 +44,9 @@
 	    <flyingenemyspeed>4</flyingenemyspeed>
 	</<Level9>
 	
+	    
+    <Level10>
+	    <enemyspeed>154</enemyspeed>
+	    <flyingenemyspeed>4</flyingenemyspeed>
+	</<Level10>
 </LevelData>

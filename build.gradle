@@ -24,6 +24,7 @@ allprojects {
         ashleyVersion = '1.4.0'
         aiVersion = '1.5.0'
 		gdxUtilsVersion = '0.11.0'
+		
     }
 
     repositories {
@@ -75,6 +76,10 @@ project(":android") {
 		compile "net.dermetfan.libgdx-utils:libgdx-utils:$gdxUtilsVersion"
         compile "net.dermetfan.libgdx-utils:libgdx-utils-box2d:$gdxUtilsVersion" 
 
+		
+		compile "com.badlogicgames.gdxpay:gdx-pay-android:0.5.0"
+
+		
     }
 }
 
@@ -125,7 +130,8 @@ project(":core") {
 		compile "net.dermetfan.libgdx-utils:libgdx-utils:$gdxUtilsVersion"
         compile "net.dermetfan.libgdx-utils:libgdx-utils-box2d:$gdxUtilsVersion" 
 
-
+		
+		compile "com.badlogicgames.gdxpay:gdx-pay:0.5.0"
     }
 }
 

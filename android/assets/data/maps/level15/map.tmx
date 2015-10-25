@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="1">
+ <tileset firstgid="1" name="Platforms" tilewidth="16" tileheight="16">
+  <image source="../../../../../../tiles/game/PlatformTiles_brownNature_ByEris_0/Platforms.png" width="1280" height="1472"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJy12GXUVEUYAODPTnL3A2kUAwkLLAS7UNFjB2nRICAGpaSggElI20Ur3WBSJhahgoRigqCE9dzD7vF+yypX9P54ftw5d8/MO3fmfXemfOGcnPIxuzulHe1jUCHUR1yCON5Kmc+CGLQP9RGXIJZDEjsUo3gMFoT6iEsQS+PEDk1oGoPiib/6iEsQy5SUqUyLQdNQH3EJYtk/ucMBHBiDaaE+4hLX/GTOS+Zztm/2X8Q9T+mxB3nxn775/72O06LUnaNTtSGKcK5P58q41nI4pqjji1oLw7k+W97MloOirt9s3z8t6vii1sLdGfO/Wbf/tVZHrYW7O+b0OOOoz2FR88muxpwebxx1OIqoOSTKPMdRg6OKmkPCY/+7mhFHDY7q+kI5OTdQmzrUpR71aZBSsFD2XJI5Jw94rzd96MuDPMTDPMKjPEY/+jOAgTzOIAYzhKEMYzgjeIIneYqneYZneY7neYEXeYmRjGI0YxjLOManYolSM5Z6bxnLWcFnfM4XrGQVX7KaNaxlHV/xNev5hm/5ju/5gR/ZwEZ+YhOb+Zlf2MJWtrGdX/mN3/mjUN5aGc654b2ejin9XkUqUZljOJbjOJ4TqEJVTuQkTuYUTqUap1GdGpzOGZzJWZzNOZzLeZzPBVxITS7iYi6hFpdyWUbNb/wPMYTPoh3oSCfu4V4604WudKM7PbiPnvTifh6gN33oy4M8xMM8wqM8Rj/6M4CBPM4gBjOEoQxjOCMy4sjMuekY3iyc9yy6kEUs5m3e4V3e430+YEkqvrBPWcoylrOCz/icL1jJKr5kNWtYyzq+4mvW8w3f8h3f80NGHJnjzxVTEYom8p5FS1CSUpSmDGU5lMMox+GJHfGFHa2tAhWpRGWO4ViO43hOoApVOZGTOJlTOJVqnEZ1aiSy/4+8UftN3Mwt3EpDGiXynkWb0ZwWtOQ2WtGaNtxO21R8Ye1oTwc60ol7uJfOdKEr3ehOD+6jJ724P8iX9KYPfRPZ71/Ga3+ZV5jARCYxOZH3LDqdGcxkFrOZw1zm8SqvpeILm88CFrKIxbwdfDfe5T3e5wOW8CEf8TGf8ClLWcZyViSy37/sYS3tyV7szT7sy34Z6+0gDiYf+SlAweTO+yFQJPlXHMWC/waUoCSlKE0ZynIoh1GOwzmCIzmK8kG+pAIVqUTlZPb7l8u1X8GVXMXVXMO1XBfUU26gNnWoSz3q0yC5834INNTeiMY0oSnNaE4LWgZx0orWtOF22nIHd3JXkC9pR3s60JFOyez3L09qf4qneYZneY7neYEXeYmRjGI0YxjLuOTO+yEwSftkpjA1+H/AdGYwk1nMZg5zmcervMbrvBHkS95iPgtYyCIWJ7Pfv2zQvpGf2MRmfuYXtrCVbWznV37jd/4gJ3fn/RDYV/t+7M8BHMhBHEw+8lOAghSiMAmS5FKEohxCMYpTgpKUys1+Nqup/SIu5pLcXT/X4tII72U+16YOdalHfRpwIzdxM7dwKw1pRGOa0JRmNKcFLYP5oxWtacMgBjOEoRGehzF8N343klGMZgxjGcd4XuYVJjCRSUxmClOZxnRmMJNZzGYOc5nHn+jN6J4=
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztzTcOAkEUBNG/B2AxCyFmMcfDw/HwcC8qnAgJjSarkl7Y6oiIMSaYYoYWcyywxCp+l7PP/U5bY4MtdtjjgCNOOBfc536nXXDFDXc88MQLb3wK7nO/0zpVRI0ueuhjgAZDjKpy+9xvMzMzMzMzMzMzs3/7Avz9Jag=
+  </data>
+ </layer>
+ <layer name="Tile Layer 3" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt09ENACAMQkHqh26om+p6uoM1rcm7CYAECQD+NE1aFp3iXi1SK7EZPLbsp8MI7pFhSw8eW/KPXDL8AwAAAADw3gbVWQaU
+  </data>
+ </layer>
+</map>

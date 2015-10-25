@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="1">
+ <tileset firstgid="1" name="BGSkyTwilight7" tilewidth="16" tileheight="16">
+  <image source="../../../../../../tiles/backgrounds/SkyBars/BGSkyTwilight7.png" width="32" height="480"/>
+ </tileset>
+ <tileset firstgid="61" name="Clouds_01_192x128_Set_01_07" tilewidth="16" tileheight="16">
+  <image source="../../../../../../tiles/Clouds_01/Clouds_01/Clouds_01_192x128_Set_01_07.png" width="192" height="128"/>
+ </tileset>
+ <tileset firstgid="157" name="Clouds_01_192x128_Set_03_08" tilewidth="16" tileheight="16">
+  <image source="../../../../../../tiles/Clouds_01/Clouds_01/Clouds_01_192x128_Set_03_08.png" width="192" height="128"/>
+ </tileset>
+ <tileset firstgid="253" name="sun" tilewidth="16" tileheight="16">
+  <image source="../../../../../../tiles/game/sun.png" width="80" height="80"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztlEEOgCAMBPsl/P/j8OhFcAuEMeyBSJpOMxu1JSKu+5THU73TOJqPymVmETmaj3OwfEY5yv+6al/1eoicMpfM0XzUvlZ/691SOGVur7aTI+yXGRzNZ4TLzCVyb7Uv+5rE0XycI//t/Y1T8hM4mo9zsHycg+XjHCwf52D5nJajAqadIKA=
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt1kVuxEAQheG5WJiZmZkZL5NMmJmZmRkvk38TyZtIXe2J7UU/6du15FdSt8o+n4mJiYmJiYmJ/fShH34MYBBDGMYIRjGGcUy4U1Epk5jCNGYwiznMYwGLWMIyVlzqqJJVrGEdG9jEFraxg13sYR8H7lRUyiGOcIwTnOIM57jAJa5wjRuXOqrkFne4xwMe8YRnvOAVb3jHh+Y3zBv0VnTeYBCCEYJQhCEcEYhEFKIRg1hHptB7g3GIRwISkYRkpCAVaUhHBjIdmkPnDWYhGznIRR7yUYBCFKEYJSh1ZgytlKEcFahEFapRg1rUoR4NaAzQN//jLjehGS1oRRva0YFOdKEbPegNUDcv3uXfSLp5+S5Lurlxl1Uj6WbnLkt2vc5/gaTbX1H5rmTXS86qzmzd0XY6Sna95KzqzNYdbaejZNdLzqrObN3RdjpKdr3krOrMn/jCN34AtKYwrw==
+  </data>
+ </layer>
+ <layer name="Tile Layer 3" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztzzcSg0AQBdEFYYQT/v4nxTQRJ1AwVf1qO9jsT0qvg066nk/Gy1JIObs/VFBJVdA7anZ/qaGWuqB39Owe6EcjTUHvmNm90Eob7UHvkCRJkiRJkvQfN3ugA/g=
+  </data>
+ </layer>
+</map>

@@ -545,7 +545,7 @@ public class GameStage extends Stage implements ContactListener{
 					stopMusic();
 					getStage().dispose();
 					world.dispose();
-					disposeAllAssets();
+					//disposeAllAssets();
 					game.setScreen(new LevelScreen(adsController,game));
 				}
 			}
@@ -581,7 +581,7 @@ public class GameStage extends Stage implements ContactListener{
 					stopMusic();
 					getStage().dispose();
 					world.dispose();
-					disposeAllAssets();
+					//disposeAllAssets();
 					game.setScreen(new LevelScreen(adsController,game));
 				}
 			}

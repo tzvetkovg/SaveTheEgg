@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="1">
+ <tileset firstgid="1" name="sample" tilewidth="16" tileheight="16">
+  <image source="../../../../../../tiles/new/free/Platformer Art Complete Pack_0/Base pack/sample.png" width="770" height="560"/>
+ </tileset>
+ <tileset firstgid="1681" name="Grasslands - By VicPlay" tilewidth="16" tileheight="16">
+  <image source="../../../../../../tiles/game/Grasslands - By VicPlay.PNG" width="320" height="320"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzdV9sNgzAMRJVgg4zUERiFERioHwzUj+7RRiJSZDl+m1b9OPFhCe7iO8cc8zQdH+wMDgVeiYDfqtxWou7hVpY8YLr2eVz3cLsnAtNVtYzqHm5bIjBdVcuo7uGG+ZLLnzSDmK6y4DUMEq9q8hkxH0qnBfO/1auafEbMh94rGHerV72atZnHuECOkvPz5DNqPsDcaHuq7b9Vq9Srln56+q+F1KvZ817aa2oeSTR6/ByJkR+lfcYye0WPJOfm7fno/RJ/WCHlBu/Vtgdwff6m1yhevR7qDoicORn+6/XUZ/sPuYqHdveCuySmpz7XU4dmx5SemWQmlYE2TmP/re3UsRt2TW4HjdDHaWy5OLpeUO/SwHKva+8VTGv7R4+aJ1m55rS2fGTmWAOrVmwWUGcR5T+JV6jMQ86jOefpc+R9N9IGOWtmebT3tbmgNEn6GTmTpeC0Qc5X+t/rM0rT4/YfeBLg6r+ENy+0rls=
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt0ccNwlAURNG3sC2TTCiH3KChDXLaA22QMVTC3VAAMpiPmCudjb2Zp2+mlFJKKaVcK/bMeuh7316SrjX7N9j++B3P9C5upndRSqn/aeCbDTHCGBNMMcMcCyyx8t3esuPbHgccccIZF1yR4IZ7Bnek2RIGZjnkUUARJUQoo4IqasHn73jHljr/GmiihTY66Gaw3+Ut6rUeZc4z+Q==
+  </data>
+ </layer>
+ <layer name="Tile Layer 3" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztkVkKwjAURfNRcC1VqytwXkEdQV2RuiLrimqbbsErRAghTVNEjXAPnI+U2zfw4o4QXdiDfZjAARzCXDP2yLkyJZRa9t6QrwybsiM4hhM4hTM4hwvVq1AzuHKFms2VyY16bfOu7HOPFC7hCq7hBm7hzqjlyr328K1VeuZ9+1eW+lL7butd926Ttb2l5z918xJCCCHfZh8JcYDH6NeTvMcJ85/h5c/3uGL+DN54l6DgXcKEdwkT/S6EEEII+TwPliqKMw==
+  </data>
+ </layer>
+</map>

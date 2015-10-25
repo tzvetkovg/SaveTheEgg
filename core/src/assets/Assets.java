@@ -113,7 +113,9 @@ public class Assets {
 	map5 = "data/maps/level5/map.tmx",
 	map6 = "data/maps/level6/map.tmx",
 	map7 = "data/maps/level7/map.tmx",
-	map8 = "data/maps/level8/map.tmx";
+	map8 = "data/maps/level8/map.tmx",
+	map9 = "data/maps/level9/map.tmx",
+	map10 = "data/maps/level10/map.tmx";
 	
 	
 	@Asset(Skin.class)

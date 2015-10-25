@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="64">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="70">
  <tileset firstgid="1" name="roguelikeSheet_transparent" tilewidth="16" tileheight="16">
   <image source="../assets/roguelikeSheet_transparent.png" width="968" height="526"/>
  </tileset>
@@ -136,7 +136,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="22" name="ptiche3" type="object" x="286" y="422.333" width="36" height="23.3333">
+  <object id="22" name="ptiche3" type="object" x="284" y="427.333" width="36" height="23.3333">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="qice"/>
@@ -252,7 +252,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="39" name="ptiche5" type="object" x="348" y="422.333" width="36" height="23.3333">
+  <object id="39" name="ptiche5" type="object" x="346" y="427.333" width="36" height="23.3333">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="qice"/>
@@ -330,13 +330,6 @@
     <property name="userData" value="sling"/>
    </properties>
   </object>
-  <object id="52" name="line2" type="object" x="6" y="72">
-   <properties>
-    <property name="isSensor" value="true"/>
-    <property name="userData" value="line2"/>
-   </properties>
-   <polyline points="0,0 196,-56 490.667,-70.6667 746.667,-49.3333 798.667,2.66667"/>
-  </object>
   <object id="53" name="line1" type="object" x="799" y="278">
    <properties>
     <property name="isSensor" value="true"/>
@@ -380,10 +373,25 @@
     <property name="userData" value="position2"/>
    </properties>
   </object>
-  <object id="62" name="ground" type="object" x="1" y="449" width="796" height="30">
+  <object id="65" name="stulb" type="fixture" x="502" y="256">
+   <properties>
+    <property name="body" value="ground"/>
+    <property name="userData" value="stulb"/>
+   </properties>
+   <polyline points="0,0 12,75 40,81 45,124 73,124 77,192 -95,192 -98,128 -65,119 -60,78 -36,75 -32,-6 -1,-1"/>
+  </object>
+  <object id="67" name="ground" type="object" x="0" y="448">
    <properties>
     <property name="userData" value="ground"/>
    </properties>
+   <polyline points="0,0 0,31 800,33 799,0 0,1"/>
+  </object>
+  <object id="69" name="line2" type="object" x="0" y="36">
+   <properties>
+    <property name="isSensor" value="true"/>
+    <property name="userData" value="line2"/>
+   </properties>
+   <polyline points="0,0 108,-36 539,-34 617,191 665,193 703,-33 800,-33"/>
   </object>
  </objectgroup>
 </map>

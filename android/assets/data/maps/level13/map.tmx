@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="1">
+ <tileset firstgid="1" name="castle_0 - Copy" tilewidth="16" tileheight="16">
+  <image source="../../../../../../tiles/game/castle_0 - Copy.png" width="512" height="640"/>
+ </tileset>
+ <tileset firstgid="1281" name="BGSkyTwilight3" tilewidth="16" tileheight="16">
+  <image source="../../../../../../tiles/backgrounds/SkyBars/BGSkyTwilight3.png" width="32" height="480"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztzrkNwkAAAMFrAAzYbfDabfjhacP8/YsNnZx00SFLu9LkG4LZPFpgiQIrrLFBieqPX9NSHrfYYY8DjjihRpP5N1bKY4sOPQacccEVt8y/sVIeR9zxwBMvvPHBN/NvrDk8mpmZmZmZmZlZCD864hAh
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt1qsVwDAMQ9GQoKb/7/6LdJSuUncCmTlSAx4yMbpHXU6pI69YvUCDNQo0WbNAi7UKtFm7QId1CnTleDObu83dWmvu1tVf3C3gXlPIs2hTvSHPok31hjyLNtUb8izaVG/Is2hTvSHPok31puAu2rss7qK9y+Iu2rss7qK9y+Iu2rss7qK9y+Lu9+edNHpEegHVR8lQ
+  </data>
+ </layer>
+ <layer name="Tile Layer 3" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt1NVRQ1EUheHDvReniXiQJuJBmogHaQLXJiA4NIFrE7gWwd8AEJIzm5yZs2a+1z1rvWylbGxsbMxMt6NUD3rR5/x3m8bTT/cBDGLI4B3DdB/BKMYM3jFO9wlMYsrgHct0X8Eq1gzesUf3fRzg0OAdV3S/xg1uDd7xRvd3fODzhx32P7dW7H9urUj/Z5+rlB8BBBFCGBFE3cbvSv/nGF3jSCCJFNLIINvEDun/nKNrHgUUUUIZFVSb2CH9n6fpOoNZzGEeC1jEUhM76o2u/7xO1w3UsIktbGMHuwI7dP3nI7oe4wSnOMM5LnApsEPXf76j6z0e8IgnPOMFrwI7dP3nNk8pBy48tKMDnejy9PX9Lrr+s4+ufgQQRAhhRBAV2KHrP8foGkcCSaSQRgZZgR31/uffkqNrHgUUUUIZFVQFdtj8LV+Y3FNl
+  </data>
+ </layer>
+</map>

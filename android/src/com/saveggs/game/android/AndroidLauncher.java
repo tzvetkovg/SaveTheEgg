@@ -32,13 +32,18 @@ public class AndroidLauncher extends AndroidApplication  implements AdsControlle
 	
 	public InterstitialAd interstitialAd; 
 	AdView bannerAd;
+	GameClass game;
+	
 	
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-				
-		View gameView = initializeForView(new GameClass(this), config);
+		
+		game = new GameClass(this);
+
+		
+		View gameView = initializeForView(game, config);
 		setupAds();
 		
 		RelativeLayout layout = new RelativeLayout(this);
@@ -52,6 +57,21 @@ public class AndroidLauncher extends AndroidApplication  implements AdsControlle
 		layout.addView(bannerAd, params);
 		 
 		setContentView(layout);
+		
+/*		if(game.getAppStore() == GameClass.APPSTORE_OUYA) {
+			GameClass.setPlatformResolver(new OUYAResolver(game));
+		}
+		else if(game.getAppStore() == GameClass.APPSTORE_GOOGLE) {
+			GameClass.setPlatformResolver(new GooglePlayResolver(game));
+		}
+		else if(game.getAppStore() == GdxPayExample.APPSTORE_AMAZON) {
+			GameClass.setPlatformResolver(new AmazonFireResolver(game, this));
+		}*/
+		
+		GameClass.setPlatformResolver(new GooglePlayResolver(game));
+		
+		game.getPlatformResolver().installIAP();
+		
 	}
 
 

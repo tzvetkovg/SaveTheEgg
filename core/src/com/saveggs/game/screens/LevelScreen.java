@@ -215,9 +215,9 @@ public class LevelScreen implements Screen{
                  break;
         case 8:  map = Assets.manager.get(Assets.map8, TiledMap.class);
                  break;
-        case 9:  map = Assets.manager.get(Assets.map4, TiledMap.class);
+        case 9:  map = Assets.manager.get(Assets.map9, TiledMap.class);
                  break;
-        case 10: map = Assets.manager.get(Assets.map4, TiledMap.class);
+        case 10: map = Assets.manager.get(Assets.map10, TiledMap.class);
                  break;
         case 11: map = Assets.manager.get(Assets.map4, TiledMap.class);
                  break;

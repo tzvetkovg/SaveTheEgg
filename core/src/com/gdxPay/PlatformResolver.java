@@ -4,7 +4,12 @@ package com.gdxPay;
 import com.badlogic.gdx.Gdx;
 import com.saveggs.game.GameClass;
 
-/*
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.pay.PurchaseManager;
+import com.badlogic.gdx.pay.PurchaseManagerConfig;
+import com.badlogic.gdx.pay.PurchaseObserver;
+import com.badlogic.gdx.pay.PurchaseSystem;
+
 public abstract class PlatformResolver {
 
     public GameClass game;
@@ -69,4 +74,4 @@ public abstract class PlatformResolver {
             mgr = null;
         }
     }
-}*/
+}
