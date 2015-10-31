@@ -11,6 +11,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.pay.Information;
 import com.badlogic.gdx.pay.Offer;
 import com.badlogic.gdx.pay.OfferType;
 import com.badlogic.gdx.pay.PurchaseManagerConfig;
@@ -93,23 +94,42 @@ public class GameClass extends Game {
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 
-		Image image = new Image(Assets.manager.get(Assets.gameTitle, Texture.class));
+/*		Image image = new Image(Assets.manager.get(Assets.gameTitle, Texture.class));
 		image.setX(350);
 		image.setY(200);
 		image.addListener(new ClickListener() {
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
-				getPlatformResolver().requestPurchase(productID_fullVersion);
+				Information info = getPlatformResolver().getInformation(productID_fullVersion);
+				String getName = info.getLocalName() + "";
+				if(getName.equals("null"))
+					getPlatformResolver().requestPurchase(productID_fullVersion);
+				else{
+					//to do
+				}
 				return true;
 			}
 		});
 
-		stage.addActor(image);
-	
+		Image image2 = new Image(Assets.manager.get(Assets.gameTitle, Texture.class));
+		image2.setX(350);
+		image2.setY(350);
+		image2.addListener(new ClickListener() {
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+			{	
+				getPlatformResolver().requestPurchaseRestore();
+				return true;
+			}
+		});
 		
+		
+		
+		stage.addActor(image);
+		stage.addActor(image2);
+		*/
 		
 		//Assets.manager.load("data/sounds/loop.ogg", Music.class);
-		//this.setScreen(new MainMenuScreen(adsController,this));
+		this.setScreen(new MainMenuScreen(adsController,this));
 		//this.setScreen(new LevelScreen(null,this));
 	}
 	
@@ -117,11 +137,11 @@ public class GameClass extends Game {
 	public void render() {
 		super.render();
 		
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		//Gdx.gl.glClearColor(0, 0, 0, 1);
+		//Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		stage.act();
-		stage.draw();
+/*		stage.act();
+		stage.draw();*/
 		
 	}
 	
@@ -172,8 +192,8 @@ public class GameClass extends Game {
 
 		protected boolean checkTransaction (String ID, boolean isRestore) {
 			boolean returnbool = false;
-
-			if (productID_fullVersion.equals(ID)) {
+			
+			if (productID_fullVersion.equals(ID) ) {
 				Gdx.app.log("checkTransaction", "full version found!");
 
 				//----- put your logic for full version here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

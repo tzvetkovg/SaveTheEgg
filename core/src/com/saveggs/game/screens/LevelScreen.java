@@ -111,8 +111,10 @@ public class LevelScreen implements Screen{
 	
 	public void initializeScreen() {
 		this.stage = new Stage(new ExtendViewport(Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT));
-		gameTitle = new Image(new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.levels, Texture.class))));
-		gameTitle.setPosition(Constants.SCENE_WIDTH / 2 - gameTitle.getWidth() / 2, Constants.SCENE_HEIGHT - 120);
+		//gameTitle = new Image(new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.levels, Texture.class))));
+		gameTitle = new Image(Assets.manager.get(Assets.levels, Texture.class));
+		//gameTitle.setPosition(Constants.SCENE_WIDTH / 2 - gameTitle.getWidth() / 2, Constants.SCENE_HEIGHT - 120);
+		gameTitle.setPosition(Constants.SCENE_WIDTH / 2 - gameTitle.getWidth() / 2, Constants.SCENE_HEIGHT / 2 - gameTitle.getHeight() / 2);
 		
 		gameTitle2 = new Image(new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.levels, Texture.class))));
 		gameTitle2.setPosition(Constants.SCENE_WIDTH / 2 - gameTitle2.getWidth() / 2, Constants.SCENE_HEIGHT - 120);
@@ -131,6 +133,8 @@ public class LevelScreen implements Screen{
 		 ac.addAction(moveAction);
          container.addActor(ac);
 		
+        stage.addActor(gameTitle);
+         
 		PagedScrollPane scroll = new PagedScrollPane();
 		scroll.setFlingTime(0.1f);
 		scroll.setPageSpacing(25);
@@ -141,10 +145,10 @@ public class LevelScreen implements Screen{
 			levels.defaults().pad(20, 50, 20, 50).size(70);
 			//game titles
 			if(l == 0){
-            	levels.addActor(gameTitle);
+            	//levels.addActor(gameTitle);
             }
             if(l == 1){
-            	levels.addActor(gameTitle2);
+            	//levels.addActor(gameTitle2);
             }
 			
 			for (int y = 0; y < 3; y++) {
@@ -176,7 +180,7 @@ public class LevelScreen implements Screen{
 		});
 
         container.addActor(button);
-        container.setBackground(new NinePatchDrawable(Constants.getNinePatch()));
+        //container.setBackground(new NinePatchDrawable(Constants.getNinePatch()));
         container.addAction(fadeIn(2f));
         //container.setScale(1);
         
@@ -219,13 +223,13 @@ public class LevelScreen implements Screen{
                  break;
         case 10: map = Assets.manager.get(Assets.map10, TiledMap.class);
                  break;
-        case 11: map = Assets.manager.get(Assets.map4, TiledMap.class);
+        case 11: map = Assets.manager.get(Assets.map11, TiledMap.class);
                  break;
-        case 12: map = Assets.manager.get(Assets.map4, TiledMap.class);
+        case 12: map = Assets.manager.get(Assets.map12, TiledMap.class);
                  break;
-        case 13: map = Assets.manager.get(Assets.map4, TiledMap.class);
+        case 13: map = Assets.manager.get(Assets.map13, TiledMap.class);
         		 break;
-        case 14: map = Assets.manager.get(Assets.map4, TiledMap.class);
+        case 14: map = Assets.manager.get(Assets.map14, TiledMap.class);
         		 break;
         case 15: map = Assets.manager.get(Assets.map4, TiledMap.class);
         		 break;

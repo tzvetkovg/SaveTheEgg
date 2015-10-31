@@ -3,8 +3,8 @@ package com.gdxPay;
 
 import com.badlogic.gdx.Gdx;
 import com.saveggs.game.GameClass;
-
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.pay.Information;
 import com.badlogic.gdx.pay.PurchaseManager;
 import com.badlogic.gdx.pay.PurchaseManagerConfig;
 import com.badlogic.gdx.pay.PurchaseObserver;
@@ -66,6 +66,11 @@ public abstract class PlatformResolver {
     public PurchaseManager getPurchaseManager () {
         return mgr;
     }
+    
+    public Information getInformation(String identifier){
+    	return mgr.getInformation(identifier);
+    }
+    
 
     public void dispose () {
         if (mgr != null) {

@@ -58,7 +58,7 @@ public class Assets {
 	/**
 	 * Level Menu
 	 */
-	levels = "data/ui/levels.png",
+	levels = "data/ui/background.png",
 	levelBackGround = "data/ui/bah.png",
 	music = "data/ui/music.png",
 	noMusic = "data/ui/noMusic.png",
@@ -115,8 +115,11 @@ public class Assets {
 	map7 = "data/maps/level7/map.tmx",
 	map8 = "data/maps/level8/map.tmx",
 	map9 = "data/maps/level9/map.tmx",
-	map10 = "data/maps/level10/map.tmx";
-	
+	map10 = "data/maps/level10/map.tmx",
+	map11 = "data/maps/level11/map.tmx",
+	map12 = "data/maps/level12/map.tmx",
+	map13 = "data/maps/level13/map.tmx",
+	map14 = "data/maps/level14/map.tmx";
 	
 	@Asset(Skin.class)
 	public static final String
