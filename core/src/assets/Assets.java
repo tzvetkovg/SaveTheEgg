@@ -119,7 +119,13 @@ public class Assets {
 	map11 = "data/maps/level11/map.tmx",
 	map12 = "data/maps/level12/map.tmx",
 	map13 = "data/maps/level13/map.tmx",
-	map14 = "data/maps/level14/map.tmx";
+	map14 = "data/maps/level14/map.tmx",
+	map15 = "data/maps/level15/map.tmx",
+	map16 = "data/maps/level16/map.tmx",
+	map17 = "data/maps/level17/map.tmx",
+	map18 = "data/maps/level18/map.tmx",	
+	map19 = "data/maps/level19/map.tmx",	
+	map20 = "data/maps/level20/map.tmx";	
 	
 	@Asset(Skin.class)
 	public static final String

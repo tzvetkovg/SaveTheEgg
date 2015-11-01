@@ -98,7 +98,7 @@ public class GameStage extends Stage implements ContactListener{
 	private PruskaneQice pruskane;
 	private Map<String,Object> mapBodies;
 	private AdsController adsController;
-	private int timeIntervalAds = 0,timeAds = 7,numberOfEnemyKillings = 0,launchBothEnemies = 30;
+	private int timeIntervalAds = 0,timeAds = 15,numberOfEnemyKillings = 0,launchBothEnemies = 35;
 	public boolean showGame = false, internetEnabled = false, showAd = false;
 	private LoadingScreen loading;
 	private Skin skin;
@@ -112,7 +112,7 @@ public class GameStage extends Stage implements ContactListener{
 	private int currentLevel;
 	private Slider slider;
 	private Table table;
-	private boolean buttonClicked = false;
+	private boolean buttonClicked = false,musicMuted = false;
 	private Music music1,music2,breakingEgg,destroyEnemey;
 	private TextButton button,pause;
 	
@@ -480,11 +480,13 @@ public class GameStage extends Stage implements ContactListener{
 					int pointer, int button) {
 				buttonClicked = true;
 				if(tbs.up == musicEnabled){
+					musicMuted = true;
 					tbs.up = musicDisabled;
 					adjustMusic(0);
 				}
 				else{
 					tbs.up = musicEnabled;
+					musicMuted = false;
 					adjustMusic(1);
 				}
 				
@@ -565,7 +567,9 @@ public class GameStage extends Stage implements ContactListener{
 			@Override
 			protected void result(Object object) {
 				if(object.equals("continue")){
-					adjustMusic(1);
+					if(!musicMuted){						
+						adjustMusic(1);
+					}
 					for (Qice qice : eggs) {
 						qice.resumeTime();
 			        }

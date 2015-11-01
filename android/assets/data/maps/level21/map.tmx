@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="1">
+ <tileset firstgid="1" name="snow_3" tilewidth="16" tileheight="16">
+  <image source="../../../../../../tiles/game/snow_3.png" width="512" height="640"/>
+ </tileset>
+ <tileset firstgid="1281" name="mon" tilewidth="16" tileheight="16">
+  <image source="../../../../../../tiles/backgrounds/18 Gradient Skies (640x480)/mon.png" width="640" height="480"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt1GkzlmEcxuGbLI+orFlKokJCZe3rZ98pESqyK9n3JRxf4X5mzDzD9eJ4f/5m/tf1ORFFXXTTQy999DPAIEMMM8IoY4wzwRe+Msk3ppjmOzPMMscPfvKLeRb4zSJLLLPCKmussxHDH/6yyT+22GaHXfbY54BDjjjmhFPOOOeCS/5zxTVRThSlkc4DMsgki2wS5PCQXPJ4xGOekB9DAYUUUUwJTymljHIqeMZzKnlBFS+ppoZXvOYNtdRRz1saeEcjTTTzng98pIVW2ming04+xRB3f6r2ho7QcRsdcTeFjnBXt9WRii3JbAodoSN0hI7QkXxHMntCR+i4L+8jdISO0HH3/6v73pFqLcluSbWOG3ZLMUU=
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztx0cNADAQBLHATCGSQj5L4yRbmse0BgAAAABART2NNNMq/DuddNMr/B8pQikz
+  </data>
+ </layer>
+ <layer name="Tile Layer 3" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt1FdOVVEUBuAj9yLYFZiAhWJXYAIWioUiMAELxUIRmICFYpmEhWKZhIVimYS9DsLv4TwQcuNNOOf4YPaffA/75M9aeyc3N4pCQkJCQkJCQkJCQv73rCuJohJy5CllPWWUs4GNbGJzht2k2WnGLnazh2pqqKWOvexjPwcy7CbNMTOOc4KTNNFMC62c4jRnOJthN2nOm3GBi1yilz76GeAyV7jKtQy7SXPDjJvc4jYTTDLFNHe4yz3uZ9hNmgdmPOQRj5lhljnmecJTnvE8w27SvDDjJa94zQKLLLHMG97yjvcZdpPmgxkf+cRnvvCVb3znBz/5xe8Mu2mnNOd/njLKc/+2W0ElVfF5Sz6KtrKN7eyggkqq8n/fV21HDbXUFblb2t16GmiMzwfd9RCHOcJR6mmgscg7muxopoXWIndLu9tFNz3xuc1d2+mgk3N00U3Pine00U4HnfG3Xjv66Gcgt7Zuof7qbqF5o4wxHp8H3XWIYUa4zihjjK94xyBDDDMSf5uwY5IppnNr6xbqr+4WmpdmZuyYZY75Ir+VrLppZMGORZZYLrIvze4fncq6gw==
+  </data>
+ </layer>
+</map>

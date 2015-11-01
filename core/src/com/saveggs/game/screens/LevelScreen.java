@@ -205,7 +205,7 @@ public class LevelScreen implements Screen{
 		switch (level) {
         case 1:  map = Assets.manager.get(Assets.map1, TiledMap.class);
         		 break;
-        case 2:  map = Assets.manager.get(Assets.map2, TiledMap.class);
+        case 2:  map = Assets.manager.get(Assets.map20, TiledMap.class);
                  break;
         case 3:  map = Assets.manager.get(Assets.map3, TiledMap.class);
                  break;
@@ -231,14 +231,18 @@ public class LevelScreen implements Screen{
         		 break;
         case 14: map = Assets.manager.get(Assets.map14, TiledMap.class);
         		 break;
-        case 15: map = Assets.manager.get(Assets.map4, TiledMap.class);
+        case 15: map = Assets.manager.get(Assets.map15, TiledMap.class);
         		 break;
-        case 16: map = Assets.manager.get(Assets.map4, TiledMap.class);
+        case 16: map = Assets.manager.get(Assets.map16, TiledMap.class);
         		 break;
-        case 17: map = Assets.manager.get(Assets.map4, TiledMap.class);
+        case 17: map = Assets.manager.get(Assets.map17, TiledMap.class);
         		 break;
-        case 18: map = Assets.manager.get(Assets.map4, TiledMap.class);
+        case 18: map = Assets.manager.get(Assets.map18, TiledMap.class);
         		 break;
+        case 19: map = Assets.manager.get(Assets.map19, TiledMap.class);
+        		break;
+        case 20: map = Assets.manager.get(Assets.map2, TiledMap.class);
+        		break;
 		}
 		
 		boolean solvedLevel = false;

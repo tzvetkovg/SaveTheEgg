@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="1">
+ <tileset firstgid="1" name="sen" tilewidth="16" tileheight="16">
+  <image source="../../../../../../tiles/backgrounds/18 Gradient Skies (640x480)/sen.png" width="640" height="480"/>
+ </tileset>
+ <tileset firstgid="1201" name="grass_9" tilewidth="16" tileheight="16">
+  <image source="../../../../../../tiles/game/grass_9.png" width="512" height="640"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt1rcNwzAUhGFZnXMexDkP4pyHlHMcxDnv4H8FNsQDyOLreMIdIIjyfI4zwxwLLLHCGhtsscMeBxzhacqo5E4444IrbrjjgSdeeOODL34aMyo5v+s4AQQRQhgRRBFDHAkkkULa1ZdRyWWQRQ55FFBECWVUUEUNdTQ0ZlRyTbTQRgdd9NDHAEOMMMYEU40ZlZzK8yWfldzNxB0q76zks5K72R2yutkdsrqZuEPynWDvD1nd7A5Z3UzcIfkbZOJ/u+RudoesbnaHrG52h6xuKmf/cKJJyQ==
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt1UduwkAUxnFvkMIyPdegk3IJOimLXIFmSLkEnZRTJLlIeq6RnmX+KFiMnLFlWQbZ0nzST88jMX5vEGI0TUVFRUVFRUVFpbmgHY4NJ5pCnQhEdGYdG0zoQtX/zhSY3DLrHe7xgEc84RkvATrHK7O+4R0f+MQXvvHj4TnE37B3b51mMaxpS1jGClaxhnVshL3rI/6GvXvrNBFmjSKGOBJIIoW0h+eYdTLMmkUOeRRQRAnlAJ2jwqxV1FBHAzqaaPnoHHb3w/i5zawddNFDHwMMMfLROezuh8nz+KyaVfVT7O4IzqINbaqfMq87YtaZxx2R4PtIIoU0NrGFbeyYvqsI6yhiiC/I98ri5o5w0kucs4AiSihjF3vYx4FprgzrLHLIW+yVxc0d4aSXOGdD+G9o4QjHOMGpaa4K6ypqqFvslcXNHeGklzhnX/hvGOEM57jApWmuNusOuuhZ7JXFzR3hpJc4ZyfEZ0P/a8/i2W013iGu7frIesr2GPUK15J6Y/HsthrvENd2fWQ9ZXuM+gukPNqc
+  </data>
+ </layer>
+</map>
