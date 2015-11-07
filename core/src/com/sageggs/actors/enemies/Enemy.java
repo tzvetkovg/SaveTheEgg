@@ -77,7 +77,7 @@ public class Enemy extends GameActor{
 		//animation
 		texture = Assets.manager.get(Assets.pileBezKraka, Texture.class);
 		splitAnimation();
-		animation = new Animation(1f/35f, animationFrames);
+		animation = new Animation(1f/13f, animationFrames);
 		animation.setPlayMode(Animation.PlayMode.LOOP);
 		animatedSprite = new AnimatedSprite(animation);
 		animatedBox2DSprite = new AnimatedBox2DSprite(animatedSprite);
@@ -164,11 +164,11 @@ public class Enemy extends GameActor{
 	
 	 
 	 public void splitAnimation(){
-		 TextureRegion[][] tmpFrames = TextureRegion.split(texture, 240, 314);
-		 animationFrames = new TextureRegion[4 * 5];
+		 TextureRegion[][] tmpFrames = TextureRegion.split(texture, 945, 1200);
+		 animationFrames = new TextureRegion[9];
 		 int index = 0;		 
-		 for (int i = 0; i < 4; ++i){
-			 for (int j = 0; j < 5; ++j){
+		 for (int i = 0; i < 1; ++i){
+			 for (int j = 0; j < 9; ++j){
 				 animationFrames[index++] = tmpFrames[i][j];
 			 }
 		 }

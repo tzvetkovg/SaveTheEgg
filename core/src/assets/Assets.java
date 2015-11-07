@@ -78,12 +78,13 @@ public class Assets {
 	slingshot = "data/slingshot2.png",
 	meshLastik = "data/lastik.png",
 	//ptica
-	pileBezKraka = "data/pilebezkraka.png",
+	pileBezKraka = "data/newEnemy.png",
 	prisvivaneKraka = "data/prisviti.png",
 	opuvaneKraka = "data/opunati.png",
 	hvanatoQice = "data/hvanato Qice.png",
 	hodeneNaPile = "data/izlupvane.png",
-	gulubi = "data/gulubitest.png",
+	gulubi = "data/newEnemy.png",
+	pticheta = "data/pticheta1.png",
 	razmazanoQice = "data/razplokanoQice.png",
 	/**
 	 * Loading Screen

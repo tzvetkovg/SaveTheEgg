@@ -75,19 +75,19 @@ public class LevelScreen implements Screen{
 		private float stateTime = 0f;
 		TextureRegion  currentFrame;
 		public MyActor(){
-			texture = Assets.manager.get(Assets.gulubi, Texture.class);	
+			texture = Assets.manager.get(Assets.pticheta, Texture.class);	
 			splitAnimation();
-			animation = new Animation(1f/35f, animationFrames);
+			animation = new Animation(1f/15f, animationFrames);
 			setPosition(Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT * 0.5f);	
-			setSize(getWidth() , getHeight());
+			setSize(getWidth(), getHeight());
 		}
 		
 		 public void splitAnimation(){
-			 TextureRegion[][] tmpFrames = TextureRegion.split(texture, 240, 314);
-			 animationFrames = new TextureRegion[4 * 5];
+			 TextureRegion[][] tmpFrames = TextureRegion.split(texture, 482, 363);
+			 animationFrames = new TextureRegion[8];
 			 int index = 0;		 
-			 for (int i = 0; i < 4; ++i){
-				 for (int j = 0; j < 5; ++j){
+			 for (int i = 0; i < 1 ; ++i){
+				 for (int j = 0; j < 8; ++j){
 					 animationFrames[index++] = tmpFrames[i][j];
 				 }
 			 }
@@ -104,7 +104,7 @@ public class LevelScreen implements Screen{
 		public void draw(Batch batch, float parentAlpha) {
 			super.draw(batch, parentAlpha);
 			// TODO Auto-generated method stub                        // #14
-	        batch.draw(currentFrame,getX(),getY(),100,150);
+	        batch.draw(currentFrame,getX(),getY(),72.3f,54.45f);
 		}
 	}
 	

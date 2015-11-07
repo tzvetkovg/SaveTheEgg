@@ -76,20 +76,20 @@ public class GameClass extends Game {
 	
 	@Override
 	public void create() {
-		//splash = new SplashScreen(adsController,this);
-		//this.setScreen(splash);
+		splash = new SplashScreen(adsController,this);
+		this.setScreen(splash);
 				
 		
 		//getPlatformResolver().requestPurchaseRestore();	// check for purchases in the past
 		
-		Assets asset = new Assets();
+/*		Assets asset = new Assets();
 		Constants constant = new Constants();
 		Assets.manager.load(Assets.class);		
 		
 		while(!Assets.manager.update()){
 			//System.out.println(Assets.manager.getProgress());
 		}
-		Assets.manager.finishLoading();
+		Assets.manager.finishLoading();*/
 		
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
@@ -129,7 +129,7 @@ public class GameClass extends Game {
 		*/
 		
 		//Assets.manager.load("data/sounds/loop.ogg", Music.class);
-		this.setScreen(new MainMenuScreen(adsController,this));
+		//this.setScreen(new MainMenuScreen(adsController,this));
 		//this.setScreen(new LevelScreen(null,this));
 	}
 	

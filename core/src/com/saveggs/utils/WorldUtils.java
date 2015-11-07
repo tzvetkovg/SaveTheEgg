@@ -101,7 +101,7 @@ public class WorldUtils {
 	       
 	       //na otivane
 	       PolygonShape kraka = new PolygonShape(); 
-	       kraka.setAsBox(0.7f, 0.7f,new Vector2(-0.66f,0f),0f);
+	       kraka.setAsBox(0.7f, 0.7f,new Vector2(-0.7f,0f),0f);
 	       FixtureDef krakaFD = new FixtureDef(); 
 	       krakaFD.isSensor = true; 
 	       krakaFD.shape = kraka;  
@@ -165,7 +165,7 @@ public class WorldUtils {
 	       
 	       //na otivane
 	       PolygonShape kraka = new PolygonShape(); 
-	       kraka.setAsBox(0.7f, 0.7f,new Vector2(0.66f,-0.1f),0f);
+	       kraka.setAsBox(0.7f, 0.7f,new Vector2(0.7f,-0.1f),0f);
 	       FixtureDef krakaFD = new FixtureDef(); 
 	       krakaFD.isSensor = true; 
 	       krakaFD.shape = kraka;  
@@ -173,7 +173,7 @@ public class WorldUtils {
 	       //na pribirane
 	       PolygonShape krakata = new PolygonShape(); 
 	       //kraka.setRadius(1f);
-	       krakata.setAsBox(0.7f, 0.7f,new Vector2(0.6f,-0.6f),0);
+	       krakata.setAsBox(0.7f, 0.7f,new Vector2(0.7f,-0.6f),0);
 	       FixtureDef krakataFD = new FixtureDef(); 
 	       krakataFD.isSensor = true; 
 	       krakataFD.shape = krakata;  
@@ -229,7 +229,7 @@ public class WorldUtils {
 	       def.type = BodyDef.BodyType.DynamicBody;	       
 	       //2nd fixture
 	       PolygonShape shape = new PolygonShape();
-	       shape.setAsBox(1.1f, 1.5f); 
+	       shape.setAsBox(0.9f, 0.6f); 
 	       //1st fixture
 	       FixtureDef fixDef = new FixtureDef();
 	       fixDef.shape = shape;

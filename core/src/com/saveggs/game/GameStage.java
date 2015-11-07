@@ -232,7 +232,7 @@ public class GameStage extends Stage implements ContactListener{
 			logger.log();
     		//System.out.println("internetEnabled " + internetEnabled);
 		}
-		//debugRenderer.render(world,camera.combined);
+		debugRenderer.render(world,camera.combined);
 
 		
 	}

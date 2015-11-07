@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="1">
+ <tileset firstgid="1" name="sheet" tilewidth="16" tileheight="16">
+  <image source="../../../../../../tiles/new/free/Platformer Art Complete Pack_0/Request pack/sheet.png" width="980" height="490"/>
+ </tileset>
+ <tileset firstgid="1831" name="ice" tilewidth="16" tileheight="16">
+  <image source="../../../../../../tiles/backgrounds/18 Gradient Skies (640x480)/ice.png" width="640" height="480"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzdw5EWgwAAAMCs1WAYhmEYhuEwDMMwDMMwDMNwGIb7hDAMp/uPu/cuC4MgA76RPXJBHsgbmTyMJbJFTsgP8kSGkTFH1sgBuSK/yB8yjY0VskPOyB15IV9PY4FskCNyQ/4BfcQLeg==
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztzLEJACAMRUHtdDDdfyQRbSVoJ9zB56VKSgAAAAAA/KjktRr0ZdHP257u2bbXg74s+nnb0z07ALWxD5E=
+  </data>
+ </layer>
+ <layer name="Tile Layer 3" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt0rkNgEAQBMGTSJSfqPiJip9MaAfzDCxuxZTU/q40zomIiIiISCjiyLmEUsoopyL6+qr3am5uqKWOehoM/jFz80IrbbTTYeAP345Kqgzc//DtaKTJ0B++HZ10BfyHdhQWizvShsKiDX1HG/qXG6T7SL4=
+  </data>
+ </layer>
+ <layer name="Tile Layer 4" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt1clOAkEUheHaVPEYKrpz5ol0pyI7Zx9DcB5JFHXn7GM4g4KaOO6c3fsnlGFDE8qQbgrrJN+uO3Vuc+kWwsXl/6RHCdGLPkRV0G3+nlW6ryGFdYvnuKP7PR7wWCVzDEghBjGEYVnePXUhIerRgHCocl1GOH8UYxgvs8tvtrh+GzvYNby30tnj/H0c4NCwywvXv+IN7wHP8cH5n/jCt2GXZva7Ba1oC3jX2zm/A52IVMn/zsXFxcXF/yzxDViuge9Ajhmua2AOW7PAs19UhX1aQdLC3+OKzllV2Kcb3Fo4h42Z4DnHkcAkpjCNGcxiDvMqv2v90ltMCypH9DvGCU5xhnNcII0MLlV+1zakt03NhjxJb8+aHzHZoWLvq8YSmjQ/YrJDxd5XXSV0ay7+5QcqWmd7
+  </data>
+ </layer>
+</map>

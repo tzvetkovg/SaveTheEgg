@@ -42,7 +42,7 @@ public class SplashScreen implements Screen {
 		stage.getViewport().setCamera(camera);
 		
 		Gdx.input.setInputProcessor(stage);
-		Sprite splash = new Sprite(new Texture(Gdx.files.internal("data/caveman.png")));
+		Sprite splash = new Sprite(new Texture(Gdx.files.internal("data/logo.png")));
 		
 		image = new Image(splash);
 		image.setSize(splash.getWidth() / 100, splash.getHeight() / 100);
@@ -55,12 +55,14 @@ public class SplashScreen implements Screen {
 		stage.addActor(image);
 		
 		Assets asset = new Assets();
+		Constants constant = new Constants();
 		Assets.manager.load(Assets.class);		
-		
-		while(!Assets.manager.update()){
+
+
+/*		while(!Assets.manager.update()){
 			System.out.println(Assets.manager.getProgress());
 		}
-		Assets.manager.finishLoading();
+		Assets.manager.finishLoading();*/
 		
 		//load interstitial ad
 		if(adsController != null && (adsController.isWifiConnected() || adsController.isMobileDataEnabled())){					
@@ -75,10 +77,16 @@ public class SplashScreen implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		if(!Assets.manager.update()) {
+			Assets.manager.update();
+			System.out.println(Assets.manager.getProgress());
+	     }
+		
 		stage.act(delta);
 		stage.draw();
 		
-		if(image.getActions().size == 0){
+		if(image.getActions().size == 0 && Assets.manager.update()){
 			game.setScreen(new MainMenuScreen(adsController,game));
 		}
 	}

@@ -45,9 +45,9 @@ public class FlyingBirds extends GameActor{
         		body.setTransform(bodyLoop.getPosition().x, bodyLoop.getPosition().y, 0);
         }
 
-		texture = Assets.manager.get(Assets.gulubi, Texture.class);	
+		texture = Assets.manager.get(Assets.pticheta, Texture.class);	
 		splitAnimation();
-		animation = new Animation(1f/35f, animationFrames);
+		animation = new Animation(1f/15f, animationFrames);
 		animation.setPlayMode(Animation.PlayMode.LOOP);
 		animatedSprite = new AnimatedSprite(animation);
 		animatedBox2DSprite = new AnimatedBox2DSprite(animatedSprite);
@@ -71,11 +71,11 @@ public class FlyingBirds extends GameActor{
 	
 	
 	 public void splitAnimation(){
-		 TextureRegion[][] tmpFrames = TextureRegion.split(texture, 240, 314);
-		 animationFrames = new TextureRegion[4 * 5];
+		 TextureRegion[][] tmpFrames = TextureRegion.split(texture, 482, 363);
+		 animationFrames = new TextureRegion[8];
 		 int index = 0;		 
-		 for (int i = 0; i < 4; ++i){
-			 for (int j = 0; j < 5; ++j){
+		 for (int i = 0; i < 1; ++i){
+			 for (int j = 0; j < 8; ++j){
 				 animationFrames[index++] = tmpFrames[i][j];
 			 }
 		 }

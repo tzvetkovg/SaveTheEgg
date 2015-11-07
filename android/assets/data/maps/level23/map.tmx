@@ -15,6 +15,9 @@
  <tileset firstgid="81" name="day" tilewidth="16" tileheight="16">
   <image source="../../../../../../tiles/backgrounds/18 Gradient Skies (640x480)/day.png" width="640" height="480"/>
  </tileset>
+ <tileset firstgid="1281" name="Clouds_01_192x128_Set_03_08" tilewidth="16" tileheight="16">
+  <image source="../../../../../../tiles/Clouds_01/Clouds_01/Clouds_01_192x128_Set_03_08.png" width="192" height="128"/>
+ </tileset>
  <layer name="Tile Layer 1" width="50" height="30">
   <data encoding="base64" compression="zlib">
    eJztz9dylgUUhtE/CSBJSKhSFBDFG0CaoCKKdG/ALjYIJXQUUSFFBaWlEQIoUpReFJUauqI0BaKgopBepdgQCOq6BWf4ZjKZ72Cd7Zl3P0lRkchIRjGaMSQzlnGMZwITmcRkpvAyrzCVV5nGa7zOG0xnBimkkkY6SQHtZZBJFtnksIBcFpLHIhazhPd4n6V8wDKWs4KVfMhHrGI1a1jLOtYHuLedHexkF/nsZg972cd+DnCQL/iSQ3zF1xzmCEc5xnG+4VtOcJJTFAS4V0gRxZRQShnlVFBJFdXU8CsXuMglLvMbv/MHf/IXV/ibq1zjOrUB7sVGRyJxxNOEBBJpSjOa04KWtOJWWtOGtrTjNm6nPR3oyB104k7uojN3Rwe314V76Eo3utODntxLL3pzH/fzAH14kL48xMP04xH6M4CBDGIwQxjKowHuPcbjPMGTPMXTPMOzDOM5nucFXuQlhjOCJEYyitGMIZmxjGM8E5jIpAD3UkgljXTe5C3eZiazeId3mc0c5jKP+WSQSRbZ5LCAXBaSxyIWsyTAvTWsZR3r2cBGNrGZj/mELXzKZ3zOVraxnR3sZBf57GYPe9nHfg5wMMC9E5zkFAV8x/ec5gw/8CM/cZaf+YVznKeQIoopoZQyyqmgkiqqqQlw7yrXuE4tN/iHf4nERCJRRBNDAxrSiFtoTCxxxNOEBBJpSjOa04KWtIoJbi/sCDvCjrAj7Ag7wo6woy511IeWuvxbYtgRdoQdN6WjLjfUl47/c/8fKqIlsQ==
@@ -23,6 +26,16 @@
  <layer name="Tile Layer 2" width="50" height="30">
   <data encoding="base64" compression="zlib">
    eJzty8kJACAQADGb8bb/+twS9CMICcxzUgIAAAAA4Ef5sBLVqF08L+uHjWhG6+J52QbbPQ9J
+  </data>
+ </layer>
+ <layer name="Tile Layer 3" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt1slOwlAYhuGCzJNMt8AoogIq8yzIoHD/d8KOt4uGhZvS0/ZE+N/kWZ72axpIDUOSJEkyK6Gse4QL1VDXPUKSbiz5f7i/5J1L0t9OwYv/nK7neEYTL3jFG1r+TnClNjp4xwc+0dW6yFk99DHAECOMtS5y1gRTzDDHAkubZwMwfwYPCHkx7oq+sMIa39hga/NsGBFEEfNknf122OMHvzjgaPNsHAkkkVLYYH3DVFBVuI7TPWlk8Iiswv3deg6ne3LIo4Ciwv2tb7EnNBSu49YeyZ/OgloT5Q==
+  </data>
+ </layer>
+ <layer name="Tile Layer 4" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztzbcSwkAMRdElLGByzmCyDSb9/9dxyy22EzTMuzOn0khy7j8reefKqKAKjxrqaCBBEy20/Xf3rb/DOsy76KGPAYYYYYwJpphhHrll2bf+DlswX2KFNTbYIsUOexxwxClyy7Jv/R12Zn5BhhxX3FDgjgeeeOEduWXZt/5WSimllFJKKaWUUkr9tg9xmRCZ
   </data>
  </layer>
 </map>
