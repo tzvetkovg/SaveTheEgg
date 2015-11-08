@@ -85,6 +85,7 @@ public class Assets {
 	hodeneNaPile = "data/izlupvane.png",
 	gulubi = "data/newEnemy.png",
 	pticheta = "data/pticheta1.png",
+	pticheta2 = "data/pticheta2.png",
 	razmazanoQice = "data/razplokanoQice.png",
 	/**
 	 * Loading Screen

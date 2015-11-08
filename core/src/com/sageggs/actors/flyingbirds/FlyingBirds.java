@@ -47,7 +47,7 @@ public class FlyingBirds extends GameActor{
 
 		texture = Assets.manager.get(Assets.pticheta, Texture.class);	
 		splitAnimation();
-		animation = new Animation(1f/15f, animationFrames);
+		animation = new Animation(1f/13f, animationFrames);
 		animation.setPlayMode(Animation.PlayMode.LOOP);
 		animatedSprite = new AnimatedSprite(animation);
 		animatedBox2DSprite = new AnimatedBox2DSprite(animatedSprite);

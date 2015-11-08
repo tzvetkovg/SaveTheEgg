@@ -59,10 +59,10 @@ public class SplashScreen implements Screen {
 		Assets.manager.load(Assets.class);		
 
 
-/*		while(!Assets.manager.update()){
+		while(!Assets.manager.update()){
 			System.out.println(Assets.manager.getProgress());
 		}
-		Assets.manager.finishLoading();*/
+		Assets.manager.finishLoading();
 		
 		//load interstitial ad
 		if(adsController != null && (adsController.isWifiConnected() || adsController.isMobileDataEnabled())){					

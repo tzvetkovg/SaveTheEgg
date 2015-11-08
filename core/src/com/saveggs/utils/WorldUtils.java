@@ -229,7 +229,7 @@ public class WorldUtils {
 	       def.type = BodyDef.BodyType.DynamicBody;	       
 	       //2nd fixture
 	       PolygonShape shape = new PolygonShape();
-	       shape.setAsBox(0.9f, 0.6f); 
+	       shape.setAsBox(1f, 0.7f); 
 	       //1st fixture
 	       FixtureDef fixDef = new FixtureDef();
 	       fixDef.shape = shape;
@@ -259,7 +259,7 @@ public class WorldUtils {
 	       def.type = BodyDef.BodyType.DynamicBody;	       
 	       //2nd fixture
 	       PolygonShape shape = new PolygonShape();
-	       shape.setAsBox(1.1f, 1.5f); 
+	       shape.setAsBox(1f, 0.7f); 
 	       //1st fixture
 	       FixtureDef fixDef = new FixtureDef();
 	       fixDef.shape = shape;
