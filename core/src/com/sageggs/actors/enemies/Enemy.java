@@ -164,7 +164,7 @@ public class Enemy extends GameActor{
 	
 	 
 	 public void splitAnimation(){
-		 TextureRegion[][] tmpFrames = TextureRegion.split(texture, 945, 1200);
+		 TextureRegion[][] tmpFrames = TextureRegion.split(texture, 170, 216);
 		 animationFrames = new TextureRegion[9];
 		 int index = 0;		 
 		 for (int i = 0; i < 1; ++i){

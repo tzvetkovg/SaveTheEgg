@@ -71,7 +71,7 @@ public class FlyingBirds extends GameActor{
 	
 	
 	 public void splitAnimation(){
-		 TextureRegion[][] tmpFrames = TextureRegion.split(texture, 482, 363);
+		 TextureRegion[][] tmpFrames = TextureRegion.split(texture, 117, 88);
 		 animationFrames = new TextureRegion[8];
 		 int index = 0;		 
 		 for (int i = 0; i < 1; ++i){

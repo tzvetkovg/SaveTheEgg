@@ -27,6 +27,8 @@ public class DynamicBall extends GameActor{
 	private Vector2 temp2;
 	private Vector2 temp3;
 	private Vector2 temp4;
+	private Body enemy;
+	public boolean followBody = false;
 	
 	public DynamicBall(Body body) {
 		super(body);
@@ -40,18 +42,41 @@ public class DynamicBall extends GameActor{
 		temp4 = new Vector2();
 	}
 	
+	
+	Vector2 direction = new Vector2();
+	Vector2 velocity = new Vector2();
+	float angle = 0;
 	 @Override
+	public void act(float delta) {
+		// TODO Auto-generated method stub
+		super.act(delta);
+		
+		//if weapon is purchased
+		if(!body.isSleepingAllowed()){
+			angle = (float) Math.toDegrees(Math.atan2(enemy.getPosition().y - body.getPosition().y, enemy.getPosition().x  - body.getPosition().x));
+			direction.x = (float) Math.cos((angle) * MathUtils.degreesToRadians);
+			direction.y = (float) Math.sin((angle) * MathUtils.degreesToRadians);
+			direction.nor();
+			
+			velocity.x = direction.x * 1500 * delta;
+			velocity.y = direction.y * 1500 * delta;
+			body.setLinearVelocity(velocity);
+		}
+	}
+
+
+
+	@Override
      public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
         if(draw)
         	topka.draw(batch, body); 
-         
      }
 	 
 	
 	//Ball position
-	public void applyForceToNewBody() {
-		System.out.println("force " + Constants.ballSpeed);
+	public void applyForceToNewBody(Body enemy) {
+		
 		//Get angle
 	    float angle = (float) Math.toDegrees(Math.atan2((Constants.middleY) - body.getPosition().y,  (Constants.middleX) - body.getPosition().x));
 	    //convert to radians
@@ -62,8 +87,13 @@ public class DynamicBall extends GameActor{
 		applyForceCoords.y = (float) (0.4f + distance * Math.sin(radians));
 		applyForceCoords.x = (float) ( distance * Math.cos(radians));
 		//System.out.println("applyForce " + applyForceCoords);
-
-        body.applyLinearImpulse(applyForceCoords, body.getWorldCenter(), true);
+		if(enemy != null){
+			this.enemy = enemy;
+			followBody = true;
+		}
+		else
+			body.applyLinearImpulse(applyForceCoords, body.getWorldCenter(), true);
+		
 	}
 	
 	 

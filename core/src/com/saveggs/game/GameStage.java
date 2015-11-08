@@ -71,6 +71,7 @@ public class GameStage extends Stage implements ContactListener{
 	private FPSLogger logger;
 	private Qice qice;
 	private DynamicBall dynamicBall;
+	private DynamicBall dynamicBall2;
 	private DynamicBall staticBall;
 	private Slingshot slingshot;
 	private Enemy enemy;
@@ -195,17 +196,46 @@ public class GameStage extends Stage implements ContactListener{
 			mesh.drawBody = false;
 			mesh2.drawBody = false;
 			
-			//Create a new body
-			dynamicBall = pool.obtain();
+			
+			Body enemyBody1 = enemy.enemyDraw ? enemy.body : null;
+			if(enemyBody1 != null){
+				//Create a new body
+				dynamicBall = pool.obtain();
+				sleeepingBalls.add(dynamicBall);
+				//add to stage	    
+				dynamicBall.body.setTransform(staticBall.body.getPosition(), 0);
+				dynamicBall.draw = true;
+				
+				//Apply force
+				dynamicBall.applyForceToNewBody(enemyBody1);
+				dynamicBall.body.setSleepingAllowed(false);
+				addActor(dynamicBall);
+			}
+			
+			Body enemyBody2 = enemyOtherSide.enemyDraw ? enemyOtherSide.body : null;
+			if(enemyBody2 != null){
+				//Create a new body
+				dynamicBall2 = pool.obtain();
+				sleeepingBalls.add(dynamicBall2);
+				//add to stage	    
+				dynamicBall2.body.setTransform(staticBall.body.getPosition(), 0);
+				dynamicBall2.draw = true;
+				
+				//Apply force
+				dynamicBall2.applyForceToNewBody(enemyBody2);		
+				dynamicBall2.body.setSleepingAllowed(false);
+				addActor(dynamicBall2);
+			}
+			
+/*			dynamicBall = pool.obtain();
 			sleeepingBalls.add(dynamicBall);
 			//add to stage	    
 			dynamicBall.body.setTransform(staticBall.body.getPosition(), 0);
 			dynamicBall.draw = true;
 			
 			//Apply force
-			dynamicBall.applyForceToNewBody();
-			addActor(dynamicBall);
-			
+			dynamicBall.applyForceToNewBody(null);			
+			addActor(dynamicBall);*/
 			//transform old body to initial position
 			staticBall.body.setTransform(Constants.middleX, Constants.middleY, 0);
 		}
@@ -232,7 +262,7 @@ public class GameStage extends Stage implements ContactListener{
 			logger.log();
     		//System.out.println("internetEnabled " + internetEnabled);
 		}
-		//debugRenderer.render(world,camera.combined);
+		debugRenderer.render(world,camera.combined);
 
 		
 	}
@@ -737,7 +767,8 @@ public class GameStage extends Stage implements ContactListener{
 	//Destroy sleeping bodies
 	public void destroySleepingBalls(){
 		
-		for (DynamicBall ball : sleeepingBalls) {				
+		for (DynamicBall ball : sleeepingBalls) {	
+				
 				if(!ball.body.isAwake()){
 					ball.draw = false;
 		        	particleBall.effect.setPosition(ball.body.getPosition().x, ball.body.getPosition().y);
@@ -794,6 +825,7 @@ public class GameStage extends Stage implements ContactListener{
 		enemy.enemyDraw = false;
 		enemy.setSpeed(0);
 		enemy.body.setAwake(false);
+
 		enemy.resetBody();
 		//reset the other enemy
 		enemyOtherSide.enemyDraw = true;
@@ -854,7 +886,7 @@ public class GameStage extends Stage implements ContactListener{
 	public void beginContact(Contact contact) {
         
 		/**
-		 * Enemy and ball
+		 * Enemy and qice
 		 */
 		//Otvarqne na krakata na pticata
         if( (contact.getFixtureA().getUserData().equals(Constants.QICE) && contact.getFixtureB().getUserData().equals(Constants.DOKOSVANESQICE ))
@@ -970,6 +1002,7 @@ public class GameStage extends Stage implements ContactListener{
 					  		  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();				
 			//dying bird
 			dyingEnemey();
+			ball.setSleepingAllowed(true);
 			
 			if(ball.isAwake()){
 				numberOfEnemyKillings++;
@@ -979,6 +1012,7 @@ public class GameStage extends Stage implements ContactListener{
 						@Override
 						public void run () {
 							ball.setAwake(false);
+	
 							//launch particle effect
 							if(enemy.enemyDraw){								
 								particleEffect.effect.setPosition(enemy.body.getPosition().x, enemy.body.getPosition().y);
@@ -1043,6 +1077,7 @@ public class GameStage extends Stage implements ContactListener{
 						@Override
 						public void run () {
 							ball.setAwake(false);
+	
 							if(enemyOtherSide.enemyDraw){								
 								particleEffect.effect.setPosition(enemyOtherSide.body.getPosition().x, enemyOtherSide.body.getPosition().y);
 								particleEffect.showEffect = true;
