@@ -229,7 +229,7 @@ public class WorldUtils {
 	       def.type = BodyDef.BodyType.DynamicBody;	       
 	       //2nd fixture
 	       PolygonShape shape = new PolygonShape();
-	       shape.setAsBox(1f, 0.7f); 
+	       shape.setAsBox(1.6f, 1.2f); 
 	       //1st fixture
 	       FixtureDef fixDef = new FixtureDef();
 	       fixDef.shape = shape;
@@ -238,7 +238,7 @@ public class WorldUtils {
 	
 	       //2nd fixture
 	       PolygonShape hitArea = new PolygonShape(); 
-	       hitArea.setAsBox(0.7f, 0.3f);
+	       hitArea.setAsBox(1.2f, 0.8f);
 	       FixtureDef sensorFD = new FixtureDef(); 
 	       sensorFD.isSensor = true; 
 	       sensorFD.shape = hitArea;
@@ -259,7 +259,7 @@ public class WorldUtils {
 	       def.type = BodyDef.BodyType.DynamicBody;	       
 	       //2nd fixture
 	       PolygonShape shape = new PolygonShape();
-	       shape.setAsBox(1f, 0.7f); 
+	       shape.setAsBox(1.2f, 0.9f); 
 	       //1st fixture
 	       FixtureDef fixDef = new FixtureDef();
 	       fixDef.shape = shape;
@@ -268,7 +268,7 @@ public class WorldUtils {
 	
 	       //2nd fixture
 	       PolygonShape hitArea = new PolygonShape(); 
-	       hitArea.setAsBox(0.7f, 0.3f);
+	       hitArea.setAsBox(0.9f, 0.5f);
 	       FixtureDef sensorFD = new FixtureDef(); 
 	       sensorFD.isSensor = true; 
 	       sensorFD.shape = hitArea;

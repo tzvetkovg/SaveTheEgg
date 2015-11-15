@@ -78,15 +78,19 @@ public class Assets {
 	slingshot = "data/slingshot2.png",
 	meshLastik = "data/lastik.png",
 	//ptica
-	pileBezKraka = "data/myDemo.png",
+	pileBezKraka = "enemy/myDemoTest.png",
 	prisvivaneKraka = "data/prisviti.png",
 	opuvaneKraka = "data/opunati.png",
 	hvanatoQice = "data/hvanato Qice.png",
 	hodeneNaPile = "data/izlupvane.png",
 	gulubi = "data/newEnemy.png",
-	pticheta = "data/pticheta1.png",
-	pticheta2 = "data/pticheta2.png",
+	pticheta = "flyingbird1/pticheta1.png",
+	pticheta2 = "flyingbird2/pticheta2.png",
 	razmazanoQice = "data/razplokanoQice.png",
+	destroyEnemyArrow = "data/weapons/weapon1.png",
+	destroyEnemyArrowClicked = "data/weapons/weapon1Clicked.png",
+	slowDownBird = "data/weapons/S_Holy07.png",
+	slowDownBirdClicked = "data/weapons/S_Holy07Clicked.png",
 	/**
 	 * Loading Screen
 	 */

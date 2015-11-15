@@ -49,7 +49,7 @@ public class Constants {
 	/**
 	 * Enemy
 	 */
-	public static float ENEMYSPEED = 154;
+	public static float ENEMYSPEED = 160;
 	public static float FlYINGBIRDVELOCITY = 4;
 	public static float ballSpeed = 14f;
 	/**

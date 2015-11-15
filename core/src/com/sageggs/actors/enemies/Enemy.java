@@ -58,11 +58,7 @@ public class Enemy extends GameActor{
 	
 	public Enemy(Body body,Array<Qice> eggs,Map<String,Vector2> worldBodies) {
 		super(body);
-       
-/*		sound = Assets.manager.get(Assets.flyingbird, Sound.class);
-		//if(Assets.manager.isLoaded("data/sound/flyingbird.wav"))
-		sound.loop(1);*/
-		
+       		
 		vec1 = new Vector2();
 		vec2 = new Vector2();
 		vec3 = new Vector2();
@@ -164,11 +160,11 @@ public class Enemy extends GameActor{
 	
 	 
 	 public void splitAnimation(){
-		 TextureRegion[][] tmpFrames = TextureRegion.split(texture, 170, 216);
-		 animationFrames = new TextureRegion[9];
+		 TextureRegion[][] tmpFrames = TextureRegion.split(texture, 256, 256);
+		 animationFrames = new TextureRegion[8];
 		 int index = 0;		 
-		 for (int i = 0; i < 1; ++i){
-			 for (int j = 0; j < 9; ++j){
+		 for (int i = 0; i < 2; ++i){
+			 for (int j = 0; j < 4; ++j){
 				 animationFrames[index++] = tmpFrames[i][j];
 			 }
 		 }

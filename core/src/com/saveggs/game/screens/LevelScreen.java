@@ -23,6 +23,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
@@ -83,11 +84,11 @@ public class LevelScreen implements Screen{
 		}
 		
 		 public void splitAnimation(){
-			 TextureRegion[][] tmpFrames = TextureRegion.split(texture, 117, 88);
+			 TextureRegion[][] tmpFrames = TextureRegion.split(texture, 256, 256);
 			 animationFrames = new TextureRegion[8];
 			 int index = 0;		 
-			 for (int i = 0; i < 1 ; ++i){
-				 for (int j = 0; j < 8; ++j){
+			 for (int i = 0; i < 2 ; ++i){
+				 for (int j = 0; j < 4; ++j){
 					 animationFrames[index++] = tmpFrames[i][j];
 				 }
 			 }
@@ -104,7 +105,7 @@ public class LevelScreen implements Screen{
 		public void draw(Batch batch, float parentAlpha) {
 			super.draw(batch, parentAlpha);
 			// TODO Auto-generated method stub                        // #14
-	        batch.draw(currentFrame,getX(),getY(),72.3f,54.45f);
+	        batch.draw(currentFrame,getX(),getY(),92.3f,74.45f);
 		}
 	}
 	
@@ -115,10 +116,7 @@ public class LevelScreen implements Screen{
 		gameTitle = new Image(Assets.manager.get(Assets.levels, Texture.class));
 		//gameTitle.setPosition(Constants.SCENE_WIDTH / 2 - gameTitle.getWidth() / 2, Constants.SCENE_HEIGHT - 120);
 		gameTitle.setPosition(Constants.SCENE_WIDTH / 2 - gameTitle.getWidth() / 2, Constants.SCENE_HEIGHT / 2 - gameTitle.getHeight() / 2);
-		
-		gameTitle2 = new Image(new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.levels, Texture.class))));
-		gameTitle2.setPosition(Constants.SCENE_WIDTH / 2 - gameTitle2.getWidth() / 2, Constants.SCENE_HEIGHT - 120);
-		
+				
 		Gdx.input.setInputProcessor(stage);
 
 		container = new Table();
@@ -127,7 +125,7 @@ public class LevelScreen implements Screen{
 		
 		
          moveAction = new MoveToAction();
-	     moveAction.setPosition(-Constants.SCENE_WIDTH, 30f);
+	     moveAction.setPosition(-150, MathUtils.random(Constants.SCENE_HEIGHT * 0.1f, Constants.SCENE_HEIGHT * 0.9f));
 	     moveAction.setDuration(15f);
 		 ac = new MyActor();
 		 ac.addAction(moveAction);
@@ -154,7 +152,6 @@ public class LevelScreen implements Screen{
 			for (int y = 0; y < 3; y++) {
 				levels.row();
 				for (int x = 0; x < 4; x++) {
-					System.out.println("c is " + c);
 					levels.add(getLevelButton(c++)).expand().fill();
 				}
 			}
@@ -180,9 +177,7 @@ public class LevelScreen implements Screen{
 		});
 
         container.addActor(button);
-        //container.setBackground(new NinePatchDrawable(Constants.getNinePatch()));
         container.addAction(fadeIn(2f));
-        //container.setScale(1);
         
          stage.addActor(container);
 	}
@@ -313,9 +308,9 @@ public class LevelScreen implements Screen{
         stage.draw();
         
 		if(ac.getActions().size == 0){
-			 ac.setPosition(Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT * 0.5f);
+			 ac.setPosition(Constants.SCENE_WIDTH, MathUtils.random(Constants.SCENE_HEIGHT * 0.1f, Constants.SCENE_HEIGHT * 0.9f));
 			 moveAction.reset();
-		     moveAction.setPosition(-Constants.SCENE_WIDTH, 30f);
+		     moveAction.setPosition(-MathUtils.random(150, 200), MathUtils.random(Constants.SCENE_HEIGHT * 0.1f, Constants.SCENE_HEIGHT * 0.9f));
 		     moveAction.setDuration(15f);
 			 ac.addAction(moveAction);
 		}
@@ -353,58 +348,5 @@ public class LevelScreen implements Screen{
 	@Override
 	public void dispose() {
 		stage.dispose();
-	}
-
-	
-	/*		this.stage = new Stage(new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
-	Gdx.input.setInputProcessor(stage);
-	container = new Table();
-	gameTitle = new Image(new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.levels, Texture.class))));
-	gameTitle.setPosition(Gdx.graphics.getWidth() / 2 - gameTitle.getWidth() / 2 + 50f, Gdx.graphics.getHeight() - gameTitle.getHeight() / 2 - 53f);
-	
-	gameTitle2 = new Image(new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.levels, Texture.class))));
-	gameTitle2.setPosition(Gdx.graphics.getWidth() / 2 - gameTitle.getWidth() / 2 + 50f, Gdx.graphics.getHeight() - gameTitle.getHeight() / 2 - 53f);
-	
-	arrow = new Image(new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.arrow, Texture.class))));
-	arrow.setPosition(Gdx.graphics.getWidth() - gameTitle.getWidth() / 4 , Gdx.graphics.getHeight() /2 - gameTitle.getHeight() / 2 - 150f);
-	
-    stage.addActor(container);
-
-    container.setFillParent(true);
-    
-    PagedScrollPane scroll = new PagedScrollPane();
-
-    scroll.setFlingTime(0.1f);
-
-    int c = 1;
-
-    for (int l = 0; l < 2; l++) {
-    	
-        Table levels = new Table().pad(50, Gdx.graphics.getWidth() / 3.5f, 50, Gdx.graphics.getWidth() / 4);
-        levels.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        
-        if(l == 0){
-        	levels.addActor(gameTitle);
-        	levels.addActor(arrow);
-        }
-        if(l == 1){
-        	levels.addActor(gameTitle2);
-        	
-        }
-        //levels.add(gameTitle).expandX();
-        //levels.addActor(gameTitle);
-
-        for (int y = 0; y < 3; y++) {
-
-            levels.row();
-            for (int x = 0; x < 3; x++) {
-                levels.add(getLevelButton(c++)).size(Gdx.graphics.getWidth() / 10 , Gdx.graphics.getHeight() / 10).pad(30f);
-            }
-        }
-        scroll.addPage(levels);
-    }
-    
-    
-    container.add(scroll).expand().fill(); */
-	
+	}	
 }

@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -99,7 +100,7 @@ public class GameStage extends Stage implements ContactListener{
 	private PruskaneQice pruskane;
 	private Map<String,Object> mapBodies;
 	private AdsController adsController;
-	private int timeIntervalAds = 0,timeAds = 15,numberOfEnemyKillings = 0,launchBothEnemies = 35;
+	private int timeIntervalAds = 0,timeAds = 20,numberOfEnemyKillings = 0,launchBothEnemies = 35;
 	public boolean showGame = false, internetEnabled = false, showAd = false;
 	private LoadingScreen loading;
 	private Skin skin;
@@ -113,15 +114,18 @@ public class GameStage extends Stage implements ContactListener{
 	private int currentLevel;
 	private Slider slider;
 	private Table table;
-	private boolean buttonClicked = false,musicMuted = false;
+	private boolean buttonClicked = false,musicMuted = false,weaponOne = false,weaponOneTimeExpired = false,weaponTwo = false,weaponTwoTimeExpiredweaponTwo = false, weaponThree = false;
 	private Music music1,music2,breakingEgg,destroyEnemey;
-	private TextButton button,pause;
+	private TextButton button,pause,weaponButton1,weaponButton2;
+	private float enemyLevelSpeed;
+	final TextureRegionDrawable weaponOneStyle = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.destroyEnemyArrow, Texture.class)));
+	final TextureRegionDrawable weaponOneClicked = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.destroyEnemyArrowClicked, Texture.class)));
+	final TextureRegionDrawable weaponTwoStyle = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.slowDownBird, Texture.class)));
+	final TextureRegionDrawable weaponTwoClicked = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.slowDownBirdClicked, Texture.class)));
+	final TextButton.TextButtonStyle weaponButtonOneStyle = new TextButton.TextButtonStyle();
+	final TextButton.TextButtonStyle weaponButtonTwoStyle = new TextButton.TextButtonStyle();
 	
-	
-
-	
-	
-	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map, int currentLevel){
+	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map, int currentLevel,float enemyLevelSpeed){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
 		this.game = game;
 		this.mapBodies = mapBodies;
@@ -135,14 +139,14 @@ public class GameStage extends Stage implements ContactListener{
 		Gdx.input.setInputProcessor(this);
 		this.adsController = adsController;		
 		this.currentLevel = currentLevel;
-
+		this.enemyLevelSpeed = enemyLevelSpeed;
+		
 		//display loading screen initially
 		Timer.schedule(new Task(){
             @Override
             public void run() {
             	showGame = true;
             	loading.draw = false;
-            	
             	adjustMusic(1);
             }
         },3);
@@ -196,37 +200,21 @@ public class GameStage extends Stage implements ContactListener{
 			mesh.drawBody = false;
 			mesh2.drawBody = false;
 			
-			
-			Body enemyBody1 = enemy.enemyDraw ? enemy.body : null;
-			if(enemyBody1 != null){
-				//Create a new body
-				dynamicBall = pool.obtain();
-				sleeepingBalls.add(dynamicBall);
-				//add to stage	    
-				dynamicBall.body.setTransform(staticBall.body.getPosition(), 0);
-				dynamicBall.draw = true;
+			if(weaponOne){				
+				Body enemyBody1 = enemy.enemyDraw ? enemy.body : null;
+				if(enemyBody1 != null){
+					applyForceToBall(dynamicBall, enemyBody1);
+				}
 				
-				//Apply force
-				dynamicBall.applyForceToNewBody(enemyBody1);
-				dynamicBall.body.setSleepingAllowed(false);
-				addActor(dynamicBall);
+				Body enemyBody2 = enemyOtherSide.enemyDraw ? enemyOtherSide.body : null;
+				if(enemyBody2 != null){
+					applyForceToBall(dynamicBall2, enemyBody2);
+				}
 			}
-			
-			Body enemyBody2 = enemyOtherSide.enemyDraw ? enemyOtherSide.body : null;
-			if(enemyBody2 != null){
-				//Create a new body
-				dynamicBall2 = pool.obtain();
-				sleeepingBalls.add(dynamicBall2);
-				//add to stage	    
-				dynamicBall2.body.setTransform(staticBall.body.getPosition(), 0);
-				dynamicBall2.draw = true;
-				
-				//Apply force
-				dynamicBall2.applyForceToNewBody(enemyBody2);		
-				dynamicBall2.body.setSleepingAllowed(false);
-				addActor(dynamicBall2);
+			else
+			{
+				applyForceToBall(dynamicBall, null);
 			}
-			
 /*			dynamicBall = pool.obtain();
 			sleeepingBalls.add(dynamicBall);
 			//add to stage	    
@@ -243,6 +231,22 @@ public class GameStage extends Stage implements ContactListener{
 		return super.touchUp(screenX, screenY, pointer, button);
 	}
 
+	//apply force to the ball
+	public void applyForceToBall(DynamicBall ball, Body enemy){
+		ball = pool.obtain();
+		sleeepingBalls.add(ball);
+		//add to stage	    
+		ball.body.setTransform(staticBall.body.getPosition(), 0);
+		ball.draw = true;
+		
+		//Apply force
+		ball.applyForceToNewBody(enemy);	
+		if(enemy != null)
+			ball.body.setSleepingAllowed(false);
+		addActor(ball);
+	}
+	
+	
 	@Override
 	public void act(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -260,9 +264,12 @@ public class GameStage extends Stage implements ContactListener{
 			displayScreen();
 			izpuleniQica();
 			logger.log();
+			//System.out.println("texture bindings " + GLProfiler.textureBindings);
+			//System.out.println("draw calls " + GLProfiler.drawCalls);
+			//GLProfiler.reset();
     		//System.out.println("internetEnabled " + internetEnabled);
 		}
-		debugRenderer.render(world,camera.combined);
+		//debugRenderer.render(world,camera.combined);
 
 		
 	}
@@ -385,6 +392,12 @@ public class GameStage extends Stage implements ContactListener{
 		addActor(button);
 		//pause
 		addActor(pause);
+		
+		//weapons
+		addActor(weaponButton1);
+		//weapons
+		addActor(weaponButton2);
+		
 		//loading screen
 		loading = new LoadingScreen();
 		addActor(loading);
@@ -412,6 +425,14 @@ public class GameStage extends Stage implements ContactListener{
 		
 		// reset
 		numberOfEnemyKillings = 0;
+		
+		//weapons
+		weaponOneTimeExpired = false;
+		weaponTwoTimeExpiredweaponTwo = false;
+		weaponButtonOneStyle.up = weaponOneStyle;
+		weaponButtonTwoStyle.up = weaponTwoStyle;
+		
+		
 		
 		//reset ball speed
 		slider.setValue(3);
@@ -490,6 +511,86 @@ public class GameStage extends Stage implements ContactListener{
 				super.touchUp(event, x, y, pointer, button);
 			}
 		});
+		
+		/**
+		 * Weapons
+		 */
+		weaponButtonOneStyle.font =  Assets.manager.get(Assets.bitmapfont, BitmapFont.class);
+		weaponButtonOneStyle.font.getData().setScale(0.01f);
+		weaponButtonOneStyle.up = weaponOneStyle;
+		weaponButtonOneStyle.down = weaponOneClicked;
+		weaponButton1 = new TextButton("", weaponButtonOneStyle);
+		weaponButton1.setSize(1.25f, 1.25f);
+		weaponButton1.setOrigin(0, 0);
+		weaponButton1.setPosition(0, Constants.SCENE_HEIGHT / 30f * 0.86f);
+		weaponButton1.addListener(new ClickListener() {
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				buttonClicked = true;
+				if(!weaponOneTimeExpired){		
+					weaponButtonOneStyle.up = weaponOneClicked;
+					GameStage.this.weaponOne = true;
+				}
+				return super.touchDown(event, x, y, pointer, button);
+			}
+
+			@Override
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
+				buttonClicked = false;
+				//display loading screen initially
+				if(!weaponOneTimeExpired){					
+					Timer.schedule(new Task(){
+						@Override
+						public void run() {
+							GameStage.this.weaponOne = false;
+							weaponOneTimeExpired = true;
+						}
+					},20);
+				}
+				super.touchUp(event, x, y, pointer, button);
+			}
+		});
+		
+		weaponButtonTwoStyle.font =  Assets.manager.get(Assets.bitmapfont, BitmapFont.class);
+		weaponButtonTwoStyle.font.getData().setScale(0.01f);
+		weaponButtonTwoStyle.up = weaponTwoStyle;
+		weaponButtonTwoStyle.down = weaponTwoClicked;
+		weaponButton2 = new TextButton("", weaponButtonTwoStyle);
+		weaponButton2.setSize(1.25f, 1.25f);
+		weaponButton2.setOrigin(0, 0);
+		weaponButton2.setPosition(0, Constants.SCENE_HEIGHT / 30f * 0.78f);
+		weaponButton2.addListener(new ClickListener() {
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				buttonClicked = true;
+				if(!weaponTwoTimeExpiredweaponTwo){		
+					weaponButtonTwoStyle.up = weaponTwoClicked;
+					Constants.ENEMYSPEED = 90;
+				}
+				return super.touchDown(event, x, y, pointer, button);
+			}
+
+			@Override
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
+				buttonClicked = false;
+				//display loading screen initially
+				if(!weaponTwoTimeExpiredweaponTwo){					
+					Timer.schedule(new Task(){
+						@Override
+						public void run() {
+							Constants.ENEMYSPEED = enemyLevelSpeed;
+							weaponTwoTimeExpiredweaponTwo = true;
+						}
+					},20);
+				}
+				super.touchUp(event, x, y, pointer, button);
+			}
+		});
+		
 		/**
 		 * Music button
 		 */
@@ -1000,7 +1101,7 @@ public class GameStage extends Stage implements ContactListener{
             
             final Body ball = contact.getFixtureA().getBody().getUserData().equals(Constants.DynamicBall) ?
 					  		  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();				
-			//dying bird
+			//dying bird particle
 			dyingEnemey();
 			ball.setSleepingAllowed(true);
 			
@@ -1147,7 +1248,6 @@ public class GameStage extends Stage implements ContactListener{
 					  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
 			
 			
-					  System.out.println("chupene na qice");
 			if(qice.isSleepingAllowed()){
 				pruskane.effect.setPosition(qice.getPosition().x, qice.getPosition().y);
 				pruskane.showEffect = true;
@@ -1174,7 +1274,8 @@ public class GameStage extends Stage implements ContactListener{
 					  		  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
 			final Body qice = contact.getFixtureA().getBody().getUserData().equals(Constants.QICE) ?
 					  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();	
-					  
+			
+			ball.setSleepingAllowed(true);
 			if(!qice.isBullet()){
 	        	if(ball.isAwake()){
 	        		ball.setAwake(false);
@@ -1192,6 +1293,7 @@ public class GameStage extends Stage implements ContactListener{
               contact.getFixtureB().getBody().getUserData().equals(Constants.LINE1)) ){
         	final Body myBody = contact.getFixtureA().getUserData().equals(Constants.FLYINGBIRDHITAREA) ?
 					  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
+				
 			  Gdx.app.postRunnable(new Runnable() {
 			  		@Override
 			  		public void run () {
@@ -1222,6 +1324,8 @@ public class GameStage extends Stage implements ContactListener{
         	if(ball.isAwake()){        		
         		flyingBirdParticle.effect.setPosition(flyingBird.body.getPosition().x, flyingBird.body.getPosition().y);
         		flyingBirdParticle.showEffect = true;
+        		
+        		ball.setSleepingAllowed(true);
         		
         		Gdx.app.postRunnable(new Runnable() {
         			@Override
@@ -1274,6 +1378,9 @@ public class GameStage extends Stage implements ContactListener{
         	if(ball.isAwake()){        		
         		flyingBirdParticle.effect.setPosition(flyingBird2.body.getPosition().x, flyingBird2.body.getPosition().y);
         		flyingBirdParticle.showEffect = true;
+        		
+        		ball.setSleepingAllowed(true);
+        		
         		Gdx.app.postRunnable(new Runnable() {
         			@Override
         			public void run () {
