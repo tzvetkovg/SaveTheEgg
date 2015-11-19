@@ -33,7 +33,11 @@ public class SplashScreen implements Screen {
 	private AdsController adsController;
 	
 	public SplashScreen(final AdsController adsController,GameClass game){
-
+		
+		Assets asset = new Assets();
+		Constants constant = new Constants();
+		Assets.manager.load(Assets.class);	
+		
 		this.game = game;
 		
 		this.stage = new Stage(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35));
@@ -51,12 +55,9 @@ public class SplashScreen implements Screen {
 				parallel(fadeIn(2f, Interpolation.pow2),
 						scaleTo(2f,2f,2.5f, Interpolation.pow5),
 						moveTo(1f,1f, 2f ,Interpolation.swing)),
-				delay(1.5f), fadeOut(1.25f)));
+				delay(2.5f), fadeOut(1.25f)));
 		stage.addActor(image);
-		
-		Assets asset = new Assets();
-		Constants constant = new Constants();
-		Assets.manager.load(Assets.class);		
+	
 
 
 /*		while(!Assets.manager.update()){
@@ -80,7 +81,7 @@ public class SplashScreen implements Screen {
 		
 		if(!Assets.manager.update()) {
 			Assets.manager.update();
-			System.out.println(Assets.manager.getProgress());
+			//System.out.println(Assets.manager.getProgress());
 	     }
 		
 		stage.act(delta);

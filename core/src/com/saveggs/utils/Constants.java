@@ -79,16 +79,5 @@ public class Constants {
 	public static final String LINE1 = "line1";
 	public static final String LINE2 = "line2";
 	
-	public static NinePatch getNinePatch() {
-	    
-		// Get the image
-		final Texture t = Assets.manager.get(Assets.levelBackGround, Texture.class);
-	    
-		// create a new texture region, otherwise black pixels will show up too, we are simply cropping the image
-		// last 4 numbers respresent the length of how much each corner can draw,
-		// for example if your image is 50px and you set the numbers 50, your whole image will be drawn in each corner
-		// so what number should be good?, well a little less than half would be nice
-	    return new NinePatch(new TextureRegion(t, 1, 1 , t.getWidth(), t.getHeight()), 10, 10, 10, 10);
-	}
 	
 }

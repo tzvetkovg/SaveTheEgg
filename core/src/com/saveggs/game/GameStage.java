@@ -14,7 +14,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -114,16 +113,19 @@ public class GameStage extends Stage implements ContactListener{
 	private int currentLevel;
 	private Slider slider;
 	private Table table;
-	private boolean buttonClicked = false,musicMuted = false,weaponOne = false,weaponOneTimeExpired = false,weaponTwo = false,weaponTwoTimeExpiredweaponTwo = false, weaponThree = false;
+	private boolean buttonClicked = false,musicMuted = false,weaponOne = false,weaponOneTimeExpired = false,weaponTwoTimeExpiredweaponTwo = false, weaponThreeTimeExpiredweaponThree = false;
 	private Music music1,music2,breakingEgg,destroyEnemey;
-	private TextButton button,pause,weaponButton1,weaponButton2;
+	private TextButton button,pause,weaponButton1,weaponButton2,weaponButton3;
 	private float enemyLevelSpeed;
 	final TextureRegionDrawable weaponOneStyle = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.destroyEnemyArrow, Texture.class)));
 	final TextureRegionDrawable weaponOneClicked = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.destroyEnemyArrowClicked, Texture.class)));
 	final TextureRegionDrawable weaponTwoStyle = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.slowDownBird, Texture.class)));
 	final TextureRegionDrawable weaponTwoClicked = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.slowDownBirdClicked, Texture.class)));
+	final TextureRegionDrawable weaponThreeStyle = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.fastBallSpeed, Texture.class)));
+	final TextureRegionDrawable weaponThreeClicked = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.fastBallSpeedClicked, Texture.class)));
 	final TextButton.TextButtonStyle weaponButtonOneStyle = new TextButton.TextButtonStyle();
 	final TextButton.TextButtonStyle weaponButtonTwoStyle = new TextButton.TextButtonStyle();
+	final TextButton.TextButtonStyle weaponButtonThreeStyle = new TextButton.TextButtonStyle();
 	
 	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map, int currentLevel,float enemyLevelSpeed){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
@@ -395,8 +397,8 @@ public class GameStage extends Stage implements ContactListener{
 		
 		//weapons
 		addActor(weaponButton1);
-		//weapons
 		addActor(weaponButton2);
+		addActor(weaponButton3);
 		
 		//loading screen
 		loading = new LoadingScreen();
@@ -429,9 +431,10 @@ public class GameStage extends Stage implements ContactListener{
 		//weapons
 		weaponOneTimeExpired = false;
 		weaponTwoTimeExpiredweaponTwo = false;
+		weaponThreeTimeExpiredweaponThree = false;
 		weaponButtonOneStyle.up = weaponOneStyle;
 		weaponButtonTwoStyle.up = weaponTwoStyle;
-		
+		weaponButtonThreeStyle.up = weaponThreeStyle;
 		
 		
 		//reset ball speed
@@ -525,6 +528,7 @@ public class GameStage extends Stage implements ContactListener{
 		weaponButton1.setPosition(0, Constants.SCENE_HEIGHT / 30f * 0.86f);
 		weaponButton1.addListener(new ClickListener() {
 			@Override
+			
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
 				buttonClicked = true;
@@ -584,6 +588,46 @@ public class GameStage extends Stage implements ContactListener{
 						public void run() {
 							Constants.ENEMYSPEED = enemyLevelSpeed;
 							weaponTwoTimeExpiredweaponTwo = true;
+						}
+					},20);
+				}
+				super.touchUp(event, x, y, pointer, button);
+			}
+		});
+		
+		final float[] ballSpeed = new float[1];
+		weaponButtonThreeStyle.font =  Assets.manager.get(Assets.bitmapfont, BitmapFont.class);
+		weaponButtonThreeStyle.font.getData().setScale(0.01f);
+		weaponButtonThreeStyle.up = weaponThreeStyle;
+		weaponButtonThreeStyle.down = weaponThreeClicked;
+		weaponButton3 = new TextButton("", weaponButtonThreeStyle);
+		weaponButton3.setSize(1.25f, 1.25f);
+		weaponButton3.setOrigin(0, 0);
+		weaponButton3.setPosition(0, Constants.SCENE_HEIGHT / 30f * 0.68f);
+		weaponButton3.addListener(new ClickListener() {
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				buttonClicked = true;
+				if(!weaponThreeTimeExpiredweaponThree){		
+					weaponButtonThreeStyle.up = weaponThreeClicked;
+					ballSpeed[0] = Constants.ballSpeed;
+					Constants.ballSpeed = 20f;
+				}
+				return super.touchDown(event, x, y, pointer, button);
+			}
+
+			@Override
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
+				buttonClicked = false;
+				//display loading screen initially
+				if(!weaponThreeTimeExpiredweaponThree){					
+					Timer.schedule(new Task(){
+						@Override
+						public void run() {
+							weaponThreeTimeExpiredweaponThree = true;
+							Constants.ballSpeed = ballSpeed[0];
 						}
 					},20);
 				}

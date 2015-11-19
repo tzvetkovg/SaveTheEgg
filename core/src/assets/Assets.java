@@ -42,6 +42,10 @@ public class Assets {
 	 * MenuScreen
 	 */
 	public static final String 
+	/**
+	 * Logo
+	 */
+	logo = "data/logo.png",
 	gameTitle = "data/ui/gameTitle.png",
 	levelButton = "data/ui/closedBlack.png",
 	levelButtonClicked = "data/ui/closedClick.png",
@@ -87,10 +91,13 @@ public class Assets {
 	pticheta = "flyingbird1/pticheta1.png",
 	pticheta2 = "flyingbird2/pticheta2.png",
 	razmazanoQice = "data/razplokanoQice.png",
+	//*weapons
 	destroyEnemyArrow = "data/weapons/weapon1.png",
 	destroyEnemyArrowClicked = "data/weapons/weapon1Clicked.png",
 	slowDownBird = "data/weapons/S_Holy07.png",
 	slowDownBirdClicked = "data/weapons/S_Holy07Clicked.png",
+	fastBallSpeed = "data/weapons/S_Light03.png",
+	fastBallSpeedClicked = "data/weapons/S_Light03Clicked.png",
 	/**
 	 * Loading Screen
 	 */
