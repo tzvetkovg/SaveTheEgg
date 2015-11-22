@@ -110,7 +110,7 @@ public class MainMenuScreen implements Screen{
 		becomePro.addListener( new ClickListener() {             
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				game.setScreen(new Shop());
+				game.setScreen(new Shop(_adsController,games));
 			};
 		});
 		
