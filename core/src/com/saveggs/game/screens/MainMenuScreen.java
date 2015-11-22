@@ -42,7 +42,7 @@ public class MainMenuScreen implements Screen{
 	
 	private Stage stage;
 	private Table table;
-	private TextButton play, exit,tutorial,credits;
+	private TextButton play, exit,tutorial,credits,becomePro;
 	private Image backgroundImage;
 	private BitmapFont font;
 	private Texture buttonUpTex;
@@ -81,9 +81,10 @@ public class MainMenuScreen implements Screen{
 		tbs.up = new TextureRegionDrawable(new TextureRegion(buttonUpTex));
 		tbs.over = new TextureRegionDrawable(new TextureRegion(buttonOverTex));
 		tbs.down = new TextureRegionDrawable(new TextureRegion(buttonDownTex));
-		tbs.font.getData().setScale(2f);
+		tbs.font.getData().setScale(1.3f);
 		//Define buttons
 		play = new TextButton("PLAY", tbs);
+		becomePro = new TextButton("BECOME PRO",tbs);
 		tutorial = new TextButton("TUTORIAL", tbs);
 		credits = new TextButton("CREDITS", tbs);
 		exit = new TextButton("EXIT", tbs);
@@ -105,6 +106,14 @@ public class MainMenuScreen implements Screen{
 			};
 		});
 		
+		// shop
+		becomePro.addListener( new ClickListener() {             
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				game.setScreen(new Shop());
+			};
+		});
+		
 		// Set table structure
 		table = new Table();
 		table.setFillParent(true);
@@ -116,16 +125,20 @@ public class MainMenuScreen implements Screen{
 		ac.addAction(moveAction);
 		table.addActor(ac);
 		
-		table.add(gameTitle).expandX().spaceBottom(80f);
+		table.add(gameTitle).expandX().spaceBottom(120f);
 		table.row();
 		table.row();
-		table.add(play).padTop(5f).size(Constants.SCENE_WIDTH / 5 , Constants.SCENE_HEIGHT / 10);
 		table.row();
-		table.add(credits).padTop(5f).size(Constants.SCENE_WIDTH / 5 , Constants.SCENE_HEIGHT / 10);
 		table.row();
-		table.add(tutorial).padTop(5f).size(Constants.SCENE_WIDTH / 5 ,Constants.SCENE_HEIGHT / 10);
+		table.add(play).padTop(5f).size(Constants.SCENE_WIDTH /  5.5f , Constants.SCENE_HEIGHT / 12);
 		table.row();
-		table.add(exit).padTop(5f).size(Constants.SCENE_WIDTH / 5 , Constants.SCENE_HEIGHT / 10);;
+		table.add(becomePro).padTop(5f).size(Constants.SCENE_WIDTH / 5.5f , Constants.SCENE_HEIGHT / 12);
+		table.row();
+		table.add(credits).padTop(5f).size(Constants.SCENE_WIDTH / 5.5f , Constants.SCENE_HEIGHT / 12);
+		table.row();
+		table.add(tutorial).padTop(5f).size(Constants.SCENE_WIDTH / 5.5f ,Constants.SCENE_HEIGHT / 12);
+		table.row();
+		table.add(exit).padTop(5f).size(Constants.SCENE_WIDTH / 5.5f , Constants.SCENE_HEIGHT / 12);;
 
 
 		// Set table's alpha to 0
@@ -137,10 +150,6 @@ public class MainMenuScreen implements Screen{
 		stage.addActor(table);
 		
 	}
-	
-
-
-	
 	
 	@Override
 	public void show() {}

@@ -92,12 +92,16 @@ public class Assets {
 	pticheta2 = "flyingbird2/pticheta2.png",
 	razmazanoQice = "data/razplokanoQice.png",
 	//*weapons
-	destroyEnemyArrow = "data/weapons/weapon1.png",
+	destroyEnemyArrow = "data/weapons/testweapon1.png",
 	destroyEnemyArrowClicked = "data/weapons/weapon1Clicked.png",
 	slowDownBird = "data/weapons/S_Holy07.png",
 	slowDownBirdClicked = "data/weapons/S_Holy07Clicked.png",
 	fastBallSpeed = "data/weapons/S_Light03.png",
 	fastBallSpeedClicked = "data/weapons/S_Light03Clicked.png",
+	removeAds = "data/weapons/removeAds.png",
+	removeAdsClicked = "data/weapons/removeAdsClicked.png",
+	moreLevels = "data/weapons/moreLevels.png",
+	moreLevelsClicked = "data/weapons/moreLevelsClicked.png",
 	/**
 	 * Loading Screen
 	 */

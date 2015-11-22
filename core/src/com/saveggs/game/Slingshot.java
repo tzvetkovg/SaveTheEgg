@@ -352,7 +352,7 @@ public class Slingshot extends ApplicationAdapter implements InputProcessor {
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		camera.unproject(touchDown.set(screenX, screenY, 0));	
-		System.out.println(touchDown.x + " " + touchDown.y);
+		//System.out.println(touchDown.x + " " + touchDown.y);
 		return false;
 	}
 	

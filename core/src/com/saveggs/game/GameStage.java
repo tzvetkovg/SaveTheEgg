@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -99,7 +100,7 @@ public class GameStage extends Stage implements ContactListener{
 	private PruskaneQice pruskane;
 	private Map<String,Object> mapBodies;
 	private AdsController adsController;
-	private int timeIntervalAds = 0,timeAds = 20,numberOfEnemyKillings = 0,launchBothEnemies = 35;
+	private int timeIntervalAds = 0,timeAds = 1000,numberOfEnemyKillings = 0,launchBothEnemies = 35,dialogAppearTimes = 0;
 	public boolean showGame = false, internetEnabled = false, showAd = false;
 	private LoadingScreen loading;
 	private Skin skin;
@@ -143,6 +144,8 @@ public class GameStage extends Stage implements ContactListener{
 		this.currentLevel = currentLevel;
 		this.enemyLevelSpeed = enemyLevelSpeed;
 		
+		//GLProfiler.enable();
+		
 		//display loading screen initially
 		Timer.schedule(new Task(){
             @Override
@@ -177,7 +180,7 @@ public class GameStage extends Stage implements ContactListener{
 	        if(clickedPoint.sub(middlePoint).len() > 2.1){	        	
 	        	float angleFromMiddlePoint = (float) Math.toDegrees(Math.atan2(myY - Constants.middleY, myX - Constants.middleX));
 	        	float rad = (float) angleFromMiddlePoint * MathUtils.degreesToRadians;
-	        	System.out.println(distance);
+	        	//System.out.println(distance);
 	        	myX = (float) (Constants.middleX + distance * (Math.cos(rad)));
 	        	myY = (float) (Constants.middleY + distance * (Math.sin(rad)));
 	        }
@@ -299,7 +302,7 @@ public class GameStage extends Stage implements ContactListener{
 			worldBodies.put(bodyLoop.getUserData().toString(), bodyLoop.getPosition());
 			//get qica
 			if(bodyLoop.getUserData().equals(Constants.GROUND)) {
-				System.out.println("ground is registered");
+				//System.out.println("ground is registered");
 			}
 			
 			if(bodyLoop.getUserData().equals(Constants.QICE)) {
@@ -417,7 +420,7 @@ public class GameStage extends Stage implements ContactListener{
 		for (Vector2 position: positionsOfQica){
 			allEggs.get(i).resetInitialPositionQice(position);
 			eggs.add(allEggs.get(i));
-			System.out.println("i " + i);
+//			System.out.println("i " + i);
 			i++;
 		}
 		
@@ -709,7 +712,19 @@ public class GameStage extends Stage implements ContactListener{
 
 			@Override
 			protected void result(Object object) {
+
+				dialogAppearTimes++;
+				
 				if(object.equals("replay")){
+					
+					if(internetEnabled && dialogAppearTimes % 2 != 0){
+						adsController.showInterstitialAd(new Runnable() {
+							@Override
+							public void run() {
+							}
+						});
+					}
+					
 					adjustMusic(1);
 					for (Qice qice : eggs) {
 						qice.pauseTime();
@@ -719,12 +734,20 @@ public class GameStage extends Stage implements ContactListener{
 				}		
 				else if(object.equals("menu"))
 				{
+					if(internetEnabled){
+						adsController.showInterstitialAd(new Runnable() {
+							@Override
+							public void run() {
+							}
+						});
+					}
 					stopMusic();
 					getStage().dispose();
 					world.dispose();
 					//disposeAllAssets();
 					game.setScreen(new LevelScreen(adsController,game));
 				}
+				
 			}
 		};		
 		dialog.text(label);		
@@ -741,7 +764,18 @@ public class GameStage extends Stage implements ContactListener{
 
 			@Override
 			protected void result(Object object) {
+				
+				dialogAppearTimes++;
+				
 				if(object.equals("continue")){
+					if(internetEnabled && dialogAppearTimes % 2 != 0){
+						adsController.showInterstitialAd(new Runnable() {
+							@Override
+							public void run() {
+							}
+						});
+					}
+
 					if(!musicMuted){						
 						adjustMusic(1);
 					}
@@ -751,12 +785,27 @@ public class GameStage extends Stage implements ContactListener{
 					showGame = true;
 				}
 				if(object.equals("replay")){
+					
+					if(internetEnabled && dialogAppearTimes % 2 != 0){
+						adsController.showInterstitialAd(new Runnable() {
+							@Override
+							public void run() {
+							}
+						});
+					}
 					adjustMusic(1);
 					resetStage();
 					showGame = true;
 				}		
 				else if(object.equals("menu"))
 				{
+					if(internetEnabled){
+						adsController.showInterstitialAd(new Runnable() {
+							@Override
+							public void run() {
+							}
+						});
+					}
 					stopMusic();
 					getStage().dispose();
 					world.dispose();
@@ -1176,7 +1225,7 @@ public class GameStage extends Stage implements ContactListener{
 							//start launching both enemies
 							if(numberOfEnemyKillings > launchBothEnemies){								
 								//launch both enemies
-								if(internetEnabled && timeIntervalAds >= timeAds){
+/*								if(internetEnabled && timeIntervalAds >= timeAds){
 									adsController.showInterstitialAd(new Runnable() {
 										@Override
 										public void run() {
@@ -1184,7 +1233,7 @@ public class GameStage extends Stage implements ContactListener{
 										}
 									});
 								}						
-								timeIntervalAds++;
+								timeIntervalAds++;*/
 								if(!enemyOtherSide.enemyDraw){
 									launchEnemyTwo();
 									launchEnemyOne();
@@ -1192,26 +1241,26 @@ public class GameStage extends Stage implements ContactListener{
 								else
 									launchEnemyOne();
 								//reset
-								if(timeIntervalAds > timeAds)
-									timeIntervalAds = 0;
+								//if(timeIntervalAds > timeAds)
+								//	timeIntervalAds = 0;
 							}
 							//launch only one enemy
 							else
 							{								
 								//if mobile internet and limit reached
-								if(internetEnabled && timeIntervalAds >= timeAds){
+/*								if(internetEnabled && timeIntervalAds >= timeAds){
 									adsController.showInterstitialAd(new Runnable() {
 										@Override
 										public void run() {
 											timeIntervalAds = 0;
 										}
 									});
-								}
-								timeIntervalAds++;
+								}*/
+								//timeIntervalAds++;
 								launchEnemy();
 								//reset
-								if(timeIntervalAds > timeAds)
-									timeIntervalAds = 0;
+								//if(timeIntervalAds > timeAds)
+								//	timeIntervalAds = 0;
 							}
 						}
 					});
@@ -1238,7 +1287,7 @@ public class GameStage extends Stage implements ContactListener{
 							// launching both enemies
 							if(numberOfEnemyKillings > launchBothEnemies){								
 								//launch both enemies
-								if(internetEnabled && timeIntervalAds >= timeAds){
+/*								if(internetEnabled && timeIntervalAds >= timeAds){
 									adsController.showInterstitialAd(new Runnable() {
 										@Override
 										public void run() {
@@ -1246,7 +1295,7 @@ public class GameStage extends Stage implements ContactListener{
 										}
 									});
 								}
-								timeIntervalAds++;
+								timeIntervalAds++;*/
 								if(!enemy.enemyDraw){
 									launchEnemyTwo();
 									launchEnemyOne();
@@ -1261,19 +1310,19 @@ public class GameStage extends Stage implements ContactListener{
 							else
 							{								
 								//if mobile enabled
-								if(internetEnabled && timeIntervalAds >= timeAds){
+/*								if(internetEnabled && timeIntervalAds >= timeAds){
 									adsController.showInterstitialAd(new Runnable() {
 										@Override
 										public void run() {
 											timeIntervalAds = 0;
 										}
 									});
-								}
-								timeIntervalAds++;
+								}*/
+								//timeIntervalAds++;
 								launchEnemy();
 								//reset
-								if(timeIntervalAds > timeAds)
-									timeIntervalAds = 0;
+								//if(timeIntervalAds > timeAds)
+								//	timeIntervalAds = 0;
 							}
 							
 						}
