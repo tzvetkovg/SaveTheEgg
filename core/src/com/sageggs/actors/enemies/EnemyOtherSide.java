@@ -58,6 +58,7 @@ public class EnemyOtherSide extends GameActor{
 	private boolean continueUpdating = true;
 	public boolean anyEggsLeft = true;
 	private float speed = 0f;
+	private float speedBoost = 0;
 	
 	public EnemyOtherSide(Body body,Array<Qice> eggs,Map<String,Vector2> worldBodies) {
 		super(body);
@@ -125,8 +126,15 @@ public class EnemyOtherSide extends GameActor{
 		direction.y = (float) Math.sin((angle) * MathUtils.degreesToRadians);
 		direction.nor();
 		
-		velocity.x = direction.x * speed * delta;
-		velocity.y = direction.y * speed * delta;
+		//accelerate speed of bird when grabbing the egg
+		if(point == 3 || point == 4 ){
+			speedBoost = 1.3f;
+		}
+		else{
+			speedBoost = 1;
+		}
+		velocity.x = (direction.x * speed * delta) * speedBoost;
+		velocity.y = (direction.y * speed  * delta) * speedBoost;
 		
 		//get the angle
 		float getAngle = (float) Math.atan2( -direction.x, direction.y );

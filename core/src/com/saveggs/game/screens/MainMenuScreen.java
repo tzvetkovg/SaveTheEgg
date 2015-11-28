@@ -114,6 +114,22 @@ public class MainMenuScreen implements Screen{
 			};
 		});
 		
+		//tutorial
+		credits.addListener( new ClickListener() {             
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				game.setScreen(new CreditsScreen(_adsController,games));
+			};
+		});
+		
+		//tutorial
+		tutorial.addListener( new ClickListener() {             
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				game.setScreen(new TutorialScreen(_adsController,games));
+			};
+		});
+		
 		// Set table structure
 		table = new Table();
 		table.setFillParent(true);

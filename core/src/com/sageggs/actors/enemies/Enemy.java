@@ -54,6 +54,7 @@ public class Enemy extends GameActor{
 	private boolean redirect = true;
 	public boolean anyEggsLeft = true;
 	private float speed = 0;
+	private float speedBoost = 0;
 	private Sound sound;
 	
 	public Enemy(Body body,Array<Qice> eggs,Map<String,Vector2> worldBodies) {
@@ -92,7 +93,7 @@ public class Enemy extends GameActor{
         super.act(delta);
         
         if(anyEggsLeft){        	
-        	if(redirect){        	
+        	if(redirect){
         		if(Math.abs(body.getPosition().sub(pathPoints.get(pathPoints.size - 1)).len()) <= EnemyUtils.comparVal ){
         			update(MathUtils.random(150f,90f),delta);
         			continueUpdating = false;
@@ -115,8 +116,15 @@ public class Enemy extends GameActor{
 		direction.y = (float) Math.sin((angle) * MathUtils.degreesToRadians);
 		direction.nor();
 		
-		velocity.x = direction.x * speed * delta;
-		velocity.y = direction.y * speed * delta;
+		//accelerate speed of bird when grabbing the egg
+		if(point == 1 || point == 2 ){
+			speedBoost = 1.3f;
+		}
+		else{
+			speedBoost = 1;
+		}
+		velocity.x = (direction.x * speed * delta) * speedBoost;
+		velocity.y = (direction.y * speed  * delta) * speedBoost;
 		
 		//get the angle
 		float getAngle = (float) Math.atan2( -direction.x, direction.y );

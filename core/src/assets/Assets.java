@@ -59,6 +59,8 @@ public class Assets {
 	sliderKnob = "data/ui/ArrowDown.bmp",
 	backbutton = "data/ui/backbutton.png",
 	backbuttonClicked = "data/ui/00135white.png",
+	credits = "data/credits.png",
+	tutorial = "data/tutorial.png",
 	/**
 	 * Level Menu
 	 */
@@ -87,10 +89,8 @@ public class Assets {
 	opuvaneKraka = "data/opunati.png",
 	hvanatoQice = "data/hvanato Qice.png",
 	hodeneNaPile = "data/izlupvane.png",
-	gulubi = "data/newEnemy.png",
 	pticheta = "flyingbird1/pticheta1.png",
 	pticheta2 = "flyingbird2/pticheta2.png",
-	razmazanoQice = "data/razplokanoQice.png",
 	//*weapons
 	destroyEnemyArrow = "data/weapons/weapon1.png",
 	destroyEnemyArrowClicked = "data/weapons/weapon1Clicked.png",
