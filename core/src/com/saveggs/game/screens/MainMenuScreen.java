@@ -11,6 +11,8 @@ import assets.Assets;
 import com.admob.AdsController;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -53,11 +55,11 @@ public class MainMenuScreen implements Screen{
 	private final GameClass games;
 	private MoveToAction moveAction;
 	private MyActor ac;
+	private Sound sound;
 	
 	public MainMenuScreen(final AdsController adsController,final GameClass game){
 		
 		this.games = game;
-		
 		this.stage = new Stage(new ExtendViewport(Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT));
 		this._adsController = adsController;
 		

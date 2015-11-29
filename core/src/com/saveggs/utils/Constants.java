@@ -4,6 +4,7 @@ import assets.Assets;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -13,11 +14,13 @@ import com.saveggs.game.GameStage;
 
 public class Constants {
 	public static Preferences preferences;
+	public static Sound sound;
 	
 	public Constants(){
 		preferences = Gdx.app.getPreferences(GameStage.class.getName());
 		preferences.putBoolean("Level1", true);
 		preferences.flush();
+		sound = Assets.manager.get(Assets.musicTest, Sound.class);
 	};
 	
 	public static final float SCENE_WIDTH = 800f;

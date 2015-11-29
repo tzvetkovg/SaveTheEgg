@@ -108,6 +108,7 @@ public class StageScreen implements Screen {
 		this.worldBodies.put("pruskane",  new PruskaneQice());
 		
 		this.adsController = adsController;	
+		Constants.sound.stop();
 		this.stage = new GameStage(adsController,this.worldBodies,this.world,internetEnabled,game,this.map,currentLevel,Float.parseFloat(levelDetails.getChildByName("enemyspeed").getText()));		
 	}
 

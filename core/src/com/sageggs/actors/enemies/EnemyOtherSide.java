@@ -127,11 +127,13 @@ public class EnemyOtherSide extends GameActor{
 		direction.nor();
 		
 		//accelerate speed of bird when grabbing the egg
-		if(point == 3 || point == 4 ){
+		if(point == 1 || point == 2 ){
 			speedBoost = 1.3f;
+			animation.setFrameDuration(1/17f);
 		}
 		else{
 			speedBoost = 1;
+			animation.setFrameDuration(1/13f);
 		}
 		velocity.x = (direction.x * speed * delta) * speedBoost;
 		velocity.y = (direction.y * speed  * delta) * speedBoost;

@@ -7,6 +7,7 @@ import assets.Assets;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -43,6 +44,9 @@ public class Qice extends GameActor {
 	public Music pilence;
 	private long startTime;
 	private long stopTime;
+	public boolean playMusic, playHatchOut = false;
+	public long pileId = 0;
+	public boolean musicEnabled = true;
 	
 	public Qice(final Body body,int interval) {
 		super(body);
@@ -53,6 +57,7 @@ public class Qice extends GameActor {
 		effect.start();
 
 		pilence = Assets.manager.get(Assets.pilence, Music.class);
+		
 		splitAnimation();
 		sprite = new Box2DSprite(Assets.manager.get(Assets.qice, Texture.class));
 		animation = new Animation(1f/1f, animationFrames);
@@ -74,7 +79,7 @@ public class Qice extends GameActor {
 		Timer.schedule(task,this.interval,1f,2);
 
 	}
-	
+
 	 @Override
      public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
@@ -82,8 +87,8 @@ public class Qice extends GameActor {
         	if(!animationDraw) //should be !animationDraw 
         		sprite.draw(batch, body.getFixtureList().first()); 
         	else if(animationDraw){
-        		//if animation finished draw pileto
-            	pilence.play();
+
+        		pilence.play();
         		if(animatedBox2DSprite.isAnimationFinished()){  
         			sprite.setRegion(animatedBox2DSprite.getAnimation().getKeyFrame(4));
         			animationDraw = false;

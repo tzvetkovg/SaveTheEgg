@@ -8,6 +8,7 @@ import assets.Assets;
 import com.admob.AdsController;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -100,7 +101,7 @@ public class GameStage extends Stage implements ContactListener{
 	private PruskaneQice pruskane;
 	private Map<String,Object> mapBodies;
 	private AdsController adsController;
-	private int timeIntervalAds = 0,timeAds = 1000,numberOfEnemyKillings = 0,launchBothEnemies = 35,dialogAppearTimes = 0;
+	private int timeIntervalAds = 0,timeAds = 1000,numberOfEnemyKillings = 0,launchBothEnemies = 3,dialogAppearTimes = 0;
 	public boolean showGame = false, internetEnabled = false, showAd = false;
 	private LoadingScreen loading;
 	private Skin skin;
@@ -115,7 +116,8 @@ public class GameStage extends Stage implements ContactListener{
 	private Slider slider;
 	private Table table;
 	private boolean buttonClicked = false,musicMuted = false,weaponOne = false,weaponOneTimeExpired = false,weaponTwoTimeExpiredweaponTwo = false, weaponThreeTimeExpiredweaponThree = false;
-	private Music music1,music2,breakingEgg,destroyEnemey;
+	private Music music1;
+	private Sound breakingEgg,destroyEnemey;
 	private TextButton button,pause,weaponButton1,weaponButton2,weaponButton3;
 	private float enemyLevelSpeed;
 	final TextureRegionDrawable weaponOneStyle = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.destroyEnemyArrow, Texture.class)));
@@ -153,6 +155,8 @@ public class GameStage extends Stage implements ContactListener{
             	showGame = true;
             	loading.draw = false;
             	adjustMusic(1);
+            	music1.play();
+        		music1.setLooping(true);
             }
         },3);
 		
@@ -295,7 +299,7 @@ public class GameStage extends Stage implements ContactListener{
 		
 		bodiesOfWorld = new Array<Body>();
 		world.getBodies(bodiesOfWorld);
-		int timeOfIzlupvane = 30;
+		int timeOfIzlupvane = 4;
 		//map of all bodies
 		for (Body bodyLoop : bodiesOfWorld) {
 			//get bodies
@@ -315,7 +319,7 @@ public class GameStage extends Stage implements ContactListener{
 				
 				eggs.add(qice);
 				allEggs.add(qice);
-				timeOfIzlupvane += 30;
+				timeOfIzlupvane += 7;
 				addActor(qice);
 			
 			}
@@ -423,7 +427,7 @@ public class GameStage extends Stage implements ContactListener{
 //			System.out.println("i " + i);
 			i++;
 		}
-		
+
 		for (DynamicBall ball : sleeepingBalls) {
 			ball.body.setAwake(false);
 		}
@@ -432,6 +436,7 @@ public class GameStage extends Stage implements ContactListener{
 		numberOfEnemyKillings = 0;
 		
 		//weapons
+		weaponOne = false;
 		weaponOneTimeExpired = false;
 		weaponTwoTimeExpiredweaponTwo = false;
 		weaponThreeTimeExpiredweaponThree = false;
@@ -473,9 +478,8 @@ public class GameStage extends Stage implements ContactListener{
 		 * music
 		 */
 		music1 = Assets.manager.get(Assets.birdScream, Music.class);
-		music2 = Assets.manager.get(Assets.birdScream2, Music.class);
-		destroyEnemey = Assets.manager.get(Assets.dyingBird, Music.class);
-		breakingEgg = Assets.manager.get(Assets.breakingEgg, Music.class);
+		destroyEnemey = Assets.manager.get(Assets.dyingBird, Sound.class);
+		breakingEgg = Assets.manager.get(Assets.breakingEgg, Sound.class);
 		adjustMusic(0);
 		
 		/*
@@ -528,7 +532,7 @@ public class GameStage extends Stage implements ContactListener{
 		weaponButton1 = new TextButton("", weaponButtonOneStyle);
 		weaponButton1.setSize(1.25f, 1.25f);
 		weaponButton1.setOrigin(0, 0);
-		weaponButton1.setPosition(0, Constants.SCENE_HEIGHT / 30f * 0.86f);
+		weaponButton1.setPosition(0, Constants.SCENE_HEIGHT / 30f * 0.84f);
 		weaponButton1.addListener(new ClickListener() {
 			@Override
 			
@@ -567,7 +571,7 @@ public class GameStage extends Stage implements ContactListener{
 		weaponButton2 = new TextButton("", weaponButtonTwoStyle);
 		weaponButton2.setSize(1.25f, 1.25f);
 		weaponButton2.setOrigin(0, 0);
-		weaponButton2.setPosition(0, Constants.SCENE_HEIGHT / 30f * 0.78f);
+		weaponButton2.setPosition(0, Constants.SCENE_HEIGHT / 30f * 0.75f);
 		weaponButton2.addListener(new ClickListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y,
@@ -606,7 +610,7 @@ public class GameStage extends Stage implements ContactListener{
 		weaponButton3 = new TextButton("", weaponButtonThreeStyle);
 		weaponButton3.setSize(1.25f, 1.25f);
 		weaponButton3.setOrigin(0, 0);
-		weaponButton3.setPosition(0, Constants.SCENE_HEIGHT / 30f * 0.68f);
+		weaponButton3.setPosition(0, Constants.SCENE_HEIGHT / 30f * 0.65f);
 		weaponButton3.addListener(new ClickListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y,
@@ -724,8 +728,12 @@ public class GameStage extends Stage implements ContactListener{
 							}
 						});
 					}
-					
-					adjustMusic(1);
+					if(musicMuted){						
+						adjustMusic(0);
+					}
+					else{
+						adjustMusic(1);
+					}
 					for (Qice qice : eggs) {
 						qice.pauseTime();
 			        }
@@ -741,6 +749,7 @@ public class GameStage extends Stage implements ContactListener{
 							}
 						});
 					}
+					Constants.sound.loop();
 					stopMusic();
 					getStage().dispose();
 					world.dispose();
@@ -793,7 +802,12 @@ public class GameStage extends Stage implements ContactListener{
 							}
 						});
 					}
-					adjustMusic(1);
+					if(musicMuted){						
+						adjustMusic(0);
+					}
+					else{
+						adjustMusic(1);
+					}
 					resetStage();
 					showGame = true;
 				}		
@@ -806,6 +820,7 @@ public class GameStage extends Stage implements ContactListener{
 							}
 						});
 					}
+					Constants.sound.loop();
 					stopMusic();
 					getStage().dispose();
 					world.dispose();
@@ -981,41 +996,34 @@ public class GameStage extends Stage implements ContactListener{
 	 * music
 	 */
 	public void adjustMusic(int level){
-    	music2.setVolume(level);
-    	music1.setVolume(level);
-    	destroyEnemey.setVolume(level);
-    	breakingEgg.setVolume(level);
-		for (Qice qice : allEggs) {
+    	music1.setVolume(level);	
+    	for (Qice qice : allEggs) {
 			qice.pilence.setVolume(level);
         }
 	}
 	
 	public void stopMusic(){
 		music1.stop();
-		music2.stop();
-		destroyEnemey.stop();
 	}
 	
 	public void dyingEnemey(){
-		destroyEnemey.play();
+		if(music1.getVolume() > 0){			
+			destroyEnemey.play();
+		}
 	}
-	
-	public void resetScreanEnemyOne(){
-		music1.stop();
+		
+	public void resetMusic(){
+
+/*		music1.stop();
 		music1.play();
-		music1.setLooping(true);
-	}
-	
-	public void resetScreanEnemyTwo(){
-		music2.stop();
-		music2.play();
-		music2.setLooping(true);
+		music1.setLooping(true);*/
 	}
 	/**
 	 * launch single enemy
 	 */
 	public void startEnemyOne(){
-		resetScreanEnemyOne();
+		resetMusic();
+		
 		enemy.enemyDraw = false;
 		enemy.setSpeed(0);
 		enemy.body.setAwake(false);
@@ -1030,7 +1038,8 @@ public class GameStage extends Stage implements ContactListener{
 	}
 	
 	public void startEnemyTwo(){
-		resetScreanEnemyTwo();
+		resetMusic();
+
 		//launch enemy2
 		enemyOtherSide.enemyDraw = false;
 		enemyOtherSide.setSpeed(0);
@@ -1056,7 +1065,7 @@ public class GameStage extends Stage implements ContactListener{
 	 */
 	//launch both enemies
 	public void launchEnemyOne(){
-		resetScreanEnemyOne();
+		resetMusic();
 		//reset enemy1
 		enemy.enemyDraw = true;
 		enemy.setSpeed(Constants.ENEMYSPEED);
@@ -1065,7 +1074,7 @@ public class GameStage extends Stage implements ContactListener{
 	}
 	
 	public void launchEnemyTwo(){
-		resetScreanEnemyTwo();
+		resetMusic();
 		//reset the other enemy
 		enemyOtherSide.enemyDraw = true;
 		enemyOtherSide.setSpeed(Constants.ENEMYSPEED);
@@ -1346,7 +1355,9 @@ public class GameStage extends Stage implements ContactListener{
 				pruskane.showEffect = true;
 				qice.setAwake(true);
 				qice.setSleepingAllowed(false);
-				breakingEgg.play();
+				if(music1.getVolume() > 0){					
+					breakingEgg.play();
+				}
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
@@ -1471,7 +1482,7 @@ public class GameStage extends Stage implements ContactListener{
         	if(ball.isAwake()){        		
         		flyingBirdParticle.effect.setPosition(flyingBird2.body.getPosition().x, flyingBird2.body.getPosition().y);
         		flyingBirdParticle.showEffect = true;
-        		
+        			
         		ball.setSleepingAllowed(true);
         		
         		Gdx.app.postRunnable(new Runnable() {
@@ -1521,7 +1532,6 @@ public class GameStage extends Stage implements ContactListener{
 	
 	public void disposeAllAssets(){
 		music1.dispose();
-		music2.dispose();
 		breakingEgg.dispose();
 		destroyEnemey.dispose();
 		map.dispose();

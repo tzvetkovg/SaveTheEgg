@@ -152,14 +152,18 @@ public class Assets {
 	/**
 	 * Music
 	 */
+	@Asset(Sound.class)
+	public static final String
+	dyingBird = "data/sound/dyingbird.wav",
+	breakingEgg = "data/sound/breakingEgg.wav",
+	musicTest = "data/sound/menuMusic.wav";
+	
 	@Asset(Music.class)
 	public static final String
 	birdScream = "data/sound/trycopy.wav",
-	birdScream2 = "data/sound/trycopy.wav",
-	dyingBird = "data/sound/dyingbird.wav",
-	pilence = "data/sound/pilence.wav",
-	breakingEgg = "data/sound/breakingEgg.wav";
+	pilence = "data/sound/pilence.wav";
 	
+
 	public static void dispose(){
 		manager.dispose();
 	}

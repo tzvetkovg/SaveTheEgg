@@ -35,7 +35,6 @@ public class SplashScreen implements Screen {
 	public SplashScreen(final AdsController adsController,GameClass game){
 		
 		Assets asset = new Assets();
-		Constants constant = new Constants();
 		Assets.manager.load(Assets.class);	
 		
 		this.game = game;
@@ -81,6 +80,7 @@ public class SplashScreen implements Screen {
 		
 		if(!Assets.manager.update()) {
 			Assets.manager.update();
+			
 			//System.out.println(Assets.manager.getProgress());
 	     }
 		
@@ -88,6 +88,8 @@ public class SplashScreen implements Screen {
 		stage.draw();
 		
 		if(image.getActions().size == 0 && Assets.manager.update()){
+			Constants constant = new Constants();
+			constant.sound.loop();
 			game.setScreen(new MainMenuScreen(adsController,game));
 		}
 	}
