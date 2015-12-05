@@ -97,7 +97,10 @@ public class GameClass extends Game {
 		}
 		Assets.manager.finishLoading();
 		Constants constant = new Constants();*/
-		boolean internetEnabled = (adsController.isMobileDataEnabled() || adsController.isWifiConnected());
+		boolean internetEnabled = false;
+		if(adsController != null){			
+			internetEnabled = (adsController.isMobileDataEnabled() || adsController.isWifiConnected());			
+		}
 		splash = new SplashScreen(adsController,this,internetEnabled);
 		this.setScreen(splash);
 				

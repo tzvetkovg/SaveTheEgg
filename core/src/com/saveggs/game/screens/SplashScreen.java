@@ -91,8 +91,9 @@ public class SplashScreen implements Screen {
 		
 		if(image.getActions().size == 0 && Assets.manager.update()){
 			Constants constant = new Constants();
-			Constants.shopPreferences.putBoolean(GameClass.slowdown, true);
-			Constants.shopPreferences.flush();
+			//Constants.shopPreferences.putBoolean(GameClass.slowdown, true);
+			//Constants.shopPreferences.putBoolean(GameClass.morelevels, true);
+			//Constants.shopPreferences.flush();
 			if(internetEnabled){	
 				game.getPlatformResolver().requestPurchaseRestore();
 			}

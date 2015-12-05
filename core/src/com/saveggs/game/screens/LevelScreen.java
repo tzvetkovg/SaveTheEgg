@@ -137,22 +137,31 @@ public class LevelScreen implements Screen{
 		scroll.setFlingTime(0.1f);
 		scroll.setPageSpacing(25);
 		int c = 1;
-		for (int l = 0; l < 2; l++) {
+		int bound = 2;
+		//if purchased
+		if(Constants.shopPreferences.contains(GameClass.morelevels)){
+			bound = 3;
+		}
+		for (int l = 0; l < bound; l++) {
 
 			Table levels = new Table().pad(50);
 			levels.defaults().pad(20, 50, 20, 50).size(70);
-			//game titles
-			if(l == 0){
-            	//levels.addActor(gameTitle);
-            }
-            if(l == 1){
-            	//levels.addActor(gameTitle2);
-            }
-			
-			for (int y = 0; y < 3; y++) {
-				levels.row();
-				for (int x = 0; x < 4; x++) {
-					levels.add(getLevelButton(c++)).expand().fill();
+
+			if(l == 2){
+				for (int y = 0; y < 1; y++) {
+					levels.row();
+					for (int x = 0; x < 3; x++) {
+						levels.defaults().pad(20, 80, 20, 60).size(70);
+						levels.add(getLevelButton(c++)).expand().fill().top();
+					}
+				}
+			}
+			else{				
+				for (int y = 0; y < 3; y++) {
+					levels.row();
+					for (int x = 0; x < 4; x++) {
+						levels.add(getLevelButton(c++)).expand().fill();
+					}
 				}
 			}
 			scroll.addPage(levels);
