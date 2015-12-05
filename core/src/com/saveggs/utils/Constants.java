@@ -10,16 +10,19 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.saveggs.game.GameStage;
+import com.saveggs.game.screens.Shop;
 
 
 public class Constants {
 	public static Preferences preferences;
+	public static Preferences shopPreferences;
 	public static Sound sound;
 	
 	public Constants(){
 		preferences = Gdx.app.getPreferences(GameStage.class.getName());
 		preferences.putBoolean("Level1", true);
 		preferences.flush();
+		shopPreferences = Gdx.app.getPreferences(Shop.class.getName());
 		sound = Assets.manager.get(Assets.musicTest, Sound.class);
 	};
 	

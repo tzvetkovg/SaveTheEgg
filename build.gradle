@@ -76,8 +76,6 @@ project(":android") {
 		compile "net.dermetfan.libgdx-utils:libgdx-utils:$gdxUtilsVersion"
         compile "net.dermetfan.libgdx-utils:libgdx-utils-box2d:$gdxUtilsVersion" 
 
-		
-		compile "com.badlogicgames.gdxpay:gdx-pay-android:0.5.0"
 
 		
     }
@@ -130,8 +128,7 @@ project(":core") {
 		compile "net.dermetfan.libgdx-utils:libgdx-utils:$gdxUtilsVersion"
         compile "net.dermetfan.libgdx-utils:libgdx-utils-box2d:$gdxUtilsVersion" 
 
-		
-		compile "com.badlogicgames.gdxpay:gdx-pay:0.5.0"
+
     }
 }
 

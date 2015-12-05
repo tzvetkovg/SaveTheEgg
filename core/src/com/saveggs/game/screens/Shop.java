@@ -11,6 +11,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.pay.Offer;
+import com.badlogic.gdx.pay.OfferType;
+import com.badlogic.gdx.pay.PurchaseManagerConfig;
+import com.badlogic.gdx.pay.PurchaseObserver;
+import com.badlogic.gdx.pay.Transaction;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -18,7 +23,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.gdxPay.PlatformResolver;
 import com.saveggs.game.GameClass;
 import com.saveggs.game.screens.MainMenuScreen.MyActor;
 import com.saveggs.utils.Constants;
@@ -35,7 +42,9 @@ public class Shop implements Screen{
 	private Texture removeAds;
 	private Texture moreLevels;
 	private Image gameTitle;
-	
+	private static AdsController adsController;
+	private boolean internetEnabled = false;
+
 	public Shop(final AdsController adsController,final GameClass game){
 		this.stage = new Stage(new ExtendViewport(Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT));
 		Gdx.input.setInputProcessor(stage);
@@ -113,6 +122,54 @@ public class Shop implements Screen{
 		weapon5 = new TextButton("",tbs5);
 		weapon5.setPosition(Constants.SCENE_WIDTH / 1.6f , Constants.SCENE_HEIGHT / 8);
 		
+		
+		weapon1.addListener(new ClickListener() {
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				//if(internetEnabled){
+					game.getPlatformResolver().requestPurchase(GameClass.automaticdestruction);
+				//}
+				return super.touchDown(event, x, y, pointer, button);
+			}
+		});
+		
+		weapon2.addListener(new ClickListener() {
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {					
+					game.getPlatformResolver().requestPurchase(GameClass.slowdown);
+				return super.touchDown(event, x, y, pointer, button);
+			}
+		});
+		
+		weapon3.addListener(new ClickListener() {
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {					
+					game.getPlatformResolver().requestPurchase(GameClass.fastball);
+				return super.touchDown(event, x, y, pointer, button);
+			}
+		});
+		
+		weapon4.addListener(new ClickListener() {
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {				
+				game.getPlatformResolver().requestPurchase(GameClass.productID_fullVersion);
+				return super.touchDown(event, x, y, pointer, button);
+			}
+		});
+		
+		weapon5.addListener(new ClickListener() {
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {					
+				game.getPlatformResolver().requestPurchase(GameClass.morelevels);
+				return super.touchDown(event, x, y, pointer, button);
+			}
+		});
+
 		// Set table structure
 		table = new Table();
 		table.setFillParent(true);
@@ -177,6 +234,6 @@ public class Shop implements Screen{
 	}
 	
 	
-	
+
 	
 }

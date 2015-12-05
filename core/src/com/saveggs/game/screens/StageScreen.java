@@ -109,7 +109,16 @@ public class StageScreen implements Screen {
 		
 		this.adsController = adsController;	
 		Constants.sound.stop();
-		this.stage = new GameStage(adsController,this.worldBodies,this.world,internetEnabled,game,this.map,currentLevel,Float.parseFloat(levelDetails.getChildByName("enemyspeed").getText()));		
+		
+		boolean internetUse = (internetEnabled && !Constants.shopPreferences.contains(GameClass.productID_fullVersion));
+		boolean weapon1 = Constants.shopPreferences.contains(GameClass.automaticdestruction);
+		boolean weapon2 = Constants.shopPreferences.contains(GameClass.slowdown);
+		boolean weapon3 = Constants.shopPreferences.contains(GameClass.fastball);
+		
+		System.out.println("weapon1 " +weapon2);
+		
+		this.stage = new GameStage(adsController,this.worldBodies,this.world,internetUse,game,this.map,currentLevel,Float.parseFloat(levelDetails.getChildByName("enemyspeed").getText()),
+									weapon1,weapon2,weapon3);		
 	}
 
 

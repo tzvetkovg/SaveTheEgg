@@ -31,13 +31,15 @@ public class SplashScreen implements Screen {
 	private Image image;
 	private OrthographicCamera camera;
 	private AdsController adsController;
+	private boolean internetEnabled = false;
 	
-	public SplashScreen(final AdsController adsController,GameClass game){
+	public SplashScreen(final AdsController adsController,GameClass game,boolean internetEnabled){
 		
 		Assets asset = new Assets();
 		Assets.manager.load(Assets.class);	
 		
 		this.game = game;
+		this.internetEnabled = internetEnabled;
 		
 		this.stage = new Stage(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35));
 		this.adsController = adsController;
@@ -57,7 +59,7 @@ public class SplashScreen implements Screen {
 				delay(2.5f), fadeOut(1.25f)));
 		stage.addActor(image);
 	
-
+		
 
 /*		while(!Assets.manager.update()){
 			System.out.println(Assets.manager.getProgress());
@@ -89,6 +91,11 @@ public class SplashScreen implements Screen {
 		
 		if(image.getActions().size == 0 && Assets.manager.update()){
 			Constants constant = new Constants();
+			Constants.shopPreferences.putBoolean(GameClass.slowdown, true);
+			Constants.shopPreferences.flush();
+			if(internetEnabled){	
+				game.getPlatformResolver().requestPurchaseRestore();
+			}
 			constant.sound.loop();
 			game.setScreen(new MainMenuScreen(adsController,game));
 		}

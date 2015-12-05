@@ -58,6 +58,8 @@ public class AndroidLauncher extends AndroidApplication  implements AdsControlle
 		params.addRule(RelativeLayout.ALIGN_TOP);
 		layout.addView(bannerAd, params);
 		 
+			
+		
 		setContentView(layout);
 		
 /*		if(game.getAppStore() == GameClass.APPSTORE_OUYA) {
@@ -69,7 +71,6 @@ public class AndroidLauncher extends AndroidApplication  implements AdsControlle
 		else if(game.getAppStore() == GdxPayExample.APPSTORE_AMAZON) {
 			GameClass.setPlatformResolver(new AmazonFireResolver(game, this));
 		}*/
-		
 		GameClass.setPlatformResolver(new GooglePlayResolver(game));
 		
 		game.getPlatformResolver().installIAP();

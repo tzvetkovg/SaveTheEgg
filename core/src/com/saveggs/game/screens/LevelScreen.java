@@ -200,7 +200,7 @@ public class LevelScreen implements Screen{
 		switch (level) {
         case 1:  map = Assets.manager.get(Assets.map1, TiledMap.class);
         		 break;
-        case 2:  map = Assets.manager.get(Assets.map20, TiledMap.class);
+        case 2:  map = Assets.manager.get(Assets.map2, TiledMap.class);
                  break;
         case 3:  map = Assets.manager.get(Assets.map3, TiledMap.class);
                  break;
@@ -236,8 +236,16 @@ public class LevelScreen implements Screen{
         		 break;
         case 19: map = Assets.manager.get(Assets.map19, TiledMap.class);
         		break;
-        case 20: map = Assets.manager.get(Assets.map2, TiledMap.class);
+        case 20: map = Assets.manager.get(Assets.map20, TiledMap.class);
         		break;
+        case 21: map = Assets.manager.get(Assets.map21, TiledMap.class);
+				break;
+        case 22: map = Assets.manager.get(Assets.map22, TiledMap.class);
+				break;
+        case 23: map = Assets.manager.get(Assets.map23, TiledMap.class);
+				break;
+        case 24: map = Assets.manager.get(Assets.map24, TiledMap.class);
+				break;
 		}
 		
 		boolean solvedLevel = false;
@@ -273,7 +281,8 @@ public class LevelScreen implements Screen{
 			@Override
 			public void clicked (InputEvent event, float x, float y) {
 				//change to specific map
-				if(adsController != null && (adsController.isWifiConnected() || adsController.isMobileDataEnabled())){
+				if(adsController != null && (adsController.isWifiConnected() || adsController.isMobileDataEnabled())
+					&& !Constants.shopPreferences.contains(GameClass.productID_fullVersion)){
 					adsController.showInterstitialAd(new Runnable() {
 						@Override
 						public void run() {

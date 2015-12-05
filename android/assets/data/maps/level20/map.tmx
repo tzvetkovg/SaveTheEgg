@@ -18,7 +18,7 @@
  </layer>
  <layer name="Tile Layer 3" width="50" height="30">
   <data encoding="base64" compression="zlib">
-   eJzt11dqG1EABVDZkm257CAF3OsOUsC9bsK9bsJVbptwl8sCkk/3ugn3uoicnxAwhMRDhMdBFw7zM4h7H4yGiUTSSSed1867aCTyng98jL52m+D5pPtnvvA1BDuen+tbPefn5xq2c07n/8jPZ+MtJ/1s/DkZmZFIJlFiZJFNDnFyySOfgszXbvv7FOpWRDEllFJGORVUUkU1NSHeUatbHfU00EgTzbTQShvtdIR4R6duXXTTQy999DPAIEMMMxLiHaO6jTHOBJNMkWCaGWaZYz7EOxZ0W2SJZVZYZY0k62ywyVaId2zrtsMue+xzwCFHHHPCKWch3nGu2wWXXHHNDbfccc8Djzz94x0ZMf/5RImRRTY5xMklj3wKYi///Wzv2hziKX7nFupWRDEllFJGORVUUkU1NQF2lOlfTkWKd9TqVkc9DTTSRDMttNJGOx0BdjTp30xLind06tZFNz300kc/AwwyxDAjAXb06d/PQIp3jOo2xjgTTDJFgmlmmGWO+QA7pvRPMJ3iHQu6LbLEMiusskaSdTbYZCvAjlX910i+YMc3936P/rr+TbZ122GXPfY54JAjjjnhlLMAOw70OOQoxTvOdbvgkiuuueGWO+554JGnF+641uGGW+7S3zqhzw+0EnMG
+   eJzt2FdKXGEABeDRGce6gxSw1x2kgL1uwl43Ya+bsNcFJI/2ugl7XUQ+CBIQAnHixavMgY/7MnDP+R+GnxuJJJNMMq+dD9FI5COf+Bx97TaJ54vuX/nG9xDseHqub/Wcn55r2M45mfeR0/hvbzmPG97DlqCSkhqJpBIlRhpx0skgkyyyyUl97bZ/T65ueeRTQCFFFFNCKWWUUxHiHZW6VVFNDbXUUU8DjTTRTEuId7Tq1kY7HXTSRTc99NJHPwMh3jGo2xDDjDDKGONMMMkU08yEeMesbnPMs8AiSyyzwiprrLMR4h2bum2xzQ677LHPAYcccczJC+x4vCO+dE51O+OcCy654pobbrnjnof/3PH0jpgS859PlBhpxEkng0yyyCYn9vz3xb0jnYyA76O5uuWRTwGFFFFMCaWUUU5FAjuK9C+mJOAdlbpVUU0NtdRRTwONNNFMSwI76vSvpyHgHa26tdFOB5100U0PvfTRz0ACO7r076Yn4B2Dug0xzAijjDHOBJNMMc1MAjvG9B9nIuAds7rNMc8CiyyxzAqrrLHORgI7lvRfZuUZO3747c/on+e/ZFO3LbbZYZc99jngkCOOOUlgx54e+xwEvONUtzPOueCSK6654ZY77nl45o5LHa645ib5HSD0+QVkSnhw
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
@@ -407,7 +407,7 @@
     <property name="userData" value="position3"/>
    </properties>
   </object>
-  <object id="54" name="stulb10" type="fixture" x="240" y="189">
+  <object id="54" name="stulb10" type="fixture" x="242" y="332">
    <properties>
     <property name="body" value="ground"/>
     <property name="userData" value="stulb10"/>

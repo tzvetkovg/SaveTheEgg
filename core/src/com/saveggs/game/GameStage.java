@@ -101,7 +101,7 @@ public class GameStage extends Stage implements ContactListener{
 	private PruskaneQice pruskane;
 	private Map<String,Object> mapBodies;
 	private AdsController adsController;
-	private int timeIntervalAds = 0,timeAds = 1000,numberOfEnemyKillings = 0,launchBothEnemies = 3,dialogAppearTimes = 0;
+	private int timeIntervalAds = 0,timeAds = 1000,numberOfEnemyKillings = 0,launchBothEnemies = 100,dialogAppearTimes = 0;
 	public boolean showGame = false, internetEnabled = false, showAd = false;
 	private LoadingScreen loading;
 	private Skin skin;
@@ -115,7 +115,7 @@ public class GameStage extends Stage implements ContactListener{
 	private int currentLevel;
 	private Slider slider;
 	private Table table;
-	private boolean buttonClicked = false,musicMuted = false,weaponOne = false,weaponOneTimeExpired = false,weaponTwoTimeExpiredweaponTwo = false, weaponThreeTimeExpiredweaponThree = false;
+	private boolean buttonClicked = false,musicMuted = false,weaponOne = false,weaponOneTimeExpired = false,weaponTwoTimeExpiredweaponTwo = false, weaponThreeTimeExpiredweaponThree = false,weapon1Enabled = false,weapon2Enabled= false,weapon3Enabled = false;
 	private Music music1;
 	private Sound breakingEgg,destroyEnemey;
 	private TextButton button,pause,weaponButton1,weaponButton2,weaponButton3;
@@ -130,22 +130,24 @@ public class GameStage extends Stage implements ContactListener{
 	final TextButton.TextButtonStyle weaponButtonTwoStyle = new TextButton.TextButtonStyle();
 	final TextButton.TextButtonStyle weaponButtonThreeStyle = new TextButton.TextButtonStyle();
 	
-	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map, int currentLevel,float enemyLevelSpeed){
+	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map, int currentLevel,float enemyLevelSpeed,boolean weapon1, boolean weapon2, boolean weapon3){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
 		this.game = game;
 		this.mapBodies = mapBodies;
 		this.world = world;
 		this.map = map;
 		this.internetEnabled = internetEnabled;
+		this.adsController = adsController;		
+		this.currentLevel = currentLevel;
+		this.enemyLevelSpeed = enemyLevelSpeed;
+		this.weapon1Enabled = weapon1;
+		this.weapon2Enabled = weapon2;
+		this.weapon3Enabled = weapon3;
 		setupCamera();
 		getViewport().setCamera(camera);
 		setUtils();
 		setupWorld();
 		Gdx.input.setInputProcessor(this);
-		this.adsController = adsController;		
-		this.currentLevel = currentLevel;
-		this.enemyLevelSpeed = enemyLevelSpeed;
-		
 		//GLProfiler.enable();
 		
 		//display loading screen initially
@@ -299,7 +301,7 @@ public class GameStage extends Stage implements ContactListener{
 		
 		bodiesOfWorld = new Array<Body>();
 		world.getBodies(bodiesOfWorld);
-		int timeOfIzlupvane = 4;
+		int timeOfIzlupvane = 30;
 		//map of all bodies
 		for (Body bodyLoop : bodiesOfWorld) {
 			//get bodies
@@ -319,7 +321,7 @@ public class GameStage extends Stage implements ContactListener{
 				
 				eggs.add(qice);
 				allEggs.add(qice);
-				timeOfIzlupvane += 7;
+				timeOfIzlupvane += 30;
 				addActor(qice);
 			
 			}
@@ -403,9 +405,15 @@ public class GameStage extends Stage implements ContactListener{
 		addActor(pause);
 		
 		//weapons
-		addActor(weaponButton1);
-		addActor(weaponButton2);
-		addActor(weaponButton3);
+		if(weapon1Enabled){			
+			addActor(weaponButton1);
+		}
+		if(weapon2Enabled){			
+			addActor(weaponButton2);
+		}
+		if(weapon3Enabled){			
+			addActor(weaponButton3);
+		}
 		
 		//loading screen
 		loading = new LoadingScreen();
