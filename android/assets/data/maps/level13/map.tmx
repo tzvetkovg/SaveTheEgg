@@ -333,25 +333,25 @@
    </properties>
    <polyline points="0,0 12,13 9,30 24,38 25,71 14,77 14,122 -15,123 -16,76 -27,52 -16,28 -7,26 -1,-1"/>
   </object>
-  <object id="43" name="middleSlingshot1" type="object" x="492" y="252" width="13" height="10">
+  <object id="43" name="middleSlingshot1" type="object" x="534" y="252" width="13" height="10">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="middleSlingshot1"/>
    </properties>
   </object>
-  <object id="44" name="middleSlingshot2" type="object" x="523.5" y="252" width="13" height="10">
+  <object id="44" name="middleSlingshot2" type="object" x="565.5" y="252" width="13" height="10">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="middleSlingshot2"/>
    </properties>
   </object>
-  <object id="45" name="slingshot" type="object" x="485.5" y="242" width="46" height="96">
+  <object id="45" name="slingshot" type="object" x="527.5" y="242" width="46" height="96">
    <properties>
     <property name="groupIndex" value="-1"/>
     <property name="userData" value="sling"/>
    </properties>
   </object>
-  <object id="46" name="middleBall" type="object" x="509.591" y="249.303" width="10" height="9">
+  <object id="46" name="middleBall" type="object" x="551.591" y="249.303" width="10" height="9">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="middleBall"/>

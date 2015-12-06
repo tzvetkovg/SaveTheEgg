@@ -127,9 +127,9 @@ public class Shop implements Screen{
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
-				//if(internetEnabled){
+				if(!Constants.shopPreferences.contains(GameClass.automaticdestruction)){
 					game.getPlatformResolver().requestPurchase(GameClass.automaticdestruction);
-				//}
+				}
 				return super.touchDown(event, x, y, pointer, button);
 			}
 		});
@@ -137,8 +137,10 @@ public class Shop implements Screen{
 		weapon2.addListener(new ClickListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {					
+					int pointer, int button) {			
+				if(!Constants.shopPreferences.contains(GameClass.slowdown)){					
 					game.getPlatformResolver().requestPurchase(GameClass.slowdown);
+				}
 				return super.touchDown(event, x, y, pointer, button);
 			}
 		});
@@ -146,8 +148,10 @@ public class Shop implements Screen{
 		weapon3.addListener(new ClickListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {					
+					int pointer, int button) {	
+				if(!Constants.shopPreferences.contains(GameClass.fastball)){						
 					game.getPlatformResolver().requestPurchase(GameClass.fastball);
+				}
 				return super.touchDown(event, x, y, pointer, button);
 			}
 		});
@@ -155,8 +159,10 @@ public class Shop implements Screen{
 		weapon4.addListener(new ClickListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {				
-				game.getPlatformResolver().requestPurchase(GameClass.productID_fullVersion);
+					int pointer, int button) {		
+				if(!Constants.shopPreferences.contains(GameClass.productID_fullVersion)){							
+					game.getPlatformResolver().requestPurchase(GameClass.productID_fullVersion);
+				}
 				return super.touchDown(event, x, y, pointer, button);
 			}
 		});
@@ -164,8 +170,10 @@ public class Shop implements Screen{
 		weapon5.addListener(new ClickListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {					
-				game.getPlatformResolver().requestPurchase(GameClass.morelevels);
+					int pointer, int button) {	
+				if(!Constants.shopPreferences.contains(GameClass.morelevels)){							
+					game.getPlatformResolver().requestPurchase(GameClass.morelevels);
+				}
 				return super.touchDown(event, x, y, pointer, button);
 			}
 		});

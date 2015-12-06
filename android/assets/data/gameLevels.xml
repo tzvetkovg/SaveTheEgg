@@ -1,126 +1,168 @@
 <LevelData>
 	<Level1>
-	    <enemyspeed>154</enemyspeed>
+	    <enemyspeed>175</enemyspeed>
 	    <flyingenemyspeed>4</flyingenemyspeed>
+	    <ads>45</ads>
 	</<Level1>
 	
 	<Level2>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>4</flyingenemyspeed>
+	    <ads>45</ads>
 	</<Level2>
 	 
 	<Level3>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>4</flyingenemyspeed>
+	    <ads>45</ads>
 	</<Level3>
 	
 	<Level4>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>4</flyingenemyspeed>
+	    <ads>45</ads>
 	</<Level4>
 	
 	<Level5>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>4</flyingenemyspeed>
+	    <ads>45</ads>
 	</<Level5>
 	
 	<Level6>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>4</flyingenemyspeed>
+	    <ads>45</ads>
 	</<Level6>
 	
 	<Level7>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>4</flyingenemyspeed>
+	    <ads>45</ads>
 	</<Level7>
 	
 	<Level8>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>4</flyingenemyspeed>
+	    <ads>45</ads>
 	</<Level8>
 	
 	<Level9>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>4</flyingenemyspeed>
+	    <ads>45</ads>
 	</<Level9>
 	
 	    
     <Level10>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>4</flyingenemyspeed>
+	    <ads>45</ads>
 	</<Level10>
 	
 	<Level11>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
+	    <ads>45</ads>
 	</<Level11>
 	
 	<Level12>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
+	    <ads>45</ads>
 	</<Level12>
 	
 	<Level13>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
+	    <ads>45</ads>
 	</<Level13>
 	
 	<Level14>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
+	    <ads>45</ads>
 	</<Level14>
 	
 	 <Level15>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
+	    <ads>45</ads>
 	</<Level15>
 
 	<Level16>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
+	    <ads>45</ads>
 	</<Level16>
 	
 	<Level17>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
+	    <ads>45</ads>
 	</<Level17>
 	    
 	    
 	<Level18>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
+	    <ads>45</ads>
 	</<Level18>
 	    
 	<Level19>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
+	    <ads>45</ads>
 	</<Level19>
 	
 	<Level20>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
+	    <ads>45</ads>
 	</<Level20>
 	
 	    
 	<Level21>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
+	    <ads>45</ads>
 	</<Level21>
 	
 	    
 	<Level22>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
+	    <ads>45</ads>
 	</<Level22>
 	
 	 <Level23>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
+	    <ads>45</ads>
 	</<Level23>
 	
 	<Level24>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
+	    <ads>45</ads>
 	</<Level24>
+	
+	<Level25>
+	    <enemyspeed>154</enemyspeed>
+	    <flyingenemyspeed>2</flyingenemyspeed>
+	    <ads>45</ads>
+	</<Level25>
+	
+	 <Level26>
+	    <enemyspeed>154</enemyspeed>
+	    <flyingenemyspeed>2</flyingenemyspeed>
+	    <ads>45</ads>
+	</<Level26>
+	
+	 <Level27>
+	    <enemyspeed>154</enemyspeed>
+	    <flyingenemyspeed>2</flyingenemyspeed>
+	    <ads>45</ads>
+	</<Level27>
 	    
 </LevelData>

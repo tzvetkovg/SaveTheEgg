@@ -18,7 +18,7 @@
  </layer>
  <layer name="Tile Layer 3" width="50" height="30">
   <data encoding="base64" compression="zlib">
-   eJzt2FdKXGEABeDRGce6gxSw1x2kgL1uwl43Ya+bsNcFJI/2ugl7XUQ+CBIQAnHixavMgY/7MnDP+R+GnxuJJJNMMq+dD9FI5COf+Bx97TaJ54vuX/nG9xDseHqub/Wcn55r2M45mfeR0/hvbzmPG97DlqCSkhqJpBIlRhpx0skgkyyyyUl97bZ/T65ueeRTQCFFFFNCKWWUUxHiHZW6VVFNDbXUUU8DjTTRTEuId7Tq1kY7HXTSRTc99NJHPwMh3jGo2xDDjDDKGONMMMkU08yEeMesbnPMs8AiSyyzwiprrLMR4h2bum2xzQ677LHPAYcccczJC+x4vCO+dE51O+OcCy654pobbrnjnof/3PH0jpgS859PlBhpxEkng0yyyCYn9vz3xb0jnYyA76O5uuWRTwGFFFFMCaWUUU5FAjuK9C+mJOAdlbpVUU0NtdRRTwONNNFMSwI76vSvpyHgHa26tdFOB5100U0PvfTRz0ACO7r076Yn4B2Dug0xzAijjDHOBJNMMc1MAjvG9B9nIuAds7rNMc8CiyyxzAqrrLHORgI7lvRfZuUZO3747c/on+e/ZFO3LbbZYZc99jngkCOOOUlgx54e+xwEvONUtzPOueCSK6654ZY77nl45o5LHa645ib5HSD0+QVkSnhw
+   eJzt2NdpW2EABWBFkuU6QSpxbxOk4l6XcK9LuNcl3OsAyaN7XcK9DpEPQggYB2IlwtdGBz70crk6538QPwqFkkkmmcfOq0go9Jo3vI08dpv481H3T3zmSwB23D3Xp3rOd881aOeczPPIUeynp5xfG57DlkTlRTgUChMhSgoxUkkjnQwyyQo/dts/571u2eSQSx75FFBIEcWUUBrgHWW6lVNBJVVUU0MtddTTQGOAdzTp1kwLrbTRTgeddNFND70B3tGnWz8DDDLEMCOMMsY4E0wGeMeUbtPMMMsc8yywyBLLrLAa4B1ruq2zwSZbbLPDLnvsc8BhgHcc6XbMCaeccc4Fl1xxzQ23/7Dj5T133XeEo37ziZJCjFTSSCeDTLKiD//OmPenkvYf76Mf7rnrfiVbvxxyySOfAgopopgSSuPYke/9BRQm+F5dpls5FVRSRTU11FJHPQ00xrGjWv8aahO8o0m3ZlpopY12Ouiki2566I1jR7v+HXQmeEefbv0MMMgQw4wwyhjjTDAZx45h/UcYTfCOKd2mmWGWOeZZYJEllllhNY4d8/ovsPiAHd88+z3y+/NvsqbbOhtsssU2O+yyxz4HHMaxY1uPHXYTvONIt2NOOOWMcy645Iprbrh94I4zHc654DL5P0Dg8wNhy3lD
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
@@ -371,19 +371,19 @@
    </properties>
    <polyline points="0,0 26,-34 59,-1 0,-2"/>
   </object>
-  <object id="48" name="opposite3" type="object" x="273.5" y="1.54213" width="10.6667" height="8">
+  <object id="48" name="opposite3" type="object" x="287.5" y="0.54213" width="10.6667" height="8">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="opposite3"/>
    </properties>
   </object>
-  <object id="49" name="opposite1" type="object" x="102.833" y="2.79123" width="16" height="9.33333">
+  <object id="49" name="opposite1" type="object" x="129.833" y="3.79123" width="16" height="9.33333">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="opposite1"/>
    </properties>
   </object>
-  <object id="50" name="opposite2" type="object" x="176.833" y="4.87544" width="16" height="9.33333">
+  <object id="50" name="opposite2" type="object" x="201.833" y="2.87544" width="16" height="9.33333">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="opposite2"/>
@@ -407,7 +407,7 @@
     <property name="userData" value="position3"/>
    </properties>
   </object>
-  <object id="54" name="stulb10" type="fixture" x="242" y="332">
+  <object id="54" name="stulb10" type="fixture" x="241" y="349">
    <properties>
     <property name="body" value="ground"/>
     <property name="userData" value="stulb10"/>

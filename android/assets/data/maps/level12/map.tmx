@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="58">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="60">
  <tileset firstgid="1" name="sample" tilewidth="16" tileheight="16">
   <image source="../assets/sample.png" width="770" height="560"/>
  </tileset>
@@ -8,7 +8,7 @@
  </tileset>
  <layer name="Tile Layer 1" width="50" height="30">
   <data encoding="base64" compression="zlib">
-   eJzdV9sNgzAMRJVgg4zUERiFERioHwzUj+7RRiJSZDl+m1b9OPFhCe7iO8cc8zQdH+wMDgVeiYDfqtxWou7hVpY8YLr2eVz3cLsnAtNVtYzqHm5bIjBdVcuo7uGG+ZLLnzSDmK6y4DUMEq9q8hkxH0qnBfO/1auafEbMh94rGHerV72atZnHuECOkvPz5DNqPsDcaHuq7b9Vq9Srln56+q+F1KvZ817aa2oeSTR6/ByJkR+lfcYye0WPJOfm7fno/RJ/WCHlBu/Vtgdwff6m1yhevR7qDoicORn+6/XUZ/sPuYqHdveCuySmpz7XU4dmx5SemWQmlYE2TmP/re3UsRt2TW4HjdDHaWy5OLpeUO/SwHKva+8VTGv7R4+aJ1m55rS2fGTmWAOrVmwWUGcR5T+JV6jMQ86jOefpc+R9N9IGOWtmebT3tbmgNEn6GTmTpeC0Qc5X+t/rM0rT4/YfeBLg6r+ENy+0rls=
+   eJzdV8kNwjAQjFCgg5RECSklJeQJ1MIjT6AWHvRBLGHJsvb07gbEYxQJS2HGOzN2ln3XLStmBosCr0DU/5W4jcS6hdtwiAOka97j6xZux0BAupIWbN3CbQoEpCtpwdYt3CBfcvmTZhDSNRzgNQgSr2ry6dEPQ6EF8n+rVzX5hHDqu+684tLrcjgBv2k8ZMknhNvK/77i0etziHGX7J8ln179UOdG4xEtpBy1c6yzEtn31h6WejW676WzpvpIotHiZ09gfpTOGcrsFjOS7Jt15tj7Jf5ohZRbfa7mewA35296jeJV6qHOAM/OifBfqSc983fIVjy0d6/6LgnpSc/xo0Nzx5TumaSTBkQbp7H8r+mjY264a3J3UA99nMaci6WYBfUuDVrOde25AmnN3+hefRKVa05rzkdkjjVo1Qp1AbUXXv6TeIXKfM0Z6znLnD3PO0xbzVnT5d7e1+aC0iSZp2cnS8Fpqzlv6X+rzyhN191/4EmAW/8lvAHVh7El
   </data>
  </layer>
  <layer name="Tile Layer 2" width="50" height="30">
@@ -392,6 +392,16 @@
     <property name="isSensor" value="true"/>
     <property name="userData" value="position2"/>
    </properties>
+  </object>
+  <object id="58" name="prep5" x="569" y="98">
+   <properties>
+    <property name="body" value="ground"/>
+    <property name="userData" value="prep5"/>
+   </properties>
+   <polyline points="0,0 0,29 31,30 32,0"/>
+  </object>
+  <object id="59" x="569" y="96">
+   <polyline points="0,0 31,1"/>
   </object>
  </objectgroup>
 </map>

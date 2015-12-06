@@ -19,12 +19,7 @@
  </layer>
  <layer name="Tile Layer 2" width="50" height="30">
   <data encoding="base64" compression="zlib">
-   eJzt1kVuxEAQheG5WJiZmZkZL5NMmJmZmRkvk38TyZtIXe2J7UU/6du15FdSt8o+n4mJiYmJiYmJ/fShH34MYBBDGMYIRjGGcUy4U1Epk5jCNGYwiznMYwGLWMIyVlzqqJJVrGEdG9jEFraxg13sYR8H7lRUyiGOcIwTnOIM57jAJa5wjRuXOqrkFne4xwMe8YRnvOAVb3jHh+Y3zBv0VnTeYBCCEYJQhCEcEYhEFKIRg1hHptB7g3GIRwISkYRkpCAVaUhHBjIdmkPnDWYhGznIRR7yUYBCFKEYJSh1ZgytlKEcFahEFapRg1rUoR4NaAzQN//jLjehGS1oRRva0YFOdKEbPegNUDcv3uXfSLp5+S5Lurlxl1Uj6WbnLkt2vc5/gaTbX1H5rmTXS86qzmzd0XY6Sna95KzqzNYdbaejZNdLzqrObN3RdjpKdr3krOrMn/jCN34AtKYwrw==
-  </data>
- </layer>
- <layer name="Tile Layer 3" width="50" height="30">
-  <data encoding="base64" compression="zlib">
-   eJzt0zcOwkAQRuE1GUwO56BwTzZUBIn7H4XwqECWtXjBwA6aJ38Frv4RsjH3TjjjcvsR8ARGZAV2F1FCGRWhd1TZXUMdDYRC72iyu4U2Oui+eUeUzyzneuzuY4AhRi/cMcEUM8yxwBIrxFhjk9fgDxUlbLHDHoeH98dfDXQoeYuNlCRu1jRN0zQtvbGF79m2S7rlH+7Iuk/v+E4u+yTc8ewb8P3/SEvaN65pmn9dAY5tFgg=
+   eJzt14dOFFEYhuFZAenIDUmTIqD0JkgTUDpIk5uho1Rp0qQIKMUG0otcC+WdBJJlBfecmd0ZIPNln2w2mcz5/uRMzo6i3M+c4BRn6g8bH5u5fbTmAb094AkvPLyjc3jT2we+8IP/HZ0jgN6BCMIjBOuYIxwReIJIF/UzI8+RgEQkmdzFihUr5qYFrWhDOzrQiS504z0+oAe95lQUSh/6MYBBfMQQhjGCUYzhE8ZN6iiSCUxiCtP4jBnMYg7z+IIFLJpTUShL+IpvWMYKVrGG7/iBn/iF3yZ1FMk6NvAHm9jCNnawiz3s4wCHGtewnsHbFS3P4GOEIBRh19wzCtGIwVO3Nb8aLc9grOC9U5HmyrL/iZZnMN2gbu5O4cV3EYpRgtd4g1KUodzFazruZcd3Hz17uQa1eIs61KMBjWhycTd1L8chHs+Uf999kpGiGLuXLyPTTd3LGchEFl4gGzl4iVzkIR8FBs6gSHZT9/IrxflerkClkUNIdqtCteJ8L79Ds8M6Mme9lv8FMt1uisi6Mme9zLWiM9uf0Xo6ypz1MteKzmx/RuvpKHPWy1wrOrP9Ga2no8xZL3Ot6MxH+ItjnAMHZCvS
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
@@ -312,25 +307,25 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="38" name="middleSlingshot2" type="object" x="447.5" y="238" width="13" height="10">
+  <object id="38" name="middleSlingshot2" type="object" x="426.5" y="238" width="13" height="10">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="middleSlingshot2"/>
    </properties>
   </object>
-  <object id="39" name="slingshot" type="object" x="409.5" y="228" width="46" height="96">
+  <object id="39" name="slingshot" type="object" x="388.5" y="228" width="46" height="96">
    <properties>
     <property name="groupIndex" value="-1"/>
     <property name="userData" value="sling"/>
    </properties>
   </object>
-  <object id="40" name="middleBall" type="object" x="433.591" y="235.303" width="10" height="9">
+  <object id="40" name="middleBall" type="object" x="412.591" y="235.303" width="10" height="9">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="middleBall"/>
    </properties>
   </object>
-  <object id="41" name="middleSlingshot1" type="object" x="416" y="238" width="13" height="10">
+  <object id="41" name="middleSlingshot1" type="object" x="395" y="238" width="13" height="10">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="middleSlingshot1"/>

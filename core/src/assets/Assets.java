@@ -45,7 +45,6 @@ public class Assets {
 	/**
 	 * Logo
 	 */
-	logo = "data/logo.png",
 	gameTitle = "data/ui/gameTitle.png",
 	levelButton = "data/ui/closedBlack.png",
 	levelButtonClicked = "data/ui/closedClick.png",
@@ -147,7 +146,10 @@ public class Assets {
 	map21 = "data/maps/level21/map.tmx",
 	map22 = "data/maps/level22/map.tmx",
 	map23 = "data/maps/level23/map.tmx",
-	map24 = "data/maps/level24/map.tmx";
+	map24 = "data/maps/level24/map.tmx",
+	map25 = "data/maps/level25/map.tmx",
+	map26 = "data/maps/level26/map.tmx",
+	map27 = "data/maps/level27/map.tmx";
 	
 	@Asset(Skin.class)
 	public static final String

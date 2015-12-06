@@ -16,14 +16,9 @@
    eJztz0cKwlAYReE3lGQbdldkmdjdiFuwTDS2jYiuwDKxuxLPxEnAwUPw+cI98BEIJPzXGKWUUu/KoTEVVFEL3d6SD4wpoIhSYPftgNuHGGHseEeb2zvoome5Y8ftexxwdLxjzu0LLLGy3PFP3bj9jgeeHu/4VJpNGWSR83hfndsbaKLl8Y4Jt08RYebxjhO3n3HB1eMdSimllFIqmfVTv7HBNvaMv/vm/+uEeAGDYF54
   </data>
  </layer>
- <layer name="Tile Layer 3" width="50" height="30">
-  <data encoding="base64" compression="zlib">
-   eJztzkEKQAAQheFZjw3FjuJYFMeiOBbFccxu5gQy9X/1+rdPBAAAAAAAAPivXkUG9ba2LjSL2b4u6h1tU2gWu3091LvattAsbvv6qPe0XaFZ1IVIU3hLWxWKb70nxRFt
-  </data>
- </layer>
  <layer name="Tile Layer 4" width="50" height="30">
   <data encoding="base64" compression="zlib">
-   eJztz7kNgEAUQ8Gfb30cdXHUxVERrgECtNKM9HK7CujN0KrGNKW5/b3mvSXb17SlveMfR7af6Up3xz8AAAAA+OYBKCEHbw==
+   eJzt2DsKg2AQBOCt928MxE5BDxU1AT2UjwSSQ+WhYI6T6bY2ze/CfDBsO9OuCBF5cwoiFVIjTYjd5n89ug/IiEyOdzzR/YW8kY/jHURERERERHuWqUiudguk1Nittjuj80XttkjncMcVnW9q9448HO6Y0XlRuyvydbgjCSKHYPeIpPxRRPEDM9UUbA==
   </data>
  </layer>
  <objectgroup name="Object Layer 1">

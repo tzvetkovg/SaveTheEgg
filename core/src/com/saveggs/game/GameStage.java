@@ -101,7 +101,7 @@ public class GameStage extends Stage implements ContactListener{
 	private PruskaneQice pruskane;
 	private Map<String,Object> mapBodies;
 	private AdsController adsController;
-	private int timeIntervalAds = 0,timeAds = 1000,numberOfEnemyKillings = 0,launchBothEnemies = 100,dialogAppearTimes = 0;
+	private int timeIntervalAds = 0,timeAds = 32,numberOfEnemyKillings = 0,launchBothEnemies = 37,dialogAppearTimes = 0;
 	public boolean showGame = false, internetEnabled = false, showAd = false;
 	private LoadingScreen loading;
 	private Skin skin;
@@ -1242,7 +1242,7 @@ public class GameStage extends Stage implements ContactListener{
 							//start launching both enemies
 							if(numberOfEnemyKillings > launchBothEnemies){								
 								//launch both enemies
-/*								if(internetEnabled && timeIntervalAds >= timeAds){
+								if(internetEnabled && timeIntervalAds >= timeAds){
 									adsController.showInterstitialAd(new Runnable() {
 										@Override
 										public void run() {
@@ -1250,7 +1250,7 @@ public class GameStage extends Stage implements ContactListener{
 										}
 									});
 								}						
-								timeIntervalAds++;*/
+								timeIntervalAds++;
 								if(!enemyOtherSide.enemyDraw){
 									launchEnemyTwo();
 									launchEnemyOne();
@@ -1258,26 +1258,26 @@ public class GameStage extends Stage implements ContactListener{
 								else
 									launchEnemyOne();
 								//reset
-								//if(timeIntervalAds > timeAds)
-								//	timeIntervalAds = 0;
+								if(timeIntervalAds > timeAds)
+									timeIntervalAds = 0;
 							}
 							//launch only one enemy
 							else
 							{								
 								//if mobile internet and limit reached
-/*								if(internetEnabled && timeIntervalAds >= timeAds){
+								if(internetEnabled && timeIntervalAds >= timeAds){
 									adsController.showInterstitialAd(new Runnable() {
 										@Override
 										public void run() {
 											timeIntervalAds = 0;
 										}
 									});
-								}*/
-								//timeIntervalAds++;
+								}
+								timeIntervalAds++;
 								launchEnemy();
 								//reset
-								//if(timeIntervalAds > timeAds)
-								//	timeIntervalAds = 0;
+								if(timeIntervalAds > timeAds)
+									timeIntervalAds = 0;
 							}
 						}
 					});
@@ -1304,7 +1304,7 @@ public class GameStage extends Stage implements ContactListener{
 							// launching both enemies
 							if(numberOfEnemyKillings > launchBothEnemies){								
 								//launch both enemies
-/*								if(internetEnabled && timeIntervalAds >= timeAds){
+								if(internetEnabled && timeIntervalAds >= timeAds){
 									adsController.showInterstitialAd(new Runnable() {
 										@Override
 										public void run() {
@@ -1312,7 +1312,7 @@ public class GameStage extends Stage implements ContactListener{
 										}
 									});
 								}
-								timeIntervalAds++;*/
+								timeIntervalAds++;
 								if(!enemy.enemyDraw){
 									launchEnemyTwo();
 									launchEnemyOne();
@@ -1327,19 +1327,19 @@ public class GameStage extends Stage implements ContactListener{
 							else
 							{								
 								//if mobile enabled
-/*								if(internetEnabled && timeIntervalAds >= timeAds){
+								if(internetEnabled && timeIntervalAds >= timeAds){
 									adsController.showInterstitialAd(new Runnable() {
 										@Override
 										public void run() {
 											timeIntervalAds = 0;
 										}
 									});
-								}*/
-								//timeIntervalAds++;
+								}
+								timeIntervalAds++;
 								launchEnemy();
 								//reset
-								//if(timeIntervalAds > timeAds)
-								//	timeIntervalAds = 0;
+								if(timeIntervalAds > timeAds)
+									timeIntervalAds = 0;
 							}
 							
 						}

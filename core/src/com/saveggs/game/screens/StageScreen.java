@@ -115,8 +115,6 @@ public class StageScreen implements Screen {
 		boolean weapon2 = Constants.shopPreferences.contains(GameClass.slowdown);
 		boolean weapon3 = Constants.shopPreferences.contains(GameClass.fastball);
 		
-		System.out.println("weapon1 " +weapon2);
-		
 		this.stage = new GameStage(adsController,this.worldBodies,this.world,internetUse,game,this.map,currentLevel,Float.parseFloat(levelDetails.getChildByName("enemyspeed").getText()),
 									weapon1,weapon2,weapon3);		
 	}

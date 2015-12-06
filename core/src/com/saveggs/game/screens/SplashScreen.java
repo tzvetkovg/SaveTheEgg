@@ -47,11 +47,11 @@ public class SplashScreen implements Screen {
 		stage.getViewport().setCamera(camera);
 		
 		Gdx.input.setInputProcessor(stage);
-		Sprite splash = new Sprite(new Texture(Gdx.files.internal("data/logo.png")));
+		Sprite splash = new Sprite(new Texture(Gdx.files.internal("data/Vulture_Cartoon.jpg")));
 		
 		image = new Image(splash);
-		image.setSize(splash.getWidth() / 100, splash.getHeight() / 100);
-		image.setOrigin(splash.getWidth()/ 35 / 2, splash.getHeight()/ 35 / 2);
+		image.setSize(splash.getWidth() / 65, splash.getHeight() / 65);
+		image.setOrigin(splash.getWidth() / 35 / 1.4f, splash.getHeight()/ 35 / 1.4f);
 		image.addAction(sequence(alpha(0),scaleTo(.1f,.1f),
 				parallel(fadeIn(2f, Interpolation.pow2),
 						scaleTo(2f,2f,2.5f, Interpolation.pow5),

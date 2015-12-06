@@ -56,9 +56,9 @@ public class TutorialScreen implements Screen {
 		stage.addActor(backgroundImage);
 		
 		image = new Image(Assets.manager.get(Assets.tutorial, Texture.class));
-		image.setSize(Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT * 0.7f);
+		image.setSize(Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT * 0.79f);
 		image.setOrigin(Constants.SCENE_WIDTH * 0.5f, Constants.SCENE_HEIGHT * 0.5f );
-		image.setPosition(image.getX(), image.getY() + 100f);
+		image.setPosition(image.getX(), image.getY() + 90f);
 		stage.addActor(image);
 		stage.addActor(button);
 		
