@@ -130,7 +130,7 @@ public class GameStage extends Stage implements ContactListener{
 	final TextButton.TextButtonStyle weaponButtonTwoStyle = new TextButton.TextButtonStyle();
 	final TextButton.TextButtonStyle weaponButtonThreeStyle = new TextButton.TextButtonStyle();
 	
-	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map, int currentLevel,float enemyLevelSpeed,boolean weapon1, boolean weapon2, boolean weapon3){
+	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map, int currentLevel,float enemyLevelSpeed,boolean weapon1, boolean weapon2, boolean weapon3,int timeAds){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
 		this.game = game;
 		this.mapBodies = mapBodies;
@@ -143,8 +143,12 @@ public class GameStage extends Stage implements ContactListener{
 		this.weapon1Enabled = weapon1;
 		this.weapon2Enabled = weapon2;
 		this.weapon3Enabled = weapon3;
+		this.timeAds = timeAds;
+		this.launchBothEnemies = timeAds + 5;
 		setupCamera();
-		getViewport().setCamera(camera);
+		getViewport().setCamera(camera)
+		
+		;
 		setUtils();
 		setupWorld();
 		Gdx.input.setInputProcessor(this);

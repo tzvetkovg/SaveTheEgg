@@ -116,7 +116,7 @@ public class StageScreen implements Screen {
 		boolean weapon3 = Constants.shopPreferences.contains(GameClass.fastball);
 		
 		this.stage = new GameStage(adsController,this.worldBodies,this.world,internetUse,game,this.map,currentLevel,Float.parseFloat(levelDetails.getChildByName("enemyspeed").getText()),
-									weapon1,weapon2,weapon3);		
+									weapon1,weapon2,weapon3,Integer.parseInt(levelDetails.getChildByName("ads").getText()));	
 	}
 
 

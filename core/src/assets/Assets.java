@@ -45,7 +45,7 @@ public class Assets {
 	/**
 	 * Logo
 	 */
-	gameTitle = "data/ui/gameTitle.png",
+	gameTitle = "data/ui/vulture.png",
 	levelButton = "data/ui/closedBlack.png",
 	levelButtonClicked = "data/ui/closedClick.png",
 	readyToBeSolved = "data/ui/readyToBeSolved.png",

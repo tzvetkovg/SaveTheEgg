@@ -207,7 +207,7 @@ public class LevelScreen implements Screen{
 		
 		TiledMap map = null;
 		switch (level) {
-        case 1:  map = Assets.manager.get(Assets.map27, TiledMap.class);
+        case 1:  map = Assets.manager.get(Assets.map1, TiledMap.class);
         		 break;
         case 2:  map = Assets.manager.get(Assets.map2, TiledMap.class);
                  break;
@@ -256,6 +256,10 @@ public class LevelScreen implements Screen{
         case 24: map = Assets.manager.get(Assets.map24, TiledMap.class);
 				break;
         case 25: map = Assets.manager.get(Assets.map25, TiledMap.class);
+				break;
+        case 26: map = Assets.manager.get(Assets.map26, TiledMap.class);
+				break;
+        case 27: map = Assets.manager.get(Assets.map27, TiledMap.class);
 				break;
 		}
 		
