@@ -1,56 +1,65 @@
 <LevelData>
 	<Level1>
-	    <enemyspeed>175</enemyspeed>
+	    <enemyspeed>187</enemyspeed>
 	    <flyingenemyspeed>4</flyingenemyspeed>
-	    <ads>45</ads>
+	    <ads>47</ads>
+	    <launchbothenemies>51</launchbothenemies>
 	</<Level1>
 	
 	<Level2>
-	    <enemyspeed>154</enemyspeed>
+	    <enemyspeed>185</enemyspeed>
 	    <flyingenemyspeed>4</flyingenemyspeed>
 	    <ads>45</ads>
+	    <launchbothenemies>51</launchbothenemies>
 	</<Level2>
 	 
 	<Level3>
-	    <enemyspeed>154</enemyspeed>
+	    <enemyspeed>180</enemyspeed>
 	    <flyingenemyspeed>4</flyingenemyspeed>
 	    <ads>45</ads>
+	    <launchbothenemies>48</launchbothenemies>
 	</<Level3>
 	
 	<Level4>
 	    <enemyspeed>154</enemyspeed>
-	    <flyingenemyspeed>4</flyingenemyspeed>
+	    <flyingenemyspeed>3</flyingenemyspeed>
 	    <ads>45</ads>
+	    <launchbothenemies>45</launchbothenemies>
 	</<Level4>
 	
 	<Level5>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>4</flyingenemyspeed>
 	    <ads>45</ads>
+	    <launchbothenemies>45</launchbothenemies>
 	</<Level5>
 	
 	<Level6>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>4</flyingenemyspeed>
 	    <ads>45</ads>
+	    <launchbothenemies>45</launchbothenemies>
 	</<Level6>
 	
 	<Level7>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>4</flyingenemyspeed>
 	    <ads>45</ads>
+	    <launchbothenemies>45</launchbothenemies>
 	</<Level7>
 	
 	<Level8>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>4</flyingenemyspeed>
 	    <ads>45</ads>
+	    <launchbothenemies>45</launchbothenemies>
 	</<Level8>
 	
 	<Level9>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>4</flyingenemyspeed>
 	    <ads>45</ads>
+	    <launchbothenemies>45</launchbothenemies>
 	</<Level9>
 	
 	    
@@ -58,48 +67,56 @@
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>4</flyingenemyspeed>
 	    <ads>45</ads>
+	    <launchbothenemies>45</launchbothenemies>
 	</<Level10>
 	
 	<Level11>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
 	    <ads>45</ads>
+	    <launchbothenemies>45</launchbothenemies>
 	</<Level11>
 	
 	<Level12>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
 	    <ads>45</ads>
+	    <launchbothenemies>45</launchbothenemies>
 	</<Level12>
 	
 	<Level13>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
 	    <ads>45</ads>
+	    <launchbothenemies>45</launchbothenemies>
 	</<Level13>
 	
 	<Level14>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
 	    <ads>45</ads>
+	    <launchbothenemies>45</launchbothenemies>
 	</<Level14>
 	
 	 <Level15>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
 	    <ads>45</ads>
+	    <launchbothenemies>45</launchbothenemies>
 	</<Level15>
 
 	<Level16>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
 	    <ads>45</ads>
+	    <launchbothenemies>45</launchbothenemies>
 	</<Level16>
 	
 	<Level17>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
 	    <ads>45</ads>
+	    <launchbothenemies>45</launchbothenemies>
 	</<Level17>
 	    
 	    
@@ -107,18 +124,21 @@
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
 	    <ads>45</ads>
+	    <launchbothenemies>45</launchbothenemies>
 	</<Level18>
 	    
 	<Level19>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
 	    <ads>45</ads>
+	    <launchbothenemies>45</launchbothenemies>
 	</<Level19>
 	
 	<Level20>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
 	    <ads>45</ads>
+	    <launchbothenemies>45</launchbothenemies>
 	</<Level20>
 	
 	    
@@ -126,6 +146,7 @@
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
 	    <ads>45</ads>
+	    <launchbothenemies>45</launchbothenemies>
 	</<Level21>
 	
 	    
@@ -133,36 +154,42 @@
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
 	    <ads>45</ads>
+	    <launchbothenemies>45</launchbothenemies>
 	</<Level22>
 	
 	 <Level23>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
 	    <ads>45</ads>
+	    <launchbothenemies>45</launchbothenemies>
 	</<Level23>
 	
 	<Level24>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
 	    <ads>45</ads>
+	    <launchbothenemies>45</launchbothenemies>
 	</<Level24>
 	
 	<Level25>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
 	    <ads>45</ads>
+	    <launchbothenemies>45</launchbothenemies>
 	</<Level25>
 	
 	 <Level26>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
 	    <ads>45</ads>
+	    <launchbothenemies>45</launchbothenemies>
 	</<Level26>
 	
 	 <Level27>
 	    <enemyspeed>154</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
 	    <ads>45</ads>
+	    <launchbothenemies>45</launchbothenemies>
 	</<Level27>
 	    
 </LevelData>

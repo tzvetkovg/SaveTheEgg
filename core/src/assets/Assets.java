@@ -79,8 +79,8 @@ public class Assets {
 	 * Stage
 	 */
 	qice = "data/qice.png",
-	dynamicBall = "data/ball_small.png",
-	slingshot = "data/slingshot2.png",
+	dynamicBall = "data/ball_smalltest.png",
+	slingshot = "data/slinghsotTest.png",
 	meshLastik = "data/lastik.png",
 	//ptica
 	pileBezKraka = "enemy/myDemoTest.png",
@@ -121,7 +121,6 @@ public class Assets {
 	/**
 	 * Maps
 	 */
-	@Asset(TiledMap.class)
 	public static final String
 	map1 = "data/maps/level1/map.tmx",
 	map2 = "data/maps/level2/map.tmx",

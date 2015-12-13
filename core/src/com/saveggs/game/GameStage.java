@@ -101,7 +101,7 @@ public class GameStage extends Stage implements ContactListener{
 	private PruskaneQice pruskane;
 	private Map<String,Object> mapBodies;
 	private AdsController adsController;
-	private int timeIntervalAds = 0,timeAds = 32,numberOfEnemyKillings = 0,launchBothEnemies = 37,dialogAppearTimes = 0;
+	private int timeIntervalAds = 0,timeAds = 32,numberOfEnemyKillings = 0,launchBothEnemies = 0,dialogAppearTimes = 0;
 	public boolean showGame = false, internetEnabled = false, showAd = false;
 	private LoadingScreen loading;
 	private Skin skin;
@@ -129,8 +129,9 @@ public class GameStage extends Stage implements ContactListener{
 	final TextButton.TextButtonStyle weaponButtonOneStyle = new TextButton.TextButtonStyle();
 	final TextButton.TextButtonStyle weaponButtonTwoStyle = new TextButton.TextButtonStyle();
 	final TextButton.TextButtonStyle weaponButtonThreeStyle = new TextButton.TextButtonStyle();
+	String mapPath;
 	
-	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map, int currentLevel,float enemyLevelSpeed,boolean weapon1, boolean weapon2, boolean weapon3,int timeAds){
+	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map, int currentLevel,float enemyLevelSpeed,boolean weapon1, boolean weapon2, boolean weapon3,int timeAds,String mapPath,int numberOfKillings){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
 		this.game = game;
 		this.mapBodies = mapBodies;
@@ -144,11 +145,10 @@ public class GameStage extends Stage implements ContactListener{
 		this.weapon2Enabled = weapon2;
 		this.weapon3Enabled = weapon3;
 		this.timeAds = timeAds;
-		this.launchBothEnemies = timeAds + 5;
+		this.launchBothEnemies = numberOfKillings;
+		this.mapPath = mapPath;
 		setupCamera();
-		getViewport().setCamera(camera)
-		
-		;
+		getViewport().setCamera(camera);
 		setUtils();
 		setupWorld();
 		Gdx.input.setInputProcessor(this);
@@ -305,7 +305,7 @@ public class GameStage extends Stage implements ContactListener{
 		
 		bodiesOfWorld = new Array<Body>();
 		world.getBodies(bodiesOfWorld);
-		int timeOfIzlupvane = 30;
+		int timeOfIzlupvane = 35;
 		//map of all bodies
 		for (Body bodyLoop : bodiesOfWorld) {
 			//get bodies
@@ -325,7 +325,7 @@ public class GameStage extends Stage implements ContactListener{
 				
 				eggs.add(qice);
 				allEggs.add(qice);
-				timeOfIzlupvane += 30;
+				timeOfIzlupvane += 35;
 				addActor(qice);
 			
 			}
@@ -514,6 +514,11 @@ public class GameStage extends Stage implements ContactListener{
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
+				
+				for (Qice qice : allEggs) {
+					qice.pause();
+		        }
+				
 				buttonClicked = true;
 				showGame = false;
 				adjustMusic(0);
@@ -521,9 +526,7 @@ public class GameStage extends Stage implements ContactListener{
 				pauseMenu.show(pause.getStage());
 				pauseMenu.setOrigin(pause.getStage().getWidth() * 0.4f , 
 									pause.getStage().getHeight() / 2);
-				for (Qice qice : eggs) {
-					qice.pauseTime();
-		        }
+
 				return super.touchDown(event, x, y, pointer, button);
 			}
 			@Override
@@ -746,8 +749,9 @@ public class GameStage extends Stage implements ContactListener{
 					else{
 						adjustMusic(1);
 					}
-					for (Qice qice : eggs) {
-						qice.pauseTime();
+					
+					for (Qice qice : allEggs) {
+						qice.pause();
 			        }
 					resetStage();
 					showGame = true;
@@ -765,7 +769,7 @@ public class GameStage extends Stage implements ContactListener{
 					stopMusic();
 					getStage().dispose();
 					world.dispose();
-					//disposeAllAssets();
+					disposeAllAssets();
 					game.setScreen(new LevelScreen(adsController,game));
 				}
 				
@@ -800,8 +804,8 @@ public class GameStage extends Stage implements ContactListener{
 					if(!musicMuted){						
 						adjustMusic(1);
 					}
-					for (Qice qice : eggs) {
-						qice.resumeTime();
+					for (Qice qice : allEggs) {
+						qice.resume();
 			        }
 					showGame = true;
 				}
@@ -836,7 +840,7 @@ public class GameStage extends Stage implements ContactListener{
 					stopMusic();
 					getStage().dispose();
 					world.dispose();
-					//disposeAllAssets();
+					disposeAllAssets();
 					game.setScreen(new LevelScreen(adsController,game));
 				}
 			}
@@ -1247,10 +1251,16 @@ public class GameStage extends Stage implements ContactListener{
 							if(numberOfEnemyKillings > launchBothEnemies){								
 								//launch both enemies
 								if(internetEnabled && timeIntervalAds >= timeAds){
+									for(Qice qice: allEggs){
+										qice.pause();
+									}
 									adsController.showInterstitialAd(new Runnable() {
 										@Override
 										public void run() {
 											timeIntervalAds = 0;
+											for(Qice qice: allEggs){
+												qice.resume();
+											}
 										}
 									});
 								}						
@@ -1270,10 +1280,16 @@ public class GameStage extends Stage implements ContactListener{
 							{								
 								//if mobile internet and limit reached
 								if(internetEnabled && timeIntervalAds >= timeAds){
+									for(Qice qice: allEggs){
+										qice.pause();
+									}
 									adsController.showInterstitialAd(new Runnable() {
 										@Override
 										public void run() {
 											timeIntervalAds = 0;
+											for(Qice qice: allEggs){
+												qice.resume();
+											}
 										}
 									});
 								}
@@ -1309,10 +1325,16 @@ public class GameStage extends Stage implements ContactListener{
 							if(numberOfEnemyKillings > launchBothEnemies){								
 								//launch both enemies
 								if(internetEnabled && timeIntervalAds >= timeAds){
+									for(Qice qice: allEggs){
+										qice.pause();
+									}
 									adsController.showInterstitialAd(new Runnable() {
 										@Override
 										public void run() {
 											timeIntervalAds = 0;
+											for(Qice qice: allEggs){
+												qice.resume();
+											}
 										}
 									});
 								}
@@ -1332,10 +1354,16 @@ public class GameStage extends Stage implements ContactListener{
 							{								
 								//if mobile enabled
 								if(internetEnabled && timeIntervalAds >= timeAds){
+									for(Qice qice: allEggs){
+										qice.pause();
+									}
 									adsController.showInterstitialAd(new Runnable() {
 										@Override
 										public void run() {
 											timeIntervalAds = 0;
+											for(Qice qice: allEggs){
+												qice.resume();
+											}
 										}
 									});
 								}
@@ -1543,11 +1571,13 @@ public class GameStage extends Stage implements ContactListener{
 	}
 	
 	public void disposeAllAssets(){
-		music1.dispose();
+		Assets.manager.unload(mapPath);
+		map.dispose();
+/*		music1.dispose();
 		breakingEgg.dispose();
 		destroyEnemey.dispose();
 		map.dispose();
 		skin.dispose();
-		debugRenderer.dispose();
+		debugRenderer.dispose();*/
 	}
 }

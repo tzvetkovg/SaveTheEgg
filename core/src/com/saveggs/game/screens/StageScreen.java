@@ -57,11 +57,23 @@ public class StageScreen implements Screen {
 	private int currentLevel;
 	private Table table;
 	private Slider slider;
+	boolean internetUse = false;
+	boolean weapon1 = false;
+	boolean weapon2 = false;
+	boolean weapon3 = false;
+	GameClass game;
+	float enemySpeed = 0;
+	int ads = 0;
+	int numberOfKillings = 0;
+	String currentMap;
 	
-	public StageScreen(final AdsController adsController, final GameClass game,final boolean internetEnabled,TiledMap map,int level) throws IOException{
+	public StageScreen(final AdsController adsController, final GameClass game,final boolean internetEnabled,String map,int level) throws IOException{
 		this.eggSaver = game;
 		
-		this.map = map;
+		
+		this.game = game;
+		currentMap = map;
+		//this.map = map;
 		this.currentLevel = level;
 		
 		this.worldBodies = new HashMap<String,Object>();
@@ -110,13 +122,32 @@ public class StageScreen implements Screen {
 		this.adsController = adsController;	
 		Constants.sound.stop();
 		
+		enemySpeed = Float.parseFloat(levelDetails.getChildByName("enemyspeed").getText());
+		ads = Integer.parseInt(levelDetails.getChildByName("ads").getText());
+		numberOfKillings = Integer.parseInt(levelDetails.getChildByName("launchbothenemies").getText());
+		
 		boolean internetUse = (internetEnabled && !Constants.shopPreferences.contains(GameClass.productID_fullVersion));
 		boolean weapon1 = Constants.shopPreferences.contains(GameClass.automaticdestruction);
 		boolean weapon2 = Constants.shopPreferences.contains(GameClass.slowdown);
 		boolean weapon3 = Constants.shopPreferences.contains(GameClass.fastball);
 		
+		System.out.println("weapon1 " + weapon1 );
+		System.out.println("weapon2 " + weapon2 );
+		System.out.println("weapon3 " + weapon3 );
+		
+		Assets.manager.load(map, TiledMap.class);
+		Assets.manager.finishLoadingAsset(map);;
+		
+		//if((currentMap, TiledMap.class)){
+			this.stage = new GameStage(adsController,this.worldBodies,this.world,internetUse,game,Assets.manager.get(map, TiledMap.class),currentLevel,enemySpeed,
+					weapon1,weapon2,weapon3,ads,map,numberOfKillings);
+		//}
+		
+		
+		
+/*		
 		this.stage = new GameStage(adsController,this.worldBodies,this.world,internetUse,game,this.map,currentLevel,Float.parseFloat(levelDetails.getChildByName("enemyspeed").getText()),
-									weapon1,weapon2,weapon3,Integer.parseInt(levelDetails.getChildByName("ads").getText()));	
+									weapon1,weapon2,weapon3,Integer.parseInt(levelDetails.getChildByName("ads").getText()));	*/
 	}
 
 
@@ -141,6 +172,7 @@ public class StageScreen implements Screen {
 			((OrthographicCamera) this.stage.getCamera() ).zoom += 0.1f;
 			((OrthographicCamera) this.stage.getCamera() ).update();
 		}
+
 	}
 
 	@Override

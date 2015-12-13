@@ -174,7 +174,28 @@ public class GameClass extends Game {
 			@Override
 			public void handleRestore (Transaction[] transactions) {
 				for (int i = 0; i < transactions.length; i++) {
-					if (checkTransaction(transactions[i].getIdentifier(), true) == true) break;
+					System.out.println("transaction is " + transactions[i].getIdentifier());
+					if (automaticdestruction.equals(transactions[i].getIdentifier()) ) {
+						Constants.shopPreferences.putBoolean(automaticdestruction, true);
+						Constants.shopPreferences.flush();
+					}		
+					if (fastball.equals(transactions[i].getIdentifier()) ) {
+						System.out.println("fastball bought");
+						Constants.shopPreferences.putBoolean(fastball, true);
+						Constants.shopPreferences.flush();
+					}
+					if (slowdown.equals(transactions[i].getIdentifier()) ) {
+						Constants.shopPreferences.putBoolean(slowdown, true);
+						Constants.shopPreferences.flush();
+					}
+					if (productID_fullVersion.equals(transactions[i].getIdentifier()) ) {
+						Constants.shopPreferences.putBoolean(productID_fullVersion, true);
+						Constants.shopPreferences.flush();
+					}
+					if (morelevels.equals(transactions[i].getIdentifier()) ) {
+						Constants.shopPreferences.putBoolean(morelevels, true);
+						Constants.shopPreferences.flush();
+					}
 				}
 			}
 			@Override
@@ -204,13 +225,14 @@ public class GameClass extends Game {
 
 		protected boolean checkTransaction (String ID, boolean isRestore) {
 			boolean returnbool = false;
-			System.out.println("comes here");
+
 			if (automaticdestruction.equals(ID) ) {
 				Constants.shopPreferences.putBoolean(automaticdestruction, true);
 				Constants.shopPreferences.flush();
 				returnbool = true;
 			}		
 			if (fastball.equals(ID) ) {
+				System.out.println("fastball bought");
 				Constants.shopPreferences.putBoolean(fastball, true);
 				Constants.shopPreferences.flush();
 				returnbool = true;

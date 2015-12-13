@@ -47,6 +47,8 @@ public class Qice extends GameActor {
 	public boolean playMusic, playHatchOut = false;
 	public long pileId = 0;
 	public boolean musicEnabled = true;
+	public float timeSpend = 0;
+	public boolean measureTime = true;
 	
 	public Qice(final Body body,int interval) {
 		super(body);
@@ -65,8 +67,10 @@ public class Qice extends GameActor {
 		animatedSprite = new AnimatedSprite(animation);
 		animatedBox2DSprite = new AnimatedBox2DSprite(animatedSprite);
 		
+		animatedBox2DSprite.update(timeSpend);
+		
 		this.interval = interval;
-		task = new Task(){
+/*		task = new Task(){
             @Override
             public void run() {
             	runBatch = true;
@@ -76,18 +80,19 @@ public class Qice extends GameActor {
             };
 		};
 		startTime = System.currentTimeMillis();
-		Timer.schedule(task,this.interval,1f,2);
+		Timer.schedule(task,this.interval,1f,2);*/
 
 	}
+	
 
+	
 	 @Override
      public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
+        super.draw(batch, parentAlpha); 
         if(drawing){
         	if(!animationDraw) //should be !animationDraw 
         		sprite.draw(batch, body.getFixtureList().first()); 
         	else if(animationDraw){
-
         		pilence.play();
         		if(animatedBox2DSprite.isAnimationFinished()){  
         			sprite.setRegion(animatedBox2DSprite.getAnimation().getKeyFrame(4));
@@ -135,24 +140,62 @@ public class Qice extends GameActor {
         }
      }	
 	 
-	 public void pauseTime(){
+/*	 public void pauseTime(){
 		 task.cancel();
 	 }
 	 
 	 public void resumeTime(){
 		stopTime = System.currentTimeMillis();
 		if( ( (stopTime - startTime) / 1000.0) < this.interval + 3){
-/*			 System.out.println("interval: " + (this.interval + 3));
+			 System.out.println("interval: " + (this.interval + 3));
 			 System.out.println("time spent " +  ((stopTime - startTime) / 1000.0));
-			 System.out.println("new time is " + ((this.interval + 3) - ( (stopTime - startTime) / 1000.0)));*/
+			 System.out.println("new time is " + ((this.interval + 3) - ( (stopTime - startTime) / 1000.0)));
 			 Timer.schedule(this.task,(int)( (this.interval + 3) - ( (stopTime - startTime) / 1000.0) ),1f,2);
 		}
 		else{
 			Timer.schedule(this.task,this.interval,1f,2);
 		}
-	 }
+	 }*/
 	 
-	 public void runEffect(Batch batch){	//run the effect	 		
+
+	 @Override
+	public void act(float delta) {
+		// TODO Auto-generated method stub
+		super.act(delta);
+		if(measureTime){
+			if(interval == (int)timeSpend){
+				startChickenAnimation();
+			}
+			timeSpend += delta;
+		}
+	}
+
+	public void resetTimeSpend(){
+		timeSpend = 0;
+	}
+	 
+	public void startChickenAnimation(){
+    	runBatch = true;
+    	animationDraw = true;
+    	//izlupeno pile
+    	body.setAwake(true);
+	}
+	
+	public void pause(){
+		measureTime = false;
+		if(animatedBox2DSprite.isPlaying()){
+			animatedBox2DSprite.pause();
+		}
+	}
+	
+	public void resume(){
+		measureTime = true;
+		if(!animatedBox2DSprite.isPlaying() && !animatedBox2DSprite.isAnimationFinished()){
+			animatedBox2DSprite.play();
+		}
+	}
+	
+	public void runEffect(Batch batch){	//run the effect	 		
 	 		effect.update(Gdx.graphics.getDeltaTime());
 	 		effect.setPosition(body.getPosition().x + 0.5f, body.getPosition().y + 0.5f);
 	 		effect.draw(batch);
@@ -195,12 +238,14 @@ public class Qice extends GameActor {
 		 animationDraw = false;
 		 body.setTransform(position, 0);
 		 sprite.setRegion(Assets.manager.get(Assets.qice, Texture.class));
+		 timeSpend = 0;
+		 measureTime = true;
 		 //reset animation
 		 //reset izlupvane
-		 if(task.isScheduled()){
+/*		 if(task.isScheduled()){
 			 task.cancel();
 		 }
-		 Timer.schedule(this.task,this.interval,1f,2);
+		 Timer.schedule(this.task,this.interval,1f,2);*/
 		 
 		 drawing = true;
 	 }	 

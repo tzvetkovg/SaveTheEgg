@@ -205,61 +205,61 @@ public class LevelScreen implements Screen{
 		TextButton button = new TextButton("", tbs);
 		tbs.font.getData().setScale(2f);
 		
-		TiledMap map = null;
+		String map = null;
 		switch (level) {
-        case 1:  map = Assets.manager.get(Assets.map1, TiledMap.class);
+        case 1:  map = Assets.map1;//Assets.manager.get(Assets.map1, TiledMap.class);
         		 break;
-        case 2:  map = Assets.manager.get(Assets.map2, TiledMap.class);
+        case 2:  map = Assets.map3;//Assets.manager.get(Assets.map2, TiledMap.class);
                  break;
-        case 3:  map = Assets.manager.get(Assets.map3, TiledMap.class);
+        case 3:  map = Assets.map5;//Assets.manager.get(Assets.map3, TiledMap.class);
                  break;
-        case 4:  map = Assets.manager.get(Assets.map4, TiledMap.class);
+        case 4:  map = Assets.map6;//Assets.manager.get(Assets.map4, TiledMap.class);
                  break;
-        case 5:  map = Assets.manager.get(Assets.map5, TiledMap.class);
+        case 5:  map = Assets.map9;//Assets.manager.get(Assets.map5, TiledMap.class);
                  break;
-        case 6:  map = Assets.manager.get(Assets.map6, TiledMap.class);
+        case 6:  map = Assets.map27;//Assets.manager.get(Assets.map6, TiledMap.class);
                  break;
-        case 7:  map = Assets.manager.get(Assets.map7, TiledMap.class);
+        case 7:  map = Assets.map10;//Assets.manager.get(Assets.map7, TiledMap.class);
                  break;
-        case 8:  map = Assets.manager.get(Assets.map8, TiledMap.class);
+        case 8:  map = Assets.map12;//Assets.manager.get(Assets.map8, TiledMap.class);
                  break;
-        case 9:  map = Assets.manager.get(Assets.map9, TiledMap.class);
+        case 9:  map = Assets.map26;//Assets.manager.get(Assets.map9, TiledMap.class);
                  break;
-        case 10: map = Assets.manager.get(Assets.map10, TiledMap.class);
+        case 10: map = Assets.map23;//Assets.manager.get(Assets.map10, TiledMap.class);
                  break;
-        case 11: map = Assets.manager.get(Assets.map11, TiledMap.class);
+        case 11: map = Assets.map21;//Assets.manager.get(Assets.map11, TiledMap.class);
                  break;
-        case 12: map = Assets.manager.get(Assets.map12, TiledMap.class);
+        case 12: map = Assets.map18;//Assets.manager.get(Assets.map12, TiledMap.class);
                  break;
-        case 13: map = Assets.manager.get(Assets.map13, TiledMap.class);
+        case 13: map = Assets.map19;//Assets.manager.get(Assets.map13, TiledMap.class);
         		 break;
-        case 14: map = Assets.manager.get(Assets.map14, TiledMap.class);
+        case 14: map = Assets.map20;//Assets.manager.get(Assets.map14, TiledMap.class);
         		 break;
-        case 15: map = Assets.manager.get(Assets.map15, TiledMap.class);
+        case 15: map = Assets.map15;//Assets.manager.get(Assets.map15, TiledMap.class);
         		 break;
-        case 16: map = Assets.manager.get(Assets.map16, TiledMap.class);
+        case 16: map = Assets.map22;//Assets.manager.get(Assets.map16, TiledMap.class);
         		 break;
-        case 17: map = Assets.manager.get(Assets.map17, TiledMap.class);
+        case 17: map = Assets.map24;//Assets.manager.get(Assets.map17, TiledMap.class);
         		 break;
-        case 18: map = Assets.manager.get(Assets.map18, TiledMap.class);
+        case 18: map = Assets.map25;//Assets.manager.get(Assets.map18, TiledMap.class);
         		 break;
-        case 19: map = Assets.manager.get(Assets.map19, TiledMap.class);
+        case 19: map = Assets.map7;//Assets.manager.get(Assets.map19, TiledMap.class);
         		break;
-        case 20: map = Assets.manager.get(Assets.map20, TiledMap.class);
+        case 20: map = Assets.map13;//Assets.manager.get(Assets.map20, TiledMap.class);
         		break;
-        case 21: map = Assets.manager.get(Assets.map21, TiledMap.class);
+        case 21: map = Assets.map14;//Assets.manager.get(Assets.map21, TiledMap.class);
 				break;
-        case 22: map = Assets.manager.get(Assets.map22, TiledMap.class);
+        case 22: map = Assets.map2;//Assets.manager.get(Assets.map22, TiledMap.class);
 				break;
-        case 23: map = Assets.manager.get(Assets.map23, TiledMap.class);
+        case 23: map = Assets.map4;//Assets.manager.get(Assets.map23, TiledMap.class);
 				break;
-        case 24: map = Assets.manager.get(Assets.map24, TiledMap.class);
+        case 24: map = Assets.map17;//Assets.manager.get(Assets.map24, TiledMap.class);
 				break;
-        case 25: map = Assets.manager.get(Assets.map25, TiledMap.class);
+        case 25: map = Assets.map8;//Assets.manager.get(Assets.map25, TiledMap.class);
 				break;
-        case 26: map = Assets.manager.get(Assets.map26, TiledMap.class);
+        case 26: map = Assets.map11;//Assets.manager.get(Assets.map26, TiledMap.class);
 				break;
-        case 27: map = Assets.manager.get(Assets.map27, TiledMap.class);
+        case 27: map = Assets.map16;//Assets.manager.get(Assets.map27, TiledMap.class);
 				break;
 		}
 		
@@ -291,10 +291,12 @@ public class LevelScreen implements Screen{
         return button;
 	}
 
-	public ClickListener populateMaps(final TiledMap levelMap,final int level){		
+	public ClickListener populateMaps(final String levelMap,final int level){		
 		ClickListener levelClickListener = new ClickListener() {
 			@Override
 			public void clicked (InputEvent event, float x, float y) {
+				Constants.shopPreferences.remove(GameClass.productID_fullVersion);
+				Constants.shopPreferences.flush();
 				//change to specific map
 				if(adsController != null && (adsController.isWifiConnected() || adsController.isMobileDataEnabled())
 					&& !Constants.shopPreferences.contains(GameClass.productID_fullVersion)){

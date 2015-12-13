@@ -18,6 +18,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.pay.Information;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -91,10 +92,7 @@ public class SplashScreen implements Screen {
 		
 		if(image.getActions().size == 0 && Assets.manager.update()){
 			Constants constant = new Constants();
-			//Constants.shopPreferences.putBoolean(GameClass.slowdown, true);
-			//Constants.shopPreferences.putBoolean(GameClass.morelevels, true);
-			//Constants.shopPreferences.flush();
-			if(internetEnabled){	
+			if(internetEnabled){
 				game.getPlatformResolver().requestPurchaseRestore();
 			}
 			constant.sound.loop();
