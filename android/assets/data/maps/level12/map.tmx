@@ -29,7 +29,7 @@
    </properties>
    <polyline points="0,0 196,-56 490.667,-70.6667 746.667,-49.3333 798.667,2.66667"/>
   </object>
-  <object id="2" name="line1" type="object" x="796" y="338">
+  <object id="2" name="line1" type="object" x="795" y="449">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="line1"/>
@@ -393,7 +393,7 @@
     <property name="userData" value="position2"/>
    </properties>
   </object>
-  <object id="58" name="prep5" x="569" y="98">
+  <object id="58" name="prep5" type="fixture" x="569" y="98">
    <properties>
     <property name="body" value="ground"/>
     <property name="userData" value="prep5"/>

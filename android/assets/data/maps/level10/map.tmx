@@ -319,25 +319,25 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="43" name="middleSlingshot1" type="object" x="565" y="362" width="13" height="10">
+  <object id="43" name="middleSlingshot1" type="object" x="530" y="364" width="13" height="10">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="middleSlingshot1"/>
    </properties>
   </object>
-  <object id="44" name="middleSlingshot2" type="object" x="596.5" y="362" width="13" height="10">
+  <object id="44" name="middleSlingshot2" type="object" x="561.5" y="364" width="13" height="10">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="middleSlingshot2"/>
    </properties>
   </object>
-  <object id="45" name="middleBall" type="object" x="582.591" y="359.303" width="10" height="9">
+  <object id="45" name="middleBall" type="object" x="547.591" y="361.303" width="10" height="9">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="middleBall"/>
    </properties>
   </object>
-  <object id="46" name="slingshot" type="object" x="558.5" y="352" width="46" height="96">
+  <object id="46" name="slingshot" type="object" x="523.5" y="354" width="46" height="96">
    <properties>
     <property name="groupIndex" value="-1"/>
     <property name="userData" value="sling"/>

@@ -17,7 +17,7 @@
  </tileset>
  <layer name="Tile Layer 1" width="50" height="30">
   <data encoding="base64" compression="zlib">
-   eJzt1NmXz2UAx/GfGcxYsitL2XJjK1IolOIfiFKEzGaXNXvZKllmrFlSaRYqlMZujFQUg8q+M/athZmxpu3lb3C+59D5XrwunvNcfJ73zRNXKBKJJ4FEkuhGd3rQk170pg99eYN+9GcAAxnEYN5kCEMZxnBGMJJRxAW0N5FJTGYKyaQwlWlMZwYzmcUHzGYOc5nHh8znIz7mExbwKamkkU5GgHuZLGcFK1nFatawlnVksZ5sNvANG/mW7/ieTWzmB35kC1vJYRvb2RHg3iEOc4SjHOM4uZzgJKc4zRnOco7zXOAil/iV3/idP7jMFfLIp4CrAe4ViopEooimMEUoSgyxFKM4JSjJA5SiNGUoSznKU4GKPMhDVKIyVajKw1HB7dWhLvWoTwMe43Ea0ognaMyTPEUTmtKMp3mG5rSgJc/yHK14nhdoTZsA916kLe14iZdpzyu8Sgc68hqd6EwXXqcrccSTQCJJdKM7PehJL3rTJ8C94YxgJKN4i7cZzRjGMo7xvMO7vMcE3mcik5jMFJJJYSrTmM4MZjIrwL1U0kgng4Us4jM+5wsWs4SlfMlXLONrMlnOClayitWsYS3ryGI92QHu5bCN7ezgJ37mF3ayi93sYS/72M8BDnKIwxzhKMc4Ti4nOMkpTnMmwL088ingKte4zg1ucos/uc1f/M0//Esk2v9DFNEUpghFiSGWYhSnBCWjg9sLO8KOsCPsCDvCjrAj7LiXOv4PLffy2+7shR1hR9hx9x2PuKpGdWpE7t9zTWrxKLXv4/N/t9wYfg==
+   eJzdx6ECQ1AYgNH/oiyKgjEUURTFGxdFUVwURVEUPYIoinsEcXHRG/hf437hhGNFxAJ8IBaIA+IPERqGGqKDmCA2iBPCeAwlxBtigFghvhAXROQzNBA9xAyxQ/wgHgFDBdFCjBCxiDxVolJx9y+VqVwVDv8G0tijsQ==
   </data>
  </layer>
  <layer name="Tile Layer 3" width="50" height="30">
@@ -62,7 +62,7 @@
    </properties>
    <polyline points="0,0 196,-56 490.667,-70.6667 746.667,-49.3333 798.667,2.66667"/>
   </object>
-  <object id="6" name="line1" type="object" x="796" y="434">
+  <object id="6" name="line1" type="object" x="796" y="279">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="line1"/>
