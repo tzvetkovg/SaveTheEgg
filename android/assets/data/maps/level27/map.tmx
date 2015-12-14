@@ -346,7 +346,7 @@
   <object id="45" x="351" y="402">
    <polyline points="0,0 0,43 51,43 49,-2 -1,0"/>
   </object>
-  <object id="46" name="prep" type="fixture" x="522" y="322">
+  <object id="46" name="prep" type="fixture" x="531" y="333">
    <properties>
     <property name="body" value="ground"/>
     <property name="userData" value="prep"/>

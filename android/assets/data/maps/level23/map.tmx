@@ -22,34 +22,34 @@
  </layer>
  <layer name="Tile Layer 3" width="50" height="30">
   <data encoding="base64" compression="zlib">
-   eJzt1TsOgkAYRWEUFEFFEVrf2rD/jbkDD8UUJDT4T2YMuV9yGovxUjAkiYjIdGe6xB7hwZ0esUeIyN/TnSciVnO4Rz7Ledwj/XO4QnqP/NaFnSAysKD+NUgpi7zFYkVrymkTeYtFQSVtaWc4x31vrnSzz5psTxUd6Gg4x9dz/LqnphM11Br+3303n/QynONrj4TxBaOxCGo=
+   eJzt1jkSgkAURdFGcULFMVUcE/e/MXfgJeiAKhL8Xf0J3qm6CUHzCKAIQURkuAtdvUckcKeH9wgRGT1980REQvhOvBek0T5HLKd3z7VP3gkiHQW1r8GUSuctFjOa04KWzlssVlTRmjaGc+J/a0M3+6zBtlTTjvaGc1I9x797DnSkE50N94//3096Gc5JtUfy+AHwrgfs
   </data>
  </layer>
  <layer name="Tile Layer 4" width="50" height="30">
   <data encoding="base64" compression="zlib">
-   eJzt1ccOgzAQRdFJAum9NyCQ+v9/l567ZOFFJCMhoXels7LG453Nqtk9MHvgiRfe+OALC81qqKOBICx23nd3vpDzJlpoo4MueuhjgCFGGDvu8pn33Z1vwvkUM8yxwBIrrLHBFjvsHXf5zPvuzhdxHiPBASkyHHHCGRdccXPc5TPvu1tVswhx2Y8ooBRZ2Y9QSin1d/p/lFJKKaWUcvcD6oUiAA==
+   eJzt1ckOgjAURuGq4DwrKCggOL7/2zl7lizYFSQh/0m+VXNvu6sxzezuGPPAEy+88cEXxjWmhTY6cNxy523vzudy3kUPfQwwxAhjTDDFDPOCXTbztnfnW3C+xAprePCxwRYBQuywL9hlM297d76I8xgJDkiR4YgTzrjgilvBLpt527tVM4sQ1/2IEkqR1f0IpZRqWB78inb/8/8JEFa0W/+PUkoppZQqux/+GSJe
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
-  <object id="1" name="slingshot" type="object" x="394.5" y="309" width="46" height="96">
+  <object id="1" name="slingshot" type="object" x="380.5" y="309" width="46" height="96">
    <properties>
     <property name="groupIndex" value="-1"/>
     <property name="userData" value="sling"/>
    </properties>
   </object>
-  <object id="2" name="middleSlingshot2" type="object" x="432.5" y="319" width="13" height="10">
+  <object id="2" name="middleSlingshot2" type="object" x="418.5" y="319" width="13" height="10">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="middleSlingshot2"/>
    </properties>
   </object>
-  <object id="3" name="middleBall" type="object" x="418.591" y="316.303" width="10" height="9">
+  <object id="3" name="middleBall" type="object" x="404.591" y="316.303" width="10" height="9">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="middleBall"/>
    </properties>
   </object>
-  <object id="4" name="middleSlingshot1" type="object" x="401" y="319" width="13" height="10">
+  <object id="4" name="middleSlingshot1" type="object" x="387" y="319" width="13" height="10">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="middleSlingshot1"/>
@@ -69,7 +69,7 @@
    </properties>
    <polyline points="0,0 -623,25 -796,-50"/>
   </object>
-  <object id="7" name="ptiche1" type="object" x="189" y="252.333" width="36" height="23.3333">
+  <object id="7" name="ptiche1" type="object" x="188" y="219.333" width="36" height="23.3333">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="qice"/>
@@ -83,7 +83,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="9" name="egg1point1" type="fixture" x="233.5" y="235.5" width="11" height="11">
+  <object id="9" name="egg1point1" type="fixture" x="232.5" y="202.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche1"/>
     <property name="isSensor" value="true"/>
@@ -91,7 +91,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="10" name="egg1point1" type="fixture" x="175.5" y="238.5" width="11" height="11">
+  <object id="10" name="egg1point1" type="fixture" x="174.5" y="205.5" width="11" height="11">
    <properties>
     <property name="body" value="ptiche1"/>
     <property name="isSensor" value="true"/>
@@ -381,7 +381,7 @@
    </properties>
    <polyline points="0,0 0,31 795,28 797,0 -1,0"/>
   </object>
-  <object id="49" name="prep1" type="fixture" x="193" y="278">
+  <object id="49" name="prep1" type="fixture" x="192" y="245">
    <properties>
     <property name="body" value="ground"/>
     <property name="userData" value="prep1"/>

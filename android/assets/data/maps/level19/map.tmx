@@ -6,12 +6,12 @@
  <tileset firstgid="1281" name="blacktrees" tilewidth="16" tileheight="16">
   <image source="../assets/blacktrees.png" width="919" height="256"/>
  </tileset>
- <tileset firstgid="2193" name="dus" tilewidth="16" tileheight="16">
-  <image source="../assets/dus.png" width="640" height="480"/>
+ <tileset firstgid="2193" name="dushka" tilewidth="16" tileheight="16">
+  <image source="../assets/dushka.png" width="640" height="480"/>
  </tileset>
  <layer name="Tile Layer 1" width="50" height="30">
   <data encoding="base64" compression="zlib">
-   eJzt1EWwGGUWgNFH/Fnc3e3F3T1ADIg7EHcgBsQdiDsQA+IOxB2IAXEH4g7EgHhelLOYRYbF1FTXMFUzlcXZdPd3u2911R8dGhJynwc85BGPeUJIWEjIc8QgJrGITXSAJg5xiUcoYYQTQSTxSUBCEpGYJCQlGclJQUpSkZo0pCUdmchMFrKSjezkICe5yE0UecgbsMlHfgpQkEIUpghFKUZxSlCSUpSmDGUpR3kqUJFKVKYKValGdWpQk1q8xMu8Qm3qUJd61A/YNKAhjWhME5rSjOa8ymu8Tgta0orWtKEt7WhPBzrSic50oSvd6E4PevI27/AuvehNH/rSL2DTnwEMZBCDGcJQhvEe7/MBwxnBSEYxmjGMZRzjmcBEJjGZKUxlGtOZwSd8ymfMZBazmcPcgM085rOAhSxiMUtYyud8wZcsYzkrWMkqVrOGtaxjPRvYyCY2s4WtbGM73/Id37ODnexiN3sCNnvZx34OcJBDHOYIP/AjP3GUYxznBCc5xWnOcJZznOcCF7nEZa5wlWv8xu/8wXVucJNb3A7Y3OEu94jmPg94yCMe84SQcOcdMYhJLGITh7jEI5QwwokgkkQkJglJSUZyUpCSVKQmDWlJF7BJTwYykonMZCEr2chODnKSi9xEkYe85CM/BShIIQpThKKUpBSlKUNZylGeClSkEpWpQtWAzfO8wItUozo1qEktXuJlXqE2dahLPerTgIY0ojFNaEozmtOClrSiNW1oSzva04GOdKIzXQI2b/Amb9GVbnSnBz15m3d4l170pg996Ud/BjCQQQxmCEMZxnBGMJJRjGYMYxnHeCYwkUlMDth8yEd8zBSmMo3pzOATPuUzZjKL2cxhLvOYzwIWsojFLGEpy1jOClayitWsYS3rWM8GNrIpYPMVX/MNm9nCVraxnW/5ju/ZwU52sZs97GUf+znAQQ5xmCMc5RjHOcFJTnGaM5zlHOe5wMWAzc/8wq9c4jJXuMo1fuN3/uA6N7jJLW5zh7vcI5r7POAhj3guwhlHTGIRmzjEJR6hhBFOBJERwZr4JCAhiUhMEpKSjOSkICWpSE0a0pKO9GQgI5nITBayko1c5CaKPOQlH/kpQEEKUZgiFA3YFKM4JShJKUpThrKUozwVqEglKlOFqjzPC7xINapTg5rUojZ1qEs96tOAhjSiMU1oSjOaB2xe5TVepwUtaUVr2tCWdrSnAx3pRGe68AZv8hZd6UZ3etCTXvSmD33pR38GMJBBDGYIQxkWsHmP9/mA4YxgJKMYzRjGMo7xTGAik5jMh3zEx0xhKtOYzgxmMovZzGEu85jPAhayiMUsYWnA5nO+4EuWsZwVrGQVq1nDWtaxng1sZBNf8TXfsJktbGUb29nBTnaxmz3sZR/7OcBBDnGYIwGbH/iRnzjKMY5zgpOc4jRnOMs5znOBi/zML/zKJS5zhatc4zo3uMktbnOHu9wjmvs84CGPAjaPeUJIpPOOGMQkFrGJQ1ziEUoY4UQQSXwSkJBEJCYJSUlGKlKThrSkIz0ZyEgmMpOFrGQL2GQnBznJRW6iyENe8pGfAhSkEIUpQlGKUZwSlKQUpSlD2X/MfNrT8/967189+/S3BGmCfn85yv/Nsyv8Zeb/8h7/zn7P9ni2x7M9/vn6f/p9f/d5+N/6J1H/J3v8Cc28lks=
+   eJzdwyEaQ2AAAFDaflYcQRRFRxDFxR1hURRFURRFURRFUVwUxbXd473ve8MjigbgivwiQzCWyBeyQ87IA/lD5omxRn6QI3JDXsgsNVbIN7JHLsgTGT+NBbJBtsgJuSNvpOIPff4hWg==
   </data>
  </layer>
  <layer name="Tile Layer 2" width="50" height="30">
