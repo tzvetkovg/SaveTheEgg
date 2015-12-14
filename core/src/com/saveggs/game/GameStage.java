@@ -101,7 +101,7 @@ public class GameStage extends Stage implements ContactListener{
 	private PruskaneQice pruskane;
 	private Map<String,Object> mapBodies;
 	private AdsController adsController;
-	private int timeIntervalAds = 0,timeAds = 32,numberOfEnemyKillings = 0,launchBothEnemies = 0,dialogAppearTimes = 0;
+	private int timeIntervalAds = 0,timeAds = 32,numberOfEnemyKillings = 0,launchBothEnemies = 0,dialogAppearTimes = 1;
 	public boolean showGame = false, internetEnabled = false, showAd = false;
 	private LoadingScreen loading;
 	private Skin skin;
