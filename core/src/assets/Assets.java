@@ -13,6 +13,8 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -30,9 +32,17 @@ public class Assets {
 				return Gdx.files.internal("data/uiskin.json");
 			}
 		}));
-		
+		manager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(new FileHandleResolver() {
+			@Override
+			public FileHandle resolve(String fileName) {
+				return Gdx.files.internal("data/arial.ttf");
+			}
+		}));
 
 	}
+	
+	@Asset(FreeTypeFontGenerator.class)
+	public static final String myFont = "data/arial.ttf";
 	
 	@Asset(BitmapFont.class)
 	public static final String bitmapfont = "data/ui/font.fnt";

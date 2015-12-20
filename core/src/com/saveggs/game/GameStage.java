@@ -50,6 +50,7 @@ import com.sageggs.actors.DynamicBall;
 import com.sageggs.actors.DynamicBall.DynamicBallPool;
 import com.sageggs.actors.Qice;
 import com.sageggs.actors.Slingshot;
+import com.sageggs.actors.Text;
 import com.sageggs.actors.enemies.Enemy;
 import com.sageggs.actors.enemies.EnemyOtherSide;
 import com.sageggs.actors.flyingbirds.FlyingBirds;
@@ -130,8 +131,10 @@ public class GameStage extends Stage implements ContactListener{
 	final TextButton.TextButtonStyle weaponButtonTwoStyle = new TextButton.TextButtonStyle();
 	final TextButton.TextButtonStyle weaponButtonThreeStyle = new TextButton.TextButtonStyle();
 	String mapPath;
+	private Text score;
+	int ballLimit;
 	
-	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map, int currentLevel,float enemyLevelSpeed,boolean weapon1, boolean weapon2, boolean weapon3,int timeAds,String mapPath,int numberOfKillings){
+	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map, int currentLevel,float enemyLevelSpeed,boolean weapon1, boolean weapon2, boolean weapon3,int timeAds,String mapPath,int numberOfKillings,int ballLimit){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
 		this.game = game;
 		this.mapBodies = mapBodies;
@@ -147,6 +150,7 @@ public class GameStage extends Stage implements ContactListener{
 		this.timeAds = timeAds;
 		this.launchBothEnemies = numberOfKillings;
 		this.mapPath = mapPath;
+		this.ballLimit = ballLimit;
 		setupCamera();
 		getViewport().setCamera(camera);
 		setUtils();
@@ -225,10 +229,12 @@ public class GameStage extends Stage implements ContactListener{
 				if(enemyBody2 != null){
 					applyForceToBall(dynamicBall2, enemyBody2);
 				}
+				score.remainingBalls--;
 			}
 			else
 			{
 				applyForceToBall(dynamicBall, null);
+				score.remainingBalls--;
 			}
 /*			dynamicBall = pool.obtain();
 			sleeepingBalls.add(dynamicBall);
@@ -418,7 +424,7 @@ public class GameStage extends Stage implements ContactListener{
 		if(weapon3Enabled){			
 			addActor(weaponButton3);
 		}
-		
+		addActor(score);
 		//loading screen
 		loading = new LoadingScreen();
 		addActor(loading);
@@ -486,6 +492,7 @@ public class GameStage extends Stage implements ContactListener{
 		skin = (Skin)mapBodies.get("skin");
 		middlePoint = new Vector2();
 		clickedPoint = new Vector2();
+		score = new Text(ballLimit);
 		/**
 		 * music
 		 */

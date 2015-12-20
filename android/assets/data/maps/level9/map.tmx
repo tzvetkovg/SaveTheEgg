@@ -291,7 +291,7 @@
    </properties>
    <polyline points="0,0 196,-56 490.667,-70.6667 746.667,-49.3333 798.667,2.66667"/>
   </object>
-  <object id="37" name="line1" type="object" x="799" y="281">
+  <object id="37" name="line1" type="object" x="798" y="297">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="line1"/>
