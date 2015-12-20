@@ -93,7 +93,7 @@ public class SplashScreen implements Screen {
 		if(image.getActions().size == 0 && Assets.manager.update()){
 			Constants constant = new Constants();
 			if(internetEnabled){
-				game.getPlatformResolver().requestPurchaseRestore();
+
 			}
 			constant.sound.loop();
 			game.setScreen(new MainMenuScreen(adsController,game));

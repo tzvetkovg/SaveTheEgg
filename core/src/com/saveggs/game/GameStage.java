@@ -101,7 +101,7 @@ public class GameStage extends Stage implements ContactListener{
 	private PruskaneQice pruskane;
 	private Map<String,Object> mapBodies;
 	private AdsController adsController;
-	private int timeIntervalAds = 0,timeAds = 32,numberOfEnemyKillings = 0,launchBothEnemies = 0,dialogAppearTimes = 1;
+	private int timeIntervalAds = 0,timeAds = 32,numberOfEnemyKillings = 0,launchBothEnemies = 0,dialogAppearTimes = 0,whenToAppearAdd = 1;
 	public boolean showGame = false, internetEnabled = false, showAd = false;
 	private LoadingScreen loading;
 	private Skin skin;
@@ -573,7 +573,7 @@ public class GameStage extends Stage implements ContactListener{
 							GameStage.this.weaponOne = false;
 							weaponOneTimeExpired = true;
 						}
-					},20);
+					},23);
 				}
 				super.touchUp(event, x, y, pointer, button);
 			}
@@ -611,7 +611,7 @@ public class GameStage extends Stage implements ContactListener{
 							Constants.ENEMYSPEED = enemyLevelSpeed;
 							weaponTwoTimeExpiredweaponTwo = true;
 						}
-					},20);
+					},23);
 				}
 				super.touchUp(event, x, y, pointer, button);
 			}
@@ -651,7 +651,7 @@ public class GameStage extends Stage implements ContactListener{
 							weaponThreeTimeExpiredweaponThree = true;
 							Constants.ballSpeed = ballSpeed[0];
 						}
-					},20);
+					},23);
 				}
 				super.touchUp(event, x, y, pointer, button);
 			}
@@ -734,12 +734,14 @@ public class GameStage extends Stage implements ContactListener{
 
 				dialogAppearTimes++;
 				
+				
 				if(object.equals("replay")){
 					
-					if(internetEnabled && dialogAppearTimes % 2 != 0){
+					if(internetEnabled && dialogAppearTimes == whenToAppearAdd){
 						adsController.showInterstitialAd(new Runnable() {
 							@Override
 							public void run() {
+								whenToAppearAdd += 4;
 							}
 						});
 					}
@@ -793,10 +795,11 @@ public class GameStage extends Stage implements ContactListener{
 				dialogAppearTimes++;
 				
 				if(object.equals("continue")){
-					if(internetEnabled && dialogAppearTimes % 2 != 0){
+					if(internetEnabled && dialogAppearTimes == whenToAppearAdd){
 						adsController.showInterstitialAd(new Runnable() {
 							@Override
 							public void run() {
+								whenToAppearAdd += 4;
 							}
 						});
 					}
@@ -811,10 +814,11 @@ public class GameStage extends Stage implements ContactListener{
 				}
 				if(object.equals("replay")){
 					
-					if(internetEnabled && dialogAppearTimes % 2 != 0){
+					if(internetEnabled && dialogAppearTimes == whenToAppearAdd){
 						adsController.showInterstitialAd(new Runnable() {
 							@Override
 							public void run() {
+								whenToAppearAdd += 4;
 							}
 						});
 					}
