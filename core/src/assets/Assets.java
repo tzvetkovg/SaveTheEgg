@@ -69,7 +69,7 @@ public class Assets {
 	backbutton = "data/ui/backbutton.png",
 	backbuttonClicked = "data/ui/00135white.png",
 	credits = "data/credits.png",
-	tutorial = "data/tutorial.png",
+	tutorial = "data/tutorialtest.png",
 	/**
 	 * Level Menu
 	 */
@@ -112,6 +112,7 @@ public class Assets {
 	shop3 = "data/weapons/testweapon3.png",
 	shop4 = "data/weapons/testweapon4.png",
 	shop5 = "data/weapons/testweapon5.png",
+	shop6 = "data/weapons/testweapon6.png",
 	/**
 	 * Loading Screen
 	 */

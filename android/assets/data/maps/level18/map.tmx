@@ -3,20 +3,20 @@
  <tileset firstgid="1" name="lovene" tilewidth="16" tileheight="16">
   <image source="../assets/lovene.png" width="512" height="640"/>
  </tileset>
- <tileset firstgid="1281" name="sen" tilewidth="16" tileheight="16">
-  <image source="../assets/sen.png" width="640" height="480"/>
- </tileset>
- <tileset firstgid="2481" name="platformertiles" tilewidth="16" tileheight="16">
+ <tileset firstgid="1281" name="platformertiles" tilewidth="16" tileheight="16">
   <image source="../assets/platformertiles.png" width="256" height="96"/>
+ </tileset>
+ <tileset firstgid="1377" name="senaddi" tilewidth="16" tileheight="16">
+  <image source="../assets/senaddi.png" width="640" height="480"/>
  </tileset>
  <layer name="Tile Layer 1" width="50" height="30">
   <data encoding="base64" compression="zlib">
-   eJxjZmVgYB4GWHuY4OBhgquHCV48TPDpYYI/DxMszTY8sPMwwdnDBE8eJnj3MMGPhwnmZh8e2HiY4OhhgpuHCV49TPDlYYJ/0wArcxCHB8LOUTyKR/EoHsWjeBQPXgwAVHlTPQ==
+   eJzdw5sWgwAAANCCXp8wDMM+IRwOw3A4HIZhGIZhOAzDMAzDYdZ/3HvObaIgaIAdckbuyDA2FsgX8osckSvyj3wkxgr5RvbIH/JAZqmxRNbIFjkhN+SFzDPjE/lBDsgFeSJvz+goxg==
   </data>
  </layer>
  <layer name="Tile Layer 2" width="50" height="30">
   <data encoding="base64" compression="zlib">
-   eJzt10dKg0EAxfEx2Rh36YLlDukByx009RrpuYS9lyvYe7mCvdcLaGJvO/8LAyKCMRIyn8yD32Lg++C93YwQ/ytnBiHOcYFLQ6XblJ4rul8jh7yGd6ioqKj8NXV6IerRgEZ9+f8rV5ro0IwWtP6iT6n/qaioqGg9Rp0QJphhgRU22FGrq3S74uOgqxMuuOGBFz74NbSjja7tCCCIEMKIIKqhHTG6xpFAEimkkUFW4h0ddOtEF7rRg170oR8DGMQQhjGCUYxhXKJdE3SZxBSmMYNZzGEeC1jEEpaxglWsYV2iHRt02cQWtrGDXexhHwc4xBGOcYJTifoXkqNTHje4xR3u8YBHPOEZL3jFm4QbvouRO7MJZlhghQ121GroPu2gqxMuuOGBFz74NbSjja7tCCCIEMKIIKqhHTG6xpFAEimkkUFWkh2F969M5+oqIQyo+fDT91/fv7KcP+8o5vt3wDFX1A==
+   eJzt11dKQ0EAheExIaC+pQcsG7BAeiBlD+nZRno2Ye9lC/ZetmDv7sHe3/wfDIgIxkjIXLkHvoeBe+Gctxkh/lc6dEJ0ogvdunq3qT5+ugcQREjBO9SoUaPmr2nRCtGKNrRra/9freKnQwBBhH7Rp9r/1KhRo0bp0WuEMMAIE8ywwAqbpt7tKo+drg444YIbHnjhU9COMF0jiCKGOBJIIqWgHWm6ZpBFDnkUUERJ4h09dOtFH/oxgEEMYRgjGMUYxjGBSUxhWqJdM3SZxRzmsYBFLGEZK1jFGtaxgU1sYVuiHTt02cUe9nGAQxzhGCc4xRnOcYFLifqXc0Wna9zgFne4xwMe8YRnvOAVbxJu+C567swGGGGCGRZYYVPQfdpOVweccMEND7zwKWhHmK4RRBFDHAkkkVLQjjRdM8gihzwKKKIkyY7y+1emc2ODEE1o/vDT91/fv7KcP++o5Pt3yT5SNA==
   </data>
  </layer>
  <objectgroup name="Object Layer 1">

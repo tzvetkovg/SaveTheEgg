@@ -63,6 +63,7 @@ public class GameClass extends Game {
 		public final static String fastball = "fastball";
 		public final static String morelevels = "morelevels";
 		public final static String slowdown = "slowdown";
+		public final static String ball_limit = "ball_limit";
 		
 		static PlatformResolver m_platformResolver;
 		public PurchaseManagerConfig purchaseManagerConfig;
@@ -82,6 +83,7 @@ public class GameClass extends Game {
 		purchaseManagerConfig.addOffer(new Offer().setType(OfferType.ENTITLEMENT).setIdentifier(fastball));
 		purchaseManagerConfig.addOffer(new Offer().setType(OfferType.ENTITLEMENT).setIdentifier(morelevels));
 		purchaseManagerConfig.addOffer(new Offer().setType(OfferType.ENTITLEMENT).setIdentifier(slowdown));
+		purchaseManagerConfig.addOffer(new Offer().setType(OfferType.ENTITLEMENT).setIdentifier(ball_limit));
 
 	}
 	
@@ -196,6 +198,10 @@ public class GameClass extends Game {
 						Constants.shopPreferences.putBoolean(morelevels, true);
 						Constants.shopPreferences.flush();
 					}
+					if (ball_limit.equals(transactions[i].getIdentifier()) ) {
+						Constants.shopPreferences.putBoolean(ball_limit, true);
+						Constants.shopPreferences.flush();
+					}
 				}
 			}
 			@Override
@@ -251,6 +257,10 @@ public class GameClass extends Game {
 				Constants.shopPreferences.putBoolean(morelevels, true);
 				Constants.shopPreferences.flush();
 				returnbool = true;
+			}
+			if (ball_limit.equals(ID) ) {
+				Constants.shopPreferences.putBoolean(ball_limit, true);
+				Constants.shopPreferences.flush();
 			}
 			return returnbool;
 		}

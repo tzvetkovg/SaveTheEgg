@@ -295,8 +295,8 @@ public class LevelScreen implements Screen{
 		ClickListener levelClickListener = new ClickListener() {
 			@Override
 			public void clicked (InputEvent event, float x, float y) {
-				Constants.shopPreferences.remove(GameClass.productID_fullVersion);
-				Constants.shopPreferences.flush();
+				//Constants.shopPreferences.remove(GameClass.productID_fullVersion);
+				//Constants.shopPreferences.flush();
 				//change to specific map
 				if(adsController != null && (adsController.isWifiConnected() || adsController.isMobileDataEnabled())
 					&& !Constants.shopPreferences.contains(GameClass.productID_fullVersion)){

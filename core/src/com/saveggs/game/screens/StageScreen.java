@@ -131,6 +131,7 @@ public class StageScreen implements Screen {
 		boolean weapon1 = Constants.shopPreferences.contains(GameClass.automaticdestruction);
 		boolean weapon2 = Constants.shopPreferences.contains(GameClass.slowdown);
 		boolean weapon3 = Constants.shopPreferences.contains(GameClass.fastball);
+		boolean slinshotShots = Constants.shopPreferences.contains(GameClass.ball_limit);
 		
 		System.out.println("weapon1 " + weapon1 );
 		System.out.println("weapon2 " + weapon2 );
@@ -141,7 +142,7 @@ public class StageScreen implements Screen {
 		
 		//if((currentMap, TiledMap.class)){
 			this.stage = new GameStage(adsController,this.worldBodies,this.world,internetUse,game,Assets.manager.get(map, TiledMap.class),currentLevel,enemySpeed,
-					weapon1,weapon2,weapon3,ads,map,numberOfKillings,ballLimit);
+					weapon1,weapon2,weapon3,ads,map,numberOfKillings,ballLimit,slinshotShots);
 		//}
 		
 		

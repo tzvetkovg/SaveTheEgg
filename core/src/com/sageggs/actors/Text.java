@@ -25,7 +25,6 @@ public class Text extends GameActor{
 			font.getData().setScale(0.04f, 0.04f);
 			font.setColor(Color.ORANGE);
 			remainingBalls = maxBalls;
-			fontGenerator.dispose();
     }
 
 	@Override

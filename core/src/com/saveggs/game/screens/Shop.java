@@ -33,7 +33,7 @@ import com.saveggs.utils.Constants;
 public class Shop implements Screen{
 	private Stage stage;
 	private Table table;
-	private TextButton weapon1, weapon2, weapon3, weapon4, weapon5;
+	private TextButton weapon1, weapon2, weapon3, weapon4, weapon5,weapon6;
 	private Image backgroundImage;
 	private BitmapFont font;
 	private Texture destroyArrow;
@@ -41,6 +41,7 @@ public class Shop implements Screen{
 	private Texture fastBall;
 	private Texture removeAds;
 	private Texture moreLevels;
+	private Texture slingShots;
 	private Image gameTitle;
 	private static AdsController adsController;
 	private boolean internetEnabled = false;
@@ -92,15 +93,23 @@ public class Shop implements Screen{
 		tbs5.up = new TextureRegionDrawable(new TextureRegion(moreLevels));
 		tbs5.font.getData().setScale(0.01f);
 		
+		//limit of slingshot shots
+		// super fast ball
+		slingShots = Assets.manager.get(Assets.shop6, Texture.class);
+		TextButton.TextButtonStyle tbs6 = new TextButton.TextButtonStyle();
+		tbs6.font = font;
+		tbs6.up = new TextureRegionDrawable(new TextureRegion(slingShots));
+		tbs6.font.getData().setScale(0.01f);
+		
 		//go back
         //back button
-		TextButton.TextButtonStyle tbs6 = new TextButton.TextButtonStyle();
-		tbs6.font =  Assets.manager.get(Assets.bitmapfont, BitmapFont.class);
-		tbs6.font.getData().setScale(0.001f);
-		tbs6.up = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.backbutton, Texture.class)));
-		tbs6.down = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.backbuttonClicked, Texture.class)));
-		TextButton button = new TextButton("", tbs6);
-		tbs.font.getData().setScale(2f);
+		TextButton.TextButtonStyle tbs7 = new TextButton.TextButtonStyle();
+		tbs7.font =  Assets.manager.get(Assets.bitmapfont, BitmapFont.class);
+		tbs7.font.getData().setScale(0.001f);
+		tbs7.up = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.backbutton, Texture.class)));
+		tbs7.down = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.backbuttonClicked, Texture.class)));
+		TextButton button = new TextButton("", tbs7);
+		tbs7.font.getData().setScale(2f);
 		button.setPosition(0, 0);
 		button.addListener(new ClickListener() {
 			@Override
@@ -118,10 +127,11 @@ public class Shop implements Screen{
 		weapon3 = new TextButton("",tbs3);
 		weapon3.setPosition(Constants.SCENE_WIDTH / 1.4f , Constants.SCENE_HEIGHT / 2);
 		weapon4 = new TextButton("",tbs4);
-		weapon4.setPosition(Constants.SCENE_WIDTH / 3.5f , Constants.SCENE_HEIGHT / 8);
+		weapon4.setPosition(Constants.SCENE_WIDTH / 7f , Constants.SCENE_HEIGHT / 8);
 		weapon5 = new TextButton("",tbs5);
-		weapon5.setPosition(Constants.SCENE_WIDTH / 1.6f , Constants.SCENE_HEIGHT / 8);
-		
+		weapon5.setPosition(Constants.SCENE_WIDTH /2.3f , Constants.SCENE_HEIGHT / 8);
+		weapon6 = new TextButton("",tbs6);
+		weapon6.setPosition(Constants.SCENE_WIDTH / 1.4f , Constants.SCENE_HEIGHT / 8);
 		
 		weapon1.addListener(new ClickListener() {
 			@Override
@@ -178,6 +188,18 @@ public class Shop implements Screen{
 			}
 		});
 
+		weapon6.addListener(new ClickListener() {
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {	
+				if(!Constants.shopPreferences.contains(GameClass.ball_limit)){							
+					game.getPlatformResolver().requestPurchase(GameClass.ball_limit);
+				}
+				return super.touchDown(event, x, y, pointer, button);
+			}
+		});
+		
+		
 		// Set table structure
 		table = new Table();
 		table.setFillParent(true);
@@ -189,6 +211,7 @@ public class Shop implements Screen{
 		stage.addActor(weapon3);
 		stage.addActor(weapon4);
 		stage.addActor(weapon5);
+		stage.addActor(weapon6);
 		stage.addActor(button);
 	}
 

@@ -133,8 +133,9 @@ public class GameStage extends Stage implements ContactListener{
 	String mapPath;
 	private Text score;
 	int ballLimit;
+	boolean slinshotShots;
 	
-	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map, int currentLevel,float enemyLevelSpeed,boolean weapon1, boolean weapon2, boolean weapon3,int timeAds,String mapPath,int numberOfKillings,int ballLimit){
+	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map, int currentLevel,float enemyLevelSpeed,boolean weapon1, boolean weapon2, boolean weapon3,int timeAds,String mapPath,int numberOfKillings,int ballLimit,boolean slinshotShots){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
 		this.game = game;
 		this.mapBodies = mapBodies;
@@ -151,6 +152,7 @@ public class GameStage extends Stage implements ContactListener{
 		this.launchBothEnemies = numberOfKillings;
 		this.mapPath = mapPath;
 		this.ballLimit = ballLimit;
+		this.slinshotShots = slinshotShots;
 		setupCamera();
 		getViewport().setCamera(camera);
 		setUtils();
@@ -219,22 +221,28 @@ public class GameStage extends Stage implements ContactListener{
 			mesh.drawBody = false;
 			mesh2.drawBody = false;
 			
-			if(weaponOne){				
-				Body enemyBody1 = enemy.enemyDraw ? enemy.body : null;
-				if(enemyBody1 != null){
-					applyForceToBall(dynamicBall, enemyBody1);
+			if(weaponOne){
+				if(score.remainingBalls != -1){					
+					Body enemyBody1 = enemy.enemyDraw ? enemy.body : null;
+					if(enemyBody1 != null){
+						applyForceToBall(dynamicBall, enemyBody1);
+					}
+					
+					Body enemyBody2 = enemyOtherSide.enemyDraw ? enemyOtherSide.body : null;
+					if(enemyBody2 != null){
+						applyForceToBall(dynamicBall2, enemyBody2);
+					}
+					if(!slinshotShots)
+						score.remainingBalls--;
 				}
-				
-				Body enemyBody2 = enemyOtherSide.enemyDraw ? enemyOtherSide.body : null;
-				if(enemyBody2 != null){
-					applyForceToBall(dynamicBall2, enemyBody2);
-				}
-				score.remainingBalls--;
 			}
 			else
 			{
-				applyForceToBall(dynamicBall, null);
-				score.remainingBalls--;
+				if(score.remainingBalls != -1){							
+					applyForceToBall(dynamicBall, null);
+					if(!slinshotShots)
+						score.remainingBalls--;
+				}
 			}
 /*			dynamicBall = pool.obtain();
 			sleeepingBalls.add(dynamicBall);
@@ -424,7 +432,8 @@ public class GameStage extends Stage implements ContactListener{
 		if(weapon3Enabled){			
 			addActor(weaponButton3);
 		}
-		addActor(score);
+		if(!slinshotShots)
+			addActor(score);
 		//loading screen
 		loading = new LoadingScreen();
 		addActor(loading);
@@ -452,7 +461,7 @@ public class GameStage extends Stage implements ContactListener{
 		
 		// reset
 		numberOfEnemyKillings = 0;
-		
+		score.remainingBalls = ballLimit;
 		//weapons
 		weaponOne = false;
 		weaponOneTimeExpired = false;

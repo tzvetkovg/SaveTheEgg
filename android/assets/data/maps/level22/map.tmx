@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="53">
- <tileset firstgid="1" name="sen" tilewidth="16" tileheight="16">
-  <image source="../assets/sen.png" width="640" height="480"/>
- </tileset>
- <tileset firstgid="1201" name="grass_9" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="grass_9" tilewidth="16" tileheight="16">
   <image source="../assets/grass_9.png" width="512" height="640"/>
+ </tileset>
+ <tileset firstgid="1281" name="senaddi" tilewidth="16" tileheight="16">
+  <image source="../assets/senaddi.png" width="640" height="480"/>
  </tileset>
  <layer name="Tile Layer 1" width="50" height="30">
   <data encoding="base64" compression="zlib">
-   eJzt1kl2QVEUheEXvacmDEQdJANRJAgGoMU0tGQqT53CQKJMgjn4tUPjdm6OuI2vY51t7b1YHufGsvoYYIgRxphgile84R0fmMHRlFHJfWKOBZZYYY0NvvCNH2yxw15jRiVnuyzLDQ+88MGPAIIIIYxbRBB16cuo5GKII4EkUkgjgztkkUMe93jQmFHJFVBECWU84gkVVFHDM+pooKkxo5JTeX/Jt5K7XeMOle+s5FvJ3cwOWd3MDlndrnGH5GeCeX7I6mZ2/E23lv37tm1f1o7jhu6JHT1e69iX83t13HDu9uXEZ/Lf/7dL7mZ2yOpmdsjqZnbI6qZyewBNPEsr
+   eJztwysSRAAAAFCCXxRFcaMobhRFR9i4UXQEcaPoCBs3io4giqK21zBvvJkXRkEQAh/IFtkjJ+SCPJBFbHwiX8gR+UVuyCwxVsgOOSBn5Io8kWVqbJBv5Af5Q+7IPDPWyNu1/AG6pLcL
   </data>
  </layer>
  <layer name="Tile Layer 2" width="50" height="30">
   <data encoding="base64" compression="zlib">
-   eJzt1UduAjEUxnFvELBMzzUINeUSdFIuQSflEnRSLhEg5Q6RIqXnGulZ5r8ZZTTxmAiBYCR/0k8eS+N5z7B4Qujo6Ojo6OjoTH+u3L/P127793SEOPUI0UUPfZzhHBe49Iyv7qj/oxt6vcUd7vGARzzheYz3GHVe6PUVb3jHBz7xhW8H3WPGK8Qs5jCPBSxiCcveSXf3//jodQV+BBBECGFEHHSPKL3GEEcCSaSQRsZB98jSaw55FFBECWVUHHSPKr3WUEcDTbTQRmfK7qGaEZOaH8NENSOcND9UM8JJ80M1I0Y1P4LcOYQwIljFGtaxYfk9fOxX4EfAIz8ri2pGDJofqlrmPpNIIY0MNrGFbexY+oqyjyGOhM1ZWVQzYtD8UNUy91lECWVUsIs97OPA0leWfQ55FGzOyqKaEYPmh6qWuc8mWmijg0Mc4Rgnlr6q7Guoo2FzVhbVjBg0P1S1zH3WXLzr+rs2bJ6HXY1vmPeqOrKasjPG2kVPsvZtnoddjW+Y96o6spqyM8b6A5ix2Pw=
+   eJzt1ldqw0AUheGxpZQ9BALp2UZ6tpHiJNtwd8om3J2yCXenbMLdKYvI/yIi5NEIjE0smAsfowGP7h38cCSELl26dOnSpUvX/NeK8fe8arj/TpcQAVOIIAyYWMAilrBszq7vtP+jNWZdxwY2sYVt7GB3hveYdu0x6z4OcIgjHOMEpz66xxmznuMClwjhCte48dE9wswaQRQxxJFAEikf3SPNrBlkkUMeBRRR8tE9ysxaQRU11NFAEy0f3aPNrB100UMfAwwxmrN7qDLiv/JjklJlhJ/yQ5URfsoPVUZMKz/ifFskkEQKt7jDPR4c3x1h9hFEETPkZ2Wlygiv/FD1ss+ZRwFFlPCIJzzjxTFXmn0GWeRczspKlRFe+aHqZZ+zjgaaaOEVb3jHh2OuMvsKqqi5nJWVKiO88kPVyz5nHwMMMcInvvCNH8dcbfYddNFzOSsrVUZ45Yeql33ODn26YnztuTxPulrvsO9VfWQ9ZWesNRgggwLjq+nyPOlqvcO+V/WR9ZSdsdZf2CjSew==
   </data>
  </layer>
  <layer name="Tile Layer 3" width="50" height="30">
   <data encoding="base64" compression="zlib">
-   eJzt0jEKwDAIBdBs3v9cTXuS5g7J1i5dEoQG3gPBQcEPlgIAvB3x9Fd8z63uZJvNUUed8Z8cs+5xf9s8A3n8OgAAkKEDsd4PYA==
+   eJzt0sEJwDAIBdCAYzTtJM3+ayW39tJLgtDAeyB4UPCDpQAAb0c8/RXfc6s72WZz1FFn/CfHrHvc3zbPQB6/DgAAZOiDDAK4
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
