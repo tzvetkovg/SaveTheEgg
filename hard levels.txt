@@ -1,0 +1,196 @@
+	<Level1>
+	    <enemyspeed>173</enemyspeed>
+	    <flyingenemyspeed>4</flyingenemyspeed>
+	    <ads>47</ads>
+	    <launchbothenemies>59</launchbothenemies>
+	    <ball_limit>160</ball_limit>
+	</<Level1>
+	
+	<Level2>
+	    <enemyspeed>170</enemyspeed>
+	    <flyingenemyspeed>4</flyingenemyspeed>
+	    <ads>45</ads>
+	    <launchbothenemies>62</launchbothenemies>
+	     <ball_limit>160</ball_limit>
+	</<Level2>
+	 
+	<Level3>
+	    <enemyspeed>177</enemyspeed>
+	    <flyingenemyspeed>3</flyingenemyspeed>
+	    <ads>46</ads>
+	    <launchbothenemies>59</launchbothenemies>
+	     <ball_limit>177</ball_limit>
+	</<Level3>
+	
+	<Level4>
+	    <enemyspeed>188</enemyspeed>
+	    <flyingenemyspeed>3</flyingenemyspeed>
+	    <ads>45</ads>
+	    <launchbothenemies>63</launchbothenemies>
+	     <ball_limit>200</ball_limit>
+	</<Level4>
+	
+	<Level5>
+	    <enemyspeed>183</enemyspeed>
+	    <flyingenemyspeed>3</flyingenemyspeed>
+	    <ads>45</ads>
+	    <launchbothenemies>55</launchbothenemies>
+	     <ball_limit>168</ball_limit>
+	</<Level5>
+	
+	<Level6>
+	    <enemyspeed>175</enemyspeed>
+	    <flyingenemyspeed>3.1</flyingenemyspeed>
+	    <ads>43</ads>
+	    <launchbothenemies>56</launchbothenemies>
+	     <ball_limit>165</ball_limit>
+	</<Level6>
+	
+	<Level7>
+	    <enemyspeed>150</enemyspeed>
+	    <flyingenemyspeed>2.7</flyingenemyspeed>
+	    <ads>45</ads>
+	    <launchbothenemies>60</launchbothenemies>
+	     <ball_limit>138</ball_limit>
+	</<Level7>
+	
+	<Level8>
+	    <enemyspeed>148</enemyspeed>
+	    <flyingenemyspeed>2.5</flyingenemyspeed>
+	    <ads>45</ads>
+	    <launchbothenemies>55</launchbothenemies>
+	     <ball_limit>138</ball_limit>
+	</<Level8> 
+	
+	<Level9>
+	    <enemyspeed>154</enemyspeed>
+	    <flyingenemyspeed>2.7</flyingenemyspeed>
+	    <ads>45</ads>
+	    <launchbothenemies>56</launchbothenemies>
+	     <ball_limit>138</ball_limit>
+	</<Level9>
+	
+	    
+    <Level10>
+	    <enemyspeed>140</enemyspeed>
+	    <flyingenemyspeed>2.8</flyingenemyspeed>
+	    <ads>45</ads>
+	    <launchbothenemies>55</launchbothenemies>
+	     <ball_limit>128</ball_limit>
+	</<Level10>
+	
+	<Level11>
+	    <enemyspeed>141</enemyspeed>
+	    <flyingenemyspeed>2</flyingenemyspeed>
+	    <ads>45</ads>
+	    <launchbothenemies>59</launchbothenemies>
+	     <ball_limit>127</ball_limit>
+	</<Level11>
+	
+	<Level12>
+	    <enemyspeed>151</enemyspeed>
+	    <flyingenemyspeed>3</flyingenemyspeed>
+	    <ads>45</ads>
+	    <launchbothenemies>55</launchbothenemies>
+	     <ball_limit>138</ball_limit>
+	</<Level12>
+	
+	<Level13>
+	    <enemyspeed>158</enemyspeed>
+	    <flyingenemyspeed>3</flyingenemyspeed>
+	    <ads>45</ads>
+	    <launchbothenemies>53</launchbothenemies>
+	     <ball_limit>139</ball_limit>
+	</<Level13>
+	
+	<Level14>
+	    <enemyspeed>155</enemyspeed>
+	    <flyingenemyspeed>2</flyingenemyspeed>
+	    <ads>45</ads>
+	    <launchbothenemies>52</launchbothenemies>
+	     <ball_limit>143</ball_limit>
+	</<Level14>
+	
+	 <Level15>
+	    <enemyspeed>157</enemyspeed>
+	    <flyingenemyspeed>2</flyingenemyspeed>
+	    <ads>45</ads>
+	    <launchbothenemies>52</launchbothenemies>
+	     <ball_limit>145</ball_limit>
+	</<Level15>
+
+	<Level16>
+	    <enemyspeed>165</enemyspeed>
+	    <flyingenemyspeed>2.7</flyingenemyspeed>
+	    <ads>49</ads>
+	    <launchbothenemies>55</launchbothenemies>
+	     <ball_limit>141</ball_limit>
+	</<Level16>
+	
+	<Level17>
+	    <enemyspeed>160</enemyspeed>
+	    <flyingenemyspeed>2</flyingenemyspeed>
+	    <ads>45</ads>
+	    <launchbothenemies>54</launchbothenemies>
+	     <ball_limit>133</ball_limit>
+	</<Level17>
+	
+	    
+	    
+	<Level18>
+	    <enemyspeed>167</enemyspeed>
+	    <flyingenemyspeed>2</flyingenemyspeed>
+	    <ads>45</ads>
+	    <launchbothenemies>53</launchbothenemies>
+	     <ball_limit>127</ball_limit>
+	</<Level18>
+	    
+	<Level19>
+	    <enemyspeed>158</enemyspeed>
+	    <flyingenemyspeed>2.3</flyingenemyspeed>
+	    <ads>45</ads>
+	    <launchbothenemies>54</launchbothenemies>
+	     <ball_limit>130</ball_limit>
+	</<Level19>
+	
+	<Level20>
+	    <enemyspeed>167</enemyspeed>
+	    <flyingenemyspeed>2.2</flyingenemyspeed>
+	    <ads>48</ads>
+	    <launchbothenemies>58</launchbothenemies>
+	     <ball_limit>155</ball_limit>
+	</<Level20>
+	
+	    
+	<Level21>
+	    <enemyspeed>181</enemyspeed>
+	    <flyingenemyspeed>2.9</flyingenemyspeed>
+	    <ads>47</ads>
+	    <launchbothenemies>55</launchbothenemies>
+	     <ball_limit>148</ball_limit>
+	</<Level21>
+	
+	    
+	<Level22>
+	    <enemyspeed>161</enemyspeed>
+	    <flyingenemyspeed>2.5</flyingenemyspeed>
+	    <ads>48</ads>
+	    <launchbothenemies>56</launchbothenemies>
+	     <ball_limit>145</ball_limit>
+	</<Level22>
+	
+	 <Level23>
+	    <enemyspeed>163</enemyspeed>
+	    <flyingenemyspeed>2.5</flyingenemyspeed>
+	    <ads>48</ads>
+	    <launchbothenemies>58</launchbothenemies>
+	     <ball_limit>145</ball_limit>
+	</<Level23>
+	
+	<Level24>
+	    <enemyspeed>163</enemyspeed>
+	    <flyingenemyspeed>2</flyingenemyspeed>
+	    <ads>48</ads>
+	    <launchbothenemies>57</launchbothenemies>
+	     <ball_limit>141</ball_limit>
+	</<Level24>

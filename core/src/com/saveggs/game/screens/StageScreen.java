@@ -83,6 +83,16 @@ public class StageScreen implements Screen {
 		Element levelDetails = root.getChildByName("Level" + level);
 		Constants.ENEMYSPEED = Float.parseFloat(levelDetails.getChildByName("enemyspeed").getText());
 		Constants.FlYINGBIRDVELOCITY = Float.parseFloat(levelDetails.getChildByName("flyingenemyspeed").getText());
+		
+
+/*		for(int i = 1; i < 25; ++i){
+			Element element = root.getChildByName("Level" + i);
+			System.out.println(element.getChildByName("enemyspeed").getText());
+			Constants.preferences.putBoolean("Level" + i, true);
+		}
+		Constants.preferences.flush();*/
+		Constants.shopPreferences.remove(GameClass.ball_limit);
+		Constants.shopPreferences.flush();
 		/**
 		 * initialize some of the world objects
 		 */
