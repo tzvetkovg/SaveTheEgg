@@ -79,7 +79,7 @@ public class StageScreen implements Screen {
 		this.worldBodies = new HashMap<String,Object>();
 		
 		//set level data
-		Element root =  new XmlReader().parse(Gdx.files.internal("data/gameLevels.xml"));
+		Element root =  new XmlReader().parse(Gdx.files.internal(Constants.gameDifficulty.getString("levels")));
 		Element levelDetails = root.getChildByName("Level" + level);
 		Constants.ENEMYSPEED = Float.parseFloat(levelDetails.getChildByName("enemyspeed").getText());
 		Constants.FlYINGBIRDVELOCITY = Float.parseFloat(levelDetails.getChildByName("flyingenemyspeed").getText());

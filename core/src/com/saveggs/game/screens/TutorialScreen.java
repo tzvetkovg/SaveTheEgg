@@ -22,17 +22,17 @@ import com.saveggs.utils.Constants;
 public class TutorialScreen implements Screen {
 
 	private Stage stage;
-	private GameClass game;
+	public GameClass games;
 	private Image image;
 	private AdsController _adsController;
 	private Image backgroundImage;
 	
 	public TutorialScreen(final AdsController adsController,final GameClass game){
-		this.game = game;
+		this.games = game;
 		this._adsController = adsController;
 		
 		this.stage = new Stage(new ExtendViewport(Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT));
-		Gdx.input.setInputProcessor(stage);
+		
 
         //back button
 		TextButton.TextButtonStyle tbs = new TextButton.TextButtonStyle();
@@ -46,8 +46,7 @@ public class TutorialScreen implements Screen {
 		button.addListener(new ClickListener() {
 			@Override
 			public void clicked (InputEvent event, float x, float y) {
-			   game.setScreen(new MainMenuScreen(adsController,game));
-			   dispose();
+			games.setScreen(games.mainMenu);
 			}
 		});
 		backgroundImage = new Image(Assets.manager.get(Assets.levels, Texture.class));
@@ -66,8 +65,7 @@ public class TutorialScreen implements Screen {
 	
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
-		
+		Gdx.input.setInputProcessor(stage);
 	}
 
 	@Override

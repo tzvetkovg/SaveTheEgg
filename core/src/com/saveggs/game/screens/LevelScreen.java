@@ -117,7 +117,7 @@ public class LevelScreen implements Screen{
 		//gameTitle.setPosition(Constants.SCENE_WIDTH / 2 - gameTitle.getWidth() / 2, Constants.SCENE_HEIGHT - 120);
 		gameTitle.setPosition(Constants.SCENE_WIDTH / 2 - gameTitle.getWidth() / 2, Constants.SCENE_HEIGHT / 2 - gameTitle.getHeight() / 2);
 				
-		Gdx.input.setInputProcessor(stage);
+		
 
 		container = new Table();
 		
@@ -181,7 +181,7 @@ public class LevelScreen implements Screen{
 		button.addListener(new ClickListener() {
 			@Override
 			public void clicked (InputEvent event, float x, float y) {
-			   game.setScreen(new MainMenuScreen(adsController,game));
+			   game.setScreen(game.mainMenu);
 			}
 		});
 
@@ -194,7 +194,7 @@ public class LevelScreen implements Screen{
 	
 	@Override
 	public void show() {
-
+		Gdx.input.setInputProcessor(stage);
     }
 
 	public TextButton getLevelButton(int level) {

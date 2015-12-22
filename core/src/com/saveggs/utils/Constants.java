@@ -10,18 +10,27 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.saveggs.game.GameStage;
+import com.saveggs.game.screens.LevelDifficulty;
 import com.saveggs.game.screens.Shop;
 
 
 public class Constants {
 	public static Preferences preferences;
 	public static Preferences shopPreferences;
+	public static Preferences gameDifficulty;
 	public static Sound sound;
+	public static final String difficultLevels = "data/difficultLevels.xml";
+	public static final String easyLevels = "data/easyLevels.xml";
 	
 	public Constants(){
 		preferences = Gdx.app.getPreferences(GameStage.class.getName());
 		preferences.putBoolean("Level1", true);
 		preferences.flush();
+		gameDifficulty = Gdx.app.getPreferences(LevelDifficulty.class.getName());
+		if(!gameDifficulty.contains("levels")){
+			gameDifficulty.putString("levels", easyLevels);
+			gameDifficulty.flush();	
+		}
 		shopPreferences = Gdx.app.getPreferences(Shop.class.getName());
 		sound = Assets.manager.get(Assets.musicTest, Sound.class);
 	};

@@ -13,6 +13,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -21,6 +22,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -44,7 +46,7 @@ public class MainMenuScreen implements Screen{
 	
 	private Stage stage;
 	private Table table;
-	private TextButton play, exit,tutorial,credits,becomePro;
+	private TextButton play, exit,tutorial,credits,becomePro,difficulty;
 	private Image backgroundImage;
 	private BitmapFont font;
 	private Texture buttonUpTex;
@@ -63,9 +65,16 @@ public class MainMenuScreen implements Screen{
 		this.stage = new Stage(new ExtendViewport(Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT));
 		this._adsController = adsController;
 		
-		Gdx.input.setInputProcessor(stage);
+		
 		//font
-		font = Assets.manager.get(Assets.bitmapfont, BitmapFont.class);
+		FreeTypeFontGenerator fontGenerator = Assets.manager.get(Assets.myFont, FreeTypeFontGenerator.class);
+		FreeTypeFontGenerator.FreeTypeFontParameter freeTypeFontParameter =
+		      new FreeTypeFontGenerator.FreeTypeFontParameter();
+		freeTypeFontParameter.size = 20;
+		freeTypeFontParameter.borderColor = Color.BLACK;
+		freeTypeFontParameter.borderWidth = 1;
+		fontGenerator.generateData(freeTypeFontParameter); 
+		font = fontGenerator.generateFont(freeTypeFontParameter);
 		
 		gameTitle = new Image(new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.gameTitle, Texture.class))));
 		
@@ -83,20 +92,20 @@ public class MainMenuScreen implements Screen{
 		tbs.up = new TextureRegionDrawable(new TextureRegion(buttonUpTex));
 		tbs.over = new TextureRegionDrawable(new TextureRegion(buttonOverTex));
 		tbs.down = new TextureRegionDrawable(new TextureRegion(buttonDownTex));
-		tbs.font.getData().setScale(1.3f);
+		tbs.font.getData().setScale(1f);
 		//Define buttons
 		play = new TextButton("PLAY", tbs);
 		becomePro = new TextButton("BECOME PRO",tbs);
 		tutorial = new TextButton("TUTORIAL", tbs);
 		credits = new TextButton("CREDITS", tbs);
 		exit = new TextButton("EXIT", tbs);
-
+		difficulty = new TextButton("DIFFICULTY", tbs);
 
 		// Play button listener
 		play.addListener( new ClickListener() {
 			@Override
 		    public void clicked (InputEvent event, float x, float y) {
-				game.setScreen(new LevelScreen(_adsController,games));
+				game.setScreen(games.levelScreen);
 			};
 		});
 
@@ -112,7 +121,7 @@ public class MainMenuScreen implements Screen{
 		becomePro.addListener( new ClickListener() {             
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				game.setScreen(new Shop(_adsController,games));
+				game.setScreen(games.shop);
 			};
 		});
 		
@@ -120,7 +129,7 @@ public class MainMenuScreen implements Screen{
 		credits.addListener( new ClickListener() {             
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				game.setScreen(new CreditsScreen(_adsController,games));
+				game.setScreen(games.credits);
 			};
 		});
 		
@@ -128,7 +137,15 @@ public class MainMenuScreen implements Screen{
 		tutorial.addListener( new ClickListener() {             
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				game.setScreen(new TutorialScreen(_adsController,games));
+				game.setScreen(game.tutorial);
+			};
+		});
+		
+		//tutorial
+		difficulty.addListener( new ClickListener() {             
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				game.setScreen(games.levelDiffulty);
 			};
 		});
 		
@@ -147,16 +164,17 @@ public class MainMenuScreen implements Screen{
 		table.row();
 		table.row();
 		table.row();
+		table.add(play).padTop(5f).size(Constants.SCENE_WIDTH /  4.5f , Constants.SCENE_HEIGHT / 12);
 		table.row();
-		table.add(play).padTop(5f).size(Constants.SCENE_WIDTH /  5.5f , Constants.SCENE_HEIGHT / 12);
+		table.add(becomePro).padTop(5f).size(Constants.SCENE_WIDTH / 4.5f , Constants.SCENE_HEIGHT / 12);
 		table.row();
-		table.add(becomePro).padTop(5f).size(Constants.SCENE_WIDTH / 5.5f , Constants.SCENE_HEIGHT / 12);
+		table.add(credits).padTop(5f).size(Constants.SCENE_WIDTH / 4.5f , Constants.SCENE_HEIGHT / 12);
 		table.row();
-		table.add(credits).padTop(5f).size(Constants.SCENE_WIDTH / 5.5f , Constants.SCENE_HEIGHT / 12);
+		table.add(difficulty).padTop(5f).size(Constants.SCENE_WIDTH / 4.5f , Constants.SCENE_HEIGHT / 12);
 		table.row();
-		table.add(tutorial).padTop(5f).size(Constants.SCENE_WIDTH / 5.5f ,Constants.SCENE_HEIGHT / 12);
+		table.add(tutorial).padTop(5f).size(Constants.SCENE_WIDTH / 4.5f ,Constants.SCENE_HEIGHT / 12);
 		table.row();
-		table.add(exit).padTop(5f).size(Constants.SCENE_WIDTH / 5.5f , Constants.SCENE_HEIGHT / 12);;
+		table.add(exit).padTop(5f).size(Constants.SCENE_WIDTH / 4.5f , Constants.SCENE_HEIGHT / 12);;
 
 
 		// Set table's alpha to 0
@@ -170,7 +188,7 @@ public class MainMenuScreen implements Screen{
 	}
 	
 	@Override
-	public void show() {}
+	public void show() {Gdx.input.setInputProcessor(stage);}
 
 	@Override
 	public void render(float delta) {

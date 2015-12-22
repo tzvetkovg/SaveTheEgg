@@ -48,7 +48,7 @@ public class Shop implements Screen{
 
 	public Shop(final AdsController adsController,final GameClass game){
 		this.stage = new Stage(new ExtendViewport(Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT));
-		Gdx.input.setInputProcessor(stage);
+		
 		//font
 		font = Assets.manager.get(Assets.bitmapfont, BitmapFont.class);
 		backgroundImage = new Image(Assets.manager.get(Assets.levels, Texture.class));
@@ -114,7 +114,7 @@ public class Shop implements Screen{
 		button.addListener(new ClickListener() {
 			@Override
 			public void clicked (InputEvent event, float x, float y) {
-			   game.setScreen(new MainMenuScreen(adsController,game));
+			   game.setScreen(game.mainMenu);
 			}
 		});
 
@@ -216,7 +216,8 @@ public class Shop implements Screen{
 	}
 
 	@Override
-	public void show() {	
+	public void show() {
+		Gdx.input.setInputProcessor(stage);
 	}
 
 	@Override

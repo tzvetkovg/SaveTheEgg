@@ -22,12 +22,12 @@ import com.saveggs.utils.Constants;
 public class CreditsScreen implements Screen {
 	
 	private Stage stage;
-	private GameClass game;
+	private GameClass games;
 	private Image image;
 	private AdsController _adsController;
 	
 	public CreditsScreen(final AdsController adsController,final GameClass game){
-		this.game = game;
+		this.games = game;
 		this._adsController = adsController;
 		
         //back button
@@ -42,13 +42,12 @@ public class CreditsScreen implements Screen {
 		button.addListener(new ClickListener() {
 			@Override
 			public void clicked (InputEvent event, float x, float y) {
-			   game.setScreen(new MainMenuScreen(adsController,game));
-			   dispose();
+			   game.setScreen(games.mainMenu);
 			}
 		});
 		
 		this.stage = new Stage(new ExtendViewport(Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT));
-		Gdx.input.setInputProcessor(stage);
+
 		image = new Image(Assets.manager.get(Assets.credits, Texture.class));
 		image.setSize(Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT);
 		image.setOrigin(Constants.SCENE_WIDTH * 0.5f, Constants.SCENE_HEIGHT * 0.5f);
@@ -58,7 +57,7 @@ public class CreditsScreen implements Screen {
 	
 	@Override
 	public void show() {
-		
+		Gdx.input.setInputProcessor(stage);
 	}
 
 	@Override
@@ -95,7 +94,6 @@ public class CreditsScreen implements Screen {
 	@Override
 	public void dispose() {
 		stage.dispose();
-		
 	}
 
 }

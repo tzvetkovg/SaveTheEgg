@@ -24,24 +24,28 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.gdxPay.PlatformResolver;
+import com.saveggs.game.screens.CreditsScreen;
+import com.saveggs.game.screens.LevelDifficulty;
 import com.saveggs.game.screens.LevelScreen;
 import com.saveggs.game.screens.MainMenuScreen;
+import com.saveggs.game.screens.Shop;
 import com.saveggs.game.screens.SplashScreen;
 import com.saveggs.game.screens.StageScreen;
+import com.saveggs.game.screens.TutorialScreen;
 import com.saveggs.utils.Constants;
 
 
 public class GameClass extends Game {
 	
 	private AdsController adsController;
-	private Map<String,Object> worldBodies;
-	private World world;
 	
 	public SplashScreen splash;
 	public MainMenuScreen mainMenu;
 	public LevelScreen levelScreen;
-	public StageScreen stageScreen;
-	
+	public LevelDifficulty levelDiffulty;
+	public Shop shop;
+	public TutorialScreen tutorial;
+	public CreditsScreen credits;
 	SpriteBatch batch;
 	Stage stage;
 	Texture img;

@@ -92,11 +92,17 @@ public class SplashScreen implements Screen {
 		
 		if(image.getActions().size == 0 && Assets.manager.update()){
 			Constants constant = new Constants();
+			game.mainMenu = new MainMenuScreen(adsController, game);
+			game.levelScreen = new LevelScreen(adsController, game);
+			game.levelDiffulty = new LevelDifficulty(adsController, game);
+			game.shop = new Shop(adsController, game);
+			game.tutorial = new TutorialScreen(adsController, game);
+			game.credits = new CreditsScreen(adsController, game);
 			if(internetEnabled){
 				game.getPlatformResolver().requestPurchaseRestore();
 			}
 			constant.sound.loop();
-			game.setScreen(new MainMenuScreen(adsController,game));
+			game.setScreen(game.mainMenu);
 		}
 	}
 
