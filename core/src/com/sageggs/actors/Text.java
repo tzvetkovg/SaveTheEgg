@@ -29,7 +29,7 @@ public class Text extends GameActor{
 
 	@Override
     public void draw(Batch batch, float parentAlpha) {
-		font.draw(batch, remainingBalls + "", 2.5f, Constants.SCENE_HEIGHT / 30f * 0.97f );
+		font.draw(batch, remainingBalls + "", 3f, Constants.SCENE_HEIGHT / 30f * 0.97f );
 	}
 	
 	

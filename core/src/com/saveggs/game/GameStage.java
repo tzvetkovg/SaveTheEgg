@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -121,19 +122,13 @@ public class GameStage extends Stage implements ContactListener{
 	private Sound breakingEgg,destroyEnemey;
 	private TextButton button,pause,weaponButton1,weaponButton2,weaponButton3;
 	private float enemyLevelSpeed;
-	final TextureRegionDrawable weaponOneStyle = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.destroyEnemyArrow, Texture.class)));
-	final TextureRegionDrawable weaponOneClicked = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.destroyEnemyArrowClicked, Texture.class)));
-	final TextureRegionDrawable weaponTwoStyle = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.slowDownBird, Texture.class)));
-	final TextureRegionDrawable weaponTwoClicked = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.slowDownBirdClicked, Texture.class)));
-	final TextureRegionDrawable weaponThreeStyle = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.fastBallSpeed, Texture.class)));
-	final TextureRegionDrawable weaponThreeClicked = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.fastBallSpeedClicked, Texture.class)));
-	final TextButton.TextButtonStyle weaponButtonOneStyle = new TextButton.TextButtonStyle();
-	final TextButton.TextButtonStyle weaponButtonTwoStyle = new TextButton.TextButtonStyle();
-	final TextButton.TextButtonStyle weaponButtonThreeStyle = new TextButton.TextButtonStyle();
-	String mapPath;
+	private TextureRegionDrawable weaponOneStyle,weaponOneClicked,weaponTwoStyle,weaponTwoClicked,weaponThreeStyle,weaponThreeClicked;
+    private TextButton.TextButtonStyle weaponButtonOneStyle,weaponButtonTwoStyle,weaponButtonThreeStyle;
+	private String mapPath;
 	private Text score;
 	int ballLimit;
 	boolean slinshotShots;
+	private TextureAtlas atlas;
 	
 	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map, int currentLevel,float enemyLevelSpeed,boolean weapon1, boolean weapon2, boolean weapon3,int timeAds,String mapPath,int numberOfKillings,int ballLimit,boolean slinshotShots){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
@@ -473,8 +468,8 @@ public class GameStage extends Stage implements ContactListener{
 		
 		
 		//reset ball speed
-		slider.setValue(3);
-		Constants.ballSpeed = 14f;
+		slider.setValue(4);
+		Constants.ballSpeed = 14.3f;
 		
 		//reset enemies
 		enemyOtherSide.anyEggsLeft=true;
@@ -502,6 +497,21 @@ public class GameStage extends Stage implements ContactListener{
 		middlePoint = new Vector2();
 		clickedPoint = new Vector2();
 		score = new Text(ballLimit);
+		atlas = Assets.manager.get(Assets.gameAtlas, TextureAtlas.class);
+		
+		/**
+		 * button styles
+		 */
+		weaponOneStyle = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("destroyEnemyArrow")));
+		weaponOneClicked = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("destroyEnemyArrowClicked")));
+		weaponTwoStyle  = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("slowDownBird")));
+	    weaponTwoClicked = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("slowDownBirdClicked")));
+		weaponThreeStyle = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("fastBallSpeed")));
+		weaponThreeClicked = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("fastBallSpeedClicked")));
+		weaponButtonOneStyle = new TextButton.TextButtonStyle();
+		weaponButtonTwoStyle = new TextButton.TextButtonStyle();
+		weaponButtonThreeStyle = new TextButton.TextButtonStyle();
+
 		/**
 		 * music
 		 */
@@ -516,14 +526,14 @@ public class GameStage extends Stage implements ContactListener{
 		final TextButton.TextButtonStyle tbs1 = new TextButton.TextButtonStyle();
 		tbs1.font =  Assets.manager.get(Assets.bitmapfont, BitmapFont.class);
 		tbs1.font.getData().setScale(0.01f);
-		final TextureRegionDrawable continueBut = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.pause, Texture.class)));
-		final TextureRegionDrawable continueButDown = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.pauseDown, Texture.class)));
+		final TextureRegionDrawable continueBut = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("pause1")));
+		final TextureRegionDrawable continueButDown = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("pause2")));
 		tbs1.up = continueBut;
 		tbs1.down = continueButDown;
 		pause = new TextButton("back", tbs1);
 		pause.setSize(1.5f, 1.5f);
 		pause.setOrigin(Constants.SCENE_WIDTH / 30f * 0.5f, Constants.SCENE_HEIGHT / 30f * 0.5f);
-		pause.setPosition(pause.getX() + 1, pause.getY() + 14.7f);
+		pause.setPosition(pause.getX() + 1.4f, pause.getY() + 14.5f);
 		
 		
 		pause.addListener(new ClickListener() {
@@ -679,13 +689,13 @@ public class GameStage extends Stage implements ContactListener{
 		final TextButton.TextButtonStyle tbs = new TextButton.TextButtonStyle();
 		tbs.font =  Assets.manager.get(Assets.bitmapfont, BitmapFont.class);
 		tbs.font.getData().setScale(0.01f);
-		final TextureRegionDrawable musicEnabled = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.music, Texture.class)));
-		final TextureRegionDrawable musicDisabled = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.noMusic, Texture.class)));
+		final TextureRegionDrawable musicEnabled = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("music1")));
+		final TextureRegionDrawable musicDisabled = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("music2")));
 		tbs.up = musicEnabled;
 		button = new TextButton("back", tbs);
 		button.setSize(1.5f, 1.5f);
 		button.setOrigin(Constants.SCENE_WIDTH / 30f * 0.5f, Constants.SCENE_HEIGHT / 30f * 0.5f);
-		button.setPosition(button.getX(), button.getY() + 14.7f);
+		button.setPosition(button.getX(), button.getY() + 14.5f);
 		
 		button.addListener(new ClickListener() {
 			@Override
@@ -722,21 +732,21 @@ public class GameStage extends Stage implements ContactListener{
 		final TextButton.TextButtonStyle continueButton = new TextButton.TextButtonStyle();
 		continueButton.font =  Assets.manager.get(Assets.bitmapfont, BitmapFont.class);
 		continueButton.font.getData().setScale(0.001f);
-		continueButton.up = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.continueButton, Texture.class)));
-		continueButton.down = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.continueButtonDown, Texture.class)));
+		continueButton.up = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("continue1")));
+		continueButton.down = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("continue2")));
 
 		
 		final TextButton.TextButtonStyle replay = new TextButton.TextButtonStyle();
 		replay.font =  Assets.manager.get(Assets.bitmapfont, BitmapFont.class);
 		replay.font.getData().setScale(0.001f);
-		replay.up = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.replay, Texture.class)));
-		replay.down = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.replayDown, Texture.class)));
+		replay.up = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("replay1")));
+		replay.down = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("replay2")));
 		
 		final TextButton.TextButtonStyle myMenu = new TextButton.TextButtonStyle();
 		myMenu.font =  Assets.manager.get(Assets.bitmapfont, BitmapFont.class);
 		myMenu.font.getData().setScale(0.001f);
-		myMenu.up = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.myMenu, Texture.class)));
-		myMenu.down = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.myMenuDown, Texture.class)));
+		myMenu.up = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("menu1")));
+		myMenu.down = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("menu2")));
 		
 		 label = new Label("text",skin);
 		 dialog = new Dialog("please confirm", skin) {
@@ -870,13 +880,13 @@ public class GameStage extends Stage implements ContactListener{
 		 * slider
 		 */
 		Slider.SliderStyle ss = new Slider.SliderStyle();
-		ss.background = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.slider, Texture.class)));
-		ss.knob = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.sliderKnob, Texture.class)));
+		ss.background = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("PowerBar")));
+		ss.knob = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("ArrowDown")));
 		
 		slider = new Slider(0f, 4, 1f, false, ss);
 		
-		slider.setPosition(0, 0);
-		slider.setValue(3);
+		slider.setPosition(0,0f);
+		slider.setValue(4);
 		
 		slider.addListener(new InputListener() {
 			@Override
@@ -889,7 +899,7 @@ public class GameStage extends Stage implements ContactListener{
 				switch ((int)slider.getValue()) {
 		        case 0:  Constants.ballSpeed = 9f;
 		        		 break;
-		        case 1:  Constants.ballSpeed = 12f;
+		        case 1:  Constants.ballSpeed = 11f;
        		 			break;
 		        case 2:  Constants.ballSpeed = 13f;
 		        	break;
@@ -907,7 +917,7 @@ public class GameStage extends Stage implements ContactListener{
 				switch ((int)slider.getValue()) {
 		        case 0:  Constants.ballSpeed = 9f;
 		        		 break;
-		        case 1:  Constants.ballSpeed = 12f;
+		        case 1:  Constants.ballSpeed = 11f;
        		 			break;
 		        case 2:  Constants.ballSpeed = 13f;
 		        	break;
@@ -924,7 +934,7 @@ public class GameStage extends Stage implements ContactListener{
 		// Set table structure
 		table = new Table();
 
-		table.add(slider).width(150).height(50);
+		table.add(slider).width(150).height(50).padTop(18f);
 		addActor(table);
 		table.setClip(true);
 		table.setWidth(150);

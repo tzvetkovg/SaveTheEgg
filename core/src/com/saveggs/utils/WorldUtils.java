@@ -9,6 +9,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Mesh;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.VertexAttribute;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -28,6 +29,7 @@ public class WorldUtils {
 												-0.28571403f , 1.0000004f, 0, 0.1f, 0.2f, 0.1f, 1f, 1, 1,
 												0f, 0f, 0, 0, 0.4f, 0.5f, 0.5f, 1f, 0 };
 	
+	private static TextureAtlas atlas = Assets.manager.get(Assets.gameAtlas, TextureAtlas.class);;
 	//static ball
     public static Body createEgg(World world) {
 	       //Ball one
@@ -43,7 +45,7 @@ public class WorldUtils {
 	       fixDef2.shape = shape2;
 	       fixDef2.filter.groupIndex = -1;
 		   Body body = world.createBody(def2);
-		   body.createFixture(fixDef2).setUserData(new Box2DSprite(Assets.manager.get(Assets.qice, Texture.class)));
+		   body.createFixture(fixDef2).setUserData(new Box2DSprite(atlas.findRegion("qice")));
 		   body.setGravityScale(0);
 		   body.setUserData(Constants.QICE);
 		   //shape2.dispose();
@@ -65,7 +67,7 @@ public class WorldUtils {
 	       fixDef2.filter.groupIndex = -1;
 	       fixDef2.restitution = 0.3f;
 		   Body body = world.createBody(def2);
-		   body.createFixture(fixDef2).setUserData(new Box2DSprite(Assets.manager.get(Assets.dynamicBall, Texture.class)));
+		   body.createFixture(fixDef2).setUserData(new Box2DSprite(atlas.findRegion("dynamicBall")));
 
 		   body.setUserData(Constants.DynamicBall);
 		   shape2.dispose();
@@ -86,7 +88,7 @@ public class WorldUtils {
 	       fixDef.shape = shape;
 	       fixDef.filter.groupIndex = -1;
 	       Body body = world.createBody(def);
-	       body.createFixture(fixDef).setUserData(new Box2DSprite(Assets.manager.get(Assets.slingshot, Texture.class)));
+	       body.createFixture(fixDef).setUserData(new Box2DSprite(atlas.findRegion("slingshot")));
 	       body.setUserData(Constants.Slingshot);
 	       shape.dispose();
 	       return body;

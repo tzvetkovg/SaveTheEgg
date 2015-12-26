@@ -13,6 +13,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -52,67 +53,18 @@ public class Assets {
 	 * MenuScreen
 	 */
 	public static final String 
-	/**
-	 * Logo
-	 */
-	gameTitle = "data/ui/vulture.png",
-	levelButton = "data/ui/closedBlack.png",
-	levelButtonClicked = "data/ui/closedClick.png",
-	readyToBeSolved = "data/ui/readyToBeSolved.png",
-	solvedLevel = "data/ui/solved.png",
-	solvedLevelClicked = "data/ui/solvedClick.png",
-	normalButton = "data/ui/normalButton.png",
-	buttonOverTex = "data/ui/normalButton.png",
-	buttonDownTex = "data/ui/clickedButton.png",
-	slider = "data/ui/PowerBar.bmp",
-	sliderKnob = "data/ui/ArrowDown.bmp",
-	backbutton = "data/ui/backbutton.png",
-	backbuttonClicked = "data/ui/00135white.png",
 	credits = "data/credits.png",
 	tutorial = "data/tutorialtest.png",
-	/**
-	 * Level Menu
-	 */
 	levels = "data/ui/background.png",
-	levelBackGround = "data/ui/bah.png",
-	music = "data/ui/music.png",
-	noMusic = "data/ui/noMusic.png",
-	replay = "data/ui/00074.png",
-	myMenu = "data/ui/00161.png",
-	replayDown = "data/ui/00074white.png",
-	myMenuDown = "data/ui/00161white.png",
-	continueButton = "data/ui/00120.png",
-	continueButtonDown = "data/ui/00120white.png",
-	pause = "data/ui/00127.png",
-	pauseDown = "data/ui/00127white.png",
 	/**
 	 * Stage
 	 */
-	qice = "data/qice.png",
-	dynamicBall = "data/ball_smalltest.png",
-	slingshot = "data/slinghsotTest.png",
 	meshLastik = "data/lastik.png",
 	//ptica
-	pileBezKraka = "enemy/myDemoTest.png",
-	prisvivaneKraka = "data/prisviti.png",
-	opuvaneKraka = "data/opunati.png",
-	hvanatoQice = "data/hvanato Qice.png",
-	hodeneNaPile = "data/izlupvane.png",
+	pileBezKraka = "enemy/myEnemy.png",
+	izplupvane = "data/izlupvane.png",
 	pticheta = "flyingbird1/pticheta1.png",
 	pticheta2 = "flyingbird2/pticheta2.png",
-	//*weapons
-	destroyEnemyArrow = "data/weapons/weapon1.png",
-	destroyEnemyArrowClicked = "data/weapons/weapon1Clicked.png",
-	slowDownBird = "data/weapons/S_Holy07.png",
-	slowDownBirdClicked = "data/weapons/S_Holy07Clicked.png",
-	fastBallSpeed = "data/weapons/S_Light03.png",
-	fastBallSpeedClicked = "data/weapons/S_Light03Clicked.png",
-	shop1 = "data/weapons/testweapon1.png",
-	shop2 = "data/weapons/testweapon2.png",
-	shop3 = "data/weapons/testweapon3.png",
-	shop4 = "data/weapons/testweapon4.png",
-	shop5 = "data/weapons/testweapon5.png",
-	shop6 = "data/weapons/testweapon6.png",
 	/**
 	 * Loading Screen
 	 */
@@ -120,6 +72,9 @@ public class Assets {
 	/**
 	 * ParticleEffect
 	 */
+	@Asset(TextureAtlas.class)
+	public static final String gameAtlas = "data/ui/ui_buttons.pack";
+	
 	@Asset(ParticleEffect.class)
 	public static final String
 	particle = "data/particles/explosion.p",

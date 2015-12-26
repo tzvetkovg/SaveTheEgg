@@ -87,6 +87,7 @@ public class StageScreen implements Screen {
 
 /*		for(int i = 1; i < 25; ++i){
 			Element element = root.getChildByName("Level" + i);
+			
 			System.out.println(element.getChildByName("enemyspeed").getText());
 			Constants.preferences.putBoolean("Level" + i, true);
 		}

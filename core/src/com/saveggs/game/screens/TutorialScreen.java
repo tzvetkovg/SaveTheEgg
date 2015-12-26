@@ -8,6 +8,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -26,20 +27,21 @@ public class TutorialScreen implements Screen {
 	private Image image;
 	private AdsController _adsController;
 	private Image backgroundImage;
+	private TextureAtlas atlas;
 	
 	public TutorialScreen(final AdsController adsController,final GameClass game){
 		this.games = game;
 		this._adsController = adsController;
 		
 		this.stage = new Stage(new ExtendViewport(Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT));
-		
+		atlas = Assets.manager.get(Assets.gameAtlas, TextureAtlas.class);
 
         //back button
 		TextButton.TextButtonStyle tbs = new TextButton.TextButtonStyle();
 		tbs.font =  Assets.manager.get(Assets.bitmapfont, BitmapFont.class);
 		tbs.font.getData().setScale(0.001f);
-		tbs.up = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.backbutton, Texture.class)));
-		tbs.down = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.backbuttonClicked, Texture.class)));
+		tbs.up = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("backbutton")));
+		tbs.down = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("backbuttonClicked")));
 		TextButton button = new TextButton("", tbs);
 		tbs.font.getData().setScale(2f);
 		button.setPosition(0, 0);

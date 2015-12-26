@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -49,10 +50,11 @@ public class Qice extends GameActor {
 	public boolean musicEnabled = true;
 	public float timeSpend = 0;
 	public boolean measureTime = true;
+	private TextureAtlas atlas;
 	
 	public Qice(final Body body,int interval) {
 		super(body);
-		
+		atlas = Assets.manager.get(Assets.gameAtlas, TextureAtlas.class);
 		effect = new ParticleEffect(Assets.manager.get(Assets.izlupvaneQice, ParticleEffect.class));
 		//effect.load(Gdx.files.internal("data/particles/izlupvane.p"), Gdx.files.internal("data/particles"));
 		effect.setPosition(0, 0);
@@ -61,7 +63,7 @@ public class Qice extends GameActor {
 		pilence = Assets.manager.get(Assets.pilence, Music.class);
 		
 		splitAnimation();
-		sprite = new Box2DSprite(Assets.manager.get(Assets.qice, Texture.class));
+		sprite = new Box2DSprite(atlas.findRegion("qice"));
 		animation = new Animation(1f/1f, animationFrames);
 		animation.setPlayMode(Animation.PlayMode.LOOP);
 		animatedSprite = new AnimatedSprite(animation);
@@ -122,7 +124,7 @@ public class Qice extends GameActor {
         	
         	//kogato trugva da pada
         	if(razmazanoQice){
-        		sprite.setRegion(Assets.manager.get(Assets.qice, Texture.class));
+        		sprite.setRegion(atlas.findRegion("qice"));
         		animationDraw = false;
         		body.setType(BodyType.DynamicBody);
         	}
@@ -206,7 +208,7 @@ public class Qice extends GameActor {
 	 }
 	 
 	 public void splitAnimation(){
-		 TextureRegion[][] tmpFrames = TextureRegion.split(Assets.manager.get(Assets.hodeneNaPile, Texture.class), 70, 48);
+		 TextureRegion[][] tmpFrames = TextureRegion.split(Assets.manager.get(Assets.izplupvane, Texture.class), 70, 48);
 		 animationFrames = new TextureRegion[5];
 		 int index = 0;		 
 		 for (int i = 0; i < 1; ++i){
@@ -220,7 +222,7 @@ public class Qice extends GameActor {
 	 public void resetInitialPositionQice(Vector2 position){
 		
 		 //reset animation
-		 sprite = new Box2DSprite(Assets.manager.get(Assets.qice, Texture.class));
+		 sprite = new Box2DSprite(atlas.findRegion("qice"));
 		 animation = new Animation(1f/1f, animationFrames);
 		 animation.setPlayMode(Animation.PlayMode.LOOP);
 		 animatedSprite = new AnimatedSprite(animation);
@@ -237,7 +239,7 @@ public class Qice extends GameActor {
 		 body.setBullet(false);
 		 animationDraw = false;
 		 body.setTransform(position, 0);
-		 sprite.setRegion(Assets.manager.get(Assets.qice, Texture.class));
+		 sprite.setRegion(atlas.findRegion("qice"));
 		 timeSpend = 0;
 		 measureTime = true;
 		 //reset animation

@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -25,20 +26,21 @@ public class LevelDifficulty implements Screen {
 	private GameClass game;
 	private AdsController _adsController;
 	private Stage stage;
-	private Texture buttonUpTex;
-	private Texture buttonOverTex;
-	private Texture buttonDownTex;
+	private TextureRegion buttonUpTex;
+	private TextureRegion buttonOverTex;
+	private TextureRegion buttonDownTex;
 	private TextButton easy, hard;
 	private Image backgroundImage;
 	private TextButton.TextButtonStyle tbs4;
 	private TextButton.TextButtonStyle tbs2;
+	private TextureAtlas atlas;
 	
 	public LevelDifficulty(final AdsController adsController,final GameClass game){
 		this.game = game;
 		this._adsController = adsController;
 		this.stage = new Stage(new ExtendViewport(Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT));
 		
-
+		atlas = Assets.manager.get(Assets.gameAtlas, TextureAtlas.class);
 		
 		backgroundImage = new Image(Assets.manager.get(Assets.levels, Texture.class));
 		backgroundImage.setPosition(Constants.SCENE_WIDTH / 2 - backgroundImage.getWidth() / 2, Constants.SCENE_HEIGHT / 2 - backgroundImage.getHeight() / 2);
@@ -46,9 +48,9 @@ public class LevelDifficulty implements Screen {
 		stage.addActor(backgroundImage);
 		
 		// Set buttons' style
-		buttonUpTex = Assets.manager.get(Assets.normalButton, Texture.class);
-		buttonOverTex = Assets.manager.get(Assets.buttonOverTex, Texture.class);
-		buttonDownTex = Assets.manager.get(Assets.buttonDownTex, Texture.class);
+		buttonUpTex = atlas.findRegion("normalButton");
+		buttonOverTex = atlas.findRegion("normalButton");
+		buttonDownTex = atlas.findRegion("clickedButton");
 		
 		tbs2 = new TextButton.TextButtonStyle();
 		tbs2.up = new TextureRegionDrawable(new TextureRegion(buttonUpTex));
@@ -107,8 +109,8 @@ public class LevelDifficulty implements Screen {
 		TextButton.TextButtonStyle tbs3 = new TextButton.TextButtonStyle();
 		tbs3.font =  fontGenerator.generateFont(freeTypeFontParameter);
 		tbs3.font.getData().setScale(0.001f);
-		tbs3.up = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.backbutton, Texture.class)));
-		tbs3.down = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.backbuttonClicked, Texture.class)));
+		tbs3.up = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("backbutton")));
+		tbs3.down = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("backbuttonClicked")));
 		TextButton button2 = new TextButton("", tbs3);
 		tbs3.font.getData().setScale(2f);
 		button2.setPosition(0, 0);

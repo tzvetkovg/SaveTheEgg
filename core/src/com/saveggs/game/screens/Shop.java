@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.pay.Offer;
 import com.badlogic.gdx.pay.OfferType;
@@ -45,60 +46,55 @@ public class Shop implements Screen{
 	private Image gameTitle;
 	private static AdsController adsController;
 	private boolean internetEnabled = false;
-
+	private TextureAtlas atlas;
+	
 	public Shop(final AdsController adsController,final GameClass game){
 		this.stage = new Stage(new ExtendViewport(Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT));
-		
+		atlas = Assets.manager.get(Assets.gameAtlas, TextureAtlas.class);
 		//font
 		font = Assets.manager.get(Assets.bitmapfont, BitmapFont.class);
 		backgroundImage = new Image(Assets.manager.get(Assets.levels, Texture.class));
 		backgroundImage.setPosition(Constants.SCENE_WIDTH / 2 - backgroundImage.getWidth() / 2, Constants.SCENE_HEIGHT / 2 - backgroundImage.getHeight() / 2);
 
 		stage.addActor(backgroundImage);
-		gameTitle = new Image(new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.gameTitle, Texture.class))));
+		gameTitle = new Image(new TextureRegionDrawable(new TextureRegion(atlas.findRegion("vulture"))));
 
 		// arrow
-		destroyArrow = Assets.manager.get(Assets.shop1, Texture.class);
 		TextButton.TextButtonStyle tbs = new TextButton.TextButtonStyle();
 		tbs.font = font;
-		tbs.up = new TextureRegionDrawable(new TextureRegion(destroyArrow));
+		tbs.up = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("testweapon1")));
 		tbs.font.getData().setScale(0.01f);
 		
 		
 		// slowDown
-		slowDown = Assets.manager.get(Assets.shop2, Texture.class);
 		TextButton.TextButtonStyle tbs2 = new TextButton.TextButtonStyle();
 		tbs2.font = font;
-		tbs2.up = new TextureRegionDrawable(new TextureRegion(slowDown));
+		tbs2.up = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("testweapon2")));
 		tbs2.font.getData().setScale(0.01f);
 		
 		// super fast ball
-		fastBall = Assets.manager.get(Assets.shop3, Texture.class);
 		TextButton.TextButtonStyle tbs3 = new TextButton.TextButtonStyle();
 		tbs3.font = font;
-		tbs3.up = new TextureRegionDrawable(new TextureRegion(fastBall));
+		tbs3.up = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("testweapon3")));
 		tbs3.font.getData().setScale(0.01f);
 		
 		//remove ads
-		removeAds = Assets.manager.get(Assets.shop4, Texture.class);
 		TextButton.TextButtonStyle tbs4 = new TextButton.TextButtonStyle();
 		tbs4.font = font;
-		tbs4.up = new TextureRegionDrawable(new TextureRegion(removeAds));
+		tbs4.up = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("testweapon4")));
 		tbs4.font.getData().setScale(0.01f);
 		
 		// super fast ball
-		moreLevels = Assets.manager.get(Assets.shop5, Texture.class);
 		TextButton.TextButtonStyle tbs5 = new TextButton.TextButtonStyle();
 		tbs5.font = font;
-		tbs5.up = new TextureRegionDrawable(new TextureRegion(moreLevels));
+		tbs5.up = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("testweapon5")));
 		tbs5.font.getData().setScale(0.01f);
 		
 		//limit of slingshot shots
 		// super fast ball
-		slingShots = Assets.manager.get(Assets.shop6, Texture.class);
 		TextButton.TextButtonStyle tbs6 = new TextButton.TextButtonStyle();
 		tbs6.font = font;
-		tbs6.up = new TextureRegionDrawable(new TextureRegion(slingShots));
+		tbs6.up = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("testweapon6")));
 		tbs6.font.getData().setScale(0.01f);
 		
 		//go back
@@ -106,8 +102,8 @@ public class Shop implements Screen{
 		TextButton.TextButtonStyle tbs7 = new TextButton.TextButtonStyle();
 		tbs7.font =  Assets.manager.get(Assets.bitmapfont, BitmapFont.class);
 		tbs7.font.getData().setScale(0.001f);
-		tbs7.up = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.backbutton, Texture.class)));
-		tbs7.down = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.backbuttonClicked, Texture.class)));
+		tbs7.up = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("backbutton")));
+		tbs7.down = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("backbuttonClicked")));
 		TextButton button = new TextButton("", tbs7);
 		tbs7.font.getData().setScale(2f);
 		button.setPosition(0, 0);

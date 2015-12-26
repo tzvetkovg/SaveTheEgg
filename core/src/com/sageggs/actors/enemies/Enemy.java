@@ -14,6 +14,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -56,10 +57,11 @@ public class Enemy extends GameActor{
 	private float speed = 0;
 	private float speedBoost = 0;
 	private Sound sound;
+	private TextureAtlas atlas;
 	
 	public Enemy(Body body,Array<Qice> eggs,Map<String,Vector2> worldBodies) {
 		super(body);
-       		
+		atlas = Assets.manager.get(Assets.gameAtlas, TextureAtlas.class);	
 		vec1 = new Vector2();
 		vec2 = new Vector2();
 		vec3 = new Vector2();
@@ -79,9 +81,9 @@ public class Enemy extends GameActor{
 		animatedSprite = new AnimatedSprite(animation);
 		animatedBox2DSprite = new AnimatedBox2DSprite(animatedSprite);
 		//kraka
-		naOtivane = new Box2DSprite(Assets.manager.get(Assets.prisvivaneKraka, Texture.class));
-		otvarqne = new Box2DSprite(Assets.manager.get(Assets.opuvaneKraka, Texture.class));
-		hvanatoQice = new Box2DSprite(Assets.manager.get(Assets.hvanatoQice, Texture.class));
+		naOtivane = new Box2DSprite(atlas.findRegion("prisviti"));
+		otvarqne = new Box2DSprite(atlas.findRegion("opunati"));
+		hvanatoQice = new Box2DSprite(atlas.findRegion("hvanato_qice"));
 		//nastroivane na ugula
 		resetBody();
 

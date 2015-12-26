@@ -20,6 +20,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Interpolation;
@@ -52,19 +53,18 @@ public class LevelScreen implements Screen{
 	private Table container;
 	public final GameClass game;
 	private Image gameTitle;
-	private Image gameTitle2;
-	private Image arrow;
 	GameStage gameStage;
 	private AdsController adsController;
 	private Image sprite;
 	private MoveToAction moveAction;
 	private MyActor ac;
+	private TextureAtlas atlas;
 	
 	public LevelScreen(final AdsController adsController,final GameClass game){		
 		this.game = game;
 		this.adsController = adsController;
-		initializeScreen();		
-		
+		atlas = Assets.manager.get(Assets.gameAtlas, TextureAtlas.class);
+		initializeScreen();				
 	}
 
 	public class MyActor extends Actor{
@@ -173,8 +173,8 @@ public class LevelScreen implements Screen{
 		TextButton.TextButtonStyle tbs = new TextButton.TextButtonStyle();
 		tbs.font =  Assets.manager.get(Assets.bitmapfont, BitmapFont.class);
 		tbs.font.getData().setScale(0.001f);
-		tbs.up = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.backbutton, Texture.class)));
-		tbs.down = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.backbuttonClicked, Texture.class)));
+		tbs.up = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("backbutton")));
+		tbs.down = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("backbuttonClicked")));
 		TextButton button = new TextButton("", tbs);
 		tbs.font.getData().setScale(2f);
 		button.setPosition(0, 0);
@@ -268,23 +268,23 @@ public class LevelScreen implements Screen{
 		if(Constants.preferences.contains("Level" + level)){			
 			solvedLevel = Constants.preferences.getBoolean("Level" + level) == true ? true : false;
 			if(solvedLevel){
-				tbs.up = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.solvedLevel, Texture.class)));
-				tbs.down = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.solvedLevelClicked, Texture.class)));
+				tbs.up = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("solved")));
+				tbs.down = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("solvedClick")));
 				//TiledMap 
 				button.addListener(populateMaps(map,level));
 			}
 			//nivoto moje da se minava
 			else{
-				tbs.up = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.readyToBeSolved, Texture.class)));
-				tbs.down = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.levelButtonClicked, Texture.class)));
+				tbs.up = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("readyToBeSolved")));
+				tbs.down = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("closedClick")));
 				//TiledMap 
 				button.addListener(populateMaps(map,level));
 			}
 		}
 		//nivoto oshte go nqma vuv faila
 		else{
-			tbs.up = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.levelButton, Texture.class)));
-			tbs.down = new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.levelButtonClicked, Texture.class)));
+			tbs.up = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("closedBlack")));
+			tbs.down = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("closedClick")));
 		}
 		
         // Create the label to show the level number

@@ -21,6 +21,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.MathUtils;
@@ -49,22 +50,23 @@ public class MainMenuScreen implements Screen{
 	private TextButton play, exit,tutorial,credits,becomePro,difficulty;
 	private Image backgroundImage;
 	private BitmapFont font;
-	private Texture buttonUpTex;
-	private Texture buttonOverTex;
-	private Texture buttonDownTex;
+	private TextureRegion buttonUpTex;
+	private TextureRegion buttonOverTex;
+	private TextureRegion buttonDownTex;
 	private Image gameTitle;
 	private AdsController _adsController;
 	private final GameClass games;
 	private MoveToAction moveAction;
 	private MyActor ac;
 	private Sound sound;
+	private TextureAtlas atlas;
 	
 	public MainMenuScreen(final AdsController adsController,final GameClass game){
 		
 		this.games = game;
 		this.stage = new Stage(new ExtendViewport(Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT));
 		this._adsController = adsController;
-		
+		atlas = Assets.manager.get(Assets.gameAtlas, TextureAtlas.class);
 		
 		//font
 		FreeTypeFontGenerator fontGenerator = Assets.manager.get(Assets.myFont, FreeTypeFontGenerator.class);
@@ -76,7 +78,7 @@ public class MainMenuScreen implements Screen{
 		fontGenerator.generateData(freeTypeFontParameter); 
 		font = fontGenerator.generateFont(freeTypeFontParameter);
 		
-		gameTitle = new Image(new TextureRegionDrawable(new TextureRegion(Assets.manager.get(Assets.gameTitle, Texture.class))));
+		gameTitle = new Image(new TextureRegionDrawable(new TextureRegion(atlas.findRegion("vulture"))));
 		
 		backgroundImage = new Image(Assets.manager.get(Assets.levels, Texture.class));
 		backgroundImage.setPosition(Constants.SCENE_WIDTH / 2 - backgroundImage.getWidth() / 2, Constants.SCENE_HEIGHT / 2 - backgroundImage.getHeight() / 2);
@@ -84,9 +86,9 @@ public class MainMenuScreen implements Screen{
 		stage.addActor(backgroundImage);
 		
 		// Set buttons' style
-		buttonUpTex = Assets.manager.get(Assets.normalButton, Texture.class);
-		buttonOverTex = Assets.manager.get(Assets.buttonOverTex, Texture.class);
-		buttonDownTex = Assets.manager.get(Assets.buttonDownTex, Texture.class);
+		buttonUpTex = atlas.findRegion("normalButton");
+		buttonOverTex = atlas.findRegion("clickedButton");
+		buttonDownTex = atlas.findRegion("clickedButton");
 		TextButton.TextButtonStyle tbs = new TextButton.TextButtonStyle();
 		tbs.font = font;
 		tbs.up = new TextureRegionDrawable(new TextureRegion(buttonUpTex));

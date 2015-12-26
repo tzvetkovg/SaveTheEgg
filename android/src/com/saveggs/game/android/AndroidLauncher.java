@@ -1,6 +1,11 @@
 package com.saveggs.game.android;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
+import java.net.HttpURLConnection;
+import java.net.InetAddress;
+import java.net.URL;
+import java.net.UnknownHostException;
 
 import android.content.Context;
 import android.content.Intent;

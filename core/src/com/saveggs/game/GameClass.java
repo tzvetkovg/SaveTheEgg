@@ -210,7 +210,8 @@ public class GameClass extends Game {
 			}
 			@Override
 			public void handleRestoreError (Throwable e) {
-				throw new GdxRuntimeException(e);
+				System.out.println("throwing my error");
+				//throw new GdxRuntimeException(e);
 			}
 			@Override
 			public void handleInstall () {	}

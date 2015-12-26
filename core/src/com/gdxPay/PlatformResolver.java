@@ -56,8 +56,13 @@ public abstract class PlatformResolver {
 
     public void requestPurchaseRestore () {
         if (mgr != null) {
-            mgr.purchaseRestore();	// dont call PurchaseSystem.purchaseRestore(); because it may bind openIAB!
-            Gdx.app.log("gdx-pay", "calls purchasemanager.purchaseRestore()");
+        	try{        		
+        		mgr.purchaseRestore();	// dont call PurchaseSystem.purchaseRestore(); because it may bind openIAB!
+        		Gdx.app.log("gdx-pay", "calls purchasemanager.purchaseRestore()");
+        	}
+        	catch(Exception e){
+        		System.out.println("an error occurred");
+        	}
         } else {
             Gdx.app.log("gdx-pay", "ERROR: requestPurchaseRestore(): purchaseManager == null");
         }

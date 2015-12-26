@@ -1,5 +1,8 @@
 package com.admob;
 
+import java.io.IOException;
+import java.net.UnknownHostException;
+
 
 public interface AdsController {
 	public void showBannerAd();

@@ -99,6 +99,7 @@ public class SplashScreen implements Screen {
 			game.tutorial = new TutorialScreen(adsController, game);
 			game.credits = new CreditsScreen(adsController, game);
 			if(internetEnabled){
+				System.out.println("internet is enabled");
 				game.getPlatformResolver().requestPurchaseRestore();
 			}
 			constant.sound.loop();
