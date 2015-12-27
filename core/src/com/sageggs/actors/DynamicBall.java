@@ -1,13 +1,18 @@
 package com.sageggs.actors;
 
 import net.dermetfan.gdx.graphics.g2d.Box2DSprite;
+import assets.Assets;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
@@ -29,11 +34,13 @@ public class DynamicBall extends GameActor{
 	private Vector2 temp4;
 	private Body enemy;
 	public boolean followBody = false;
+	private TextureAtlas atlas;
 	
 	public DynamicBall(Body body) {
 		super(body);
 		world = body.getWorld();
-		topka = (Box2DSprite) body.getFixtureList().get(0).getUserData();
+		atlas = Assets.manager.get(Assets.gameAtlas, TextureAtlas.class);;
+		topka = new Box2DSprite(atlas.findRegion("dynamicBall"));
 		applyForceCoords = new Vector2();
 		coords = new Vector2();
 		temp = new Vector2();
@@ -41,7 +48,6 @@ public class DynamicBall extends GameActor{
 		temp3 = new Vector2();
 		temp4 = new Vector2();
 	}
-	
 	
 	Vector2 direction = new Vector2();
 	Vector2 velocity = new Vector2();

@@ -167,7 +167,7 @@ public class LevelScreen implements Screen{
 			scroll.addPage(levels);
 		}
 		container.add(scroll).expand().fill();
-		
+
 		
         //back button
 		TextButton.TextButtonStyle tbs = new TextButton.TextButtonStyle();
@@ -188,7 +188,7 @@ public class LevelScreen implements Screen{
         container.addActor(button);
         container.addAction(fadeIn(2f));
         
-         stage.addActor(container);
+        stage.addActor(container);
 	}
 	
 	

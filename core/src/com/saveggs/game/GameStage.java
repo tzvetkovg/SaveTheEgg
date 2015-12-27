@@ -103,7 +103,7 @@ public class GameStage extends Stage implements ContactListener{
 	private PruskaneQice pruskane;
 	private Map<String,Object> mapBodies;
 	private AdsController adsController;
-	private int timeIntervalAds = 0,timeAds = 32,numberOfEnemyKillings = 0,launchBothEnemies = 0,dialogAppearTimes = 0,whenToAppearAdd = 1;
+	private int timeIntervalAds = 0,timeAds = 32,numberOfEnemyKillings = 0,launchBothEnemies = 0,dialogAppearTimes = 0,whenToAppearAdd = 2;
 	public boolean showGame = false, internetEnabled = false, showAd = false;
 	private LoadingScreen loading;
 	private Skin skin;
@@ -748,11 +748,11 @@ public class GameStage extends Stage implements ContactListener{
 		myMenu.up = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("menu1")));
 		myMenu.down = new TextureRegionDrawable(new TextureRegion(atlas.findRegion("menu2")));
 		
-		 label = new Label("text",skin);
+		 label = new Label("",skin);
 		 dialog = new Dialog("please confirm", skin) {
 			{
-				button("text","replay",replay);
-				button("text", "menu",myMenu);
+				button("","replay",replay);
+				button("", "menu",myMenu);
 			}
 
 			@Override
@@ -810,9 +810,9 @@ public class GameStage extends Stage implements ContactListener{
 		 */
 		 pauseMenu = new Dialog("please confirm", skin) {
 			{
-				button("text","continue",continueButton);
-				button("text","replay",replay);
-				button("text", "menu",myMenu);
+				button("","continue",continueButton);
+				button("","replay",replay);
+				button("", "menu",myMenu);
 			}
 
 			@Override
@@ -1596,7 +1596,8 @@ public class GameStage extends Stage implements ContactListener{
 			boolean solvedLevel = Constants.preferences.getBoolean("Level" + nextLevel) == true ? true : false;
 			if(!solvedLevel)
 				Constants.preferences.putBoolean("Level" + nextLevel, false);
-			Constants.preferences.flush();			
+			Constants.preferences.flush();	
+			game.levelScreen = new LevelScreen(adsController, game);
 		}
 	}
 	

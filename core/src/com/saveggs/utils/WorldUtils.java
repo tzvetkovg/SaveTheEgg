@@ -29,7 +29,6 @@ public class WorldUtils {
 												-0.28571403f , 1.0000004f, 0, 0.1f, 0.2f, 0.1f, 1f, 1, 1,
 												0f, 0f, 0, 0, 0.4f, 0.5f, 0.5f, 1f, 0 };
 	
-	private static TextureAtlas atlas = Assets.manager.get(Assets.gameAtlas, TextureAtlas.class);;
 	//static ball
     public static Body createEgg(World world) {
 	       //Ball one
@@ -45,10 +44,10 @@ public class WorldUtils {
 	       fixDef2.shape = shape2;
 	       fixDef2.filter.groupIndex = -1;
 		   Body body = world.createBody(def2);
-		   body.createFixture(fixDef2).setUserData(new Box2DSprite(atlas.findRegion("qice")));
+		   body.createFixture(fixDef2).setUserData(Constants.QICE);
 		   body.setGravityScale(0);
 		   body.setUserData(Constants.QICE);
-		   //shape2.dispose();
+		   shape2.dispose();
 		   return body;
     }
     
@@ -67,7 +66,7 @@ public class WorldUtils {
 	       fixDef2.filter.groupIndex = -1;
 	       fixDef2.restitution = 0.3f;
 		   Body body = world.createBody(def2);
-		   body.createFixture(fixDef2).setUserData(new Box2DSprite(atlas.findRegion("dynamicBall")));
+		   body.createFixture(fixDef2).setUserData(Constants.DynamicBall);
 
 		   body.setUserData(Constants.DynamicBall);
 		   shape2.dispose();
@@ -88,7 +87,7 @@ public class WorldUtils {
 	       fixDef.shape = shape;
 	       fixDef.filter.groupIndex = -1;
 	       Body body = world.createBody(def);
-	       body.createFixture(fixDef).setUserData(new Box2DSprite(atlas.findRegion("slingshot")));
+	       body.createFixture(fixDef).setUserData(Constants.Slingshot);
 	       body.setUserData(Constants.Slingshot);
 	       shape.dispose();
 	       return body;
