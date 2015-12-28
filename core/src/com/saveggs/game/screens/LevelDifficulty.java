@@ -29,10 +29,11 @@ public class LevelDifficulty implements Screen {
 	private TextureRegion buttonUpTex;
 	private TextureRegion buttonOverTex;
 	private TextureRegion buttonDownTex;
-	private TextButton easy, hard;
+	private TextButton easy, medium, hard;
 	private Image backgroundImage;
-	private TextButton.TextButtonStyle tbs4;
-	private TextButton.TextButtonStyle tbs2;
+	private TextButton.TextButtonStyle easyLevel;
+	private TextButton.TextButtonStyle hardLevel;
+	private TextButton.TextButtonStyle mediumLevel;
 	private TextureAtlas atlas;
 	
 	public LevelDifficulty(final AdsController adsController,final GameClass game){
@@ -52,15 +53,20 @@ public class LevelDifficulty implements Screen {
 		buttonOverTex = atlas.findRegion("normalButton");
 		buttonDownTex = atlas.findRegion("clickedButton");
 		
-		tbs2 = new TextButton.TextButtonStyle();
-		tbs2.up = new TextureRegionDrawable(new TextureRegion(buttonUpTex));
-		tbs2.over = new TextureRegionDrawable(new TextureRegion(buttonOverTex));
-		tbs2.down = new TextureRegionDrawable(new TextureRegion(buttonDownTex));
+		hardLevel = new TextButton.TextButtonStyle();
+		hardLevel.up = new TextureRegionDrawable(new TextureRegion(buttonUpTex));
+		hardLevel.over = new TextureRegionDrawable(new TextureRegion(buttonOverTex));
+		hardLevel.down = new TextureRegionDrawable(new TextureRegion(buttonDownTex));
 		
-		tbs4 = new TextButton.TextButtonStyle();
-		tbs4.up = new TextureRegionDrawable(new TextureRegion(buttonUpTex));
-		tbs4.over = new TextureRegionDrawable(new TextureRegion(buttonOverTex));
-		tbs4.down = new TextureRegionDrawable(new TextureRegion(buttonDownTex));
+		easyLevel = new TextButton.TextButtonStyle();
+		easyLevel.up = new TextureRegionDrawable(new TextureRegion(buttonUpTex));
+		easyLevel.over = new TextureRegionDrawable(new TextureRegion(buttonOverTex));
+		easyLevel.down = new TextureRegionDrawable(new TextureRegion(buttonDownTex));
+		
+		mediumLevel = new TextButton.TextButtonStyle();
+		mediumLevel.up = new TextureRegionDrawable(new TextureRegion(buttonUpTex));
+		mediumLevel.over = new TextureRegionDrawable(new TextureRegion(buttonOverTex));
+		mediumLevel.down = new TextureRegionDrawable(new TextureRegion(buttonDownTex));
 		
 		FreeTypeFontGenerator fontGenerator = Assets.manager.get(Assets.myFont, FreeTypeFontGenerator.class);
 		FreeTypeFontGenerator.FreeTypeFontParameter freeTypeFontParameter =
@@ -70,15 +76,19 @@ public class LevelDifficulty implements Screen {
 		freeTypeFontParameter.borderWidth = 1;
 		fontGenerator.generateData(freeTypeFontParameter); 
 		
-		tbs2.font = fontGenerator.generateFont(freeTypeFontParameter);
-		tbs2.font.getData().setScale(1f);
-		tbs4.font = fontGenerator.generateFont(freeTypeFontParameter);
-		tbs4.font.getData().setScale(1f);
+		hardLevel.font = fontGenerator.generateFont(freeTypeFontParameter);
+		hardLevel.font.getData().setScale(1f);
+		easyLevel.font = fontGenerator.generateFont(freeTypeFontParameter);
+		easyLevel.font.getData().setScale(1f);
+		mediumLevel.font =  fontGenerator.generateFont(freeTypeFontParameter);
+		mediumLevel.font.getData().setScale(1f);
 		
-		easy = new TextButton("EASY", tbs4);
-		hard = new TextButton("DIFFICULT",tbs2);
+		easy = new TextButton("EASY", easyLevel);
+		medium = new TextButton("MEDIUM",mediumLevel);
+		hard = new TextButton("INSANE",hardLevel);
 		easy.setPosition(Constants.SCENE_WIDTH / 2.5f, Constants.SCENE_HEIGHT / 2);
-		hard.setPosition(Constants.SCENE_WIDTH / 2.5f, Constants.SCENE_HEIGHT / 3f);
+		medium.setPosition(Constants.SCENE_WIDTH / 2.5f, Constants.SCENE_HEIGHT / 2.8f);
+		hard.setPosition(Constants.SCENE_WIDTH / 2.5f, Constants.SCENE_HEIGHT / 4.6f);
 		
 		updateButtonLook();
 		
@@ -92,6 +102,15 @@ public class LevelDifficulty implements Screen {
 		});
 
 		
+		medium.addListener(new ClickListener() {
+			@Override
+			public void clicked (InputEvent event, float x, float y) {
+				   Constants.gameDifficulty.putString("levels", Constants.mediumLevels);
+				   Constants.gameDifficulty.flush();
+				   updateButtonLook();
+			}
+		});
+		
 		hard.addListener(new ClickListener() {
 			@Override
 			public void clicked (InputEvent event, float x, float y) {
@@ -102,6 +121,7 @@ public class LevelDifficulty implements Screen {
 		});
 		
 		stage.addActor(easy);
+		stage.addActor(medium);
 		stage.addActor(hard);
 		
 		
@@ -126,15 +146,21 @@ public class LevelDifficulty implements Screen {
 		
 	}
 	
-	
 	public void updateButtonLook(){
 		if(Constants.gameDifficulty.getString("levels").equals(Constants.easyLevels)){
-			tbs4.up = tbs4.down;
-			tbs2.up = tbs2.over;
+			easyLevel.up = easyLevel.down;
+			hardLevel.up = hardLevel.over;
+			mediumLevel.up = mediumLevel.over;
+		}
+		else if(Constants.gameDifficulty.getString("levels").equals(Constants.mediumLevels)){
+			mediumLevel.up = mediumLevel.down;
+			hardLevel.up = hardLevel.over;
+			easyLevel.up = easyLevel.over;
 		}
 		else{
-			tbs2.up = tbs2.down;
-			tbs4.up = tbs4.over;
+			hardLevel.up = hardLevel.down;
+			easyLevel.up = easyLevel.over;
+			mediumLevel.up = mediumLevel.over;
 		}
 	}
 	

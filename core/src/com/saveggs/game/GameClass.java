@@ -1,27 +1,18 @@
 package com.saveggs.game;
 
-import java.util.Map;
-
 import assets.Assets;
 
 import com.admob.AdsController;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.pay.Information;
 import com.badlogic.gdx.pay.Offer;
 import com.badlogic.gdx.pay.OfferType;
 import com.badlogic.gdx.pay.PurchaseManagerConfig;
 import com.badlogic.gdx.pay.PurchaseObserver;
 import com.badlogic.gdx.pay.Transaction;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.gdxPay.PlatformResolver;
 import com.saveggs.game.screens.CreditsScreen;
@@ -30,7 +21,6 @@ import com.saveggs.game.screens.LevelScreen;
 import com.saveggs.game.screens.MainMenuScreen;
 import com.saveggs.game.screens.Shop;
 import com.saveggs.game.screens.SplashScreen;
-import com.saveggs.game.screens.StageScreen;
 import com.saveggs.game.screens.TutorialScreen;
 import com.saveggs.utils.Constants;
 

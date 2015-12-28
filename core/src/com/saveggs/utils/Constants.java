@@ -21,6 +21,7 @@ public class Constants {
 	public static Sound sound;
 	public static final String difficultLevels = "data/difficultLevels.xml";
 	public static final String easyLevels = "data/easyLevels.xml";
+	public static final String mediumLevels = "data/mediumLevels.xml";
 	
 	public Constants(){
 		preferences = Gdx.app.getPreferences(GameStage.class.getName());

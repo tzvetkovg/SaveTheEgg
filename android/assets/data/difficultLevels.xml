@@ -197,26 +197,26 @@
 	</<Level24>
 	
 	<Level25>
-	    <enemyspeed>154</enemyspeed>
+	    <enemyspeed>163</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
-	    <ads>45</ads>
-	    <launchbothenemies>45</launchbothenemies>
+	    <ads>55</ads>
+	    <launchbothenemies>57</launchbothenemies>
 	     <ball_limit>150</ball_limit>
 	</<Level25>
 	
 	 <Level26>
-	    <enemyspeed>154</enemyspeed>
+	    <enemyspeed>163</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
-	    <ads>45</ads>
-	    <launchbothenemies>45</launchbothenemies>
+	    <ads>55</ads>
+	    <launchbothenemies>57</launchbothenemies>
 	     <ball_limit>150</ball_limit>
 	</<Level26>
 	
 	 <Level27>
-	    <enemyspeed>154</enemyspeed>
+	    <enemyspeed>163</enemyspeed>
 	    <flyingenemyspeed>2</flyingenemyspeed>
-	    <ads>45</ads>
-	    <launchbothenemies>45</launchbothenemies>
+	    <ads>55</ads>
+	    <launchbothenemies>57</launchbothenemies>
 	     <ball_limit>150</ball_limit>
 	</<Level27>
 	    
