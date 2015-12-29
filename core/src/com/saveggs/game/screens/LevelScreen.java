@@ -141,6 +141,9 @@ public class LevelScreen implements Screen{
 		//if purchased
 		if(Constants.shopPreferences.contains(GameClass.morelevels)){
 			bound = 3;
+			Constants.preferences.putBoolean("Level25", true);
+			Constants.preferences.putBoolean("Level26", true);
+			Constants.preferences.putBoolean("Level27", true);
 		}
 		for (int l = 0; l < bound; l++) {
 

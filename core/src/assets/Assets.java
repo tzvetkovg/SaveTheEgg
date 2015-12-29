@@ -73,7 +73,7 @@ public class Assets {
 	 * ParticleEffect
 	 */
 	@Asset(TextureAtlas.class)
-	public static final String gameAtlas = "data/ui/ui_buttons.pack";
+	public static final String gameAtlas = "data/ui/all_assets.pack";
 	
 	@Asset(ParticleEffect.class)
 	public static final String

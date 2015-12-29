@@ -81,16 +81,6 @@ public class StageScreen implements Screen {
 		Constants.ENEMYSPEED = Float.parseFloat(levelDetails.getChildByName("enemyspeed").getText());
 		Constants.FlYINGBIRDVELOCITY = Float.parseFloat(levelDetails.getChildByName("flyingenemyspeed").getText());
 		
-
-/*		for(int i = 1; i < 25; ++i){
-			Element element = root.getChildByName("Level" + i);
-			
-			System.out.println(element.getChildByName("enemyspeed").getText());
-			Constants.preferences.putBoolean("Level" + i, true);
-		}
-		Constants.preferences.flush();*/
-		//Constants.shopPreferences.remove(GameClass.ball_limit);
-		//Constants.shopPreferences.flush();
 		/**
 		 * initialize some of the world objects
 		 */
@@ -141,9 +131,6 @@ public class StageScreen implements Screen {
 		boolean weapon3 = Constants.shopPreferences.contains(GameClass.fastball);
 		boolean slinshotShots = Constants.shopPreferences.contains(GameClass.ball_limit);
 		
-		System.out.println("weapon1 " + weapon1 );
-		System.out.println("weapon2 " + weapon2 );
-		System.out.println("weapon3 " + weapon3 );
 		
 		Assets.manager.load(map, TiledMap.class);
 		Assets.manager.finishLoadingAsset(map);;
