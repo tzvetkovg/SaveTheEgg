@@ -61,6 +61,7 @@ public class EnemyOtherSide extends GameActor{
 	private float speed = 0f;
 	private float speedBoost = 0;
 	private TextureAtlas atlas;
+	private float flySpeed = 0;
 	
 	public EnemyOtherSide(Body body,Array<Qice> eggs,Map<String,Vector2> worldBodies) {
 		super(body);
@@ -71,7 +72,15 @@ public class EnemyOtherSide extends GameActor{
 		vec4 = new Vector2();
 		resetPosition = new Vector2();
 		pathPoints = new Array<Vector2>();
-
+		if(Constants.gameDifficulty.getString("levels").equals(Constants.easyLevels)){
+			flySpeed = 9;
+		}
+		else if(Constants.gameDifficulty.getString("levels").equals(Constants.mediumLevels)){
+			flySpeed = 12;
+		}
+		else if(Constants.gameDifficulty.getString("levels").equals(Constants.difficultLevels)){
+			flySpeed = 15;
+		}
 		this.eggs = eggs;
 		this.worldBodies = worldBodies;
 		//get random position
@@ -127,13 +136,18 @@ public class EnemyOtherSide extends GameActor{
 		direction.nor();
 		
 		//accelerate speed of bird when grabbing the egg
+		//accelerate speed of bird when grabbing the egg
 		if(point == 1 || point == 2 ){
-			speedBoost = 1.3f;
-			animation.setFrameDuration(1/17f);
+			speedBoost = 1.63f;
+			animation.setFrameDuration(1/1f);
+		}
+		else if(point == 3 || point == 4){
+			speedBoost = 1.30f;
+			animation.setFrameDuration(1/(flySpeed+5));
 		}
 		else{
-			speedBoost = 1;
-			animation.setFrameDuration(1/13f);
+			speedBoost = 1f;
+			animation.setFrameDuration(1/flySpeed);
 		}
 		velocity.x = (direction.x * speed * delta) * speedBoost;
 		velocity.y = (direction.y * speed  * delta) * speedBoost;

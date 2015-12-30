@@ -119,7 +119,7 @@ public class GameStage extends Stage implements ContactListener{
 	private Table table;
 	private boolean buttonClicked = false,musicMuted = false,weaponOne = false,weaponOneTimeExpired = false,weaponTwoTimeExpiredweaponTwo = false, weaponThreeTimeExpiredweaponThree = false,weapon1Enabled = false,weapon2Enabled= false,weapon3Enabled = false;
 	private Music music1;
-	private Sound breakingEgg,destroyEnemey;
+	private Sound breakingEgg,destroyEnemey,rubber,shot;
 	private TextButton button,pause,weaponButton1,weaponButton2,weaponButton3;
 	private float enemyLevelSpeed;
 	private TextureRegionDrawable weaponOneStyle,weaponOneClicked,weaponTwoStyle,weaponTwoClicked,weaponThreeStyle,weaponThreeClicked;
@@ -129,6 +129,7 @@ public class GameStage extends Stage implements ContactListener{
 	int ballLimit;
 	boolean slinshotShots;
 	private TextureAtlas atlas;
+	public CurrentMap myMap; 
 	
 	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map, int currentLevel,float enemyLevelSpeed,boolean weapon1, boolean weapon2, boolean weapon3,int timeAds,String mapPath,int numberOfKillings,int ballLimit,boolean slinshotShots){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
@@ -173,7 +174,7 @@ public class GameStage extends Stage implements ContactListener{
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		camera.unproject(touchDown.set(screenX, screenY, 0));
-		//System.out.println("touchpos" + " " +touchDown.x + " " + touchDown.y);		
+		playRubberSound();
 		return super.touchDown(screenX, screenY, pointer, button);
 	}
 
@@ -182,7 +183,7 @@ public class GameStage extends Stage implements ContactListener{
 		
 		if(showGame && !buttonClicked){			
 			camera.unproject(position.set(screenX, screenY, 0));
-
+			
 			clickedPoint.x = position.x;
 			clickedPoint.y = position.y;
 			myX = position.x;
@@ -229,6 +230,7 @@ public class GameStage extends Stage implements ContactListener{
 					}
 					if(!slinshotShots)
 						score.remainingBalls--;
+					playShot();
 				}
 			}
 			else
@@ -237,6 +239,7 @@ public class GameStage extends Stage implements ContactListener{
 					applyForceToBall(dynamicBall, null);
 					if(!slinshotShots)
 						score.remainingBalls--;
+					playShot();
 				}
 			}
 /*			dynamicBall = pool.obtain();
@@ -309,11 +312,12 @@ public class GameStage extends Stage implements ContactListener{
 		
 		world.setContactListener(this);
 
-		CurrentMap map = new CurrentMap(this.map,world);
-		addActor(map);		
+		myMap = new CurrentMap(this.map,world);
+		addActor(myMap);		
 		
 		bodiesOfWorld = new Array<Body>();
 		world.getBodies(bodiesOfWorld);
+		//updateTime
 		int timeOfIzlupvane = 35;
 		//map of all bodies
 		for (Body bodyLoop : bodiesOfWorld) {
@@ -389,13 +393,13 @@ public class GameStage extends Stage implements ContactListener{
 		//bird1
 		flyingBird = (FlyingBirds)mapBodies.get("flyingBird");
 		addActor(flyingBird);
-		FlyingBirds.pointBodyToAngle(135f, flyingBird.body);
+		flyingBird.pointBodyToAngle(135f, flyingBird.body);
 		destroyFlyingBirds.add(flyingBird);
 		
 		//bird2
 		flyingBird2 = (FlyingBirds2)mapBodies.get("flyingBird2");
 		addActor(flyingBird2);
-		FlyingBirds2.pointBodyToAngle(135f, flyingBird2.body);
+		flyingBird2.pointBodyToAngle(135f, flyingBird2.body);
 		destroyFlyingBirds2.add(flyingBird2);
 		
 		//PArticle effects
@@ -518,6 +522,8 @@ public class GameStage extends Stage implements ContactListener{
 		music1 = Assets.manager.get(Assets.birdScream, Music.class);
 		destroyEnemey = Assets.manager.get(Assets.dyingBird, Sound.class);
 		breakingEgg = Assets.manager.get(Assets.breakingEgg, Sound.class);
+		rubber = Assets.manager.get(Assets.rubber, Sound.class);
+		shot =Assets.manager.get(Assets.shot, Sound.class);
 		adjustMusic(0);
 		
 		/*
@@ -947,13 +953,13 @@ public class GameStage extends Stage implements ContactListener{
         for (FlyingBirds bird : destroyFlyingBirds) {
         	if(!BodyUtils.bodyInBounds(bird.body,camera)){
         		bird.resetBody(bird.body);
-        		FlyingBirds.pointBodyToAngle(MathUtils.random(130f, 170f),  bird.body);              		
+        		flyingBird.pointBodyToAngle(MathUtils.random(130f, 170f),  bird.body);              		
         	}
         }
         for (FlyingBirds2 bird : destroyFlyingBirds2) {
         	if(!BodyUtils.bodyInBounds(bird.body,camera)){
         		bird.resetBody(bird.body);
-        		FlyingBirds2.pointBodyToAngle(MathUtils.random(130f, 170f),  bird.body);        		
+        		flyingBird2.pointBodyToAngle(MathUtils.random(130f, 170f),  bird.body);        		
         	}
         }
 	}
@@ -1057,7 +1063,25 @@ public class GameStage extends Stage implements ContactListener{
 			destroyEnemey.play();
 		}
 	}
-		
+	
+	public void playRubberSound(){
+		boolean hasFinished = false;
+		if(music1.getVolume() > 0){	
+			if(!hasFinished)
+				rubber.play();
+			hasFinished = true;
+		}
+	}
+	
+	public void playShot(){
+		boolean hasFinished = false;
+		if(music1.getVolume() > 0){			
+			if(!hasFinished)
+				shot.play();
+			hasFinished = true;
+		}
+	}
+	
 	public void resetMusic(){
 
 /*		music1.stop();
@@ -1251,6 +1275,8 @@ public class GameStage extends Stage implements ContactListener{
 					  		  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();				
 			//dying bird particle
 			dyingEnemey();
+			//myMap.earthQuake = true;
+        	
 			ball.setSleepingAllowed(true);
 			
 			if(ball.isAwake()){
@@ -1428,12 +1454,7 @@ public class GameStage extends Stage implements ContactListener{
 				if(music1.getVolume() > 0){					
 					breakingEgg.play();
 				}
-				Gdx.app.postRunnable(new Runnable() {
-					@Override
-					public void run() {
-						//world.destroyBody(qice);
-					}
-				});
+				myMap.earthQuake = true;
 			}
         }
         
@@ -1471,7 +1492,7 @@ public class GameStage extends Stage implements ContactListener{
 			  Gdx.app.postRunnable(new Runnable() {
 			  		@Override
 			  		public void run () {
-			  			FlyingBirds.pointBodyToAngle(MathUtils.random(130f, 170f), myBody);
+			  			flyingBird.pointBodyToAngle(MathUtils.random(130f, 170f), myBody);
 			  		}
 			  	});
         }
@@ -1485,7 +1506,7 @@ public class GameStage extends Stage implements ContactListener{
 			  Gdx.app.postRunnable(new Runnable() {
 			  		@Override
 			  		public void run () {
-			  			FlyingBirds.pointBodyToAngle(MathUtils.random(-130f, -170f), myBody);
+			  			flyingBird.pointBodyToAngle(MathUtils.random(-130f, -170f), myBody);
 			  		}
 			  	});
         }
@@ -1524,7 +1545,7 @@ public class GameStage extends Stage implements ContactListener{
 			  Gdx.app.postRunnable(new Runnable() {
 			  		@Override
 			  		public void run () {
-			  			FlyingBirds2.pointBodyToAngle(MathUtils.random(-130f, -170f), myBody);
+			  			flyingBird2.pointBodyToAngle(MathUtils.random(-130f, -170f), myBody);
 			  		}
 			  	});
         }
@@ -1538,7 +1559,7 @@ public class GameStage extends Stage implements ContactListener{
 			  Gdx.app.postRunnable(new Runnable() {
 			  		@Override
 			  		public void run () {
-			  			FlyingBirds2.pointBodyToAngle(MathUtils.random(130f, 170f), myBody);
+			  			flyingBird2.pointBodyToAngle(MathUtils.random(130f, 170f), myBody);
 			  		}
 			  	});
         }

@@ -35,16 +35,13 @@ public class Qice extends GameActor {
 	public boolean drawing = true;
 	public boolean animationDraw = false;
 	private Box2DSprite sprite;
-	public ParticleEffect effect;
-	public boolean runBatch = false;
+	public ParticleEffect reward;
+	public boolean runReward = false;
 	public boolean vzetoQice = false;
 	public boolean razmazanoQice = false;
 	public boolean izlupenoQice = false, vzeto = false, uduljavaneIgra = false;
-	private Task task;
 	private int interval;
 	public Music pilence;
-	private long startTime;
-	private long stopTime;
 	public boolean playMusic, playHatchOut = false;
 	public long pileId = 0;
 	public boolean musicEnabled = true;
@@ -55,11 +52,8 @@ public class Qice extends GameActor {
 	public Qice(final Body body,int interval) {
 		super(body);
 		atlas = Assets.manager.get(Assets.gameAtlas, TextureAtlas.class);
-		effect = new ParticleEffect(Assets.manager.get(Assets.izlupvaneQice, ParticleEffect.class));
-		//effect.load(Gdx.files.internal("data/particles/izlupvane.p"), Gdx.files.internal("data/particles"));
-		effect.setPosition(0, 0);
-		effect.start();
-
+		reward = new ParticleEffect(Assets.manager.get(Assets.reward, ParticleEffect.class));
+		
 		pilence = Assets.manager.get(Assets.pilence, Music.class);
 		
 		splitAnimation();
@@ -92,6 +86,8 @@ public class Qice extends GameActor {
      public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha); 
         if(drawing){
+            if(runReward)
+            	runRewardEffect(batch);
         	if(!animationDraw) //should be !animationDraw 
         		sprite.draw(batch, body.getFixtureList().first()); 
         	else if(animationDraw){
@@ -105,10 +101,6 @@ public class Qice extends GameActor {
         		else{
         			animatedBox2DSprite.draw(batch, body.getFixtureList().first());
         		}
-        		//run effect
-        		if(runBatch){
-        			runEffect(batch);
-        		}
         	}
         	
         	//kogato e vzeto v krakata na pticata
@@ -116,7 +108,7 @@ public class Qice extends GameActor {
         		//body.setFixedRotation(false);
         		drawing = false;
         		animationDraw = false;
-        		runBatch = false;
+        		runReward = false;
             	body.setAwake(true);
             	body.setBullet(true);
             	//body.getFixtureList().first().setSensor(false); 
@@ -141,24 +133,6 @@ public class Qice extends GameActor {
         	}
         }
      }	
-	 
-/*	 public void pauseTime(){
-		 task.cancel();
-	 }
-	 
-	 public void resumeTime(){
-		stopTime = System.currentTimeMillis();
-		if( ( (stopTime - startTime) / 1000.0) < this.interval + 3){
-			 System.out.println("interval: " + (this.interval + 3));
-			 System.out.println("time spent " +  ((stopTime - startTime) / 1000.0));
-			 System.out.println("new time is " + ((this.interval + 3) - ( (stopTime - startTime) / 1000.0)));
-			 Timer.schedule(this.task,(int)( (this.interval + 3) - ( (stopTime - startTime) / 1000.0) ),1f,2);
-		}
-		else{
-			Timer.schedule(this.task,this.interval,1f,2);
-		}
-	 }*/
-	 
 
 	 @Override
 	public void act(float delta) {
@@ -177,7 +151,7 @@ public class Qice extends GameActor {
 	}
 	 
 	public void startChickenAnimation(){
-    	runBatch = true;
+    	runReward = true;
     	animationDraw = true;
     	//izlupeno pile
     	body.setAwake(true);
@@ -196,17 +170,14 @@ public class Qice extends GameActor {
 			animatedBox2DSprite.play();
 		}
 	}
-	
-	public void runEffect(Batch batch){	//run the effect	 		
-	 		effect.update(Gdx.graphics.getDeltaTime());
-	 		effect.setPosition(body.getPosition().x + 0.5f, body.getPosition().y + 0.5f);
-	 		effect.draw(batch);
-	 		if(effect.isComplete()){
-	 			effect.reset();
-				runBatch = false;
-	 		}
-	 }
 	 
+	public void runRewardEffect(Batch batch){
+ 		reward.update(Gdx.graphics.getDeltaTime());
+ 		reward.setPosition(body.getPosition().x + 0.5f, body.getPosition().y + 0.5f);
+ 		reward.start();
+ 		reward.draw(batch);
+	}
+	
 	 public void splitAnimation(){
 		 TextureRegion[][] tmpFrames = TextureRegion.split(Assets.manager.get(Assets.izplupvane, Texture.class), 70, 48);
 		 animationFrames = new TextureRegion[5];
@@ -233,7 +204,7 @@ public class Qice extends GameActor {
 		 izlupenoQice = false;
 		 vzetoQice = false;
 		 razmazanoQice = false;
-		 runBatch = false;
+		 runReward = false;
 		 body.setAwake(false);
 		 body.setSleepingAllowed(true);
 		 body.setBullet(false);

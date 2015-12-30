@@ -27,8 +27,8 @@ public class FlyingBirds2 extends GameActor{
 	private AnimatedSprite animatedSprite;
 	public AnimatedBox2DSprite animatedBox2DSprite;
 	private Animation animation;
-	private static Vector2 direction = new Vector2();
-	private static Vector2 velocity = new Vector2();
+	private Vector2 direction = new Vector2();
+	private Vector2 velocity = new Vector2();
 	private Array<Body> bodies;
 	public static World world;
 	
@@ -79,7 +79,7 @@ public class FlyingBirds2 extends GameActor{
 	 
 	 
 	//set velocity of enemy to target
-	public static void pointBodyToAngle(float desiredAngle, Body body){
+	public void pointBodyToAngle(float desiredAngle, Body body){
 		//calculate velocity
 		direction.x = (float) Math.cos((desiredAngle) * MathUtils.degreesToRadians);
 		direction.y = (float) Math.sin((desiredAngle) * MathUtils.degreesToRadians);
@@ -90,6 +90,7 @@ public class FlyingBirds2 extends GameActor{
 		
 		//get the angle
 		float getAngle = (float) Math.atan2( -direction.y, -direction.x );
+		animation.setFrameDuration(1/MathUtils.random(10f,17f));
 		//position body at angle
 		body.setTransform(body.getPosition(), getAngle);
 		

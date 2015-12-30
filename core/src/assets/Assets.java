@@ -82,7 +82,8 @@ public class Assets {
 	particleFlyingBird = "data/particles/flyingbird.p",
 	particleIzlupvane = "data/particles/izlupvane.p",
 	pruskaneQice = "data/particles/pruskane.p",
-	izlupvaneQice = "data/particles/izlupvane.p";
+	izlupvaneQice = "data/particles/izlupvane.p",
+	reward = "data/particles/reward.p";
 
 	/**
 	 * Maps
@@ -127,8 +128,10 @@ public class Assets {
 	public static final String
 	dyingBird = "data/sound/dyingbird.wav",
 	breakingEgg = "data/sound/breakingEgg.wav",
-	musicTest = "data/sound/menuMusic.wav";
-	
+	musicTest = "data/sound/menuMusic.wav",
+	rubber = "data/sound/rubber.wav",
+	shot = "data/sound/shot.wav";
+
 	@Asset(Music.class)
 	public static final String
 	birdScream = "data/sound/trycopy.wav",

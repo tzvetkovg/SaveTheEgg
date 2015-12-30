@@ -152,7 +152,7 @@ public class StageScreen implements Screen {
 		this.stage.act(delta);
 		this.stage.draw();
 
-/*		if(Gdx.input.isKeyJustPressed(Keys.UP)){
+		if(Gdx.input.isKeyJustPressed(Keys.UP)){
 			((OrthographicCamera) this.stage.getCamera() ).zoom -= 0.1f;
 			((OrthographicCamera) this.stage.getCamera() ).update();
 		}
@@ -160,7 +160,7 @@ public class StageScreen implements Screen {
 		if(Gdx.input.isKeyJustPressed(Keys.DOWN)){
 			((OrthographicCamera) this.stage.getCamera() ).zoom += 0.1f;
 			((OrthographicCamera) this.stage.getCamera() ).update();
-		}*/
+		}
 
 	}
 
@@ -171,7 +171,6 @@ public class StageScreen implements Screen {
 		this.stage.getCamera().viewportHeight = Constants.SCENE_HEIGHT / 30f;
 		this.stage.getCamera().position.set(this.stage.getCamera().viewportWidth / 2f, this.stage.getCamera().viewportHeight / 2f, 0); 
 		this.stage.getCamera().update();	
-		
 	}
 
 	@Override
