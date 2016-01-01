@@ -14,6 +14,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -23,6 +24,7 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.utils.Array;
 import com.sageggs.actors.GameActor;
 import com.sageggs.actors.Qice;
+import com.sageggs.actors.particles.MaskaBurst;
 import com.saveggs.utils.Constants;
 import com.saveggs.utils.EnemyUtils;
 import com.saveggs.utils.WorldUtils;
@@ -56,13 +58,23 @@ public class Enemy extends GameActor{
 	public boolean anyEggsLeft = true;
 	private float speed = 0;
 	private float speedBoost = 0;
-	private Sound sound;
 	private TextureAtlas atlas;
 	private float flySpeed = 0;
+	private Box2DSprite maska;
+	private TextureRegion brokenMask,normalMask;
+	public boolean enemyHit,maskaBurst = false;
+	public boolean mask = false;
+	private MaskaBurst maskBurst;
 	
 	public Enemy(Body body,Array<Qice> eggs,Map<String,Vector2> worldBodies) {
 		super(body);
 		atlas = Assets.manager.get(Assets.gameAtlas, TextureAtlas.class);	
+		normalMask = new TextureRegion(atlas.findRegion("maska1"));
+		brokenMask = new TextureRegion(atlas.findRegion("maska2"));
+		maska = new Box2DSprite(normalMask);		
+		maska.flip(false, true);
+		normalMask.flip(false, true);
+		brokenMask.flip(false, true);
 		vec1 = new Vector2();
 		vec2 = new Vector2();
 		vec3 = new Vector2();
@@ -97,7 +109,7 @@ public class Enemy extends GameActor{
 		hvanatoQice = new Box2DSprite(atlas.findRegion("hvanato_qice"));
 		//nastroivane na ugula
 		resetBody();
-
+		
 	}
 
 
@@ -181,7 +193,16 @@ public class Enemy extends GameActor{
     		hvanatoQice.setRotation(body.getAngle() - 70f);
     		animatedBox2DSprite.setRotation(body.getAngle() - 90f);
         	
+    		
         	animatedBox2DSprite.draw(batch, body.getFixtureList().first()); 
+        	if(mask){	
+        		if(enemyHit){
+        			setMask();
+        		}
+        		maska.setRotation(body.getAngle() + 70f);
+        		maska.draw(batch, body.getFixtureList().get(6)); 
+        	}
+        	
         }
      }
 	
@@ -250,6 +271,13 @@ public class Enemy extends GameActor{
 		this.speed = speed;
 	}
 	
+	public void setMask(){
+		maska.setRegion(brokenMask);
+	}
 	
+	public void resetMask(){
+		mask = false;
+		maska.setRegion(normalMask);
+	}
 	
 }

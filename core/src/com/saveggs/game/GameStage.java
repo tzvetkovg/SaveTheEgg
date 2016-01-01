@@ -23,6 +23,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -57,6 +58,7 @@ import com.sageggs.actors.enemies.EnemyOtherSide;
 import com.sageggs.actors.flyingbirds.FlyingBirds;
 import com.sageggs.actors.flyingbirds.FlyingBirds2;
 import com.sageggs.actors.loadingscreen.LoadingScreen;
+import com.sageggs.actors.particles.MaskaBurst;
 import com.sageggs.actors.particles.ParticleEffectAn;
 import com.sageggs.actors.particles.ParticleEffectBall;
 import com.sageggs.actors.particles.ParticleEffectFlyingBird;
@@ -115,6 +117,9 @@ public class GameStage extends Stage implements ContactListener{
 	private Label label;
 	private float distance, myX,myY;
 	private int currentLevel;
+	private int maskaKillings = 0;
+	private int defaultMaskKillingsFrequency = 3;
+	private int maskaAppearingKillings = defaultMaskKillingsFrequency;
 	private Slider slider;
 	private Table table;
 	private boolean buttonClicked = false,musicMuted = false,weaponOne = false,weaponOneTimeExpired = false,weaponTwoTimeExpiredweaponTwo = false, weaponThreeTimeExpiredweaponThree = false,weapon1Enabled = false,weapon2Enabled= false,weapon3Enabled = false;
@@ -130,6 +135,7 @@ public class GameStage extends Stage implements ContactListener{
 	boolean slinshotShots;
 	private TextureAtlas atlas;
 	public CurrentMap myMap; 
+	private MaskaBurst maskBurst;
 	
 	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map, int currentLevel,float enemyLevelSpeed,boolean weapon1, boolean weapon2, boolean weapon3,int timeAds,String mapPath,int numberOfKillings,int ballLimit,boolean slinshotShots){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
@@ -403,6 +409,9 @@ public class GameStage extends Stage implements ContactListener{
 		destroyFlyingBirds2.add(flyingBird2);
 		
 		//PArticle effects
+		//mask
+		maskBurst = new MaskaBurst();
+		addActor(maskBurst);
 		particleEffect = (ParticleEffectAn)mapBodies.get("particleEffect");
 		addActor(particleEffect);
 		particleBall = (ParticleEffectBall)mapBodies.get("particleBall");
@@ -450,7 +459,6 @@ public class GameStage extends Stage implements ContactListener{
 		for (Vector2 position: positionsOfQica){
 			allEggs.get(i).resetInitialPositionQice(position);
 			eggs.add(allEggs.get(i));
-//			System.out.println("i " + i);
 			i++;
 		}
 
@@ -460,6 +468,7 @@ public class GameStage extends Stage implements ContactListener{
 		
 		// reset
 		numberOfEnemyKillings = 0;
+		maskaAppearingKillings = defaultMaskKillingsFrequency;
 		score.remainingBalls = ballLimit;
 		//weapons
 		weaponOne = false;
@@ -1081,18 +1090,10 @@ public class GameStage extends Stage implements ContactListener{
 			hasFinished = true;
 		}
 	}
-	
-	public void resetMusic(){
-
-/*		music1.stop();
-		music1.play();
-		music1.setLooping(true);*/
-	}
 	/**
 	 * launch single enemy
 	 */
 	public void startEnemyOne(){
-		resetMusic();
 		
 		enemy.enemyDraw = false;
 		enemy.setSpeed(0);
@@ -1101,6 +1102,9 @@ public class GameStage extends Stage implements ContactListener{
 		enemy.resetBody();
 		//reset the other enemy
 		enemyOtherSide.enemyDraw = true;
+		if(numberOfEnemyKillings == maskaAppearingKillings){
+			enemyOtherSide.mask = true;
+		}
 		enemyOtherSide.setSpeed(Constants.ENEMYSPEED);
 		enemyOtherSide.body.setAwake(true);
 		enemyOtherSide.resetBody();
@@ -1108,7 +1112,6 @@ public class GameStage extends Stage implements ContactListener{
 	}
 	
 	public void startEnemyTwo(){
-		resetMusic();
 
 		//launch enemy2
 		enemyOtherSide.enemyDraw = false;
@@ -1117,6 +1120,9 @@ public class GameStage extends Stage implements ContactListener{
 		enemyOtherSide.resetBody();
 		//reset enemy1
 		enemy.enemyDraw = true;
+		if(numberOfEnemyKillings == maskaAppearingKillings){
+			enemy.mask = true;
+		}
 		enemy.setSpeed(Constants.ENEMYSPEED);
 		enemy.body.setAwake(true);
 		enemy.resetBody();
@@ -1130,13 +1136,39 @@ public class GameStage extends Stage implements ContactListener{
     		startEnemyOne();
 	}
 	
+/*	//mask handling
+	if(enemy.mask){
+		maskaKillings+=1;
+		if(maskaKillings == 1){		
+			maskBurst.setEffectCoord(enemy.body.getPosition().x, enemy.body.getPosition().y);
+			maskBurst.showEffect = true;
+			enemy.enemyHit = true;
+			return;
+		}
+		else{
+
+			enemy.enemyHit=false;
+			maskaAppearingKillings = numberOfEnemyKillings + defaultMaskKillingsFrequency;
+			enemy.resetMask();
+			maskaKillings = 0;
+		}
+	}
+	if(numberOfEnemyKillings == maskaAppearingKillings){
+		enemy.mask = true;
+	}*/
+	
+	
+	
 	/**
 	 * launch both enemies independently
 	 */
 	//launch both enemies
 	public void launchEnemyOne(){
-		resetMusic();
+
 		//reset enemy1
+/*		if(numberOfEnemyKillings == maskaAppearingKillings){
+			enemy.mask = true;
+		}*/
 		enemy.enemyDraw = true;
 		enemy.setSpeed(Constants.ENEMYSPEED);
 		enemy.body.setAwake(true);
@@ -1144,7 +1176,6 @@ public class GameStage extends Stage implements ContactListener{
 	}
 	
 	public void launchEnemyTwo(){
-		resetMusic();
 		//reset the other enemy
 		enemyOtherSide.enemyDraw = true;
 		enemyOtherSide.setSpeed(Constants.ENEMYSPEED);
@@ -1155,6 +1186,7 @@ public class GameStage extends Stage implements ContactListener{
 	/*
 	 * Contact Listener
 	 */
+	
 	@Override
 	public void beginContact(Contact contact) {
         
@@ -1278,16 +1310,32 @@ public class GameStage extends Stage implements ContactListener{
 			//myMap.earthQuake = true;
         	
 			ball.setSleepingAllowed(true);
-			
+
 			if(ball.isAwake()){
 				numberOfEnemyKillings++;
 				//if enemy1 is hit
-				if(toRemove != null && toRemove.isAwake()){					
+				if(toRemove != null && toRemove.isAwake()){
 					Gdx.app.postRunnable(new Runnable() {
 						@Override
 						public void run () {
 							ball.setAwake(false);
-	
+							
+							if(enemy.mask){
+								maskaKillings+=1;
+								if(maskaKillings == 1){		
+									maskBurst.setEffectCoord(enemy.body.getPosition().x, enemy.body.getPosition().y);
+									maskBurst.showEffect = true;
+									enemy.enemyHit = true;
+									return;
+								}
+								else{
+									enemy.enemyHit=false;
+									maskaAppearingKillings = numberOfEnemyKillings + defaultMaskKillingsFrequency;
+									enemy.resetMask();
+									maskaKillings = 0;
+								}
+							}
+							
 							//launch particle effect
 							if(enemy.enemyDraw){								
 								particleEffect.effect.setPosition(enemy.body.getPosition().x, enemy.body.getPosition().y);
@@ -1360,11 +1408,30 @@ public class GameStage extends Stage implements ContactListener{
 				}
 				//if enemy2 is hit
 				else if (toRemove2 != null && toRemove2.isAwake()){
+
 					Gdx.app.postRunnable(new Runnable() {
 						@Override
 						public void run () {
 							ball.setAwake(false);
-	
+							
+
+							//mask handling
+							if(enemyOtherSide.mask){
+								maskaKillings+=1;
+								if(maskaKillings == 1){	
+									enemyOtherSide.enemyHit = true;
+									maskBurst.setEffectCoord(enemyOtherSide.body.getPosition().x, enemyOtherSide.body.getPosition().y);
+									maskBurst.showEffect = true;
+									return;
+								}
+								else{
+									enemyOtherSide.enemyHit=false;
+									enemyOtherSide.resetMask();
+									maskaAppearingKillings = numberOfEnemyKillings + defaultMaskKillingsFrequency;
+									maskaKillings = 0;
+								}
+							}
+							
 							if(enemyOtherSide.enemyDraw){								
 								particleEffect.effect.setPosition(enemyOtherSide.body.getPosition().x, enemyOtherSide.body.getPosition().y);
 								particleEffect.showEffect = true;

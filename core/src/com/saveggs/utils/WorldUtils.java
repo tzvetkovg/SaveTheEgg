@@ -121,6 +121,12 @@ public class WorldUtils {
 	       FixtureDef dokosvane = new FixtureDef(); 
 	       dokosvane.isSensor = true; 
 	       dokosvane.shape = dokosvaneQice;
+	       //maska
+	       PolygonShape maska = new PolygonShape(); 
+	       maska.setAsBox(0.6f, 0.6f,new Vector2(.4f,.6f),0);
+	       FixtureDef maskaFixt = new FixtureDef(); 
+	       maskaFixt.isSensor = true; 
+	       maskaFixt.shape = maska;
 	       
 	       //dokosvane s qiceto
 	       PolygonShape sensorZaDokosvane = new PolygonShape(); 
@@ -151,6 +157,7 @@ public class WorldUtils {
 	       body.createFixture(krakataFD).setUserData(Constants.HVANATOQICE);
 	       body.createFixture(dokosvane).setUserData(Constants.DOKOSVANESQICE);
 	       body.createFixture(dokosvaneFd).setUserData(Constants.SENSORzaDOKOSVANE);
+	       body.createFixture(maskaFixt).setUserData("maska");
 	       body.setUserData(Constants.Enemy);
 	      // circle.dispose();
 	       shape.dispose();
@@ -186,6 +193,13 @@ public class WorldUtils {
 	       dokosvane.isSensor = true; 
 	       dokosvane.shape = dokosvaneQice;
 	       
+	       //maska
+	       PolygonShape maska = new PolygonShape(); 
+	       maska.setAsBox(0.6f, 0.6f,new Vector2(-.5f,.6f),0);
+	       FixtureDef maskaFixt = new FixtureDef(); 
+	       maskaFixt.isSensor = true; 
+	       maskaFixt.shape = maska;
+	       
 	       //dokosvane s qiceto
 	       PolygonShape sensorZaDokosvane = new PolygonShape(); 
 	       //kraka.setRadius(1f);
@@ -215,6 +229,7 @@ public class WorldUtils {
 	       body.createFixture(krakataFD).setUserData(Constants.HVANATOQICE);
 	       body.createFixture(dokosvane).setUserData(Constants.DOKOSVANESQICE);
 	       body.createFixture(dokosvaneFd).setUserData(Constants.SENSORzaDOKOSVANE);
+	       body.createFixture(maskaFixt).setUserData("maska");
 	       body.setUserData(Constants.Enemy2);
 	      // circle.dispose();
 	       shape.dispose();

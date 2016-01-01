@@ -62,10 +62,18 @@ public class EnemyOtherSide extends GameActor{
 	private float speedBoost = 0;
 	private TextureAtlas atlas;
 	private float flySpeed = 0;
+	private Box2DSprite maska;
+	private TextureRegion brokenMask,normalMask;
+	public boolean enemyHit = false;
+	public boolean mask = false;
 	
 	public EnemyOtherSide(Body body,Array<Qice> eggs,Map<String,Vector2> worldBodies) {
 		super(body);
 		atlas = Assets.manager.get(Assets.gameAtlas, TextureAtlas.class);	
+		normalMask = new TextureRegion(atlas.findRegion("maska1"));
+		brokenMask = new TextureRegion(atlas.findRegion("maska2"));
+		maska = new Box2DSprite(normalMask);
+
 		vec1 = new Vector2();
 		vec2 = new Vector2();
 		vec3 = new Vector2();
@@ -189,6 +197,13 @@ public class EnemyOtherSide extends GameActor{
     		animatedBox2DSprite.setRotation(body.getAngle() - 90f);
     		
         	animatedBox2DSprite.draw(batch, body.getFixtureList().first()); 
+        	if(mask){	
+        		if(enemyHit){
+        			setMask();
+        		}
+        		maska.setRotation(body.getAngle() + 70f);
+        		maska.draw(batch, body.getFixtureList().get(6)); 
+        	}
         }
      }
 	
@@ -247,5 +262,14 @@ public class EnemyOtherSide extends GameActor{
 
 	public void setSpeed(float speed) {
 		this.speed = speed;
+	}
+	
+	public void setMask(){
+		maska.setRegion(brokenMask);
+	}
+	
+	public void resetMask(){
+		mask = false;
+		maska.setRegion(normalMask);
 	}
 }
