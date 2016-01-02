@@ -272,4 +272,10 @@ public class EnemyOtherSide extends GameActor{
 		mask = false;
 		maska.setRegion(normalMask);
 	}
+	
+	public void restartMask(){
+		maska.setRegion(normalMask);
+		mask = false;
+		enemyHit = false;
+	}
 }

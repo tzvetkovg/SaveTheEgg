@@ -280,4 +280,10 @@ public class Enemy extends GameActor{
 		maska.setRegion(normalMask);
 	}
 	
+	public void restartMask(){
+		maska.setRegion(normalMask);
+		mask = false;
+		enemyHit = false;
+	}
+	
 }

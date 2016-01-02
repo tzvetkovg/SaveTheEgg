@@ -485,6 +485,10 @@ public class GameStage extends Stage implements ContactListener{
 		Constants.ballSpeed = 14.3f;
 		
 		//reset enemies
+		enemy.restartMask();
+		enemyOtherSide.restartMask();
+		maskaKillings = 0;
+		
 		enemyOtherSide.anyEggsLeft=true;
 		enemy.anyEggsLeft = true;
 		launchEnemy();
@@ -1135,30 +1139,7 @@ public class GameStage extends Stage implements ContactListener{
     	else
     		startEnemyOne();
 	}
-	
-/*	//mask handling
-	if(enemy.mask){
-		maskaKillings+=1;
-		if(maskaKillings == 1){		
-			maskBurst.setEffectCoord(enemy.body.getPosition().x, enemy.body.getPosition().y);
-			maskBurst.showEffect = true;
-			enemy.enemyHit = true;
-			return;
-		}
-		else{
-
-			enemy.enemyHit=false;
-			maskaAppearingKillings = numberOfEnemyKillings + defaultMaskKillingsFrequency;
-			enemy.resetMask();
-			maskaKillings = 0;
-		}
-	}
-	if(numberOfEnemyKillings == maskaAppearingKillings){
-		enemy.mask = true;
-	}*/
-	
-	
-	
+		
 	/**
 	 * launch both enemies independently
 	 */
@@ -1330,6 +1311,7 @@ public class GameStage extends Stage implements ContactListener{
 								}
 								else{
 									enemy.enemyHit=false;
+									myMap.earthQuake = true;
 									maskaAppearingKillings = numberOfEnemyKillings + defaultMaskKillingsFrequency;
 									enemy.resetMask();
 									maskaKillings = 0;
@@ -1426,6 +1408,7 @@ public class GameStage extends Stage implements ContactListener{
 								}
 								else{
 									enemyOtherSide.enemyHit=false;
+									myMap.earthQuake = true;
 									enemyOtherSide.resetMask();
 									maskaAppearingKillings = numberOfEnemyKillings + defaultMaskKillingsFrequency;
 									maskaKillings = 0;
