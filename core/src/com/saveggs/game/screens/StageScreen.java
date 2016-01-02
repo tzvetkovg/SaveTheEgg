@@ -124,7 +124,8 @@ public class StageScreen implements Screen {
 		ads = Integer.parseInt(levelDetails.getChildByName("ads").getText());
 		numberOfKillings = Integer.parseInt(levelDetails.getChildByName("launchbothenemies").getText());
 		int ballLimit = Integer.parseInt(levelDetails.getChildByName("ball_limit").getText());
-		
+		int eggHatch = Integer.parseInt(levelDetails.getChildByName("eggHatch").getText());
+				
 		boolean internetUse = (internetEnabled && !Constants.shopPreferences.contains(GameClass.productID_fullVersion));
 		boolean weapon1 = Constants.shopPreferences.contains(GameClass.automaticdestruction);
 		boolean weapon2 = Constants.shopPreferences.contains(GameClass.slowdown);
@@ -136,7 +137,7 @@ public class StageScreen implements Screen {
 		Assets.manager.finishLoadingAsset(map);;
 		
 		this.stage = new GameStage(adsController,this.worldBodies,this.world,internetUse,game,Assets.manager.get(map, TiledMap.class),currentLevel,enemySpeed,
-				weapon1,weapon2,weapon3,ads,map,numberOfKillings,ballLimit,slinshotShots);
+				weapon1,weapon2,weapon3,ads,map,numberOfKillings,ballLimit,slinshotShots,eggHatch);
 	}
 
 

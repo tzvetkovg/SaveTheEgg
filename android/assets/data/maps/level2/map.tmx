@@ -373,6 +373,7 @@
   </object>
   <object id="81" name="slingshot" type="object" x="61.5" y="352" width="46" height="96">
    <properties>
+    <property name="bodyType" value="DynamicBody"/>
     <property name="groupIndex" value="-1"/>
     <property name="userData" value="sling"/>
    </properties>

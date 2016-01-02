@@ -5,6 +5,7 @@
 	    <ads>150</ads>
 	    <launchbothenemies>59</launchbothenemies>
 	    <ball_limit>160</ball_limit>
+	     <eggHatch>25</eggHatch>
 	</<Level1>
 	
 	<Level2>
@@ -13,6 +14,7 @@
 	    <ads>80</ads>
 	    <launchbothenemies>62</launchbothenemies>
 	     <ball_limit>160</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level2>
 	 
 	<Level3>
@@ -21,6 +23,7 @@
 	    <ads>65</ads>
 	    <launchbothenemies>59</launchbothenemies>
 	     <ball_limit>177</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level3>
 	
 	<Level4>
@@ -29,6 +32,7 @@
 	    <ads>65</ads>
 	    <launchbothenemies>63</launchbothenemies>
 	     <ball_limit>200</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level4>
 	
 	<Level5>
@@ -37,6 +41,7 @@
 	    <ads>65</ads>
 	    <launchbothenemies>55</launchbothenemies>
 	     <ball_limit>168</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level5>
 	
 	<Level6>
@@ -45,6 +50,7 @@
 	    <ads>65</ads>
 	    <launchbothenemies>56</launchbothenemies>
 	     <ball_limit>165</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level6>
 	
 	<Level7>
@@ -53,6 +59,7 @@
 	    <ads>65</ads>
 	    <launchbothenemies>60</launchbothenemies>
 	     <ball_limit>138</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level7>
 	
 	<Level8>
@@ -61,6 +68,7 @@
 	    <ads>65</ads>
 	    <launchbothenemies>55</launchbothenemies>
 	     <ball_limit>138</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level8> 
 	
 	<Level9>
@@ -69,6 +77,7 @@
 	    <ads>65</ads>
 	    <launchbothenemies>56</launchbothenemies>
 	     <ball_limit>138</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level9>
 	
 	    
@@ -78,6 +87,7 @@
 	    <ads>55</ads>
 	    <launchbothenemies>55</launchbothenemies>
 	     <ball_limit>128</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level10>
 	
 	<Level11>
@@ -86,6 +96,7 @@
 	    <ads>55</ads>
 	    <launchbothenemies>59</launchbothenemies>
 	     <ball_limit>127</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level11>
 	
 	<Level12>
@@ -94,6 +105,7 @@
 	    <ads>55</ads>
 	    <launchbothenemies>55</launchbothenemies>
 	     <ball_limit>138</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level12>
 	
 	<Level13>
@@ -102,6 +114,7 @@
 	    <ads>55</ads>
 	    <launchbothenemies>53</launchbothenemies>
 	     <ball_limit>139</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level13>
 	
 	<Level14>
@@ -110,6 +123,7 @@
 	    <ads>55</ads>
 	    <launchbothenemies>53</launchbothenemies>
 	     <ball_limit>143</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level14>
 	
 	 <Level15>
@@ -118,6 +132,7 @@
 	    <ads>55</ads>
 	    <launchbothenemies>53</launchbothenemies>
 	     <ball_limit>145</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level15>
 
 	<Level16>
@@ -126,6 +141,7 @@
 	    <ads>55</ads>
 	    <launchbothenemies>55</launchbothenemies>
 	     <ball_limit>141</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level16>
 	
 	<Level17>
@@ -134,6 +150,7 @@
 	    <ads>55</ads>
 	    <launchbothenemies>54</launchbothenemies>
 	     <ball_limit>133</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level17>
 	
 	    
@@ -144,6 +161,7 @@
 	    <ads>55</ads>
 	    <launchbothenemies>54</launchbothenemies>
 	     <ball_limit>127</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level18>
 	    
 	<Level19>
@@ -152,6 +170,7 @@
 	    <ads>55</ads>
 	    <launchbothenemies>54</launchbothenemies>
 	     <ball_limit>130</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level19>
 	
 	<Level20>
@@ -160,6 +179,7 @@
 	    <ads>55</ads>
 	    <launchbothenemies>58</launchbothenemies>
 	     <ball_limit>155</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level20>
 	
 	    
@@ -169,6 +189,7 @@
 	    <ads>55</ads>
 	    <launchbothenemies>55</launchbothenemies>
 	     <ball_limit>148</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level21>
 	
 	    
@@ -178,6 +199,7 @@
 	    <ads>55</ads>
 	    <launchbothenemies>56</launchbothenemies>
 	     <ball_limit>145</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level22>
 	
 	 <Level23>
@@ -186,6 +208,7 @@
 	    <ads>55</ads>
 	    <launchbothenemies>58</launchbothenemies>
 	     <ball_limit>145</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level23>
 	
 	<Level24>
@@ -194,6 +217,7 @@
 	    <ads>55</ads>
 	    <launchbothenemies>57</launchbothenemies>
 	     <ball_limit>141</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level24>
 	
 	<Level25>
@@ -202,6 +226,7 @@
 	    <ads>55</ads>
 	    <launchbothenemies>57</launchbothenemies>
 	     <ball_limit>150</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level25>
 	
 	 <Level26>
@@ -210,6 +235,7 @@
 	    <ads>55</ads>
 	    <launchbothenemies>57</launchbothenemies>
 	     <ball_limit>150</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level26>
 	
 	 <Level27>
@@ -218,6 +244,7 @@
 	    <ads>55</ads>
 	    <launchbothenemies>57</launchbothenemies>
 	     <ball_limit>150</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level27>
 	    
 </LevelData>

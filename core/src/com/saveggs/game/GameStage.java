@@ -29,6 +29,7 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -118,9 +119,9 @@ public class GameStage extends Stage implements ContactListener{
 	private Label label;
 	private float distance, myX,myY;
 	private int currentLevel;
-	private int maskaKillings = 0;
-	private int defaultMaskKillingsFrequencyMaska1 = 2;
-	private int defaultMaskKillingsFrequencyMaska2 = 2;
+	private int maskaKillings,eggHatch = 0;
+	private int defaultMaskKillingsFrequencyMaska1 = 5;
+	private int defaultMaskKillingsFrequencyMaska2 = 7;
 	private int maskaAppearingKillings = defaultMaskKillingsFrequencyMaska1;
 	private int maskaAppearingKillings2 = defaultMaskKillingsFrequencyMaska2;
 	private Slider slider;
@@ -141,7 +142,8 @@ public class GameStage extends Stage implements ContactListener{
 	private MaskaBurst maskBurst;
 	private MaskaBurst2 maskBurst2;
 	
-	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map, int currentLevel,float enemyLevelSpeed,boolean weapon1, boolean weapon2, boolean weapon3,int timeAds,String mapPath,int numberOfKillings,int ballLimit,boolean slinshotShots){
+	
+	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map, int currentLevel,float enemyLevelSpeed,boolean weapon1, boolean weapon2, boolean weapon3,int timeAds,String mapPath,int numberOfKillings,int ballLimit,boolean slinshotShots,int eggHatch){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
 		this.game = game;
 		this.mapBodies = mapBodies;
@@ -159,6 +161,7 @@ public class GameStage extends Stage implements ContactListener{
 		this.mapPath = mapPath;
 		this.ballLimit = ballLimit;
 		this.slinshotShots = slinshotShots;
+		this.eggHatch = eggHatch;
 		setupCamera();
 		getViewport().setCamera(camera);
 		setUtils();
@@ -332,7 +335,7 @@ public class GameStage extends Stage implements ContactListener{
 		bodiesOfWorld = new Array<Body>();
 		world.getBodies(bodiesOfWorld);
 		//updateTime
-		int timeOfIzlupvane = 35;
+		int timeOfIzlupvane = eggHatch;
 		//map of all bodies
 		for (Body bodyLoop : bodiesOfWorld) {
 			//get bodies
@@ -352,12 +355,13 @@ public class GameStage extends Stage implements ContactListener{
 				
 				eggs.add(qice);
 				allEggs.add(qice);
-				timeOfIzlupvane += 35;
+				timeOfIzlupvane += eggHatch;
 				addActor(qice);
 			
 			}
 			//slingshot position
 			if(bodyLoop.getUserData().equals("sling")){
+				bodyLoop.setType(BodyType.DynamicBody);
 				bodyLoop.setGravityScale(0);
 				bodyLoop.getFixtureList().first().setSensor(true);
 				slingshot = new Slingshot(bodyLoop);//(Slingshot)mapBodies.get("slingshot");
