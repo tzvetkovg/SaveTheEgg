@@ -121,12 +121,20 @@ public class WorldUtils {
 	       FixtureDef dokosvane = new FixtureDef(); 
 	       dokosvane.isSensor = true; 
 	       dokosvane.shape = dokosvaneQice;
+	       
 	       //maska
 	       PolygonShape maska = new PolygonShape(); 
 	       maska.setAsBox(0.6f, 0.6f,new Vector2(.4f,.6f),0);
 	       FixtureDef maskaFixt = new FixtureDef(); 
 	       maskaFixt.isSensor = true; 
 	       maskaFixt.shape = maska;
+	       
+	       //maska2
+	       PolygonShape maska2 = new PolygonShape(); 
+	       maska2.setAsBox(0.6f, 0.6f,new Vector2(.3f,.5f),0);
+	       FixtureDef maskaFixt2 = new FixtureDef(); 
+	       maskaFixt2.isSensor = true; 
+	       maskaFixt2.shape = maska2;
 	       
 	       //dokosvane s qiceto
 	       PolygonShape sensorZaDokosvane = new PolygonShape(); 
@@ -158,6 +166,7 @@ public class WorldUtils {
 	       body.createFixture(dokosvane).setUserData(Constants.DOKOSVANESQICE);
 	       body.createFixture(dokosvaneFd).setUserData(Constants.SENSORzaDOKOSVANE);
 	       body.createFixture(maskaFixt).setUserData("maska");
+	       body.createFixture(maskaFixt2).setUserData("maska2");
 	       body.setUserData(Constants.Enemy);
 	      // circle.dispose();
 	       shape.dispose();
@@ -200,6 +209,13 @@ public class WorldUtils {
 	       maskaFixt.isSensor = true; 
 	       maskaFixt.shape = maska;
 	       
+	       //maska2
+	       PolygonShape maska2 = new PolygonShape(); 
+	       maska2.setAsBox(0.6f, 0.6f,new Vector2(-.4f,.6f),0);
+	       FixtureDef maskaFixt2 = new FixtureDef(); 
+	       maskaFixt2.isSensor = true; 
+	       maskaFixt2.shape = maska2;
+	       
 	       //dokosvane s qiceto
 	       PolygonShape sensorZaDokosvane = new PolygonShape(); 
 	       //kraka.setRadius(1f);
@@ -230,6 +246,7 @@ public class WorldUtils {
 	       body.createFixture(dokosvane).setUserData(Constants.DOKOSVANESQICE);
 	       body.createFixture(dokosvaneFd).setUserData(Constants.SENSORzaDOKOSVANE);
 	       body.createFixture(maskaFixt).setUserData("maska");
+	       body.createFixture(maskaFixt2).setUserData("maska2");
 	       body.setUserData(Constants.Enemy2);
 	      // circle.dispose();
 	       shape.dispose();

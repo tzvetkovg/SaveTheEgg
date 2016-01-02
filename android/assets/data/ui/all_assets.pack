@@ -157,114 +157,135 @@ continue2
   orig: 64, 64
   offset: 0, 0
   index: -1
-maska1
+hardestMaska1
   rotate: false
   xy: 767, 310
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-maska2
+hardestMaska2
   rotate: false
   xy: 701, 244
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-menu1
+hardestMaska3
   rotate: false
   xy: 767, 244
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-menu2
+maska1
   rotate: false
   xy: 635, 205
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-music1
+maska2
   rotate: false
   xy: 833, 296
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-music2
+menu1
   rotate: false
   xy: 833, 230
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-pause1
+menu2
   rotate: false
   xy: 611, 139
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-pause2
+music1
   rotate: false
   xy: 611, 73
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-readyToBeSolved
+music2
   rotate: false
   xy: 701, 178
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-replay1
+pause1
   rotate: false
   xy: 767, 178
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-replay2
+pause2
   rotate: false
   xy: 833, 164
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-solved
+readyToBeSolved
   rotate: false
   xy: 677, 112
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-solvedClick
+replay1
   rotate: false
   xy: 743, 112
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
+replay2
+  rotate: false
+  xy: 677, 46
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+solved
+  rotate: false
+  xy: 743, 46
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+solvedClick
+  rotate: false
+  xy: 611, 7
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
 destroyEnemyArrow
   rotate: false
-  xy: 677, 76
+  xy: 677, 10
   size: 34, 34
   orig: 34, 34
   offset: 0, 0
   index: -1
 destroyEnemyArrowClicked
   rotate: false
-  xy: 713, 76
+  xy: 713, 10
   size: 34, 34
   orig: 34, 34
   offset: 0, 0
   index: -1
 fastBallSpeed
   rotate: false
-  xy: 749, 76
+  xy: 749, 10
   size: 34, 34
   orig: 34, 34
   offset: 0, 0
@@ -292,7 +313,7 @@ slowDownBird
   index: -1
 slowDownBirdClicked
   rotate: false
-  xy: 611, 37
+  xy: 785, 10
   size: 34, 34
   orig: 34, 34
   offset: 0, 0

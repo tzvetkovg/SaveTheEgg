@@ -59,6 +59,7 @@ import com.sageggs.actors.flyingbirds.FlyingBirds;
 import com.sageggs.actors.flyingbirds.FlyingBirds2;
 import com.sageggs.actors.loadingscreen.LoadingScreen;
 import com.sageggs.actors.particles.MaskaBurst;
+import com.sageggs.actors.particles.MaskaBurst2;
 import com.sageggs.actors.particles.ParticleEffectAn;
 import com.sageggs.actors.particles.ParticleEffectBall;
 import com.sageggs.actors.particles.ParticleEffectFlyingBird;
@@ -118,8 +119,10 @@ public class GameStage extends Stage implements ContactListener{
 	private float distance, myX,myY;
 	private int currentLevel;
 	private int maskaKillings = 0;
-	private int defaultMaskKillingsFrequency = 3;
-	private int maskaAppearingKillings = defaultMaskKillingsFrequency;
+	private int defaultMaskKillingsFrequencyMaska1 = 2;
+	private int defaultMaskKillingsFrequencyMaska2 = 2;
+	private int maskaAppearingKillings = defaultMaskKillingsFrequencyMaska1;
+	private int maskaAppearingKillings2 = defaultMaskKillingsFrequencyMaska2;
 	private Slider slider;
 	private Table table;
 	private boolean buttonClicked = false,musicMuted = false,weaponOne = false,weaponOneTimeExpired = false,weaponTwoTimeExpiredweaponTwo = false, weaponThreeTimeExpiredweaponThree = false,weapon1Enabled = false,weapon2Enabled= false,weapon3Enabled = false;
@@ -136,6 +139,7 @@ public class GameStage extends Stage implements ContactListener{
 	private TextureAtlas atlas;
 	public CurrentMap myMap; 
 	private MaskaBurst maskBurst;
+	private MaskaBurst2 maskBurst2;
 	
 	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map, int currentLevel,float enemyLevelSpeed,boolean weapon1, boolean weapon2, boolean weapon3,int timeAds,String mapPath,int numberOfKillings,int ballLimit,boolean slinshotShots){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
@@ -234,18 +238,22 @@ public class GameStage extends Stage implements ContactListener{
 					if(enemyBody2 != null){
 						applyForceToBall(dynamicBall2, enemyBody2);
 					}
-					if(!slinshotShots)
+					if(!slinshotShots){						
 						score.remainingBalls--;
-					playShot();
+						playShot();
+						slingshot.bounceEffect=true;
+					}
 				}
 			}
 			else
 			{
 				if(score.remainingBalls != -1){							
 					applyForceToBall(dynamicBall, null);
-					if(!slinshotShots)
+					if(!slinshotShots){						
 						score.remainingBalls--;
-					playShot();
+						playShot();
+						slingshot.bounceEffect=true;
+					}
 				}
 			}
 /*			dynamicBall = pool.obtain();
@@ -350,6 +358,8 @@ public class GameStage extends Stage implements ContactListener{
 			}
 			//slingshot position
 			if(bodyLoop.getUserData().equals("sling")){
+				bodyLoop.setGravityScale(0);
+				bodyLoop.getFixtureList().first().setSensor(true);
 				slingshot = new Slingshot(bodyLoop);//(Slingshot)mapBodies.get("slingshot");
 			}
 			//mesh1 position
@@ -412,6 +422,9 @@ public class GameStage extends Stage implements ContactListener{
 		//mask
 		maskBurst = new MaskaBurst();
 		addActor(maskBurst);
+		//maska2
+		maskBurst2 = new MaskaBurst2();
+		addActor(maskBurst2);
 		particleEffect = (ParticleEffectAn)mapBodies.get("particleEffect");
 		addActor(particleEffect);
 		particleBall = (ParticleEffectBall)mapBodies.get("particleBall");
@@ -468,7 +481,7 @@ public class GameStage extends Stage implements ContactListener{
 		
 		// reset
 		numberOfEnemyKillings = 0;
-		maskaAppearingKillings = defaultMaskKillingsFrequency;
+		maskaAppearingKillings = defaultMaskKillingsFrequencyMaska1;
 		score.remainingBalls = ballLimit;
 		//weapons
 		weaponOne = false;
@@ -487,6 +500,8 @@ public class GameStage extends Stage implements ContactListener{
 		//reset enemies
 		enemy.restartMask();
 		enemyOtherSide.restartMask();
+		enemy.restartMask2();
+		enemyOtherSide.restartMask2();
 		maskaKillings = 0;
 		
 		enemyOtherSide.anyEggsLeft=true;
@@ -639,7 +654,7 @@ public class GameStage extends Stage implements ContactListener{
 				buttonClicked = true;
 				if(!weaponTwoTimeExpiredweaponTwo){		
 					weaponButtonTwoStyle.up = weaponTwoClicked;
-					Constants.ENEMYSPEED = 90;
+					Constants.ENEMYSPEED = 70;
 				}
 				return super.touchDown(event, x, y, pointer, button);
 			}
@@ -1107,7 +1122,10 @@ public class GameStage extends Stage implements ContactListener{
 		//reset the other enemy
 		enemyOtherSide.enemyDraw = true;
 		if(numberOfEnemyKillings == maskaAppearingKillings){
-			enemyOtherSide.mask = true;
+			enemyOtherSide.switchToMask1();
+		}
+		else if(numberOfEnemyKillings == maskaAppearingKillings2){
+			enemyOtherSide.switchToMask2();
 		}
 		enemyOtherSide.setSpeed(Constants.ENEMYSPEED);
 		enemyOtherSide.body.setAwake(true);
@@ -1125,7 +1143,10 @@ public class GameStage extends Stage implements ContactListener{
 		//reset enemy1
 		enemy.enemyDraw = true;
 		if(numberOfEnemyKillings == maskaAppearingKillings){
-			enemy.mask = true;
+			enemy.switchToMask1();
+		}
+		else if(numberOfEnemyKillings == maskaAppearingKillings2){
+			enemy.switchToMask2();
 		}
 		enemy.setSpeed(Constants.ENEMYSPEED);
 		enemy.body.setAwake(true);
@@ -1300,7 +1321,7 @@ public class GameStage extends Stage implements ContactListener{
 						@Override
 						public void run () {
 							ball.setAwake(false);
-							
+							//mask handling
 							if(enemy.mask){
 								maskaKillings+=1;
 								if(maskaKillings == 1){		
@@ -1312,11 +1333,36 @@ public class GameStage extends Stage implements ContactListener{
 								else{
 									enemy.enemyHit=false;
 									myMap.earthQuake = true;
-									maskaAppearingKillings = numberOfEnemyKillings + defaultMaskKillingsFrequency;
+									maskaAppearingKillings2 = numberOfEnemyKillings + defaultMaskKillingsFrequencyMaska2;
 									enemy.resetMask();
 									maskaKillings = 0;
 								}
 							}
+							
+							if(enemy.showMask2){
+								maskaKillings+=1;
+								if(maskaKillings == 1){		
+									maskBurst2.setEffectCoord(enemy.body.getPosition().x, enemy.body.getPosition().y);
+									maskBurst2.showEffect = true;
+									enemy.showMaskHit = true;
+									return;
+								}
+								else if(maskaKillings == 2){
+									maskBurst2.setEffectCoord(enemy.body.getPosition().x, enemy.body.getPosition().y);
+									maskBurst2.showEffect = true;
+									enemy.showMaskHit2 = true;
+									return;
+								}
+								else{
+									enemy.showMaskHit = false;
+									enemy.showMaskHit2 = false;
+									myMap.earthQuake = true;
+									maskaAppearingKillings = numberOfEnemyKillings + defaultMaskKillingsFrequencyMaska1;
+									enemy.resetMask2();
+									maskaKillings = 0;
+								}
+							}
+							
 							
 							//launch particle effect
 							if(enemy.enemyDraw){								
@@ -1395,22 +1441,44 @@ public class GameStage extends Stage implements ContactListener{
 						@Override
 						public void run () {
 							ball.setAwake(false);
-							
-
 							//mask handling
 							if(enemyOtherSide.mask){
 								maskaKillings+=1;
-								if(maskaKillings == 1){	
-									enemyOtherSide.enemyHit = true;
+								if(maskaKillings == 1){		
 									maskBurst.setEffectCoord(enemyOtherSide.body.getPosition().x, enemyOtherSide.body.getPosition().y);
 									maskBurst.showEffect = true;
+									enemyOtherSide.enemyHit = true;
 									return;
 								}
 								else{
 									enemyOtherSide.enemyHit=false;
 									myMap.earthQuake = true;
+									maskaAppearingKillings2 = numberOfEnemyKillings + defaultMaskKillingsFrequencyMaska2;
 									enemyOtherSide.resetMask();
-									maskaAppearingKillings = numberOfEnemyKillings + defaultMaskKillingsFrequency;
+									maskaKillings = 0;
+								}
+							}
+							
+							if(enemyOtherSide.showMask2){
+								maskaKillings+=1;
+								if(maskaKillings == 1){		
+									maskBurst2.setEffectCoord(enemyOtherSide.body.getPosition().x, enemyOtherSide.body.getPosition().y);
+									maskBurst2.showEffect = true;
+									enemyOtherSide.showMaskHit = true;
+									return;
+								}
+								else if(maskaKillings == 2){
+									maskBurst2.setEffectCoord(enemyOtherSide.body.getPosition().x, enemyOtherSide.body.getPosition().y);
+									maskBurst2.showEffect = true;
+									enemyOtherSide.showMaskHit2 = true;
+									return;
+								}
+								else{
+									enemyOtherSide.showMaskHit = false;
+									enemyOtherSide.showMaskHit2 = false;
+									myMap.earthQuake = true;
+									maskaAppearingKillings = numberOfEnemyKillings + defaultMaskKillingsFrequencyMaska1;
+									enemyOtherSide.resetMask2();
 									maskaKillings = 0;
 								}
 							}

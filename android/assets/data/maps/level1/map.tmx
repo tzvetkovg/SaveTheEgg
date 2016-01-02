@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="72">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" nextobjectid="73">
  <tileset firstgid="1" name="grass_9" tilewidth="16" tileheight="16">
   <image source="../assets/grass_9.png" width="512" height="640"/>
  </tileset>
@@ -358,6 +358,7 @@
   </object>
   <object id="65" name="slingshot" type="object" x="86" y="353" width="46" height="96">
    <properties>
+    <property name="bodyType" value="DynamicBody"/>
     <property name="groupIndex" value="-1"/>
     <property name="userData" value="sling"/>
    </properties>
