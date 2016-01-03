@@ -85,7 +85,9 @@ public class Assets {
 	izlupvaneQice = "data/particles/izlupvane.p",
 	reward = "data/particles/reward.p",
 	maskaBurst = "data/particles/maskaBurst.p",
-	maskaBurst2 = "data/particles/maskaBurst2.p";
+	maskaBurst2 = "data/particles/maskaBurst2.p",
+	smoke = "data/particles/smoke.p",
+	fire = "data/particles/fire.p";
 
 	/**
 	 * Maps

@@ -13,7 +13,7 @@
 	    <flyingenemyspeed>2</flyingenemyspeed>
 	    <ads>80</ads>
 	    <launchbothenemies>70</launchbothenemies>
-	     <ball_limit>150</ball_limit>
+	     <ball_limit>160</ball_limit>
 	      <eggHatch>25</eggHatch>
 	</<Level2>
 	 
@@ -23,7 +23,7 @@
 	    <flyingenemyspeed>2.1</flyingenemyspeed>
 	    <ads>65</ads>
 	    <launchbothenemies>67</launchbothenemies>
-	     <ball_limit>150</ball_limit>
+	     <ball_limit>160</ball_limit>
 	      <eggHatch>25</eggHatch>
 	</<Level3>
 	
@@ -33,7 +33,7 @@
 	    <ads>65</ads>
 	    <launchbothenemies>67</launchbothenemies>
 	     <ball_limit>160</ball_limit>
-	      <eggHatch>26</eggHatch>
+	      <eggHatch>25</eggHatch>
 	</<Level4>
 	
 	<Level5>
@@ -41,8 +41,8 @@
 	    <flyingenemyspeed>2</flyingenemyspeed>
 	    <ads>65</ads>
 	    <launchbothenemies>67</launchbothenemies>
-	     <ball_limit>150</ball_limit>
-	      <eggHatch>26</eggHatch>
+	     <ball_limit>160</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level5>
 	
 	<Level6>
@@ -50,8 +50,8 @@
 	    <flyingenemyspeed>2</flyingenemyspeed>
 	    <ads>65</ads>
 	    <launchbothenemies>67</launchbothenemies>
-	     <ball_limit>150</ball_limit>
-	      <eggHatch>26</eggHatch>
+	     <ball_limit>160</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level6>
 	
 	<Level7>
@@ -59,7 +59,7 @@
 	    <flyingenemyspeed>2</flyingenemyspeed>
 	    <ads>65</ads>
 	    <launchbothenemies>67</launchbothenemies>
-	     <ball_limit>150</ball_limit>
+	     <ball_limit>160</ball_limit>
 	      <eggHatch>25</eggHatch>
 	</<Level7>
 	
@@ -68,7 +68,7 @@
 	    <flyingenemyspeed>1.7</flyingenemyspeed>
 	    <ads>65</ads>
 	    <launchbothenemies>70</launchbothenemies>
-	     <ball_limit>150</ball_limit>
+	     <ball_limit>160</ball_limit>
 	      <eggHatch>20</eggHatch>
 	</<Level8> 
 	
@@ -107,7 +107,7 @@
 	    <ads>55</ads>
 	    <launchbothenemies>55</launchbothenemies>
 	     <ball_limit>160</ball_limit>
-	      <eggHatch>26</eggHatch>
+	      <eggHatch>25</eggHatch>
 	</<Level12>
 	
 	
@@ -117,7 +117,7 @@
 	    <ads>55</ads>
 	    <launchbothenemies>53</launchbothenemies>
 	     <ball_limit>160</ball_limit>
-	      <eggHatch>26</eggHatch>
+	      <eggHatch>25</eggHatch>
 	</<Level13>
 	
 	<Level14>
@@ -135,7 +135,7 @@
 	    <ads>55</ads>
 	    <launchbothenemies>54</launchbothenemies>
 	     <ball_limit>160</ball_limit>
-	      <eggHatch>26</eggHatch>
+	      <eggHatch>25</eggHatch>
 	</<Level15>
 
 	<Level16>
@@ -144,7 +144,7 @@
 	    <ads>55</ads>
 	    <launchbothenemies>59</launchbothenemies>
 	     <ball_limit>160</ball_limit>
-	      <eggHatch>26</eggHatch>
+	      <eggHatch>25</eggHatch>
 	</<Level16>
 	
 	<Level17>
@@ -153,7 +153,7 @@
 	    <ads>55</ads>
 	    <launchbothenemies>54</launchbothenemies>
 	     <ball_limit>160</ball_limit>
-	      <eggHatch>26</eggHatch>
+	      <eggHatch>25</eggHatch>
 	</<Level17>
 	
 	<Level18>
@@ -161,8 +161,8 @@
 	    <flyingenemyspeed>2</flyingenemyspeed>
 	    <ads>55</ads>
 	    <launchbothenemies>54</launchbothenemies>
-	     <ball_limit>150</ball_limit>
-	      <eggHatch>26</eggHatch>
+	     <ball_limit>160</ball_limit>
+	      <eggHatch>25</eggHatch>
 	</<Level18>
 	    
 	<Level19>
@@ -170,7 +170,7 @@
 	    <flyingenemyspeed>2</flyingenemyspeed>
 	    <ads>55</ads>
 	    <launchbothenemies>58</launchbothenemies>
-	     <ball_limit>150</ball_limit>
+	     <ball_limit>160</ball_limit>
 	      <eggHatch>26</eggHatch>
 	</<Level19>
 	
@@ -179,7 +179,7 @@
 	    <flyingenemyspeed>2</flyingenemyspeed>
 	    <ads>55</ads>
 	    <launchbothenemies>60</launchbothenemies>
-	     <ball_limit>150</ball_limit>
+	     <ball_limit>160</ball_limit>
 	      <eggHatch>26</eggHatch>
 	</<Level20>
 	
@@ -189,7 +189,7 @@
 	    <flyingenemyspeed>2.7</flyingenemyspeed>
 	    <ads>55</ads>
 	    <launchbothenemies>57</launchbothenemies>
-	     <ball_limit>140</ball_limit>
+	     <ball_limit>160</ball_limit>
 	      <eggHatch>25</eggHatch>
 	</<Level21>
 	
@@ -199,7 +199,7 @@
 	    <flyingenemyspeed>2.2</flyingenemyspeed>
 	    <ads>55</ads>
 	    <launchbothenemies>57</launchbothenemies>
-	     <ball_limit>140</ball_limit>
+	     <ball_limit>160</ball_limit>
 	      <eggHatch>25</eggHatch>
 	</<Level22>
 	
@@ -208,7 +208,7 @@
 	    <flyingenemyspeed>2.2</flyingenemyspeed>
 	    <ads>55</ads>
 	    <launchbothenemies>58</launchbothenemies>
-	     <ball_limit>140</ball_limit>
+	     <ball_limit>160</ball_limit>
 	      <eggHatch>25</eggHatch>
 	</<Level23>
 	
@@ -217,7 +217,7 @@
 	    <flyingenemyspeed>2.3</flyingenemyspeed>
 	    <ads>55</ads>
 	    <launchbothenemies>57</launchbothenemies>
-	     <ball_limit>140</ball_limit>
+	     <ball_limit>160</ball_limit>
 	      <eggHatch>26</eggHatch>
 	</<Level24>
 	

@@ -359,26 +359,26 @@
     <property name="userData" value="position1"/>
    </properties>
   </object>
-  <object id="79" name="middleSlingshot1" type="object" x="68" y="362" width="13" height="10">
+  <object id="79" name="middleSlingshot1" type="object" x="88" y="363" width="13" height="10">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="middleSlingshot1"/>
    </properties>
   </object>
-  <object id="80" name="middleSlingshot2" type="object" x="99.5" y="362" width="13" height="10">
+  <object id="80" name="middleSlingshot2" type="object" x="119.5" y="363" width="13" height="10">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="middleSlingshot2"/>
    </properties>
   </object>
-  <object id="81" name="slingshot" type="object" x="61.5" y="352" width="46" height="96">
+  <object id="81" name="slingshot" type="object" x="81.5" y="353" width="46" height="96">
    <properties>
     <property name="bodyType" value="DynamicBody"/>
     <property name="groupIndex" value="-1"/>
     <property name="userData" value="sling"/>
    </properties>
   </object>
-  <object id="82" name="middleBall" type="object" x="85.591" y="359.303" width="10" height="9">
+  <object id="82" name="middleBall" type="object" x="105.591" y="360.303" width="10" height="9">
    <properties>
     <property name="isSensor" value="true"/>
     <property name="userData" value="middleBall"/>

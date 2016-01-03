@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.saveggs.utils.Constants;
 
 public class Text extends GameActor{
-	BitmapFont font;
+	public BitmapFont font;
 	public int remainingBalls;
 	
     public Text(int maxBalls){

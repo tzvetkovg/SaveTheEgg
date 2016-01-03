@@ -9,6 +9,7 @@ import com.admob.AdsController;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -59,6 +60,7 @@ import com.sageggs.actors.enemies.EnemyOtherSide;
 import com.sageggs.actors.flyingbirds.FlyingBirds;
 import com.sageggs.actors.flyingbirds.FlyingBirds2;
 import com.sageggs.actors.loadingscreen.LoadingScreen;
+import com.sageggs.actors.particles.Fire;
 import com.sageggs.actors.particles.MaskaBurst;
 import com.sageggs.actors.particles.MaskaBurst2;
 import com.sageggs.actors.particles.ParticleEffectAn;
@@ -66,6 +68,7 @@ import com.sageggs.actors.particles.ParticleEffectBall;
 import com.sageggs.actors.particles.ParticleEffectFlyingBird;
 import com.sageggs.actors.particles.ParticleIzlupvane;
 import com.sageggs.actors.particles.PruskaneQice;
+import com.sageggs.actors.particles.Smoke;
 import com.saveggs.game.screens.LevelScreen;
 import com.saveggs.utils.BodyUtils;
 import com.saveggs.utils.Constants;
@@ -141,7 +144,8 @@ public class GameStage extends Stage implements ContactListener{
 	public CurrentMap myMap; 
 	private MaskaBurst maskBurst;
 	private MaskaBurst2 maskBurst2;
-	
+	private Smoke smoke;
+	private Fire fire;
 	
 	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map, int currentLevel,float enemyLevelSpeed,boolean weapon1, boolean weapon2, boolean weapon3,int timeAds,String mapPath,int numberOfKillings,int ballLimit,boolean slinshotShots,int eggHatch){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
@@ -243,9 +247,9 @@ public class GameStage extends Stage implements ContactListener{
 					}
 					if(!slinshotShots){						
 						score.remainingBalls--;
-						playShot();
-						slingshot.bounceEffect=true;
 					}
+					playShot();
+					slingshot.bounceEffect=true;
 				}
 			}
 			else
@@ -254,9 +258,9 @@ public class GameStage extends Stage implements ContactListener{
 					applyForceToBall(dynamicBall, null);
 					if(!slinshotShots){						
 						score.remainingBalls--;
-						playShot();
-						slingshot.bounceEffect=true;
 					}
+					playShot();
+					slingshot.bounceEffect=true;
 				}
 			}
 /*			dynamicBall = pool.obtain();
@@ -277,6 +281,7 @@ public class GameStage extends Stage implements ContactListener{
 
 	//apply force to the ball
 	public void applyForceToBall(DynamicBall ball, Body enemy){
+		
 		ball = pool.obtain();
 		sleeepingBalls.add(ball);
 		//add to stage	    
@@ -423,6 +428,11 @@ public class GameStage extends Stage implements ContactListener{
 		destroyFlyingBirds2.add(flyingBird2);
 		
 		//PArticle effects
+		//smoke
+		smoke = new Smoke(slingshot.body.getPosition().x + 1f,slingshot.body.getPosition().y);
+		addActor(smoke);
+		fire = new Fire(slingshot.body.getPosition().x + 1f,slingshot.body.getPosition().y);
+		addActor(fire);
 		//mask
 		maskBurst = new MaskaBurst();
 		addActor(maskBurst);
@@ -507,6 +517,7 @@ public class GameStage extends Stage implements ContactListener{
 		enemy.restartMask2();
 		enemyOtherSide.restartMask2();
 		maskaKillings = 0;
+		score.font.setColor(Color.ORANGE);
 		
 		enemyOtherSide.anyEggsLeft=true;
 		enemy.anyEggsLeft = true;
@@ -1059,9 +1070,21 @@ public class GameStage extends Stage implements ContactListener{
 	
 	//Destroy sleeping bodies
 	public void destroySleepingBalls(){
+		  //show smoke near slingshot
+		if(score.remainingBalls < 70){
+			score.font.setColor(Color.RED);
+			smoke.showEffect = false;
+			fire.showEffect = true;
+		}
+		else if(score.remainingBalls <= 90 && score.remainingBalls >= 70){
+			smoke.showEffect = true;
+		}
+		else{
+			smoke.showEffect = false;
+			fire.showEffect = false;
+		 }
 		
 		for (DynamicBall ball : sleeepingBalls) {	
-				
 				if(!ball.body.isAwake()){
 					ball.draw = false;
 		        	particleBall.effect.setPosition(ball.body.getPosition().x, ball.body.getPosition().y);

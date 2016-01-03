@@ -66,17 +66,6 @@ public class Qice extends GameActor {
 		animatedBox2DSprite.update(timeSpend);
 		
 		this.interval = interval;
-/*		task = new Task(){
-            @Override
-            public void run() {
-            	runBatch = true;
-            	animationDraw = true;
-            	//izlupeno pile
-            	body.setAwake(true);
-            };
-		};
-		startTime = System.currentTimeMillis();
-		Timer.schedule(task,this.interval,1f,2);*/
 
 	}
 	
@@ -86,7 +75,7 @@ public class Qice extends GameActor {
      public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha); 
         if(drawing){
-            if(runReward)
+            if(runReward && !vzetoQice)
             	runRewardEffect(batch);
         	if(!animationDraw) //should be !animationDraw 
         		sprite.draw(batch, body.getFixtureList().first()); 
