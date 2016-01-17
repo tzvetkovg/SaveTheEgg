@@ -62,20 +62,20 @@ public class EnemyOtherSide extends GameActor{
 	private float speedBoost = 0;
 	private TextureAtlas atlas;
 	private float flySpeed = 0;
-	private Box2DSprite maska;
-	private TextureRegion brokenMask,normalMask,hardestMask1,hardestMask2,hardestMask3;
-	public boolean enemyHit,maskaBurst,showMaskHit,showMaskHit2 = false;
-	public boolean mask,showMask2 = false;
+	//private Box2DSprite maska;
+	//private TextureRegion brokenMask,normalMask,hardestMask1,hardestMask2,hardestMask3;
+	//public boolean enemyHit,maskaBurst,showMaskHit,showMaskHit2 = false;
+	//public boolean mask,showMask2 = false;
 	
 	public EnemyOtherSide(Body body,Array<Qice> eggs,Map<String,Vector2> worldBodies) {
 		super(body);
 		atlas = Assets.manager.get(Assets.gameAtlas, TextureAtlas.class);	
-		normalMask = new TextureRegion(atlas.findRegion("maska1"));
+		/*normalMask = new TextureRegion(atlas.findRegion("maska1"));
 		brokenMask = new TextureRegion(atlas.findRegion("maska2"));
 		maska = new Box2DSprite(normalMask);
 		hardestMask1 = new TextureRegion(atlas.findRegion("hardestMaska1"));
 		hardestMask2 = new TextureRegion(atlas.findRegion("hardestMaska2"));
-		hardestMask3 = new TextureRegion(atlas.findRegion("hardestMaska3"));
+		hardestMask3 = new TextureRegion(atlas.findRegion("hardestMaska3"));*/
 		vec1 = new Vector2();
 		vec2 = new Vector2();
 		vec3 = new Vector2();
@@ -199,7 +199,7 @@ public class EnemyOtherSide extends GameActor{
     		animatedBox2DSprite.setRotation(body.getAngle() - 90f);
     		
         	animatedBox2DSprite.draw(batch, body.getFixtureList().first()); 
-        	if(mask){	
+        	/*if(mask){	
         		if(enemyHit){
         			setMask();
         		}
@@ -218,7 +218,7 @@ public class EnemyOtherSide extends GameActor{
         		maska.setRotation(body.getAngle() + 70f);
         		maska.draw(batch, body.getFixtureList().get(7)); 
         		
-        	}
+        	}*/
         	
         	
         }
@@ -281,7 +281,7 @@ public class EnemyOtherSide extends GameActor{
 		this.speed = speed;
 	}
 	
-	public void switchToMask1(){
+	/*public void switchToMask1(){
 		mask = true;
 		showMask2 = false;
 		maska.setRegion(normalMask);
@@ -301,9 +301,9 @@ public class EnemyOtherSide extends GameActor{
 		mask = false;
 		enemyHit = false;
 	}
-	/**
+	*//**
 	 * mask 2
-	 */
+	 *//*
 	public void switchToMask2(){
 		mask = false;
 		showMask2 = true;
@@ -329,7 +329,7 @@ public class EnemyOtherSide extends GameActor{
 		maska.setRegion(hardestMask1);
 		showMaskHit = false;
 		showMaskHit2 = false;
-	}
+	}*/
 	
 	
 }

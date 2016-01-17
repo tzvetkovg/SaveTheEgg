@@ -24,7 +24,7 @@ public class Assets {
 	
 	public static AnnotationAssetManager manager;
 	
-	public Assets(){
+	public Assets(){ 
 		manager = new AnnotationAssetManager(); 	
 		manager.setLoader(TiledMap.class, new TmxMapLoader());
 		manager.setLoader(Skin.class, new SkinLoader(new FileHandleResolver() {
@@ -61,8 +61,10 @@ public class Assets {
 	 */
 	meshLastik = "data/lastik.png",
 	//ptica
-	pileBezKraka = "enemy/myEnemy.png",
+	pileBezKraka = "enemy/flyingDuck.png",
 	izplupvane = "data/izlupvane.png",
+	flyingBirds = "flyingbird1/flyingBirds.png",
+	flyingBirds2 = "flyingbird1/flyingBirds2.png",
 	pticheta = "flyingbird1/pticheta1.png",
 	pticheta2 = "flyingbird2/pticheta2.png",
 	/**
@@ -73,7 +75,8 @@ public class Assets {
 	 * ParticleEffect
 	 */
 	@Asset(TextureAtlas.class)
-	public static final String gameAtlas = "data/ui/all_assets.pack";
+	public static final String gameAtlas = "data/ui/all_assets.pack",
+	explosion = "flyingbird1/flyingBird.pack";
 	
 	@Asset(ParticleEffect.class)
 	public static final String

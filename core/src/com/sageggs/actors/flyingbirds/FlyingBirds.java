@@ -24,36 +24,28 @@ import com.saveggs.utils.WorldUtils;
 public class FlyingBirds extends GameActor{
 	
 	private Texture texture;
-	private TextureRegion[] animationFrames;
 	private AnimatedSprite animatedSprite;
 	public AnimatedBox2DSprite animatedBox2DSprite;
-	private Animation animation;
 	private Vector2 direction = new Vector2();
 	private Vector2 velocity = new Vector2();
 	private Array<Body> bodies;
 	private static World world;
 	private float speed;
 	private float flySpeed = 13f;
-	
-	public FlyingBirds(Body body){
+	private Array<Animation> anim;
+	public FlyingBirds(Body body,Array<Animation> anim){
 		super(body);
 		world = body.getWorld();
 		bodies = new Array<Body>();
-		 
+		this.anim = anim;
 		body.getWorld().getBodies(bodies);
         for (Body bodyLoop : bodies) {
         	if(bodyLoop.getUserData().equals(Constants.LINE1))
         		body.setTransform(bodyLoop.getPosition().x, bodyLoop.getPosition().y, 0);
         }
-
-		texture = Assets.manager.get(Assets.pticheta, Texture.class);	
-		splitAnimation();
-		animation = new Animation(1f/flySpeed, animationFrames);
-		animation.setPlayMode(Animation.PlayMode.LOOP);
-		animatedSprite = new AnimatedSprite(animation);
+		animatedSprite = new AnimatedSprite(this.anim.get(0));
 		animatedBox2DSprite = new AnimatedBox2DSprite(animatedSprite);
-		
-		
+
 	}
 	
     @Override
@@ -63,24 +55,13 @@ public class FlyingBirds extends GameActor{
     }
     
 	 @Override
-	 
      public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
+       
         animatedBox2DSprite.draw(batch, body.getFixtureList().first()); 
      }
 	
-	
-	
-	 public void splitAnimation(){
-		 TextureRegion[][] tmpFrames = TextureRegion.split(texture, 256, 256);
-		 animationFrames = new TextureRegion[8];
-		 int index = 0;		 
-		 for (int i = 0; i < 2; ++i){
-			 for (int j = 0; j < 4; ++j){
-				 animationFrames[index++] = tmpFrames[i][j];
-			 }
-		 }
-	 }
+
 	 
 	 
 	//set velocity of enemy to target
@@ -95,7 +76,7 @@ public class FlyingBirds extends GameActor{
 		
 		//get the angle
 		float getAngle = (float) Math.atan2( -direction.y, -direction.x );
-		animation.setFrameDuration(1/MathUtils.random(10f,17f));
+		animatedSprite.getAnimation().setFrameDuration(1/MathUtils.random(10f,17f));
 		//position body at angle
 		body.setTransform(body.getPosition(), getAngle);
 		
@@ -119,6 +100,26 @@ public class FlyingBirds extends GameActor{
 		this.speed = speed;
 	}
 	
-	
+	public void switchAnimations()
+	{	
+		int num = MathUtils.random(0, 7);
+		
+		if(num == 0)
+			animatedSprite.setAnimation(anim.get(num));
+		else if (num ==1)
+			animatedSprite.setAnimation(anim.get(num));
+		else if(num == 2)
+			animatedSprite.setAnimation(anim.get(num));
+		else if (num  == 3)
+			animatedSprite.setAnimation(anim.get(num));
+		else if (num  == 4)
+			animatedSprite.setAnimation(anim.get(num));
+		else if (num  == 5)	
+			animatedSprite.setAnimation(anim.get(num));
+		else if (num  == 6)	
+			animatedSprite.setAnimation(anim.get(num));
+		else if (num  == 7)	
+			animatedSprite.setAnimation(anim.get(num));
+	}
 	
 }

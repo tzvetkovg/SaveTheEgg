@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -52,11 +53,13 @@ import com.sageggs.actors.CreateMesh2;
 import com.sageggs.actors.CurrentMap;
 import com.sageggs.actors.DynamicBall;
 import com.sageggs.actors.DynamicBall.DynamicBallPool;
+import com.sageggs.actors.Explosion;
 import com.sageggs.actors.Qice;
 import com.sageggs.actors.Slingshot;
 import com.sageggs.actors.Text;
 import com.sageggs.actors.enemies.Enemy;
 import com.sageggs.actors.enemies.EnemyOtherSide;
+import com.sageggs.actors.flyingbirds.FlyingBirdAnimations;
 import com.sageggs.actors.flyingbirds.FlyingBirds;
 import com.sageggs.actors.flyingbirds.FlyingBirds2;
 import com.sageggs.actors.loadingscreen.LoadingScreen;
@@ -146,6 +149,7 @@ public class GameStage extends Stage implements ContactListener{
 	private MaskaBurst2 maskBurst2;
 	private Smoke smoke;
 	private Fire fire;
+	private Explosion explosion;
 	
 	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map, int currentLevel,float enemyLevelSpeed,boolean weapon1, boolean weapon2, boolean weapon3,int timeAds,String mapPath,int numberOfKillings,int ballLimit,boolean slinshotShots,int eggHatch){
 		super(new ExtendViewport(Constants.SCENE_WIDTH / 35, Constants.SCENE_HEIGHT / 35, new OrthographicCamera()));
@@ -434,22 +438,23 @@ public class GameStage extends Stage implements ContactListener{
 		fire = new Fire(slingshot.body.getPosition().x + 1f,slingshot.body.getPosition().y);
 		addActor(fire);
 		//mask
-		maskBurst = new MaskaBurst();
-		addActor(maskBurst);
+/*		maskBurst = new MaskaBurst();
+		addActor(maskBurst);*/
 		//maska2
-		maskBurst2 = new MaskaBurst2();
-		addActor(maskBurst2);
-		particleEffect = (ParticleEffectAn)mapBodies.get("particleEffect");
-		addActor(particleEffect);
+/*		maskBurst2 = new MaskaBurst2();
+		addActor(maskBurst2);*/
+		//particleEffect = (ParticleEffectAn)mapBodies.get("particleEffect");
+		//addActor(particleEffect);
 		particleBall = (ParticleEffectBall)mapBodies.get("particleBall");
 		addActor(particleBall);
 		particleIzlupvane =  (ParticleIzlupvane)mapBodies.get("particleIzlupvane");
-		addActor(particleIzlupvane);
-		flyingBirdParticle = (ParticleEffectFlyingBird)mapBodies.get("flyingBirdParticle");
-		addActor(flyingBirdParticle);
+/*		addActor(particleIzlupvane);
+		flyingBirdParticle = (ParticleEffectFlyingBird)mapBodies.get("flyingBirdParticle");*/
+		//addActor(flyingBirdParticle);
 		pruskane = (PruskaneQice)mapBodies.get("pruskane");
 		addActor(pruskane);
-		
+		explosion = (Explosion)mapBodies.get("explosion");
+		addActor(explosion);
 		//slider
 		addActor(table);
 		//music
@@ -512,10 +517,10 @@ public class GameStage extends Stage implements ContactListener{
 		Constants.ballSpeed = 14.3f;
 		
 		//reset enemies
-		enemy.restartMask();
+		/*enemy.restartMask();
 		enemyOtherSide.restartMask();
 		enemy.restartMask2();
-		enemyOtherSide.restartMask2();
+		enemyOtherSide.restartMask2();*/
 		maskaKillings = 0;
 		score.font.setColor(Color.ORANGE);
 		
@@ -648,7 +653,7 @@ public class GameStage extends Stage implements ContactListener{
 							GameStage.this.weaponOne = false;
 							weaponOneTimeExpired = true;
 						}
-					},23);
+					},20);
 				}
 				super.touchUp(event, x, y, pointer, button);
 			}
@@ -686,7 +691,7 @@ public class GameStage extends Stage implements ContactListener{
 							Constants.ENEMYSPEED = enemyLevelSpeed;
 							weaponTwoTimeExpiredweaponTwo = true;
 						}
-					},23);
+					},20);
 				}
 				super.touchUp(event, x, y, pointer, button);
 			}
@@ -726,7 +731,7 @@ public class GameStage extends Stage implements ContactListener{
 							weaponThreeTimeExpiredweaponThree = true;
 							Constants.ballSpeed = ballSpeed[0];
 						}
-					},23);
+					},20);
 				}
 				super.touchUp(event, x, y, pointer, button);
 			}
@@ -993,16 +998,19 @@ public class GameStage extends Stage implements ContactListener{
 	
 	//Destroy bodies if out of range
 	public void destroyFlyingBirds(){
+		
         for (FlyingBirds bird : destroyFlyingBirds) {
         	if(!BodyUtils.bodyInBounds(bird.body,camera)){
         		bird.resetBody(bird.body);
-        		flyingBird.pointBodyToAngle(MathUtils.random(130f, 170f),  bird.body);              		
+        		flyingBird.pointBodyToAngle(MathUtils.random(130f, 170f),  bird.body);
+        		flyingBird.switchAnimations();
         	}
         }
         for (FlyingBirds2 bird : destroyFlyingBirds2) {
         	if(!BodyUtils.bodyInBounds(bird.body,camera)){
         		bird.resetBody(bird.body);
-        		flyingBird2.pointBodyToAngle(MathUtils.random(130f, 170f),  bird.body);        		
+        		flyingBird2.pointBodyToAngle(MathUtils.random(130f, 170f),  bird.body); 
+        		flyingBird2.switchAnimations();
         	}
         }
 	}
@@ -1148,12 +1156,12 @@ public class GameStage extends Stage implements ContactListener{
 		enemy.resetBody();
 		//reset the other enemy
 		enemyOtherSide.enemyDraw = true;
-		if(numberOfEnemyKillings == maskaAppearingKillings){
+		/*if(numberOfEnemyKillings == maskaAppearingKillings){
 			enemyOtherSide.switchToMask1();
 		}
 		else if(numberOfEnemyKillings == maskaAppearingKillings2){
 			enemyOtherSide.switchToMask2();
-		}
+		}*/
 		enemyOtherSide.setSpeed(Constants.ENEMYSPEED);
 		enemyOtherSide.body.setAwake(true);
 		enemyOtherSide.resetBody();
@@ -1169,12 +1177,12 @@ public class GameStage extends Stage implements ContactListener{
 		enemyOtherSide.resetBody();
 		//reset enemy1
 		enemy.enemyDraw = true;
-		if(numberOfEnemyKillings == maskaAppearingKillings){
+		/*if(numberOfEnemyKillings == maskaAppearingKillings){
 			enemy.switchToMask1();
 		}
 		else if(numberOfEnemyKillings == maskaAppearingKillings2){
 			enemy.switchToMask2();
-		}
+		}*/
 		enemy.setSpeed(Constants.ENEMYSPEED);
 		enemy.body.setAwake(true);
 		enemy.resetBody();
@@ -1349,7 +1357,7 @@ public class GameStage extends Stage implements ContactListener{
 						public void run () {
 							ball.setAwake(false);
 							//mask handling
-							if(enemy.mask){
+							/*if(enemy.mask){
 								maskaKillings+=1;
 								if(maskaKillings == 1){		
 									maskBurst.setEffectCoord(enemy.body.getPosition().x, enemy.body.getPosition().y);
@@ -1364,9 +1372,9 @@ public class GameStage extends Stage implements ContactListener{
 									enemy.resetMask();
 									maskaKillings = 0;
 								}
-							}
+							}*/
 							
-							if(enemy.showMask2){
+							/*if(enemy.showMask2){
 								maskaKillings+=1;
 								if(maskaKillings == 1){		
 									maskBurst2.setEffectCoord(enemy.body.getPosition().x, enemy.body.getPosition().y);
@@ -1388,13 +1396,14 @@ public class GameStage extends Stage implements ContactListener{
 									enemy.resetMask2();
 									maskaKillings = 0;
 								}
-							}
+							}*/
 							
 							
 							//launch particle effect
-							if(enemy.enemyDraw){								
-								particleEffect.effect.setPosition(enemy.body.getPosition().x, enemy.body.getPosition().y);
-								particleEffect.showEffect = true;
+							if(enemy.enemyDraw){
+								explosion.playAnimation(enemy.body);
+								//particleEffect.effect.setPosition(enemy.body.getPosition().x, enemy.body.getPosition().y);
+								//particleEffect.showEffect = true;
 							}
 
 							//puskane na qiceto
@@ -1469,7 +1478,7 @@ public class GameStage extends Stage implements ContactListener{
 						public void run () {
 							ball.setAwake(false);
 							//mask handling
-							if(enemyOtherSide.mask){
+/*							if(enemyOtherSide.mask){
 								maskaKillings+=1;
 								if(maskaKillings == 1){		
 									maskBurst.setEffectCoord(enemyOtherSide.body.getPosition().x, enemyOtherSide.body.getPosition().y);
@@ -1484,9 +1493,9 @@ public class GameStage extends Stage implements ContactListener{
 									enemyOtherSide.resetMask();
 									maskaKillings = 0;
 								}
-							}
+							}*/
 							
-							if(enemyOtherSide.showMask2){
+							/*if(enemyOtherSide.showMask2){
 								maskaKillings+=1;
 								if(maskaKillings == 1){		
 									maskBurst2.setEffectCoord(enemyOtherSide.body.getPosition().x, enemyOtherSide.body.getPosition().y);
@@ -1508,11 +1517,12 @@ public class GameStage extends Stage implements ContactListener{
 									enemyOtherSide.resetMask2();
 									maskaKillings = 0;
 								}
-							}
+							}*/
 							
-							if(enemyOtherSide.enemyDraw){								
-								particleEffect.effect.setPosition(enemyOtherSide.body.getPosition().x, enemyOtherSide.body.getPosition().y);
-								particleEffect.showEffect = true;
+							if(enemyOtherSide.enemyDraw){
+								explosion.playAnimation(enemyOtherSide.body);
+								//particleEffect.effect.setPosition(enemyOtherSide.body.getPosition().x, enemyOtherSide.body.getPosition().y);
+								//particleEffect.showEffect = true;
 							}
 							//puskane na qiceto
 							if(enemyOtherSide.pribirane){
@@ -1638,6 +1648,7 @@ public class GameStage extends Stage implements ContactListener{
 			  		@Override
 			  		public void run () {
 			  			flyingBird.pointBodyToAngle(MathUtils.random(130f, 170f), myBody);
+
 			  		}
 			  	});
         }
@@ -1661,16 +1672,19 @@ public class GameStage extends Stage implements ContactListener{
                 || (contact.getFixtureA().getUserData().equals( Constants.FLYINGBIRDHITAREA) && contact.getFixtureB().getBody().getUserData().equals(Constants.DynamicBall)) ){
         	final Body ball = contact.getFixtureA().getBody().getUserData().equals(Constants.DynamicBall) ?
         			contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
-        	if(ball.isAwake()){        		
-        		flyingBirdParticle.effect.setPosition(flyingBird.body.getPosition().x, flyingBird.body.getPosition().y);
-        		flyingBirdParticle.showEffect = true;
+        	if(ball.isAwake()){      
+        		
+        		//flyingBirdParticle.effect.setPosition(flyingBird.body.getPosition().x, flyingBird.body.getPosition().y);
+        		//flyingBirdParticle.showEffect = true;
         		
         		ball.setSleepingAllowed(true);
         		
         		Gdx.app.postRunnable(new Runnable() {
         			@Override
         			public void run () {
+        				explosion.playAnimation(flyingBird.body);
         				ball.setAwake(false);
+			  			flyingBird.switchAnimations();
         				flyingBird.resetBody(flyingBird.body);
         			}
         		});
@@ -1715,16 +1729,19 @@ public class GameStage extends Stage implements ContactListener{
         	
         	final Body ball = contact.getFixtureA().getBody().getUserData().equals(Constants.DynamicBall) ?
         			contact.getFixtureA().getBody() : contact.getFixtureB().getBody();
-        	if(ball.isAwake()){        		
-        		flyingBirdParticle.effect.setPosition(flyingBird2.body.getPosition().x, flyingBird2.body.getPosition().y);
-        		flyingBirdParticle.showEffect = true;
+        	if(ball.isAwake()){ 
+        		
+        		//flyingBirdParticle.effect.setPosition(flyingBird2.body.getPosition().x, flyingBird2.body.getPosition().y);
+        		//flyingBirdParticle.showEffect = true;
         			
         		ball.setSleepingAllowed(true);
         		
         		Gdx.app.postRunnable(new Runnable() {
         			@Override
         			public void run () {
+        				explosion.playAnimation(flyingBird2.body);
         				ball.setAwake(false);
+        				flyingBird2.switchAnimations();
         				flyingBird2.resetBody(flyingBird2.body);
         			}
         		});

@@ -13,6 +13,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -25,11 +26,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.XmlReader;
 import com.badlogic.gdx.utils.XmlReader.Element;
 import com.sageggs.actors.CreateMesh;
 import com.sageggs.actors.CreateMesh2;
 import com.sageggs.actors.DynamicBall;
+import com.sageggs.actors.Explosion;
+import com.sageggs.actors.flyingbirds.FlyingBirdAnimations;
+import com.sageggs.actors.flyingbirds.FlyingBirdAnimations2;
 import com.sageggs.actors.flyingbirds.FlyingBirds;
 import com.sageggs.actors.flyingbirds.FlyingBirds2;
 import com.sageggs.actors.particles.ParticleEffectAn;
@@ -53,6 +58,7 @@ public class StageScreen implements Screen {
 	private Map<String,Object> worldBodies;
 	private ShaderProgram shader;
 	private World world;
+	private FlyingBirds flyingBird;
 	private FlyingBirds2 flyingBird2;
 	private int currentLevel;
 	private Table table;
@@ -98,23 +104,28 @@ public class StageScreen implements Screen {
 		
 		//static ball
 		this.worldBodies.put("staticBall", new DynamicBall(WorldUtils.createDynamicBall(this.world)));
-		
+		this.worldBodies.put("explosion", new Explosion(WorldUtils.explosionBody(this.world)));
 		//slingshot
 		//this.worldBodies.put("slingshot",  new Slingshot(WorldUtils.createSlingshot(this.world)));
 		
+		FlyingBirdAnimations animations = new FlyingBirdAnimations();
+		Array<Animation> anim = animations.splitAnimation();
+		
+		FlyingBirdAnimations2 animations2 = new FlyingBirdAnimations2();
+		Array<Animation> anim2 = animations2.splitAnimation();
 		//bird1
-		this.worldBodies.put("flyingBird",  new FlyingBirds(WorldUtils.createFlyingBird(this.world)));
+		flyingBird = new FlyingBirds(WorldUtils.createFlyingBird(this.world),anim);
+		this.worldBodies.put("flyingBird",  flyingBird);
 		
 		//bird2
-		flyingBird2 = new FlyingBirds2(WorldUtils.createFlyingBird2(this.world));
-		flyingBird2.animatedBox2DSprite.flipFrames(true, false);
+		flyingBird2 = new FlyingBirds2(WorldUtils.createFlyingBird2(this.world),anim2);
 		this.worldBodies.put("flyingBird2",  flyingBird2);
 		
 		//PArticle effects
-		this.worldBodies.put("particleEffect",  new ParticleEffectAn());
+		//this.worldBodies.put("particleEffect",  new ParticleEffectAn());
 		this.worldBodies.put("particleBall",  new ParticleEffectBall());
 		this.worldBodies.put("particleIzlupvane",  new ParticleIzlupvane());
-		this.worldBodies.put("flyingBirdParticle",  new ParticleEffectFlyingBird());
+		//this.worldBodies.put("flyingBirdParticle",  new ParticleEffectFlyingBird());
 		this.worldBodies.put("pruskane",  new PruskaneQice());
 		
 		this.adsController = adsController;	
