@@ -1401,6 +1401,11 @@ public class GameStage extends Stage implements ContactListener{
 							
 							//launch particle effect
 							if(enemy.enemyDraw){
+								enemy.animatedBox2DSprite.setAnimation(enemy.animation2);
+								enemy.animatedBox2DSprite.flipFrames(true,false );
+								if(!enemy.animatedBox2DSprite.isFlipX()){									
+									enemy.animatedBox2DSprite.flipFrames(true,false );
+								}
 								explosion.playAnimation(enemy.body);
 								//particleEffect.effect.setPosition(enemy.body.getPosition().x, enemy.body.getPosition().y);
 								//particleEffect.showEffect = true;

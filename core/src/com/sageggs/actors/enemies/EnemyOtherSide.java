@@ -60,7 +60,7 @@ public class EnemyOtherSide extends GameActor{
 	public boolean anyEggsLeft = true;
 	private float speed = 0f;
 	private float speedBoost = 0;
-	private TextureAtlas atlas;
+	private TextureAtlas atlas,atlas2;
 	private float flySpeed = 0;
 	//private Box2DSprite maska;
 	//private TextureRegion brokenMask,normalMask,hardestMask1,hardestMask2,hardestMask3;
@@ -69,7 +69,8 @@ public class EnemyOtherSide extends GameActor{
 	
 	public EnemyOtherSide(Body body,Array<Qice> eggs,Map<String,Vector2> worldBodies) {
 		super(body);
-		atlas = Assets.manager.get(Assets.gameAtlas, TextureAtlas.class);	
+		atlas = Assets.manager.get(Assets.allEnemies, TextureAtlas.class);	
+		atlas2 = Assets.manager.get(Assets.gameAtlas, TextureAtlas.class);	
 		/*normalMask = new TextureRegion(atlas.findRegion("maska1"));
 		brokenMask = new TextureRegion(atlas.findRegion("maska2"));
 		maska = new Box2DSprite(normalMask);
@@ -96,21 +97,20 @@ public class EnemyOtherSide extends GameActor{
 		//get random position
 
 		//animation
-		texture = Assets.manager.get(Assets.pileBezKraka, Texture.class);
 		splitAnimation();
 		animation = new Animation(1f/13f, animationFrames);
 		animation.setPlayMode(Animation.PlayMode.LOOP);
 		animatedSprite = new AnimatedSprite(animation);
 		animatedBox2DSprite = new AnimatedBox2DSprite(animatedSprite);
 		//kraka
-		naOtivane = new Box2DSprite(atlas.findRegion("prisviti"));
-		otvarqne = new Box2DSprite(atlas.findRegion("opunati"));
-		hvanatoQice = new Box2DSprite(atlas.findRegion("hvanato_qice"));
+		naOtivane = new Box2DSprite(atlas2.findRegion("prisviti"));
+		otvarqne = new Box2DSprite(atlas2.findRegion("opunati"));
+		hvanatoQice = new Box2DSprite(atlas2.findRegion("hvanato_qice"));
 		//nastroivane na ugula
 		//EnemyUtils.pointBodyToAngleOtherSide(getAngleBodyEgg(target) + 3f, body);
 
 		//flip all sprites
-		animatedBox2DSprite.flipFrames(false, true);
+		//animatedBox2DSprite.flipFrames(false, true);
 		naOtivane.flip(false, true);
 		otvarqne.flip(false, true);
 		hvanatoQice.flip(false, true);
@@ -226,14 +226,15 @@ public class EnemyOtherSide extends GameActor{
 	
 	 
 	 public void splitAnimation(){
-		 TextureRegion[][] tmpFrames = TextureRegion.split(texture, 256, 256);
 		 animationFrames = new TextureRegion[8];
-		 int index = 0;		 
-		 for (int i = 0; i < 2; ++i){
-			 for (int j = 0; j < 4; ++j){
-				 animationFrames[index++] = tmpFrames[i][j];
-			 }
-		 }
+		 animationFrames[0] = atlas.findRegion("normal1");
+		 animationFrames[1] = atlas.findRegion("normal2");
+		 animationFrames[2] = atlas.findRegion("normal3");
+		 animationFrames[3] = atlas.findRegion("normal4");
+		 animationFrames[4] = atlas.findRegion("normal5");
+		 animationFrames[5] = atlas.findRegion("normal6");
+		 animationFrames[6] = atlas.findRegion("normal7");
+		 animationFrames[7] = atlas.findRegion("normal8");
 	 }
 	
     //reset the body

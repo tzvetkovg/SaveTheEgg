@@ -35,10 +35,10 @@ public class Enemy extends GameActor{
 	public static boolean stopMoving = false; 
 	Vector2 position = new Vector2();
 	private AnimatedSprite animatedSprite;
-	private AnimatedBox2DSprite animatedBox2DSprite;
+	public AnimatedBox2DSprite animatedBox2DSprite;
 	private Box2DSprite naOtivane, otvarqne, hvanatoQice;
-	private Animation animation;
-	private TextureRegion[] animationFrames;
+	public Animation animation,animation2;
+	public TextureRegion[] region1,region2;
 	private Texture texture;
 	public boolean naOtivaneDraw = true, hvashtane = false, pribirane = false,  enemyDraw = true;
 	float[] positions = new float[]{1,2,3};
@@ -58,7 +58,7 @@ public class Enemy extends GameActor{
 	public boolean anyEggsLeft = true;
 	private float speed = 0;
 	private float speedBoost = 0;
-	private TextureAtlas atlas;
+	private TextureAtlas atlas,atlas2;
 	private float flySpeed = 0;
 	private Box2DSprite maska;
 	//private TextureRegion brokenMask,normalMask,hardestMask1,hardestMask2,hardestMask3;
@@ -68,7 +68,8 @@ public class Enemy extends GameActor{
 	
 	public Enemy(Body body,Array<Qice> eggs,Map<String,Vector2> worldBodies) {
 		super(body);
-		atlas = Assets.manager.get(Assets.gameAtlas, TextureAtlas.class);	
+		atlas = Assets.manager.get(Assets.allEnemies, TextureAtlas.class);	
+		atlas2 = Assets.manager.get(Assets.gameAtlas, TextureAtlas.class);	
 		/*normalMask = new TextureRegion(atlas.findRegion("maska1"));
 		brokenMask = new TextureRegion(atlas.findRegion("maska2"));
 		hardestMask1 = new TextureRegion(atlas.findRegion("hardestMaska1"));
@@ -103,17 +104,19 @@ public class Enemy extends GameActor{
 		//get random position
 		
 		//animation
-		texture = Assets.manager.get(Assets.pileBezKraka, Texture.class);
+		//texture = Assets.manager.get(Assets.pileBezKraka, Texture.class);
 		splitAnimation();
-		animation = new Animation(1f/13f, animationFrames);
+		animation = new Animation(1f/13f, region1);
 		animation.setPlayMode(Animation.PlayMode.LOOP);
+		animation2 = new Animation(1f/13f, region2);
+		animation2.setPlayMode(Animation.PlayMode.LOOP);
 		animatedSprite = new AnimatedSprite(animation);
 		animatedBox2DSprite = new AnimatedBox2DSprite(animatedSprite);
-		
+		//animatedBox2DSprite.flipFrames(true,false );
 		//kraka
-		naOtivane = new Box2DSprite(atlas.findRegion("prisviti"));
-		otvarqne = new Box2DSprite(atlas.findRegion("opunati"));
-		hvanatoQice = new Box2DSprite(atlas.findRegion("hvanato_qice"));
+		naOtivane = new Box2DSprite(atlas2.findRegion("prisviti"));
+		otvarqne = new Box2DSprite(atlas2.findRegion("opunati"));
+		hvanatoQice = new Box2DSprite(atlas2.findRegion("hvanato_qice"));
 		//nastroivane na ugula
 		resetBody();
 		
@@ -228,14 +231,19 @@ public class Enemy extends GameActor{
 	
 	 
 	 public void splitAnimation(){
-		 TextureRegion[][] tmpFrames = TextureRegion.split(texture, 256, 256);
-		 animationFrames = new TextureRegion[8];
-		 int index = 0;		 
-		 for (int i = 0; i < 2; ++i){
-			 for (int j = 0; j < 4; ++j){
-				 animationFrames[index++] = tmpFrames[i][j];
-			 }
-		 }
+		 region1 = new TextureRegion[2];
+		 region1[0] = atlas.findRegion("zamaqno12");
+		 region1[1] = atlas.findRegion("zamaqno22");
+		 //amimation2
+		 region2 = new TextureRegion[8];
+		 region2[0] = atlas.findRegion("normal12");
+		 region2[1] = atlas.findRegion("normal22");
+		 region2[2] = atlas.findRegion("normal32");
+		 region2[3] = atlas.findRegion("normal42");
+		 region2[4] = atlas.findRegion("normal52");
+		 region2[5] = atlas.findRegion("normal62");
+		 region2[6] = atlas.findRegion("normal72");
+		 region2[7] = atlas.findRegion("normal82");
 	 }
 	 	
 
