@@ -1,5 +1,5 @@
 
-birds.png
+enemyBirds.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -206,65 +206,79 @@ zamaqno22
   orig: 128, 138
   offset: 0, 0
   index: -1
-normal1
+loshPadasht
   rotate: false
   xy: 261, 151
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
-normal2
+loshPadasht2
   rotate: false
   xy: 391, 291
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
-normal3
+normal1
   rotate: false
   xy: 521, 431
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
-normal4
+normal2
   rotate: false
   xy: 651, 571
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
-normal5
+normal3
   rotate: false
   xy: 781, 711
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
-normal6
+normal4
   rotate: false
   xy: 261, 21
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
-normal7
+normal5
   rotate: false
   xy: 391, 161
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
-normal8
+normal6
   rotate: false
   xy: 521, 301
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
-padashto
+normal7
   rotate: false
   xy: 651, 441
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+normal8
+  rotate: false
+  xy: 781, 581
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+padashto
+  rotate: false
+  xy: 391, 31
   size: 128, 128
   orig: 128, 128
   offset: 0, 0

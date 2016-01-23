@@ -29,15 +29,11 @@ public class EnemyOtherSide extends GameActor{
 
 	public static boolean stopMoving = false; 
 	public static float angle = 0;
-	private AnimatedSprite animatedSprite;
-	public AnimatedBox2DSprite animatedBox2DSprite;
-	public Box2DSprite naOtivane;
-	public Box2DSprite otvarqne;
-	private Animation animation;
-	private TextureRegion[] animationFrames;
-	private TextureRegion[] animationKraka;
-	private Texture texture;
-	public Box2DSprite hvanatoQice;
+	private AnimatedSprite animatedSprite,animatedSprite2,animatedSprite3;
+	public AnimatedBox2DSprite normalFlyingPile,zamaqnoPilence,actualAnimation,losh;
+	public Box2DSprite naOtivane,otvarqne,hvanatoQice,padashtoPile,padashtLosh;
+	public Animation animation,animation2,animation3;
+	private TextureRegion[] region1,region2,region3;
 	public boolean naOtivaneDraw = true;
 	public boolean hvashtane = false;
 	public boolean pribirane = false;
@@ -62,6 +58,7 @@ public class EnemyOtherSide extends GameActor{
 	private float speedBoost = 0;
 	private TextureAtlas atlas,atlas2;
 	private float flySpeed = 0;
+	public boolean padashto = false;
 	//private Box2DSprite maska;
 	//private TextureRegion brokenMask,normalMask,hardestMask1,hardestMask2,hardestMask3;
 	//public boolean enemyHit,maskaBurst,showMaskHit,showMaskHit2 = false;
@@ -71,12 +68,6 @@ public class EnemyOtherSide extends GameActor{
 		super(body);
 		atlas = Assets.manager.get(Assets.allEnemies, TextureAtlas.class);	
 		atlas2 = Assets.manager.get(Assets.gameAtlas, TextureAtlas.class);	
-		/*normalMask = new TextureRegion(atlas.findRegion("maska1"));
-		brokenMask = new TextureRegion(atlas.findRegion("maska2"));
-		maska = new Box2DSprite(normalMask);
-		hardestMask1 = new TextureRegion(atlas.findRegion("hardestMaska1"));
-		hardestMask2 = new TextureRegion(atlas.findRegion("hardestMaska2"));
-		hardestMask3 = new TextureRegion(atlas.findRegion("hardestMaska3"));*/
 		vec1 = new Vector2();
 		vec2 = new Vector2();
 		vec3 = new Vector2();
@@ -98,84 +89,103 @@ public class EnemyOtherSide extends GameActor{
 
 		//animation
 		splitAnimation();
-		animation = new Animation(1f/13f, animationFrames);
+		animation = new Animation(1f/13f, region1);
 		animation.setPlayMode(Animation.PlayMode.LOOP);
+		//anim2
+		animation2 = new Animation(1f/13f, region2);
+		animation2.setPlayMode(Animation.PlayMode.LOOP);
+		//anim3
+		animation3 = new Animation(1f/13f, region3);
+		animation3.setPlayMode(Animation.PlayMode.LOOP);
+		
 		animatedSprite = new AnimatedSprite(animation);
-		animatedBox2DSprite = new AnimatedBox2DSprite(animatedSprite);
-		//kraka
+		animatedSprite2 = new AnimatedSprite(animation2);
+		animatedSprite3 = new AnimatedSprite(animation3);
+		
+		losh = new AnimatedBox2DSprite(animatedSprite3);
+		normalFlyingPile = new AnimatedBox2DSprite(animatedSprite2);
+		zamaqnoPilence = new AnimatedBox2DSprite(animatedSprite);
+		actualAnimation = normalFlyingPile;
+		//box2d sprites
 		naOtivane = new Box2DSprite(atlas2.findRegion("prisviti"));
 		otvarqne = new Box2DSprite(atlas2.findRegion("opunati"));
 		hvanatoQice = new Box2DSprite(atlas2.findRegion("hvanato_qice"));
-		//nastroivane na ugula
-		//EnemyUtils.pointBodyToAngleOtherSide(getAngleBodyEgg(target) + 3f, body);
+		padashtoPile = new Box2DSprite(atlas.findRegion("padashto"));
+		padashtLosh = new Box2DSprite(atlas.findRegion("loshPadasht2"));
 
 		//flip all sprites
-		//animatedBox2DSprite.flipFrames(false, true);
+		normalFlyingPile.flipFrames(true, true);
+		zamaqnoPilence.flipFrames(true, true);
+		losh.flipFrames(true, true);
+		padashtoPile.flip(true, true);
+		padashtLosh.flip(true, true);
 		naOtivane.flip(false, true);
 		otvarqne.flip(false, true);
 		hvanatoQice.flip(false, true);
-	
+		
 		resetBody();
 	}
 	
     @Override
     public void act(float delta) {
         super.act(delta);
-        
-        if(anyEggsLeft){        	
-        	if(redirect){        	
-        		if(Math.abs(body.getPosition().sub(pathPoints.get(pathPoints.size - 1)).len()) <= EnemyUtils.comparVal ){
-        			update(MathUtils.random(110f,50f),delta);
-        			continueUpdating = false;
-        			redirect = false;
+        if(anyEggsLeft){ 
+        	if(body.getGravityScale() == 0)
+    		{	        		
+        		if(redirect){        	
+        			if(Math.abs(body.getPosition().sub(pathPoints.get(pathPoints.size - 1)).len()) <= EnemyUtils.comparVal ){
+        				update(MathUtils.random(110f,50f),delta);
+        				continueUpdating = false;
+        				redirect = false;
+        			}
         		}
-        	}
-        	//else update next point
-        	if(continueUpdating)
-        		update(getAngle(),delta);
+        		//else update next point
+        		if(continueUpdating)
+        			update(getAngle(),delta);
+    		}
         }
     }
     
     
 	//set velocity of enemy to target
 	public void update(float angle, float delta){
-
-		//calculate velocity
-		direction.x = (float) Math.cos((angle) * MathUtils.degreesToRadians);
-		direction.y = (float) Math.sin((angle) * MathUtils.degreesToRadians);
-		direction.nor();
 		
-		//accelerate speed of bird when grabbing the egg
-		//accelerate speed of bird when grabbing the egg
-		if(point == 1 || point == 2 ){
-			speedBoost = 1.63f;
-			animation.setFrameDuration(1/1f);
-		}
-		else if(point == 3 || point == 4){
-			speedBoost = 1.30f;
-			animation.setFrameDuration(1/(flySpeed+5));
-		}
-		else{
-			speedBoost = 1f;
-			animation.setFrameDuration(1/flySpeed);
-		}
-		velocity.x = (direction.x * speed * delta) * speedBoost;
-		velocity.y = (direction.y * speed  * delta) * speedBoost;
-		
-		//get the angle
-		float getAngle = (float) Math.atan2( -direction.x, direction.y );
-		//position body at angle
-		body.setTransform(body.getPosition(), getAngle);
-		
-		//set velocity
-		body.setLinearVelocity(velocity);	
-		
-		if(continueUpdating){			
-			//increment to next point
-			if(Math.abs(body.getPosition().sub(pathPoints.get(point)).len()) <= EnemyUtils.comparVal){
-				point++;
+			//calculate velocity
+			direction.x = (float) Math.cos((angle) * MathUtils.degreesToRadians);
+			direction.y = (float) Math.sin((angle) * MathUtils.degreesToRadians);
+			direction.nor();
+			
+			//accelerate speed of bird when grabbing the egg
+			//accelerate speed of bird when grabbing the egg
+			if(point == 1 || point == 2 ){
+				speedBoost = 1.63f;
+				animation.setFrameDuration(1/1f);
 			}
-		}
+			else if(point == 3 || point == 4){
+				speedBoost = 1.30f;
+				animation.setFrameDuration(1/(flySpeed+5));
+			}
+			else{
+				speedBoost = 1f;
+				animation.setFrameDuration(1/flySpeed);
+			}
+			velocity.x = (direction.x * speed * delta) * speedBoost;
+			velocity.y = (direction.y * speed  * delta) * speedBoost;
+			
+			//get the angle
+			float getAngle = (float) Math.atan2( -direction.x, direction.y );
+			//position body at angle
+			body.setTransform(body.getPosition(), getAngle);
+			
+			//set velocity
+			body.setLinearVelocity(velocity);	
+			
+			if(continueUpdating){			
+				//increment to next point
+				if(Math.abs(body.getPosition().sub(pathPoints.get(point)).len()) <= EnemyUtils.comparVal){
+					point++;
+				}
+			}
 	}
     
 	public float getAngle(){
@@ -196,45 +206,48 @@ public class EnemyOtherSide extends GameActor{
     		naOtivane.setRotation(body.getAngle() - 90f);
     		otvarqne.setRotation(body.getAngle() - 90f);
     		hvanatoQice.setRotation(body.getAngle() - 120f);
-    		animatedBox2DSprite.setRotation(body.getAngle() - 90f);
+    		actualAnimation.setRotation(body.getAngle() - 90f);
     		
-        	animatedBox2DSprite.draw(batch, body.getFixtureList().first()); 
-        	/*if(mask){	
-        		if(enemyHit){
-        			setMask();
-        		}
-        		maska.setRotation(body.getAngle() + 70f);
-        		maska.draw(batch, body.getFixtureList().get(6)); 
+        	
+        	if(padashto){
+        		padashtoPile.setRotation(body.getAngle() - 90f);
+        		padashtoPile.draw(batch, body.getFixtureList().first());
         	}
-        	
-        	if(showMask2){	
-        		if(showMaskHit){
-        			setShowMask();
-        		}
-        		if(showMaskHit2){
-        			showMaskHit = false;
-        			setShowMask2();
-        		}
-        		maska.setRotation(body.getAngle() + 70f);
-        		maska.draw(batch, body.getFixtureList().get(7)); 
-        		
-        	}*/
-        	
+        	else{
+        		actualAnimation.draw(batch, body.getFixtureList().first()); 
+        	}
         	
         }
      }
 	
 	 
 	 public void splitAnimation(){
-		 animationFrames = new TextureRegion[8];
-		 animationFrames[0] = atlas.findRegion("normal1");
-		 animationFrames[1] = atlas.findRegion("normal2");
-		 animationFrames[2] = atlas.findRegion("normal3");
-		 animationFrames[3] = atlas.findRegion("normal4");
-		 animationFrames[4] = atlas.findRegion("normal5");
-		 animationFrames[5] = atlas.findRegion("normal6");
-		 animationFrames[6] = atlas.findRegion("normal7");
-		 animationFrames[7] = atlas.findRegion("normal8");
+		 region1 = new TextureRegion[2];
+		 region2 = new TextureRegion[8];
+		 region3 = new TextureRegion[8];
+		 
+		 region1[0] = atlas.findRegion("zamaqno1");
+		 region1[1] = atlas.findRegion("zamaqno2");
+		 //
+		 region2[0] = atlas.findRegion("normal1");
+		 region2[1] = atlas.findRegion("normal2");
+		 region2[2] = atlas.findRegion("normal3");
+		 region2[3] = atlas.findRegion("normal4");
+		 region2[4] = atlas.findRegion("normal5");
+		 region2[5] = atlas.findRegion("normal6");
+		 region2[6] = atlas.findRegion("normal7");
+		 region2[7] = atlas.findRegion("normal8");
+		 
+		 region3[0] = atlas.findRegion("losh1");
+		 region3[1] = atlas.findRegion("losh2");
+		 region3[2] = atlas.findRegion("losh3");
+		 region3[3] = atlas.findRegion("losh4");
+		 region3[4] = atlas.findRegion("losh5");
+		 region3[5] = atlas.findRegion("losh6");
+		 region3[6] = atlas.findRegion("losh7");
+		 region3[7] = atlas.findRegion("losh8");
+		 
+		 
 	 }
 	
     //reset the body
@@ -282,55 +295,19 @@ public class EnemyOtherSide extends GameActor{
 		this.speed = speed;
 	}
 	
-	/*public void switchToMask1(){
-		mask = true;
-		showMask2 = false;
-		maska.setRegion(normalMask);
+	public AnimatedBox2DSprite getCurrentAnimation(){
+		return actualAnimation;
 	}
 	
-	public void setMask(){
-		maska.setRegion(brokenMask);
+	public void resetBodyInitalStage(){
+		body.setGravityScale(0);
+		padashto = false;
+		actualAnimation = normalFlyingPile;
 	}
 	
-	public void resetMask(){
-		mask = false;
-		maska.setRegion(normalMask);
+	public void padaneNaDoly(){
+		padashto = true;
+		body.setGravityScale(0.5f);
 	}
-	
-	public void restartMask(){
-		maska.setRegion(normalMask);
-		mask = false;
-		enemyHit = false;
-	}
-	*//**
-	 * mask 2
-	 *//*
-	public void switchToMask2(){
-		mask = false;
-		showMask2 = true;
-		maska.setRegion(hardestMask1);
-	}
-	public void setShowMask(){
-		maska.setRegion(hardestMask2);
-	}
-	
-	public void setShowMask2(){
-		maska.setRegion(hardestMask3);
-	}
-	
-	public void resetMask2(){
-		showMask2 = false;
-		showMaskHit = false;
-		showMaskHit2 = false;
-		maska.setRegion(hardestMask1);
-	}
-	
-	public void restartMask2(){
-		showMask2 = false;
-		maska.setRegion(hardestMask1);
-		showMaskHit = false;
-		showMaskHit2 = false;
-	}*/
-	
 	
 }

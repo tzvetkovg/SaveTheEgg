@@ -32,11 +32,12 @@ import com.badlogic.gdx.utils.XmlReader.Element;
 import com.sageggs.actors.CreateMesh;
 import com.sageggs.actors.CreateMesh2;
 import com.sageggs.actors.DynamicBall;
-import com.sageggs.actors.Explosion;
 import com.sageggs.actors.flyingbirds.FlyingBirdAnimations;
 import com.sageggs.actors.flyingbirds.FlyingBirdAnimations2;
 import com.sageggs.actors.flyingbirds.FlyingBirds;
 import com.sageggs.actors.flyingbirds.FlyingBirds2;
+import com.sageggs.actors.particles.Explosion;
+import com.sageggs.actors.particles.GroundExplosion;
 import com.sageggs.actors.particles.ParticleEffectAn;
 import com.sageggs.actors.particles.ParticleEffectBall;
 import com.sageggs.actors.particles.ParticleEffectFlyingBird;
@@ -105,6 +106,7 @@ public class StageScreen implements Screen {
 		//static ball
 		this.worldBodies.put("staticBall", new DynamicBall(WorldUtils.createDynamicBall(this.world)));
 		this.worldBodies.put("explosion", new Explosion(WorldUtils.explosionBody(this.world)));
+		this.worldBodies.put("groundExplosion", new GroundExplosion(WorldUtils.explosionBody(this.world)));
 		//slingshot
 		//this.worldBodies.put("slingshot",  new Slingshot(WorldUtils.createSlingshot(this.world)));
 		

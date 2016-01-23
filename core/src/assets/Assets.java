@@ -76,8 +76,8 @@ public class Assets {
 	 */
 	@Asset(TextureAtlas.class)
 	public static final String gameAtlas = "data/ui/all_assets.pack",
-	explosion = "flyingbird1/flyingBird.pack",
-	allEnemies = "flyingbird1/birds.pack";
+	explosion = "flyingbird1/explosions.pack",
+	allEnemies = "flyingbird1/enemyBirds.pack";
 	
 	@Asset(ParticleEffect.class)
 	public static final String

@@ -1,4 +1,4 @@
-package com.sageggs.actors;
+package com.sageggs.actors.particles;
 
 import net.dermetfan.gdx.graphics.g2d.AnimatedBox2DSprite;
 import net.dermetfan.gdx.graphics.g2d.AnimatedSprite;
@@ -11,9 +11,10 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
+import com.sageggs.actors.GameActor;
 import com.saveggs.utils.Constants;
 
-public class Explosion extends GameActor{
+public class GroundExplosion extends GameActor{
 	private AnimatedSprite animatedSprite;
 	public AnimatedBox2DSprite animatedBox2DSprite;
 	private TextureAtlas atlas;
@@ -21,15 +22,15 @@ public class Explosion extends GameActor{
 	private Animation animation; 
 	public boolean animate = false;
 	
-	public Explosion(Body body){
+	public GroundExplosion(Body body){
 		super(body);
 		atlas = Assets.manager.get(Assets.explosion, TextureAtlas.class);
 		tmpFrames = new TextureRegion[5];
-		tmpFrames[0] = atlas.findRegion("exp1");
-		tmpFrames[1] = atlas.findRegion("exp2");
-		tmpFrames[2] = atlas.findRegion("exp3");
-		tmpFrames[3] = atlas.findRegion("exp4");
-		tmpFrames[4] = atlas.findRegion("exp5");
+		tmpFrames[0] = atlas.findRegion("groundExp1");
+		tmpFrames[1] = atlas.findRegion("groundExp2");
+		tmpFrames[2] = atlas.findRegion("groundExp3");
+		tmpFrames[3] = atlas.findRegion("groundExp4");
+		tmpFrames[4] = atlas.findRegion("groundExp5");
 		animation = new Animation(1f/15f, tmpFrames);
 		animation.setPlayMode(Animation.PlayMode.NORMAL);
 		animatedSprite = new AnimatedSprite(animation);
