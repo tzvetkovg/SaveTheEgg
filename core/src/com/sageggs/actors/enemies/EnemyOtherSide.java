@@ -29,11 +29,11 @@ public class EnemyOtherSide extends GameActor{
 
 	public static boolean stopMoving = false; 
 	public static float angle = 0;
-	private AnimatedSprite animatedSprite,animatedSprite2,animatedSprite3;
-	public AnimatedBox2DSprite normalFlyingPile,zamaqnoPilence,actualAnimation,losh;
+	private AnimatedSprite animatedSprite,animatedSprite2,animatedSprite3,animatedSprite4;
+	public AnimatedBox2DSprite normalFlyingPile,zamaqnoPilence,actualAnimation,losh,zamaqnLosh;
 	public Box2DSprite naOtivane,otvarqne,hvanatoQice,padashtoPile,padashtLosh;
-	public Animation animation,animation2,animation3;
-	private TextureRegion[] region1,region2,region3;
+	public Animation animation,animation2,animation3,animation4;
+	private TextureRegion[] region1,region2,region3,region4;
 	public boolean naOtivaneDraw = true;
 	public boolean hvashtane = false;
 	public boolean pribirane = false;
@@ -58,11 +58,8 @@ public class EnemyOtherSide extends GameActor{
 	private float speedBoost = 0;
 	private TextureAtlas atlas,atlas2;
 	private float flySpeed = 0;
-	public boolean padashto = false;
-	//private Box2DSprite maska;
-	//private TextureRegion brokenMask,normalMask,hardestMask1,hardestMask2,hardestMask3;
-	//public boolean enemyHit,maskaBurst,showMaskHit,showMaskHit2 = false;
-	//public boolean mask,showMask2 = false;
+	public boolean padashto,padashtoLosh = false;
+	public boolean pokajiPadashto,pokajiLossh = false;
 	
 	public EnemyOtherSide(Body body,Array<Qice> eggs,Map<String,Vector2> worldBodies) {
 		super(body);
@@ -97,11 +94,16 @@ public class EnemyOtherSide extends GameActor{
 		//anim3
 		animation3 = new Animation(1f/13f, region3);
 		animation3.setPlayMode(Animation.PlayMode.LOOP);
+		//amnim4
+		animation4 = new Animation(1f/13f, region4);
+		animation4.setPlayMode(Animation.PlayMode.LOOP);
 		
 		animatedSprite = new AnimatedSprite(animation);
 		animatedSprite2 = new AnimatedSprite(animation2);
 		animatedSprite3 = new AnimatedSprite(animation3);
+		animatedSprite4 = new AnimatedSprite(animation4);
 		
+		zamaqnLosh = new AnimatedBox2DSprite(animatedSprite4);
 		losh = new AnimatedBox2DSprite(animatedSprite3);
 		normalFlyingPile = new AnimatedBox2DSprite(animatedSprite2);
 		zamaqnoPilence = new AnimatedBox2DSprite(animatedSprite);
@@ -116,6 +118,7 @@ public class EnemyOtherSide extends GameActor{
 		//flip all sprites
 		normalFlyingPile.flipFrames(true, true);
 		zamaqnoPilence.flipFrames(true, true);
+		zamaqnLosh.flipFrames(true, true);
 		losh.flipFrames(true, true);
 		padashtoPile.flip(true, true);
 		padashtLosh.flip(true, true);
@@ -213,6 +216,10 @@ public class EnemyOtherSide extends GameActor{
         		padashtoPile.setRotation(body.getAngle() - 90f);
         		padashtoPile.draw(batch, body.getFixtureList().first());
         	}
+        	else if(padashtoLosh){
+        		padashtLosh.setRotation(body.getAngle() - 90f);
+        		padashtLosh.draw(batch, body.getFixtureList().first());
+        	}
         	else{
         		actualAnimation.draw(batch, body.getFixtureList().first()); 
         	}
@@ -225,9 +232,13 @@ public class EnemyOtherSide extends GameActor{
 		 region1 = new TextureRegion[2];
 		 region2 = new TextureRegion[8];
 		 region3 = new TextureRegion[8];
+		 region4 = new TextureRegion[2]; 
 		 
 		 region1[0] = atlas.findRegion("zamaqno1");
 		 region1[1] = atlas.findRegion("zamaqno2");
+		 //losh
+		 region4[0]= atlas.findRegion("zamaqnoLosh11");
+		 region4[1]= atlas.findRegion("zamaqnoLosh21");
 		 //
 		 region2[0] = atlas.findRegion("normal1");
 		 region2[1] = atlas.findRegion("normal2");
@@ -302,12 +313,26 @@ public class EnemyOtherSide extends GameActor{
 	public void resetBodyInitalStage(){
 		body.setGravityScale(0);
 		padashto = false;
+		padashtoLosh = false;
 		actualAnimation = normalFlyingPile;
+		pokajiPadashto = false;
+		pokajiLossh = false;
 	}
 	
 	public void padaneNaDoly(){
 		padashto = true;
+		padashtoLosh = false;
 		body.setGravityScale(0.5f);
+	}
+	
+	public void padashtLosh(){
+		padashtoLosh = true;
+		padashto = false;
+		body.setGravityScale(0.5f);
+	}
+	
+	public void setLosh(){
+		actualAnimation = losh;
 	}
 	
 }

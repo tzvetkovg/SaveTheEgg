@@ -206,79 +206,107 @@ zamaqno22
   orig: 128, 138
   offset: 0, 0
   index: -1
+zamaqnoLosh
+  rotate: false
+  xy: 261, 141
+  size: 128, 138
+  orig: 128, 138
+  offset: 0, 0
+  index: -1
+zamaqnoLosh11
+  rotate: false
+  xy: 391, 281
+  size: 128, 138
+  orig: 128, 138
+  offset: 0, 0
+  index: -1
+zamaqnoLosh2
+  rotate: false
+  xy: 521, 421
+  size: 128, 138
+  orig: 128, 138
+  offset: 0, 0
+  index: -1
+zamaqnoLosh21
+  rotate: false
+  xy: 651, 561
+  size: 128, 138
+  orig: 128, 138
+  offset: 0, 0
+  index: -1
 loshPadasht
-  rotate: false
-  xy: 261, 151
-  size: 128, 128
-  orig: 128, 128
-  offset: 0, 0
-  index: -1
-loshPadasht2
-  rotate: false
-  xy: 391, 291
-  size: 128, 128
-  orig: 128, 128
-  offset: 0, 0
-  index: -1
-normal1
-  rotate: false
-  xy: 521, 431
-  size: 128, 128
-  orig: 128, 128
-  offset: 0, 0
-  index: -1
-normal2
-  rotate: false
-  xy: 651, 571
-  size: 128, 128
-  orig: 128, 128
-  offset: 0, 0
-  index: -1
-normal3
   rotate: false
   xy: 781, 711
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
+loshPadasht2
+  rotate: false
+  xy: 261, 11
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+normal1
+  rotate: false
+  xy: 391, 151
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+normal2
+  rotate: false
+  xy: 521, 291
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+normal3
+  rotate: false
+  xy: 651, 431
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
 normal4
-  rotate: false
-  xy: 261, 21
-  size: 128, 128
-  orig: 128, 128
-  offset: 0, 0
-  index: -1
-normal5
-  rotate: false
-  xy: 391, 161
-  size: 128, 128
-  orig: 128, 128
-  offset: 0, 0
-  index: -1
-normal6
-  rotate: false
-  xy: 521, 301
-  size: 128, 128
-  orig: 128, 128
-  offset: 0, 0
-  index: -1
-normal7
-  rotate: false
-  xy: 651, 441
-  size: 128, 128
-  orig: 128, 128
-  offset: 0, 0
-  index: -1
-normal8
   rotate: false
   xy: 781, 581
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
+normal5
+  rotate: false
+  xy: 391, 21
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+normal6
+  rotate: false
+  xy: 521, 161
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+normal7
+  rotate: false
+  xy: 651, 301
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+normal8
+  rotate: false
+  xy: 781, 451
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
 padashto
   rotate: false
-  xy: 391, 31
+  xy: 521, 31
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
