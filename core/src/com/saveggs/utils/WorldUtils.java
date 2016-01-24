@@ -327,6 +327,20 @@ public class WorldUtils {
 	    return body;
     }
     
+    public static Body groundExplosion(World world){
+	    BodyDef def = new BodyDef();
+	    def.type = BodyDef.BodyType.StaticBody;	 
+    	CircleShape shape2 = new CircleShape();
+	    shape2.setRadius(1.5f);
+	    FixtureDef fixt = new FixtureDef(); 
+	    fixt.isSensor = true; 
+	    fixt.shape = shape2;
+	    Body body = world.createBody(def);
+	    body.createFixture(fixt).setUserData("explosionFixture");
+	    body.setUserData("explosion");
+	    return body;
+    }
+    
     
     public static Mesh createMesh(){
 		Mesh mesh = new Mesh(true, 3, 3, 

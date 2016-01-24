@@ -56,6 +56,7 @@ import com.sageggs.actors.DynamicBall.DynamicBallPool;
 import com.sageggs.actors.Qice;
 import com.sageggs.actors.Slingshot;
 import com.sageggs.actors.Text;
+import com.sageggs.actors.enemies.CommonEnemy;
 import com.sageggs.actors.enemies.Enemy;
 import com.sageggs.actors.enemies.EnemyOtherSide;
 import com.sageggs.actors.flyingbirds.FlyingBirdAnimations;
@@ -65,8 +66,7 @@ import com.sageggs.actors.loadingscreen.LoadingScreen;
 import com.sageggs.actors.particles.Explosion;
 import com.sageggs.actors.particles.Fire;
 import com.sageggs.actors.particles.GroundExplosion;
-import com.sageggs.actors.particles.MaskaBurst;
-import com.sageggs.actors.particles.MaskaBurst2;
+import com.sageggs.actors.particles.PartExplosion;
 import com.sageggs.actors.particles.ParticleEffectAn;
 import com.sageggs.actors.particles.ParticleEffectBall;
 import com.sageggs.actors.particles.ParticleEffectFlyingBird;
@@ -105,10 +105,7 @@ public class GameStage extends Stage implements ContactListener{
 	public Array<DynamicBall> sleeepingBalls;
 	public Array<FlyingBirds> destroyFlyingBirds;
 	public Array<FlyingBirds2> destroyFlyingBirds2;
-	private ParticleEffectAn particleEffect;
 	private ParticleEffectBall particleBall;
-	private ParticleEffectFlyingBird flyingBirdParticle;
-	private ParticleIzlupvane particleIzlupvane;
 	private DynamicBallPool pool;
 	private FlyingBirds flyingBird;
 	private FlyingBirds2 flyingBird2;
@@ -127,11 +124,9 @@ public class GameStage extends Stage implements ContactListener{
 	private Label label;
 	private float distance, myX,myY;
 	private int currentLevel;
-	private int maskaKillings,eggHatch = 0;
+	private int eggHatch = 0;
 	private int defaultMaskKillingsFrequencyMaska1 = 2;
 	private int defaultMaskKillingsFrequencyMaska2 = 5;
-	private int maskaAppearingKillings = defaultMaskKillingsFrequencyMaska1;
-	private int maskaAppearingKillings2 = defaultMaskKillingsFrequencyMaska2;
 	private Slider slider;
 	private Table table;
 	private boolean buttonClicked = false,musicMuted = false,weaponOne = false,weaponOneTimeExpired = false,weaponTwoTimeExpiredweaponTwo = false, weaponThreeTimeExpiredweaponThree = false,weapon1Enabled = false,weapon2Enabled= false,weapon3Enabled = false;
@@ -147,11 +142,10 @@ public class GameStage extends Stage implements ContactListener{
 	boolean slinshotShots;
 	private TextureAtlas atlas;
 	public CurrentMap myMap; 
-	private MaskaBurst maskBurst;
-	private MaskaBurst2 maskBurst2;
 	private Smoke smoke;
 	private Fire fire;
 	private Explosion explosion;
+	private PartExplosion partExplosion;
 	private GroundExplosion groundExplosion;
 	
 	public GameStage(AdsController adsController,Map<String,Object> mapBodies,World world,boolean internetEnabled,GameClass game,TiledMap map, int currentLevel,float enemyLevelSpeed,boolean weapon1, boolean weapon2, boolean weapon3,int timeAds,String mapPath,int numberOfKillings,int ballLimit,boolean slinshotShots,int eggHatch){
@@ -326,7 +320,7 @@ public class GameStage extends Stage implements ContactListener{
 			//GLProfiler.reset();
     		//System.out.println("internetEnabled " + internetEnabled);
 		}
-		debugRenderer.render(world,camera.combined);
+		//debugRenderer.render(world,camera.combined);
 
 		
 	}
@@ -443,9 +437,10 @@ public class GameStage extends Stage implements ContactListener{
 		addActor(fire);
 		particleBall = (ParticleEffectBall)mapBodies.get("particleBall");
 		addActor(particleBall);
-		particleIzlupvane =  (ParticleIzlupvane)mapBodies.get("particleIzlupvane");
 		pruskane = (PruskaneQice)mapBodies.get("pruskane");
 		addActor(pruskane);
+		partExplosion = (PartExplosion)mapBodies.get("partExplosion");
+		addActor(partExplosion);
 		explosion = (Explosion)mapBodies.get("explosion");
 		addActor(explosion);
 		groundExplosion = (GroundExplosion)mapBodies.get("groundExplosion");
@@ -493,9 +488,8 @@ public class GameStage extends Stage implements ContactListener{
 			ball.body.setAwake(false);
 		}
 		
-		// reset
 		numberOfEnemyKillings = 0;
-		maskaAppearingKillings = defaultMaskKillingsFrequencyMaska1;
+		// reset
 		score.remainingBalls = ballLimit;
 		//weapons
 		weaponOne = false;
@@ -505,20 +499,12 @@ public class GameStage extends Stage implements ContactListener{
 		weaponButtonOneStyle.up = weaponOneStyle;
 		weaponButtonTwoStyle.up = weaponTwoStyle;
 		weaponButtonThreeStyle.up = weaponThreeStyle;
-		
-		
 		//reset ball speed
 		slider.setValue(4);
 		Constants.ballSpeed = 14.3f;
-		
-		//reset enemies
-		/*enemy.restartMask();
-		enemyOtherSide.restartMask();
-		enemy.restartMask2();
-		enemyOtherSide.restartMask2();*/
-		maskaKillings = 0;
+		enemy.resetBodyInitalStage();
+		enemyOtherSide.resetBodyInitalStage();
 		score.font.setColor(Color.ORANGE);
-		
 		enemyOtherSide.anyEggsLeft=true;
 		enemy.anyEggsLeft = true;
 		launchEnemy();
@@ -1147,24 +1133,6 @@ public class GameStage extends Stage implements ContactListener{
 		enemy.setSpeed(0);
 		enemy.body.setAwake(false);
 		
-		numberOfEnemyKillings++;
-		
-		if(numberOfEnemyKillings == 2)
-		{
-			System.out.println("padasht Losh");
-			enemyOtherSide.pokajiPadashto = true;
-			numberOfEnemyKillings = 2;
-		}
-		
-		if(numberOfEnemyKillings == 4)
-		{
-			System.out.println("losh");
-			enemyOtherSide.actualAnimation = enemyOtherSide.losh;
-			enemyOtherSide.pokajiLossh = true;
-			numberOfEnemyKillings = 0;
-		}
-
-		
 		enemy.resetBody();
 		//reset the other enemy
 		enemyOtherSide.enemyDraw = true;
@@ -1181,14 +1149,9 @@ public class GameStage extends Stage implements ContactListener{
 		enemyOtherSide.setSpeed(0);
 		enemyOtherSide.body.setAwake(false);
 		enemyOtherSide.resetBody();
+		
 		//reset enemy1
 		enemy.enemyDraw = true;
-/*		if(numberOfEnemyKillings == maskaAppearingKillings){
-			enemy.switchToMask1();
-		}
-		else if(numberOfEnemyKillings == maskaAppearingKillings2){
-			enemy.switchToMask2();
-		}*/
 		enemy.setSpeed(Constants.ENEMYSPEED);
 		enemy.body.setAwake(true);
 		enemy.resetBody();
@@ -1196,12 +1159,40 @@ public class GameStage extends Stage implements ContactListener{
 	}
 	
 	public void launchEnemy(){
-    	if(MathUtils.random(1, 2) == 1)
+		int getRandom = MathUtils.random(1, 2);
+		
+		numberOfEnemyKillings++;
+		
+    	if(getRandom == 1)
+    	{    		
+    		startEnemyTwo();
+    		startEnemyWithMask(enemy);
+    	}
+    	else{    		
     		startEnemyOne();
-    	else
-    		startEnemyOne();
+    		startEnemyWithMask(enemyOtherSide);
+    	}	
 	}
 		
+	
+	public void startEnemyWithMask(CommonEnemy enemy){
+		
+		if(numberOfEnemyKillings == defaultMaskKillingsFrequencyMaska1)
+		{
+			enemy.setCurrentAnimation(enemy.getPrediLosh());
+			enemy.setPokajiPadashto(true);
+			numberOfEnemyKillings = defaultMaskKillingsFrequencyMaska1;
+		}
+		
+		if(numberOfEnemyKillings == defaultMaskKillingsFrequencyMaska2)
+		{
+			enemy.setCurrentAnimation(enemy.getLosh());
+			enemy.setPokajiLosh(true);
+			numberOfEnemyKillings = 0;
+		}
+	}
+	
+	
 	/**
 	 * launch both enemies independently
 	 */
@@ -1247,18 +1238,27 @@ public class GameStage extends Stage implements ContactListener{
 				public void run() {
 					if(enemyBody != null && enemyBody.isAwake()){
 						if(enemyBody == enemyOtherSide.body){
-							System.out.println("goes through ground");
 							if(enemyOtherSide.pribirane)
 							{		
 								((Qice)enemyBody.getFixtureList().first().getUserData()).vzetoQice = true;
 								uduljavane.add(((Qice)enemyBody.getFixtureList().first().getUserData()));
 							}
-							groundExplosion.playAnimation(enemyBody);
-							myMap.earthQuake = true;
 							enemyOtherSide.resetBodyInitalStage();
-							launchEnemy();
-							return;
 						}
+						else if (enemyBody == enemy.body)
+						{
+							if(enemy.pribirane)
+							{		
+								((Qice)enemyBody.getFixtureList().first().getUserData()).vzetoQice = true;
+								uduljavane.add(((Qice)enemyBody.getFixtureList().first().getUserData()));
+							}
+							enemy.resetBodyInitalStage();
+						}
+						dyingEnemey();
+						groundExplosion.playAnimation(enemyBody);
+						myMap.earthQuake = true;
+						launchEnemy();
+						return;
 					}	
 				}						  
 			});
@@ -1379,7 +1379,7 @@ public class GameStage extends Stage implements ContactListener{
             final Body ball = contact.getFixtureA().getBody().getUserData().equals(Constants.DynamicBall) ?
 					  		  contact.getFixtureA().getBody() : contact.getFixtureB().getBody();				
 			//dying bird particle
-			dyingEnemey();
+
 			//myMap.earthQuake = true;
         	
 			ball.setSleepingAllowed(true);
@@ -1388,81 +1388,15 @@ public class GameStage extends Stage implements ContactListener{
 				
 				//if enemy1 is hit
 				if(toRemove != null && toRemove.isAwake()){
-					Gdx.app.postRunnable(new RunnableEnemy1(ball, enemy, enemyOtherSide, 
-															explosion, toRemove, numberOfEnemyKillings, 
-															launchBothEnemies, timeIntervalAds, timeAds, 
-															allEggs, internetEnabled, adsController));
-
+					Gdx.app.postRunnable(new RunnableEnemy1(ball,enemy,explosion,partExplosion,toRemove,timeIntervalAds,
+										timeAds,allEggs,internetEnabled,adsController,this));
+					return;
 				}
 				//if enemy2 is hit
 				else if (toRemove2 != null && toRemove2.isAwake()){
-					
-					Gdx.app.postRunnable(new Runnable() {
-						@Override
-						public void run () {
-							ball.setAwake(false);
-							//mask handling
-							if(enemyOtherSide.getCurrentAnimation() == enemyOtherSide.zamaqnoPilence){
-								enemyOtherSide.padaneNaDoly();
-								return;
-							}
-							//losh
-							if(enemyOtherSide.getCurrentAnimation() == enemyOtherSide.zamaqnLosh){
-								loshCount+=1;
-								if(loshCount ==2)
-								{									
-									enemyOtherSide.padashtLosh();
-									loshCount = 0;								
-								}
-								return;
-							}
-							
-							if(enemyOtherSide.enemyDraw){
-								//normal
-								if(enemyOtherSide.pokajiPadashto)
-								{
-									enemyOtherSide.actualAnimation = enemyOtherSide.zamaqnoPilence;
-									return;
-								}
-								
-								//losh
-								if(enemyOtherSide.pokajiLossh)
-								{
-									enemyOtherSide.actualAnimation = enemyOtherSide.zamaqnLosh;
-									return;
-								}
-								explosion.playAnimation(enemyOtherSide.body);
-							}
-							
-							//puskane na qiceto
-							if(enemyOtherSide.pribirane){
-								((Qice)toRemove2.getFixtureList().first().getUserData()).drawing = true;
-								((Qice)toRemove2.getFixtureList().first().getUserData()).body.setTransform(toRemove2.getPosition(), 0);
-								((Qice)toRemove2.getFixtureList().first().getUserData()).vzetoQice = false;
-								((Qice)toRemove2.getFixtureList().first().getUserData()).razmazanoQice = true;
-							}							
-							//if mobile enabled
-							if(internetEnabled && timeIntervalAds >= timeAds){
-								for(Qice qice: allEggs){
-									qice.pause();
-								}
-								adsController.showInterstitialAd(new Runnable() {
-									@Override
-									public void run() {
-										timeIntervalAds = 0;
-										for(Qice qice: allEggs){
-											qice.resume();
-										}
-									}
-								});
-							}
-							timeIntervalAds++;
-							launchEnemy();
-							//reset
-							if(timeIntervalAds > timeAds)
-								timeIntervalAds = 0;
-						}
-					});
+					Gdx.app.postRunnable(new RunnableEnemy1(ball,enemyOtherSide,explosion,partExplosion,toRemove2,timeIntervalAds,
+							timeAds,allEggs,internetEnabled,adsController,this));
+					return;
 				}
 			}
         }

@@ -25,15 +25,15 @@ import com.saveggs.utils.Constants;
 import com.saveggs.utils.EnemyUtils;
 import com.saveggs.utils.WorldUtils;
 
-public class EnemyOtherSide extends GameActor{
+public class EnemyOtherSide extends GameActor implements CommonEnemy{
 
 	public static boolean stopMoving = false; 
 	public static float angle = 0;
-	private AnimatedSprite animatedSprite,animatedSprite2,animatedSprite3,animatedSprite4;
-	public AnimatedBox2DSprite normalFlyingPile,zamaqnoPilence,actualAnimation,losh,zamaqnLosh;
+	private AnimatedSprite animatedSprite,animatedSprite2,animatedSprite3,animatedSprite4,animatedSprite5;
+	public AnimatedBox2DSprite normalFlyingPile,zamaqnoPilence,actualAnimation,losh,zamaqnLosh,prediLosh;
 	public Box2DSprite naOtivane,otvarqne,hvanatoQice,padashtoPile,padashtLosh;
-	public Animation animation,animation2,animation3,animation4;
-	private TextureRegion[] region1,region2,region3,region4;
+	public Animation animation,animation2,animation3,animation4,animation5;
+	private TextureRegion[] region1,region2,region3,region4,region5;
 	public boolean naOtivaneDraw = true;
 	public boolean hvashtane = false;
 	public boolean pribirane = false;
@@ -98,11 +98,17 @@ public class EnemyOtherSide extends GameActor{
 		animation4 = new Animation(1f/13f, region4);
 		animation4.setPlayMode(Animation.PlayMode.LOOP);
 		
+		//anim5
+		animation5 = new Animation(1f/13f, region5);
+		animation5.setPlayMode(Animation.PlayMode.LOOP);
+		
 		animatedSprite = new AnimatedSprite(animation);
 		animatedSprite2 = new AnimatedSprite(animation2);
 		animatedSprite3 = new AnimatedSprite(animation3);
 		animatedSprite4 = new AnimatedSprite(animation4);
+		animatedSprite5 = new AnimatedSprite(animation5);
 		
+		prediLosh= new AnimatedBox2DSprite(animatedSprite5);
 		zamaqnLosh = new AnimatedBox2DSprite(animatedSprite4);
 		losh = new AnimatedBox2DSprite(animatedSprite3);
 		normalFlyingPile = new AnimatedBox2DSprite(animatedSprite2);
@@ -112,14 +118,17 @@ public class EnemyOtherSide extends GameActor{
 		naOtivane = new Box2DSprite(atlas2.findRegion("prisviti"));
 		otvarqne = new Box2DSprite(atlas2.findRegion("opunati"));
 		hvanatoQice = new Box2DSprite(atlas2.findRegion("hvanato_qice"));
-		padashtoPile = new Box2DSprite(atlas.findRegion("padashto"));
+		padashtoPile = new Box2DSprite(atlas.findRegion("padashtoRed"));
 		padashtLosh = new Box2DSprite(atlas.findRegion("loshPadasht2"));
 
 		//flip all sprites
-		normalFlyingPile.flipFrames(true, true);
-		zamaqnoPilence.flipFrames(true, true);
-		zamaqnLosh.flipFrames(true, true);
-		losh.flipFrames(true, true);
+		if(!normalFlyingPile.isFlipX()){			
+			normalFlyingPile.flipFrames(true, true);
+			zamaqnoPilence.flipFrames(true, true);
+			zamaqnLosh.flipFrames(true, true);
+			losh.flipFrames(true, true);
+			prediLosh.flipFrames(true, true);
+		}
 		padashtoPile.flip(true, true);
 		padashtLosh.flip(true, true);
 		naOtivane.flip(false, true);
@@ -233,9 +242,10 @@ public class EnemyOtherSide extends GameActor{
 		 region2 = new TextureRegion[8];
 		 region3 = new TextureRegion[8];
 		 region4 = new TextureRegion[2]; 
+		 region5 = new TextureRegion[8];
 		 
-		 region1[0] = atlas.findRegion("zamaqno1");
-		 region1[1] = atlas.findRegion("zamaqno2");
+		 region1[0] = atlas.findRegion("zamaqnoRed1");
+		 region1[1] = atlas.findRegion("zamaqnoRed2");
 		 //losh
 		 region4[0]= atlas.findRegion("zamaqnoLosh11");
 		 region4[1]= atlas.findRegion("zamaqnoLosh21");
@@ -258,7 +268,15 @@ public class EnemyOtherSide extends GameActor{
 		 region3[6] = atlas.findRegion("losh7");
 		 region3[7] = atlas.findRegion("losh8");
 		 
-		 
+		 region5[0] = atlas.findRegion("normalRed1");
+		 region5[1] = atlas.findRegion("normalRed2");
+		 region5[2] = atlas.findRegion("normalRed3");
+		 region5[3] = atlas.findRegion("normalRed4");
+		 region5[4] = atlas.findRegion("normalRed5");
+		 region5[5] = atlas.findRegion("normalRed6");
+		 region5[6] = atlas.findRegion("normalRed7");
+		 region5[7] = atlas.findRegion("normalRed8");
+ 
 	 }
 	
     //reset the body
@@ -310,6 +328,10 @@ public class EnemyOtherSide extends GameActor{
 		return actualAnimation;
 	}
 	
+	public void setCurrentAnimation(AnimatedBox2DSprite animatedSprite){
+		actualAnimation = animatedSprite;
+	}
+	
 	public void resetBodyInitalStage(){
 		body.setGravityScale(0);
 		padashto = false;
@@ -335,4 +357,56 @@ public class EnemyOtherSide extends GameActor{
 		actualAnimation = losh;
 	}
 	
+	public AnimatedBox2DSprite getLosh(){
+		return losh;
+	}
+	
+	@Override
+	public EnemyOtherSide getEnemy(){
+		return this;
+	}
+	
+	public AnimatedBox2DSprite getZamqnoPilence(){
+		return zamaqnoPilence;
+	}
+	
+	public AnimatedBox2DSprite getZamaqnLosh(){
+		return zamaqnLosh;
+	}
+	
+	public boolean getEnemyDraw(){
+		return enemyDraw;
+	}
+
+	public boolean getPokajiPadashto(){
+		return pokajiPadashto;
+	}
+	
+	public void setPokajiPadashto(boolean val){
+		pokajiPadashto = val;
+	}
+	
+	public boolean getPribirane(){
+		return pribirane;
+	}
+	
+	public Body getBody(){
+		return body;
+	}
+	
+	public boolean getPokajiLosh(){
+		return pokajiLossh;
+	}
+	
+	public void setPokajiLosh(boolean val){
+		pokajiLossh = val;
+	}
+	
+	public AnimatedBox2DSprite getPrediLosh() {
+		return prediLosh;
+	}
+
+	public void setPrediLosh(AnimatedBox2DSprite prediLosh) {
+		this.prediLosh = prediLosh;
+	}
 }

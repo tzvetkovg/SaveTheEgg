@@ -237,23 +237,17 @@ public class MainMenuScreen implements Screen{
 		private float stateTime = 0f;
 		TextureRegion  currentFrame;
 		public MyActor(){
-			texture = Assets.manager.get(Assets.pticheta2, Texture.class);	
-			splitAnimation();
-			animation = new Animation(1f/14f, animationFrames);
+			atlas = Assets.manager.get(Assets.allEnemies, TextureAtlas.class);
+			animationFrames = new TextureRegion[4];
+			animationFrames[0] = atlas.findRegion("j1");
+			animationFrames[1] = atlas.findRegion("j2");
+			animationFrames[2] = atlas.findRegion("j3");
+			animationFrames[3] = atlas.findRegion("j4");
+			animation = new Animation(1f/6f, animationFrames);
 			setPosition(Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT * 0.5f);	
 			setSize(getWidth(), getHeight());
 		}
 		
-		 public void splitAnimation(){
-			 TextureRegion[][] tmpFrames = TextureRegion.split(texture, 512, 256);
-			 animationFrames = new TextureRegion[8];
-			 int index = 0;		 
-			 for (int i = 0; i < 4; ++i){
-				 for (int j = 0; j < 2; ++j){
-					 animationFrames[index++] = tmpFrames[i][j];
-				 }
-			 }
-		 }
 		@Override
 		public void act(float delta) {
 			// TODO Auto-generated method stub
@@ -266,7 +260,7 @@ public class MainMenuScreen implements Screen{
 		public void draw(Batch batch, float parentAlpha) {
 			super.draw(batch, parentAlpha);
 			// TODO Auto-generated method stub                        // #14
-	        batch.draw(currentFrame,getX(),getY(),66.5f,43f);
+	        batch.draw(currentFrame,getX(),getY(),56.5f,43f);
 		}
 	}
 	

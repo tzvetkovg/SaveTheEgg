@@ -18,6 +18,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -38,6 +39,7 @@ import com.sageggs.actors.flyingbirds.FlyingBirds;
 import com.sageggs.actors.flyingbirds.FlyingBirds2;
 import com.sageggs.actors.particles.Explosion;
 import com.sageggs.actors.particles.GroundExplosion;
+import com.sageggs.actors.particles.PartExplosion;
 import com.sageggs.actors.particles.ParticleEffectAn;
 import com.sageggs.actors.particles.ParticleEffectBall;
 import com.sageggs.actors.particles.ParticleEffectFlyingBird;
@@ -105,8 +107,10 @@ public class StageScreen implements Screen {
 		
 		//static ball
 		this.worldBodies.put("staticBall", new DynamicBall(WorldUtils.createDynamicBall(this.world)));
-		this.worldBodies.put("explosion", new Explosion(WorldUtils.explosionBody(this.world)));
-		this.worldBodies.put("groundExplosion", new GroundExplosion(WorldUtils.explosionBody(this.world)));
+		Body body = WorldUtils.explosionBody(this.world);
+		this.worldBodies.put("explosion", new Explosion(body));
+		this.worldBodies.put("partExplosion", new PartExplosion(body));
+		this.worldBodies.put("groundExplosion", new GroundExplosion(WorldUtils.groundExplosion(this.world)));
 		//slingshot
 		//this.worldBodies.put("slingshot",  new Slingshot(WorldUtils.createSlingshot(this.world)));
 		
@@ -124,10 +128,7 @@ public class StageScreen implements Screen {
 		this.worldBodies.put("flyingBird2",  flyingBird2);
 		
 		//PArticle effects
-		//this.worldBodies.put("particleEffect",  new ParticleEffectAn());
 		this.worldBodies.put("particleBall",  new ParticleEffectBall());
-		this.worldBodies.put("particleIzlupvane",  new ParticleIzlupvane());
-		//this.worldBodies.put("flyingBirdParticle",  new ParticleEffectFlyingBird());
 		this.worldBodies.put("pruskane",  new PruskaneQice());
 		
 		this.adsController = adsController;	

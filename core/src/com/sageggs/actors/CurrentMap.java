@@ -68,7 +68,7 @@ public class CurrentMap extends GameActor{
         	mydelta+=delta;
         	if((float)mydelta < 0.3f){        		
         		shader.begin();
-        		shader.setUniformf("u_distort",MathUtils.random(0.09f),MathUtils.random(0.2f),0);
+        		shader.setUniformf("u_distort",MathUtils.random(0.1f),MathUtils.random(0.25f),0);
         		shader.end();
         	}
         	else{

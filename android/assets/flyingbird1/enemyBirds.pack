@@ -171,142 +171,315 @@ normal82
   orig: 128, 138
   offset: 0, 0
   index: -1
-padashto2
+zamaqnoLosh
   rotate: false
   xy: 391, 421
   size: 128, 138
   orig: 128, 138
   offset: 0, 0
   index: -1
-zamaqno1
+zamaqnoLosh11
   rotate: false
   xy: 521, 561
   size: 128, 138
   orig: 128, 138
   offset: 0, 0
   index: -1
-zamaqno12
+zamaqnoLosh2
   rotate: false
   xy: 651, 701
   size: 128, 138
   orig: 128, 138
   offset: 0, 0
   index: -1
-zamaqno2
+zamaqnoLosh21
   rotate: false
   xy: 781, 841
   size: 128, 138
   orig: 128, 138
   offset: 0, 0
   index: -1
-zamaqno22
+e1
   rotate: false
-  xy: 131, 1
-  size: 128, 138
-  orig: 128, 138
+  xy: 131, 11
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
-zamaqnoLosh
+e2
   rotate: false
-  xy: 261, 141
-  size: 128, 138
-  orig: 128, 138
+  xy: 261, 151
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
-zamaqnoLosh11
+e3
   rotate: false
-  xy: 391, 281
-  size: 128, 138
-  orig: 128, 138
+  xy: 391, 291
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
-zamaqnoLosh2
+e4
   rotate: false
-  xy: 521, 421
-  size: 128, 138
-  orig: 128, 138
+  xy: 521, 431
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
-zamaqnoLosh21
+j1
   rotate: false
-  xy: 651, 561
-  size: 128, 138
-  orig: 128, 138
+  xy: 651, 571
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
-loshPadasht
+j2
   rotate: false
   xy: 781, 711
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
+j3
+  rotate: false
+  xy: 261, 21
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+j4
+  rotate: false
+  xy: 391, 161
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+loshPadasht
+  rotate: false
+  xy: 521, 301
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
 loshPadasht2
   rotate: false
-  xy: 261, 11
+  xy: 651, 441
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 normal1
   rotate: false
-  xy: 391, 151
+  xy: 781, 581
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 normal2
   rotate: false
-  xy: 521, 291
+  xy: 391, 31
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 normal3
   rotate: false
-  xy: 651, 431
+  xy: 521, 171
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 normal4
   rotate: false
-  xy: 781, 581
+  xy: 651, 311
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 normal5
   rotate: false
-  xy: 391, 21
+  xy: 781, 451
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 normal6
   rotate: false
-  xy: 521, 161
+  xy: 521, 41
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 normal7
   rotate: false
-  xy: 651, 301
+  xy: 651, 181
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 normal8
   rotate: false
-  xy: 781, 451
+  xy: 781, 321
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
-padashto
+normalRed1
   rotate: false
-  xy: 521, 31
+  xy: 651, 51
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+normalRed11
+  rotate: false
+  xy: 781, 191
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+normalRed2
+  rotate: false
+  xy: 781, 61
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+
+enemyBirds2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+normalRed21
+  rotate: false
+  xy: 1, 261
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+normalRed3
+  rotate: false
+  xy: 1, 131
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+normalRed31
+  rotate: false
+  xy: 131, 261
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+normalRed4
+  rotate: false
+  xy: 1, 1
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+normalRed41
+  rotate: false
+  xy: 131, 131
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+normalRed5
+  rotate: false
+  xy: 261, 261
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+normalRed51
+  rotate: false
+  xy: 131, 1
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+normalRed6
+  rotate: false
+  xy: 261, 131
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+normalRed61
+  rotate: false
+  xy: 391, 261
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+normalRed7
+  rotate: false
+  xy: 261, 1
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+normalRed71
+  rotate: false
+  xy: 391, 131
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+normalRed8
+  rotate: false
+  xy: 521, 261
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+normalRed81
+  rotate: false
+  xy: 391, 1
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+padashtoRed
+  rotate: false
+  xy: 521, 131
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+padashtoRed2
+  rotate: false
+  xy: 651, 261
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+zamaqnoRed1
+  rotate: false
+  xy: 521, 1
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+zamaqnoRed12
+  rotate: false
+  xy: 651, 131
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+zamaqnoRed2
+  rotate: false
+  xy: 781, 261
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+zamaqnoRed22
+  rotate: false
+  xy: 651, 1
   size: 128, 128
   orig: 128, 128
   offset: 0, 0

@@ -65,8 +65,8 @@ public class Assets {
 	izplupvane = "data/izlupvane.png",
 	flyingBirds = "flyingbird1/flyingBirds.png",
 	flyingBirds2 = "flyingbird1/flyingBirds2.png",
-	pticheta = "flyingbird1/pticheta1.png",
-	pticheta2 = "flyingbird2/pticheta2.png",
+	//pticheta = "flyingbird1/pticheta1.png",
+	//pticheta2 = "flyingbird2/pticheta2.png",
 	/**
 	 * Loading Screen
 	 */
@@ -134,7 +134,7 @@ public class Assets {
 	 */
 	@Asset(Sound.class)
 	public static final String
-	dyingBird = "data/sound/dyingbird.wav",
+	dyingBird = "data/sound/enemyHitGround.wav",
 	breakingEgg = "data/sound/breakingEgg.wav",
 	musicTest = "data/sound/menuMusic.wav",
 	rubber = "data/sound/rubber.wav",

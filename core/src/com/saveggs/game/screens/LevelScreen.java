@@ -75,24 +75,20 @@ public class LevelScreen implements Screen{
 		private Animation animation;
 		private float stateTime = 0f;
 		TextureRegion  currentFrame;
+		private TextureAtlas atlas;
 		public MyActor(){
-			texture = Assets.manager.get(Assets.pticheta, Texture.class);	
-			splitAnimation();
-			animation = new Animation(1f/15f, animationFrames);
+			
+			atlas = Assets.manager.get(Assets.allEnemies, TextureAtlas.class);
+			animationFrames = new TextureRegion[4];
+			animationFrames[0] = atlas.findRegion("e1");
+			animationFrames[1] = atlas.findRegion("e2");
+			animationFrames[2] = atlas.findRegion("e3");
+			animationFrames[3] = atlas.findRegion("e4");
+			animation = new Animation(1f/10f, animationFrames);
 			setPosition(Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT * 0.5f);	
 			setSize(getWidth(), getHeight());
 		}
-		
-		 public void splitAnimation(){
-			 TextureRegion[][] tmpFrames = TextureRegion.split(texture, 256, 256);
-			 animationFrames = new TextureRegion[8];
-			 int index = 0;		 
-			 for (int i = 0; i < 2 ; ++i){
-				 for (int j = 0; j < 4; ++j){
-					 animationFrames[index++] = tmpFrames[i][j];
-				 }
-			 }
-		 }
+
 		@Override
 		public void act(float delta) {
 			// TODO Auto-generated method stub
@@ -105,7 +101,7 @@ public class LevelScreen implements Screen{
 		public void draw(Batch batch, float parentAlpha) {
 			super.draw(batch, parentAlpha);
 			// TODO Auto-generated method stub                        // #14
-	        batch.draw(currentFrame,getX(),getY(),92.3f,74.45f);
+	        batch.draw(currentFrame,getX(),getY(),72.3f,54.45f);
 		}
 	}
 	
