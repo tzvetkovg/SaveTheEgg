@@ -33,7 +33,7 @@ public class Constants {
 			gameDifficulty.flush();	
 		}
 		shopPreferences = Gdx.app.getPreferences(Shop.class.getName());
-		sound = Assets.manager.get(Assets.musicTest, Sound.class);
+		sound = Assets.manager.get(Assets.menuMusic, Sound.class);
 	};
 	
 	public static final float SCENE_WIDTH = 800f;
@@ -95,5 +95,16 @@ public class Constants {
 	public static final String LINE1 = "line1";
 	public static final String LINE2 = "line2";
 	
+	public static boolean isPlaying = false;
+	
+	public static void setPlaying(){
+		sound.loop();
+		isPlaying = true;
+	}
+	
+	public static void stopPlaying(){
+		sound.stop();
+		isPlaying = false;
+	}
 	
 }

@@ -1,6 +1,7 @@
 package com.sageggs.actors.runnables;
 
 import com.admob.AdsController;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
@@ -20,15 +21,16 @@ public class RunnableEnemy1 implements Runnable{
 	private Body toRemove;
 	private int timeIntervalAds,timeAds;
 	private Array<Qice> allEggs;
-	private boolean internetEnabled;
+	private boolean internetEnabled,volume;
 	private AdsController adsController;
 	private GameStage stage;
 	private PartExplosion partExplpsion;
+	private Sound sound;
 	
 	public RunnableEnemy1(Body ball,CommonEnemy enemy,Explosion explosion,PartExplosion partExplpsion,
 						Body toRemove
 						  ,int timeIntervalAds,int timeAds,Array<Qice> allEggs,
-						  boolean internetEnabled,AdsController adsController,GameStage stage){
+						  boolean internetEnabled,AdsController adsController,GameStage stage,Sound sound,boolean volume){
 		this.ball = ball;
 		this.enemy = enemy;
 		this.explosion = explosion;
@@ -40,11 +42,15 @@ public class RunnableEnemy1 implements Runnable{
 		this.adsController = adsController;
 		this.stage = stage;
 		this.partExplpsion = partExplpsion;
+		this.sound = sound;
+		this.volume = volume;
 	}
 	
 	@Override
 	public void run() {
 		ball.setAwake(false);
+		if(volume)
+			sound.play();
 		//mask handling
 		if(enemy.getCurrentAnimation() == enemy.getZamqnoPilence()){
 			partExplpsion.playAnimation(enemy.getBody());

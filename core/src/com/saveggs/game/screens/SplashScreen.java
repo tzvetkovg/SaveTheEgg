@@ -101,7 +101,7 @@ public class SplashScreen implements Screen {
 			if(internetEnabled){
 				game.getPlatformResolver().requestPurchaseRestore();
 			}
-			constant.sound.loop();
+			Constants.setPlaying();
 			game.setScreen(game.mainMenu);
 		}
 	}

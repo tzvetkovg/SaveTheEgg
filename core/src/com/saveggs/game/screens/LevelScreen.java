@@ -194,6 +194,10 @@ public class LevelScreen implements Screen{
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
+		if(!Constants.isPlaying)
+		{
+			Constants.setPlaying();
+		}
     }
 
 	public TextButton getLevelButton(int level) {

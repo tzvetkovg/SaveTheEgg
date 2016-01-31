@@ -136,13 +136,15 @@ public class Assets {
 	public static final String
 	dyingBird = "data/sound/enemyHitGround.wav",
 	breakingEgg = "data/sound/breakingEgg.wav",
-	musicTest = "data/sound/menuMusic.wav",
+	vultureAppear = "data/sound/vulture1.wav",
+	vultureHit = "data/sound/vulture2.wav",
 	rubber = "data/sound/rubber.wav",
-	shot = "data/sound/shot.wav";
+	shot = "data/sound/shot.wav",
+	menuMusic = "data/sound/menuMusic.wav";
 
 	@Asset(Music.class)
 	public static final String
-	birdScream = "data/sound/trycopy.wav",
+	//birdScream = "data/sound/trycopy.wav",
 	pilence = "data/sound/pilence.wav";
 	
 

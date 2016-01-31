@@ -1,7 +1,5 @@
 package com.sageggs.actors.enemies;
 
-import java.text.DecimalFormat;
-import java.util.HashMap;
 import java.util.Map;
 
 import net.dermetfan.gdx.graphics.g2d.AnimatedBox2DSprite;
@@ -9,12 +7,9 @@ import net.dermetfan.gdx.graphics.g2d.AnimatedSprite;
 import net.dermetfan.gdx.graphics.g2d.Box2DSprite;
 import assets.Assets;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -26,7 +21,6 @@ import com.sageggs.actors.GameActor;
 import com.sageggs.actors.Qice;
 import com.saveggs.utils.Constants;
 import com.saveggs.utils.EnemyUtils;
-import com.saveggs.utils.WorldUtils;
 
 public class Enemy extends GameActor implements CommonEnemy{
 

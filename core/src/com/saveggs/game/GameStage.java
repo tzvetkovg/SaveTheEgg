@@ -125,13 +125,13 @@ public class GameStage extends Stage implements ContactListener{
 	private float distance, myX,myY;
 	private int currentLevel;
 	private int eggHatch = 0;
-	private int defaultMaskKillingsFrequencyMaska1 = 2;
-	private int defaultMaskKillingsFrequencyMaska2 = 5;
+	private int defaultMaskKillingsFrequencyMaska1 =5;
+	private int defaultMaskKillingsFrequencyMaska2 = 10;
 	private Slider slider;
 	private Table table;
 	private boolean buttonClicked = false,musicMuted = false,weaponOne = false,weaponOneTimeExpired = false,weaponTwoTimeExpiredweaponTwo = false, weaponThreeTimeExpiredweaponThree = false,weapon1Enabled = false,weapon2Enabled= false,weapon3Enabled = false;
-	private Music music1;
-	private Sound breakingEgg,destroyEnemey,rubber,shot;
+	//private Music music1;
+	private Sound breakingEgg,destroyEnemey,rubber,shot,vultureAppear,vultureHit;
 	private TextButton button,pause,weaponButton1,weaponButton2,weaponButton3;
 	private float enemyLevelSpeed;
 	private TextureRegionDrawable weaponOneStyle,weaponOneClicked,weaponTwoStyle,weaponTwoClicked,weaponThreeStyle,weaponThreeClicked;
@@ -181,8 +181,9 @@ public class GameStage extends Stage implements ContactListener{
             	showGame = true;
             	loading.draw = false;
             	adjustMusic(1);
-            	music1.play();
-        		music1.setLooping(true);
+            	//musicTest.play();
+            	//music1.play();
+        		//music1.setLooping(true);
             }
         },3);
 		
@@ -548,11 +549,13 @@ public class GameStage extends Stage implements ContactListener{
 		/**
 		 * music
 		 */
-		music1 = Assets.manager.get(Assets.birdScream, Music.class);
+		//music1 = Assets.manager.get(Assets.birdScream, Music.class);
 		destroyEnemey = Assets.manager.get(Assets.dyingBird, Sound.class);
 		breakingEgg = Assets.manager.get(Assets.breakingEgg, Sound.class);
 		rubber = Assets.manager.get(Assets.rubber, Sound.class);
 		shot =Assets.manager.get(Assets.shot, Sound.class);
+		vultureAppear =Assets.manager.get(Assets.vultureAppear, Sound.class);
+		vultureHit =Assets.manager.get(Assets.vultureHit, Sound.class);
 		adjustMusic(0);
 		
 		/*
@@ -828,7 +831,7 @@ public class GameStage extends Stage implements ContactListener{
 							}
 						});
 					}
-					Constants.sound.loop();
+					//Constants.sound.loop();
 					stopMusic();
 					getStage().dispose();
 					world.dispose();
@@ -901,7 +904,7 @@ public class GameStage extends Stage implements ContactListener{
 							}
 						});
 					}
-					Constants.sound.loop();
+					//Constants.sound.loop();
 					stopMusic();
 					getStage().dispose();
 					world.dispose();
@@ -1090,26 +1093,34 @@ public class GameStage extends Stage implements ContactListener{
 	/**
 	 * music
 	 */
+	boolean music = true;
 	public void adjustMusic(int level){
-    	music1.setVolume(level);	
+		if(level == 0)
+		{
+			music = false;
+		}
+		else
+		{
+			music = true;
+		}
     	for (Qice qice : allEggs) {
 			qice.pilence.setVolume(level);
         }
 	}
 	
 	public void stopMusic(){
-		music1.stop();
+		music = false;
 	}
 	
 	public void dyingEnemey(){
-		if(music1.getVolume() > 0){			
+		if(music){			
 			destroyEnemey.play();
 		}
 	}
 	
 	public void playRubberSound(){
 		boolean hasFinished = false;
-		if(music1.getVolume() > 0){	
+		if(music){	
 			if(!hasFinished)
 				rubber.play();
 			hasFinished = true;
@@ -1118,12 +1129,19 @@ public class GameStage extends Stage implements ContactListener{
 	
 	public void playShot(){
 		boolean hasFinished = false;
-		if(music1.getVolume() > 0){			
+		if(music){			
 			if(!hasFinished)
 				shot.play();
 			hasFinished = true;
 		}
 	}
+	
+	public void playVultureHit(){
+		if(music){				
+			vultureHit.play();
+		}
+	}
+	
 	/**
 	 * launch single enemy
 	 */
@@ -1162,9 +1180,13 @@ public class GameStage extends Stage implements ContactListener{
 		int getRandom = MathUtils.random(1, 2);
 		
 		numberOfEnemyKillings++;
-		
+		if(music)
+		{			
+			vultureAppear.play();
+		}
     	if(getRandom == 1)
-    	{    		
+    	{   
+    		
     		startEnemyTwo();
     		startEnemyWithMask(enemy);
     	}
@@ -1389,13 +1411,13 @@ public class GameStage extends Stage implements ContactListener{
 				//if enemy1 is hit
 				if(toRemove != null && toRemove.isAwake()){
 					Gdx.app.postRunnable(new RunnableEnemy1(ball,enemy,explosion,partExplosion,toRemove,timeIntervalAds,
-										timeAds,allEggs,internetEnabled,adsController,this));
+										timeAds,allEggs,internetEnabled,adsController,this,vultureHit,music));
 					return;
 				}
 				//if enemy2 is hit
 				else if (toRemove2 != null && toRemove2.isAwake()){
 					Gdx.app.postRunnable(new RunnableEnemy1(ball,enemyOtherSide,explosion,partExplosion,toRemove2,timeIntervalAds,
-							timeAds,allEggs,internetEnabled,adsController,this));
+							timeAds,allEggs,internetEnabled,adsController,this,vultureHit,music));
 					return;
 				}
 			}
@@ -1415,7 +1437,7 @@ public class GameStage extends Stage implements ContactListener{
 				pruskane.showEffect = true;
 				qice.setAwake(true);
 				qice.setSleepingAllowed(false);
-				if(music1.getVolume() > 0){					
+				if(music){					
 					breakingEgg.play();
 				}
 				myMap.earthQuake = true;
