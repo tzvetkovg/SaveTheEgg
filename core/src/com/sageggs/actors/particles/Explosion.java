@@ -57,7 +57,6 @@ public class Explosion extends GameActor{
      }
 	 
 	 public void playAnimation(Body aBody){
-		 System.out.println("goes here");
 		 this.body.setTransform(aBody.getPosition().x, aBody.getPosition().y,0);
 		 animate = true;
 		 animatedBox2DSprite.play();

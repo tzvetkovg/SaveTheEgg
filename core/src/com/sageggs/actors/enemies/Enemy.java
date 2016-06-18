@@ -349,11 +349,9 @@ public class Enemy extends GameActor implements CommonEnemy{
 	
 	
 	public void padaneNaDoly(){
-		System.out.println("padashto idva");
 		padashto = true;
 		padashtoLosh = false;
 		body.setGravityScale(0.5f);
-		System.out.println(body.getGravityScale());
 	}
 	
 	public void padashtLosh(){

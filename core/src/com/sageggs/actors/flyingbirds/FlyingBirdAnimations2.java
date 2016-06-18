@@ -45,7 +45,6 @@ public class FlyingBirdAnimations2
 				 }
 				 else if (j > 3  && j <= 7 && i == 0)
 				 {
-					 System.out.println("tvori");
 					 animationFrames2[index++] = tmpFrames[i][j];
 				 }
 				 else if (j <= 3 && i == 1)
@@ -54,29 +53,24 @@ public class FlyingBirdAnimations2
 				 }
 				 else if(j > 3  && j <= 7 && i == 1)
 				 {
-					 System.out.println("treti");
 					 animationFrames4[index++] = tmpFrames[i][j];
 				 }
 				
 				 if(j <= 3 && i == 2)
 				 {
-					 System.out.println("4");
 					animationFrames5[index++] = tmpFrames[i][j];					 
 				 }
 				 else if (j > 3  && j <= 7 && i == 2)
 				 {
-					 System.out.println("5");
 					 animationFrames6[index++] = tmpFrames[i][j];
 				 }
 				
 				 if(j <= 3 && i == 3)
 				 {
-					 System.out.println("6");
 					animationFrames7[index++] = tmpFrames[i][j];					 
 				 }
 				 else if (j > 3  && j <= 7 && i == 3)
 				 {
-					 System.out.println("7");
 					 animationFrames8[index++] = tmpFrames[i][j];
 				 }
 			 }
